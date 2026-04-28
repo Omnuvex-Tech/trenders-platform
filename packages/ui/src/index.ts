@@ -20,4 +20,12 @@ export { PartnersUI } from './components/Partners/partners'
 export type { PartnersUIProps, PartnerItem } from './components/Partners/partners'
 export { TestimonialsUI } from "./components/Testimonials";
 export type { TestimonialsUIProps, Testimonial } from "./components/Testimonials";
+export {TeamUI } from "./components/Team/team"
+export type {TeamUIProps, TeamMember} from "./components/Team"
+export{BlogUI} from "./components/Blog/blog"
+export type {BlogUIProps, BlogPost} from "./components/Blog"
+export { ContactUI } from "./components/Contact";
+export type { ContactUIProps, ContactInfo } from "./components/Contact";
+
+
 export { cn } from "./lib/utils";

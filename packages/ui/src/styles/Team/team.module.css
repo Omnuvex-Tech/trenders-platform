@@ -1,0 +1,268 @@
+.section {
+    width: 100%;
+}
+
+.teamDivider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin-bottom: 70px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Sol tərəf */
+.left {
+    flex-shrink: 0;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.title {
+    font-size: 46px;
+    font-weight: 800;
+    color: rgba(56, 56, 56, 1);
+    line-height: 1.15;
+    margin: 0;
+}
+
+.arrows {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 40px;
+}
+
+.arrowBtn {
+    width: 41px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid #d0d8f0;
+    background: #fff;
+    color: #7a8aac;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.arrowBtnActive {
+    background: linear-gradient(93.6deg, #6080FF -24.77%, rgba(202, 221, 255, 0.2) 191.06%);
+    border: 1.22px solid rgba(0, 51, 255, 0.44);
+    color: #fff;
+}
+
+.featuredWrap {
+    position: relative;
+    width: 292px;
+    height: 213px;
+    border-radius: 26px;
+    overflow: hidden;
+}
+
+.featuredImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featuredOverlay {
+    position: absolute;
+    inset: 0;
+    background: #3b63ed73;
+    border-radius: 20px;
+}
+
+
+.cards {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    align-items: flex-start;
+}
+
+.cardsTrack {
+    display: flex;
+    gap: 20px;
+    flex-shrink: 0;
+    will-change: transform;
+}
+
+.card {
+    position: relative;
+    width: 292px;
+    height: 444px;
+    border-radius: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        opacity 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.memberImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* + ikonu */
+.plusBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.plusBtn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.memberInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+   padding: 20px 36px 21px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+}
+.memberName {
+    font-size: 36px;
+    color: #fff;
+    margin: 0 0 6px;
+    line-height: 1.2;
+}
+
+.memberRole {
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+/* Animasiyalar */
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-40px);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slideOutLeft {
+    animation: slideOutLeft 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.slideInRight {
+    animation: slideInRight 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.slideOutRight {
+    animation: slideOutRight 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.slideInLeft {
+    animation: slideInLeft 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@media (max-width: 1100px) {
+    .inner {
+        padding: 0 48px;
+    }
+
+    .cards {
+        gap: 16px;
+    }
+
+    .card {
+        width: 240px;
+        height: 380px;
+    }
+}
+
+@media (max-width: 900px) {
+    .inner {
+        flex-direction: column;
+        padding: 0 32px;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .cards {
+        width: 100%;
+    }
+
+    .card {
+        width: 200px;
+        height: 320px;
+    }
+}

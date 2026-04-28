@@ -6,6 +6,9 @@ import { HeroWrapper } from "@/app/components/Hero/hero-wrapper";
 import { ProjectsWrapper } from "./components/Project/project-wrapper";
 import { PartnersWrapper } from "./components/Partners/partners-wrapper";
 import { TestimonialsWrapper } from "./components/Testimonials/testimonials-wrapper";
+import { TeamWrapper } from "./components/Team/team-wrapper";
+import { BlogWrapper } from "./components/Blog/blog-wrapper";
+import { ContactWrapper } from "./components/Contact/contact-wrapper";
 
 export default async function HomePage() {
 
@@ -32,6 +35,9 @@ export default async function HomePage() {
             <ProjectsWrapper/>
             <PartnersWrapper/>
             <TestimonialsWrapper/>
+            <TeamWrapper/>
+            <BlogWrapper/>
+            <ContactWrapper/>
 
         </div>
     );

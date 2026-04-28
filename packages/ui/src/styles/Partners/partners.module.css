@@ -5,9 +5,11 @@
 }
 
 .partnersDivider {
-  height: 1px;
-  background-color: #e0e0e0;
-  margin-bottom: 65px;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin-bottom: 65px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
 .partnersHeader {
