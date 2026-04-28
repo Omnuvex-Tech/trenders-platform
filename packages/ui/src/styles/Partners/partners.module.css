@@ -1,0 +1,98 @@
+.partnersSection {
+  background-color: #ffffff;
+  padding: 72px 0;
+  width: 100%;
+}
+
+.partnersDivider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin-bottom: 65px;
+}
+
+.partnersHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  margin-bottom: 64px;
+  padding: 0 100px;
+}
+
+.partnersTitle {
+  font-size: 55px;
+  font-weight: 800;
+  color: #111;
+  line-height: 1.1;
+}
+
+.partnersDescription {
+  color: #333;
+  font-size: 28px;
+  line-height: 1.30;
+}
+
+.partner-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  opacity: 0.8;
+  transition: opacity 0.25s ease;
+  cursor: pointer;
+}
+
+.partnerLogo:hover {
+  opacity: 1;
+}
+
+.partnerLogo svg {
+  width: 100%;
+  max-width: 140px;
+  height: 48px;
+}
+
+.partnersTrackWrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.partnersTrack {
+  display: flex;
+  width: max-content;
+}
+
+.partnersTrackLtr {
+  animation: marqueeLtr 20s linear infinite;
+}
+
+.partnersTrackRtl {
+  animation: marqueeRtl 20s linear infinite;
+}
+
+@keyframes marqueeLtr {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@keyframes marqueeRtl {
+  0%   { transform: translateX(-25%); }
+  100% { transform: translateX(0); }
+}
+
+.partnersTrackWrapper:hover .partnersTrack {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1024px) {
+  .partnersSection { padding: 56px 40px; }
+  .partnersHeader {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .partnersSection { padding: 40px 20px; }
+  .partnersTitle { font-size: 28px; }
+}

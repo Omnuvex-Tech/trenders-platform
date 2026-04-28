@@ -25,9 +25,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
     return (
         <div className="flex min-h-svh w-full flex-col items-center justify-start gap-6 pt-0 pb-8">
-            <NavbarWrapper locale={locale} languages={langResponse.data} />
-
-            {/* Centered LanguageSwitcher removed — navbar now contains the language control */}
+<NavbarWrapper 
+    locale={locale} 
+    languages={langResponse.data}
+    initialTranslations={translationResponse.data ?? []}
+/>
         </div>
     );
 }

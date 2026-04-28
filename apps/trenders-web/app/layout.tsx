@@ -43,10 +43,10 @@ export default function RootLayout({
                     referrerPolicy="no-referrer"
                 />
             </head>
-            <body className={inter.variable}>
+            <body>
                 <QueryProvider>
                     <NotifyProvider>
-                        <main>{children}</main>
+<main className="max-w-[1440px] mx-auto w-full">{children}</main>
                         <NotifyContainer />
                     </NotifyProvider>
                 </QueryProvider>

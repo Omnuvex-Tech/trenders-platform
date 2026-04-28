@@ -5,47 +5,6 @@ import { ChevronDown } from "lucide-react";
 import type { Language, LanguageSwitcherProps } from "@repo/types/types";
 import { cn } from "../../lib/utils";
 
-const localeOptions = [
-    { code: "az", country: "AZ" },
-    { code: "en", country: "GB" },
-    { code: "ru", country: "RU" },
-];
-
-function LocaleFlag({ country }: { country: string }) {
-    if (country === "GB") {
-        return (
-            <svg viewBox="0 0 22 14" className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                <rect width="22" height="14" fill="#012169" />
-                <path d="M0 0l22 14M22 0 0 14" stroke="#fff" strokeWidth="3" />
-                <path d="M0 0l22 14M22 0 0 14" stroke="#C8102E" strokeWidth="1.5" />
-                <path d="M11 0v14M0 7h22" stroke="#fff" strokeWidth="4" />
-                <path d="M11 0v14M0 7h22" stroke="#C8102E" strokeWidth="2" />
-            </svg>
-        );
-    }
-
-    if (country === "RU") {
-        return (
-            <svg viewBox="0 0 22 14" className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                <rect width="22" height="14" fill="#fff" />
-                <rect y="4.666" width="22" height="4.666" fill="#0039A6" />
-                <rect y="9.332" width="22" height="4.668" fill="#D52B1E" />
-            </svg>
-        );
-    }
-
-    return (
-        <svg viewBox="0 0 22 14" className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-            <rect width="22" height="14" fill="#0099E6" />
-            <rect y="4.666" width="22" height="4.666" fill="#ED2939" />
-            <rect y="9.332" width="22" height="4.668" fill="#3F9C35" />
-            <circle cx="10.2" cy="7" r="2.15" fill="#fff" />
-            <circle cx="10.9" cy="7" r="1.75" fill="#ED2939" />
-            <path d="M13.72 5.72l.24.73h.77l-.62.45.24.74-.63-.46-.62.46.24-.74-.62-.45h.77l.23-.73Z" fill="#fff" />
-        </svg>
-    );
-}
-
 const LanguageSwitcher = ({
     languages,
     defLang,
@@ -62,10 +21,8 @@ const LanguageSwitcher = ({
 
     const activeLang = useMemo(() => {
         const lang = languages.find((l) => l.code === activeLocale);
-        const country = localeOptions.find((o) => o.code === activeLocale)?.country || "AZ";
         return {
             code: (lang?.code || activeLocale || "az").toUpperCase(),
-            country,
         };
     }, [activeLocale, languages]);
 
@@ -73,23 +30,15 @@ const LanguageSwitcher = ({
 
     return (
         <div className="relative">
-            <button
-                type="button"
-                className={cn(
-                    "inline-flex cursor-pointer items-center gap-1.5 border border-[#d7deea] bg-white px-3.5 text-[15px] font-semibold text-[#1d2230]",
-                    isDesktop ? "h-10 rounded-[14px]" : "h-8 rounded-[10px] px-2 text-[12px]"
-                )}
-                onClick={() => setIsOpen((prev) => !prev)}
-                aria-haspopup="listbox"
-                aria-expanded={isOpen}
-            >
-                <span className="inline-flex h-[14px] w-[22px] overflow-hidden rounded-[2px] border border-black/10" aria-hidden="true">
-                    <LocaleFlag country={activeLang.country} />
-                </span>
-                <span className="leading-none">{activeLang.code}</span>
-                <ChevronDown className="size-[12px]" />
-            </button>
-
+<button
+    type="button"
+    className="cursor-pointer text-[15px] font-normal text-[#1a1a1a] bg-none border-none p-0"
+    onClick={() => setIsOpen((prev) => !prev)}
+    aria-haspopup="listbox"
+    aria-expanded={isOpen}
+>
+    <span>{activeLang.code}</span>
+</button>
             {isOpen && (
                 <div
                     className={cn(
@@ -98,7 +47,6 @@ const LanguageSwitcher = ({
                     )}
                 >
                     {languages.map((lang) => {
-                        const country = localeOptions.find((o) => o.code === lang.code)?.country || "AZ";
                         const isActive = lang.code === activeLocale;
                         const code = lang.code.toUpperCase();
 
@@ -117,9 +65,6 @@ const LanguageSwitcher = ({
                                 role="option"
                                 aria-selected={isActive}
                             >
-                                <span className="inline-flex h-[14px] w-[22px] overflow-hidden rounded-[2px] border border-black/10" aria-hidden="true">
-                                    <LocaleFlag country={country} />
-                                </span>
                                 <span>{code}</span>
                             </button>
                         );
@@ -130,4 +75,4 @@ const LanguageSwitcher = ({
     );
 };
 
-export { LanguageSwitcher, LocaleFlag };
+export { LanguageSwitcher };
