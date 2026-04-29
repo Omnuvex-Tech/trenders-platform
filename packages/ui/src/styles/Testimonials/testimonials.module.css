@@ -30,19 +30,25 @@
 }
 
 .title {
-    font-size: 42px;
-    font-weight: 800;
-    color: #1a1a1a;
+    color: rgba(56, 56, 56, 1);
     line-height: 1.15;
     margin: 0;
+    font-family: Poppins;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 44px;
+
 }
 
 .description {
-    font-size: 16px;
-    color: #555;
+    color: rgba(98, 98, 98, 1);
     line-height: 1.4;
     margin: 0;
     max-width: 390px;
+    font-family: Poppins;
+    font-weight: 300;
+    font-style: Light;
+    font-size: 14px;
 }
 
 .arrows {
@@ -65,21 +71,17 @@
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-.arrowBtnActive {
+.arrowBtn:hover {
     background: linear-gradient(93.6deg, #6080FF -24.77%, rgba(202, 221, 255, 0.2) 191.06%);
-    border: 1.22px solid;
-    border-image-source: linear-gradient(93.6deg, rgba(0, 51, 255, 0.44) -24.77%, rgba(49, 121, 255, 0.2) 191.06%);
+    border: 1.22px solid rgba(0, 51, 255, 0.44);
     color: #fff;
 }
 
-
-/* .cards {
-    flex: 1;
-    display: flex;
-    gap: 24px;
-    overflow: hidden;
-    align-items: flex-start;
-} */
+.arrowBtnActive {
+    background: #fff;
+    border: 1.5px solid #d0d8f0;
+    color: #7a8aac;
+}
 
 
 .cards {
@@ -106,9 +108,9 @@
     display: flex;
     flex-direction: column;
     box-shadow: 1px 1px 7px 0px rgba(0, 0, 0, 0.17);
-         transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                opacity 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                min-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        opacity 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        min-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 
@@ -126,12 +128,16 @@
 }
 
 .company {
-    font-size: 24px;
-    font-weight: 600;
     color: rgba(110, 110, 110, 1);
     text-transform: uppercase;
     margin: 0 0 24px auto;
     text-align: right;
+
+    font-family: Poppins;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 24px;
+
 }
 
 .quoteIcon {
@@ -144,12 +150,15 @@
 }
 
 .quote {
-    font-size: 38px;
-    font-weight: 400;
     color: #1a1a1a;
     line-height: 1.4;
     margin: 0 0 auto;
     flex: 1;
+    font-family: Poppins;
+    font-weight: 300;
+    font-style: Light;
+    font-size: 38px;
+
 }
 
 .author {
@@ -168,15 +177,21 @@
 }
 
 .name {
-    font-size: 23px;
-    font-weight: 700;
-    color: #1a1a1a;
+    font-family: Poppins;
+    font-weight: 600;
+    font-style: SemiBold;
+    font-size: 20px;
+    color: rgba(42, 42, 42, 1);
     margin: 0 0 6px;
 }
 
 .role {
-    font-size: 13px;
-    color: #888;
+    font-family: Poppins;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 12px;
+    color: rgba(98, 98, 98, 1);
+    ;
     margin: 0;
     line-height: 1.5;
 }
@@ -294,4 +309,3 @@
         font-size: 16px;
     }
 }
-

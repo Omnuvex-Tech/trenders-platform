@@ -46,14 +46,14 @@
 }
 
 .navbarLinks a {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 400;
   color: #1a1a1a;
   text-decoration: none;
   white-space: nowrap;
   position: relative;
   transition: color 0.2s ease;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .navbarActions {

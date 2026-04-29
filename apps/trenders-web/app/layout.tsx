@@ -1,25 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import localFont from "next/font/local";
 import { NotifyProvider, NotifyContainer } from "@repo/ui";
 import { QueryProvider } from "@/app/providers";
 import { config } from "@/config";
 import "./globals.css";
-
-const inter = localFont({
-    src: [
-        {
-            path: "./fonts/Inter-VariableFont_opsz,wght.ttf",
-            style: "normal",
-        },
-        {
-            path: "./fonts/Inter-Italic-VariableFont_opsz,wght.ttf",
-            style: "italic",
-        },
-    ],
-    variable: "--font-inter",
-    display: "swap",
-});
 
 export const metadata: Metadata = {
     title: config.project.projectName,
@@ -46,7 +30,7 @@ export default function RootLayout({
             <body>
                 <QueryProvider>
                     <NotifyProvider>
-<main className="max-w-[1440px] mx-auto w-full">{children}</main>
+                        <main className="mx-auto w-full">{children}</main>
                         <NotifyContainer />
                     </NotifyProvider>
                 </QueryProvider>

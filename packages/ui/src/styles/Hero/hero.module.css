@@ -11,16 +11,19 @@
     align-items: flex-start;
 }
 
+
 .heroSub {
     font-size: 53px;
     font-weight: 400;
     color: rgba(1, 72, 194, 1);
+    font-family: 'Poppins', sans-serif;
 }
 
 .heroMain {
     font-size: 53px;
-    font-weight: 800;
+    font-weight: 600;
     color: rgba(1, 72, 194, 1);
+    font-family: 'Poppins', sans-serif;
 }
 
 .heroInfo {
@@ -30,15 +33,19 @@
     font-size: 13px;
     color: #1a1a1a;
     line-height: 1.6;
-}
-
-.heroDiamond {
-    font-size: 21px;
-    color: #1a1a1a;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
 }
 
 .heroInfo strong {
     font-weight: 700;
+    font-family: 'Manrope', sans-serif;
+}
+
+
+.heroDiamond {
+    font-size: 21px;
+    color: #1a1a1a;
 }
 
 /* ─── Slider ─────────────────────────────────────── */
@@ -163,8 +170,9 @@
     letter-spacing: 1px;
     z-index: 2;
     transform: rotate(180deg);
-    font-weight: bold;
+    font-weight: 700;
     font-size: 19px;
+    font-family: 'Manrope', sans-serif;
 }
 
 .cardBorderOverlay {
@@ -248,7 +256,7 @@
     border-radius: 28px;
     flex: none;
     align-items: center;
-    gap: 17px;
+    gap: 10px;
     width: 215px;
     height: 114px;
     padding: 15px 18px;
@@ -281,25 +289,32 @@
 }
 
 .heroStatLabel {
+    
     font-size: 20px;
     color: #000000;
-    margin: 0 0 2px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+        margin-top: 10px;
+
 }
 
 .heroStatValue {
     font-size: 33px;
-    font-weight: 600;
+    font-weight: 700;
     color: #1a1a1a;
     margin: 0;
     letter-spacing: -0.02em;
+    font-family: 'Manrope', sans-serif;
 }
 
 .heroStatsTagline {
     color: #000;
     flex-shrink: 0;
     max-width: 199px;
-    font-size: 21px;
+    font-size: 19px;
     line-height: 1.45;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
 }
 
 .heroDivider {

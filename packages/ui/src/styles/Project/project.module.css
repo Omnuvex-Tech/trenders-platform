@@ -8,13 +8,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .projectsTitle {
-  font-size: 58px;
+  font-size: 46px;
   font-weight: 700;
-  color: #1a1a1a;
+      font-family: 'Poppins', sans-serif;
+  color:rgba(56, 56, 56, 1);
   margin: 0;
 }
 
@@ -23,7 +24,8 @@
   align-items: center;
   gap: 8px;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Manrope', sans-serif; ;
   color: #276DE4;
   text-decoration: none;
   padding: 10px 22px;
@@ -93,6 +95,7 @@
 
 .projectTags {
   display: flex;
+
   gap: 8px;
   flex-wrap: wrap;
 }
@@ -100,7 +103,8 @@
 .projectTag {
   position: relative;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 300;
+  font-family: 'Poppins', sans-serif;
   color: #ffffff;
   background: linear-gradient(132.52deg, rgba(255,255,255,0) -26.71%, rgba(153,153,153,0.2) 143.92%);
   backdrop-filter: blur(30px);
@@ -129,8 +133,9 @@
 
 .projectCardTitle {
   color: #fff;
-  font-size: 32px;
-  font-weight: 200;
+  font-size: 26px;
+  font-weight: 300;
+  font-family: 'Poppins', sans-serif;
 }
 
 @media (max-width: 1100px) {

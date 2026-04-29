@@ -5,11 +5,11 @@
 }
 
 .partnersDivider {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin-bottom: 65px;
-    margin-left: 100px;
-    margin-right: 100px;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin-bottom: 65px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .partnersHeader {
@@ -21,16 +21,27 @@
 }
 
 .partnersTitle {
-  font-size: 55px;
-  font-weight: 800;
-  color: #111;
+  font-size: 44px;
+  color: rgba(56, 56, 56, 1);
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
   line-height: 1.1;
 }
 
 .partnersDescription {
   color: #333;
-  font-size: 28px;
+  font-size: 24px;
+  font-weight: 300;
+  font-family: 'Poppins', sans-serif;
   line-height: 1.30;
+}
+
+.partnersDescription strong {
+font-family: Poppins;
+font-weight: 600;
+font-style: SemiBold;
+font-size: 24px;
+
 }
 
 .partner-logo {
@@ -72,13 +83,23 @@
 }
 
 @keyframes marqueeLtr {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-25%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-25%);
+  }
 }
 
 @keyframes marqueeRtl {
-  0%   { transform: translateX(-25%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-25%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .partnersTrackWrapper:hover .partnersTrack {
@@ -86,7 +107,10 @@
 }
 
 @media (max-width: 1024px) {
-  .partnersSection { padding: 56px 40px; }
+  .partnersSection {
+    padding: 56px 40px;
+  }
+
   .partnersHeader {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -95,6 +119,11 @@
 }
 
 @media (max-width: 600px) {
-  .partnersSection { padding: 40px 20px; }
-  .partnersTitle { font-size: 28px; }
+  .partnersSection {
+    padding: 40px 20px;
+  }
+
+  .partnersTitle {
+    font-size: 28px;
+  }
 }

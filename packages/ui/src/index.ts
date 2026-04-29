@@ -26,6 +26,8 @@ export{BlogUI} from "./components/Blog/blog"
 export type {BlogUIProps, BlogPost} from "./components/Blog"
 export { ContactUI } from "./components/Contact";
 export type { ContactUIProps, ContactInfo } from "./components/Contact";
-
-
+export { FaqUI } from "./components/Faq/faq";
+export type { FaqUIProps, FaqItem } from "./components/Faq/faq";
+export { FooterUI } from "./components/Footer";
+export type { FooterUIProps, FooterLink } from "./components/Footer";
 export { cn } from "./lib/utils";

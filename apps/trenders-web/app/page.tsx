@@ -9,6 +9,10 @@ import { TestimonialsWrapper } from "./components/Testimonials/testimonials-wrap
 import { TeamWrapper } from "./components/Team/team-wrapper";
 import { BlogWrapper } from "./components/Blog/blog-wrapper";
 import { ContactWrapper } from "./components/Contact/contact-wrapper";
+import {FaqWrapper} from "./components/Faq/faq-wrapper"
+import { FooterWrapper } from "./components/Footer/footer-wrapper";
+
+
 
 export default async function HomePage() {
 
@@ -38,6 +42,8 @@ export default async function HomePage() {
             <TeamWrapper/>
             <BlogWrapper/>
             <ContactWrapper/>
+            <FaqWrapper/>
+            <FooterWrapper/>
 
         </div>
     );

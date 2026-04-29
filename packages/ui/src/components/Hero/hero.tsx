@@ -59,9 +59,7 @@ export function HeroUI({
                 </div>
             </div>
 
-            {/* Slider */}
             <div className={styles.heroSliderWrapper}>
-                {/* Sol kartlar */}
                 <div className={styles.heroCardsLeft}>
                     {leftCards.map(({ card, pos, idx }) => (
                         <div
