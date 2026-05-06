@@ -1,0 +1,187 @@
+.section {
+    width: 100%;
+}
+
+.heroImageWrap {
+    overflow: hidden;
+    width: 100%;
+    height: 630;
+    opacity: 1;
+    margin-top: 69px;
+
+}
+
+.heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+/* İçəri hissə */
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+
+.titleBlock {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 21px 0 48px;
+    justify-content: flex-end;
+}
+
+.number {
+    color: rgba(70, 70, 70, 0.15);
+    font-family: Poppins;
+    font-weight: 250;
+    font-size: 183.7px;
+    line-height: 135%;
+    letter-spacing: 0%;
+    text-align: justify;
+    text-transform: uppercase;
+}
+
+.titleContent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 43px;
+}
+
+.title {
+    color: rgba(70, 70, 70, 1);
+    font-family: "Sora";
+    font-weight: 700;
+    font-size: 32px;
+    text-align: justify;
+    text-transform: uppercase;
+}
+
+.description {
+
+    color: rgba(150, 150, 150, 1);
+    line-height: 1.55;
+    max-width: 560px;
+    font-family: Poppins;
+    font-weight: 300;
+    font-size: 32px;
+
+
+}
+
+.description strong {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 32px;
+    color: rgba(94, 94, 94, 1);
+
+}
+
+/* Qalereya */
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 80px;
+}
+
+.galleryTop {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 27px;
+
+}
+
+.galleryTopItem {
+    overflow: hidden;
+    width: 608;
+    height: 399;
+    border-radius: 14px;
+
+}
+
+.galleryBottom {
+    overflow: hidden;
+    width: 1240;
+    height: 399;
+    border-radius: 14px;
+
+}
+
+.galleryImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 1100px) {
+    .inner {
+        padding: 0 48px;
+    }
+
+    .number {
+        font-size: 72px;
+    }
+
+    .heroImageWrap {
+        height: 380px;
+    }
+}
+
+@media (max-width: 900px) {
+    .inner {
+        padding: 0 32px;
+    }
+
+    .galleryTop {
+        grid-template-columns: 1fr;
+    }
+
+    .galleryTopItem {
+        height: 280px;
+    }
+
+    .galleryBottom {
+        height: 280px;
+    }
+
+    .number {
+        font-size: 56px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .inner {
+        padding: 0 20px;
+    }
+
+    .heroImageWrap {
+        height: 260px;
+    }
+
+    .titleBlock {
+        padding: 36px 0 32px;
+        gap: 12px;
+    }
+
+    .number {
+        font-size: 48px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+}

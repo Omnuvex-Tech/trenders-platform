@@ -1,0 +1,276 @@
+.section {
+    width: 100%;
+    padding: 0 0 39px;
+}
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.heroWrap {
+    position: relative;
+    width: 1240px;
+    height: 558px;
+    --overlap: 80px;
+    margin-bottom: calc(var(--overlap) * -1);
+}
+
+.heroImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 42px;
+    object-fit: cover;
+    display: block;
+}
+
+.overlapBlock {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(50%);
+    padding: 0 0 0 0;
+    z-index: 2;
+    width: 1024px;
+    height: 305px;
+
+}
+
+.overlapTitle {
+    border-radius: 0px 42px 0px;
+    color: rgba(1, 72, 194, 1);
+    margin: 0;
+    background: rgba(253, 253, 253, 1);
+    padding: 39px 75px 15px 1px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 118%;
+}
+
+.introBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: calc(var(--overlap, 101px) + 21px);
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.sectionBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sectionTitle {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 29.05px;
+    line-height: 118%;
+
+    color: rgba(1, 72, 194, 1);
+}
+
+.sectionParagraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.paragraph {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: rgba(36, 36, 36, 1);
+    text-align: justify;
+}
+
+.paragraph strong {
+    font-weight: 700;
+    color: rgba(30, 30, 30, 1);
+}
+
+.bottomImages {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+}
+
+.bottomImgLeft,
+.bottomImgRight {
+    object-fit: cover;
+    display: block;
+    border-radius: 30px;
+}
+
+
+.bottomImgRight {
+    width: 819px;
+    height: 448px;
+}
+
+.bottomImgLeft {
+    width: 397px;
+    height: 448px;
+}
+
+
+@media (max-width: 1280px) {
+    .inner {
+        padding: 0 48px;
+    }
+
+    .heroWrap {
+        width: 100%;
+        height: 480px;
+    }
+
+    .overlapBlock {
+        width: 80%;
+    }
+
+    .overlapTitle {
+        font-size: 40px;
+    }
+
+    .bottomImgLeft {
+        width: 100%;
+        height: 380px;
+    }
+
+    .bottomImgRight {
+        width: 100%;
+        height: 380px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .heroWrap {
+        height: 400px;
+    }
+
+    .overlapBlock {
+        width: 85%;
+        height: auto;
+    }
+
+    .overlapTitle {
+        font-size: 34px;
+        padding: 28px 48px 12px 1px;
+    }
+
+    .introBlock {
+        margin-top: 80px;
+    }
+
+    .sectionTitle {
+        font-size: 24px;
+    }
+
+    .bottomImgLeft,
+    .bottomImgRight {
+        height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .inner {
+        padding: 0 32px;
+        gap: 28px;
+    }
+
+    .heroWrap {
+        height: 320px;
+    }
+
+    .overlapBlock {
+        width: 90%;
+        height: auto;
+    }
+
+    .overlapTitle {
+        font-size: 26px;
+        padding: 20px 32px 10px 1px;
+        border-radius: 0px 28px 0px;
+    }
+
+    .introBlock {
+        margin-top: 60px;
+    }
+
+    .sectionTitle {
+        font-size: 20px;
+    }
+
+    .paragraph {
+        font-size: 15px;
+    }
+
+    .bottomImages {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .bottomImgLeft,
+    .bottomImgRight {
+        width: 100%;
+        height: 240px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 0 0 24px;
+    }
+
+    .inner {
+        padding: 0 20px;
+        gap: 20px;
+    }
+
+    .heroWrap {
+        height: 240px;
+    }
+
+    .overlapBlock {
+        width: 100%;
+        height: auto;
+    }
+
+    .overlapTitle {
+        font-size: 20px;
+        padding: 16px 20px 10px 1px;
+        border-radius: 0px 20px 0px;
+    }
+
+    .introBlock {
+        margin-top: 48px;
+    }
+
+    .sectionTitle {
+        font-size: 18px;
+    }
+
+    .paragraph {
+        font-size: 14px;
+    }
+
+    .bottomImages {
+        grid-template-columns: 1fr;
+    }
+
+    .bottomImgLeft,
+    .bottomImgRight {
+        width: 100%;
+        height: 200px;
+    }
+}

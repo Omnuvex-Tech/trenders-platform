@@ -7,12 +7,12 @@ import { LanguageSwitcher } from "@/app/components/LanguageSwitcher/language-swi
 import type { Language, Translation } from "@repo/types/types";
 
 const NAV_LINKS = [
-    { label: "Haqqımızda", href: "#" },
-    { label: "Service", href: "#" },
-    { label: "Portfolio", href: "#" },
+    { label: "Haqqımızda", href: "/About" },
+    { label: "Service", href: "/Service" },
+    { label: "Portfolio", href: "/Portfolio" },
     { label: "Vakansiyalar", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Əlaqə", href: "#" },
+    { label: "Blog", href: "/Blog" },
+    { label: "Əlaqə", href: "/Contact" },
 ];
 
 const SUGGESTIONS = [

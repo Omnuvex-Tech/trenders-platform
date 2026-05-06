@@ -324,3 +324,210 @@
     border: none;
     margin-top: 80px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1200px) {
+    .hero {
+        padding: 54px 48px;
+    }
+
+    .heroSub,
+    .heroMain {
+        font-size: 42px;
+    }
+
+    .heroStatCard {
+        width: 180px;
+        height: 100px;
+    }
+
+    .heroStatValue {
+        font-size: 26px;
+    }
+
+    .heroStatLabel {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hero {
+        padding: 48px 32px;
+    }
+
+    .heroSub,
+    .heroMain {
+        font-size: 36px;
+    }
+
+    .heroSliderWrapper {
+        height: 360px;
+    }
+
+    .heroSideCard {
+        width: 70px;
+    }
+
+    .heroSideCard span {
+        font-size: 15px;
+    }
+
+    .heroStatCard {
+        width: 160px;
+        height: 90px;
+    }
+
+    .heroStatValue {
+        font-size: 22px;
+    }
+
+    .heroStatLabel {
+        font-size: 14px;
+    }
+
+    .heroStatIcon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .heroStatsTagline {
+        font-size: 16px;
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 24px;
+    }
+
+    .heroTop {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .heroSub,
+    .heroMain {
+        font-size: 28px;
+    }
+
+    .heroInfo {
+        max-width: 100%;
+    }
+
+    .heroSliderWrapper {
+        height: 280px;
+    }
+
+    .heroSideCard {
+        width: 52px;
+    }
+
+    .heroSideCard span {
+        font-size: 12px;
+    }
+
+    .heroCardsLeft .heroSideCard {
+        margin-right: -20px;
+        padding-right: 20px;
+    }
+
+    .heroCardsRight .heroSideCard {
+        margin-left: -20px;
+        padding-left: 20px;
+    }
+
+    .heroStatsWrap {
+        padding-top: 48px;
+    }
+
+    .heroStatsRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .heroStatCards {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .heroStatCard {
+        width: 150px;
+        height: 84px;
+    }
+
+    .heroStatValue {
+        font-size: 20px;
+    }
+
+    .heroStatLabel {
+        font-size: 13px;
+    }
+
+    .heroStatsTagline {
+        max-width: 100%;
+    }
+
+    .heroDivider {
+        margin-top: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 32px 20px;
+    }
+
+    .heroSub,
+    .heroMain {
+        font-size: 22px;
+    }
+
+    .heroSliderWrapper {
+        height: 220px;
+    }
+
+    .heroSideCard {
+        width: 40px;
+    }
+
+    .heroSideCard span {
+        font-size: 10px;
+    }
+
+    .heroStatCards {
+        gap: 12px;
+    }
+
+    .heroStatCard {
+        width: 140px;
+        height: 78px;
+        padding: 12px 14px;
+    }
+
+    .heroStatValue {
+        font-size: 18px;
+    }
+
+    .heroStatLabel {
+        font-size: 12px;
+    }
+
+    .heroStatIcon {
+        width: 32px;
+        height: 32px;
+    }
+}

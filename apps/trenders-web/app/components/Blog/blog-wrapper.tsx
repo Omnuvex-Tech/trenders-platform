@@ -34,15 +34,15 @@ const POSTS: BlogPost[] = [
         authorName: "Güler Məmmədova",
         date: "October 17, 2025",
         href: "#",
-    },
+    }
 ];
 
 export function BlogWrapper() {
     return (
         <BlogUI
-            title="Blog"
-            allPostsLabel="bütün işlər"
-            allPostsHref="#"
+            title="Bloglar"
+            allPostsLabel="Bütün yazılar"
+            allPostsHref="/blog"
             posts={POSTS}
         />
     );

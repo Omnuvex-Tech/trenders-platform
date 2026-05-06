@@ -1,0 +1,391 @@
+.section {
+    width: 100%;
+    padding: 60px 0;
+}
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+
+.heroImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+.heroWrap {
+    width: 100%;
+    height: 714px;
+    border-radius: 42.27px;
+    overflow: hidden;
+    --overlap: 252px;
+    margin-bottom: calc(var(--overlap) * -1);
+}
+
+.overlayWrap {
+    background: white;
+    position: relative;
+    z-index: 2;
+    width: 62%;
+    margin-left: 0px
+}
+
+.overlay {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 28px 9px 32px;
+    border-radius: 0 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 16px;
+    border-radius: 36px;
+    width: 96px;
+    height: 34px;
+    background:
+        linear-gradient(134.09deg, #89B5FF -1.29%, #1360E4 109.15%);
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 14px;
+
+}
+
+.title {
+    color: rgba(1, 72, 194, 1);
+    line-height: 1.25;
+    margin: 0;
+    line-height: 104%;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 54px;
+}
+
+.desc {
+    color: rgba(70, 70, 70, 1);
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    text-align: justify;
+}
+
+/* Stats */
+
+.heroStatsWrap {
+    padding: 30px 0 0 0;
+}
+
+.heroStatsRow {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.heroStatCards {
+    display: flex;
+    align-items: center;
+    gap: 33px;
+}
+
+.heroStatCard {
+    background: #fff;
+    flex: none;
+    align-items: center;
+    padding: 15px 18px;
+    display: flex;
+    position: relative;
+    width: 162px;
+    height: 87px;
+    border-radius: 21.07px;
+    gap: 10.54px;
+
+}
+
+.heroStatCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    padding: 2px;
+    background: linear-gradient(115.2deg, rgba(125, 177, 255, 0.9) 0.81%, #00389F 110.18%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.heroStatIcon {
+    min-width: 35px;
+    min-height: 35px;
+    border-radius: 52px;
+    padding: 5.27px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heroStatIcon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 52px;
+    padding: 1.47px;
+    background: linear-gradient(132.52deg, rgba(0, 140, 255, 0) -26.71%, #4099D1 143.92%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.heroStatLabel {
+    font-family: 'Manrope';
+    font-weight: 500;
+    font-size: 14.75px;
+    line-height: 100%;
+    color: rgba(0, 0, 0, 1);
+    margin-top: 10px;
+
+}
+
+.heroStatValue {
+    font-family: 'Manrope';
+    font-weight: 700;
+    font-size: 25.29px;
+    color: rgba(0, 0, 0, 1);
+}
+
+
+/* Quote */
+.quoteWrap {
+    display: flex;
+    align-items: flex-start;
+    max-width: 96%;
+    margin-top: 60px;
+}
+
+.quoteIcon {
+    font-size: 383px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgb(196, 196, 196);
+    font-family: 'Poppins';
+    position: relative;
+    height: 260px;
+    display: flex;
+    transform: translateY(-52%);
+    align-items: flex-start;
+}
+
+
+.quoteText strong {
+    color: rgba(94, 94, 94, 1);
+}
+
+.quoteText {
+    color: #969696;
+    font-family: 'Poppins';
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 121%;
+    position: relative;
+}
+
+
+/* Bottom şəkil */
+.bottomWrap {
+    width: 100%;
+    max-width: 1240px;
+    height: 475px;
+    border-radius: 42.27px;
+    overflow: hidden;
+}
+
+.bottomImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+/* ================== 1200px ================== */
+@media (max-width: 1200px) {
+    .inner {
+        padding: 0 60px;
+    }
+
+    .overlayWrap {
+        width: 75%;
+    }
+
+    .title {
+        font-size: 42px;
+    }
+
+    .quoteText {
+        font-size: 32px;
+    }
+}
+
+/* ================== 992px ================== */
+@media (max-width: 992px) {
+    .inner {
+        padding: 0 40px;
+    }
+
+    .heroWrap {
+        height: 560px;
+    }
+
+    .overlayWrap {
+        width: 85%;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+
+    .desc {
+        font-size: 16px;
+    }
+
+    .heroStatCards {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .bottomWrap {
+        width: 100%;
+        height: 360px;
+    }
+}
+
+/* ================== 768px (tablet) ================== */
+@media (max-width: 768px) {
+    .inner {
+        padding: 0 24px;
+    }
+
+    .heroWrap {
+        height: 420px;
+        --overlap: 120px;
+    }
+
+    .overlayWrap {
+        width: 100%;
+    }
+
+    .overlay {
+        border-radius: 16px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .desc {
+        font-size: 15px;
+        text-align: left;
+    }
+
+    .heroStatsRow {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .heroStatCards {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .quoteWrap {
+        flex-direction: column;
+        margin-top: 40px;
+    }
+
+    .quoteIcon {
+        font-size: 120px;
+        height: auto;
+        transform: none;
+    }
+
+    .quoteText {
+        font-size: 24px;
+    }
+
+    .bottomWrap {
+        height: 260px;
+    }
+}
+
+/* ================== 480px (mobile) ================== */
+@media (max-width: 480px) {
+    .inner {
+        padding: 0 16px;
+    }
+
+    .heroWrap {
+        height: 320px;
+        border-radius: 24px;
+    }
+
+    .overlay {
+        padding: 20px;
+    }
+
+    .badge {
+        font-size: 12px;
+        height: 28px;
+        width: auto;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .desc {
+        font-size: 14px;
+    }
+
+    .heroStatCard {
+        width: 100%;
+        height: auto;
+    }
+
+    .heroStatCards {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .quoteText {
+        font-size: 18px;
+    }
+
+    .bottomWrap {
+        height: 200px;
+        border-radius: 24px;
+    }
+}

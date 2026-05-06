@@ -1,0 +1,350 @@
+.section {
+    width: 100%;
+    padding: 47px 0;
+}
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 11px 0 16px 16px;
+    background: rgba(255, 255, 255, 1);
+    width: 1234px;
+    max-width: 100%;
+    height: 438px;
+    border-radius: 18px;
+    box-shadow: 2px 3px 17.1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.imageWrap {
+    position: relative;
+    overflow: hidden;
+    width: 702px;
+    max-width: 100%;
+    height: 416px;
+    border-radius: 18px;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.imageOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 32px 32px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.overlayBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 16px;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    color: rgba(255, 255, 255, 1);
+    position: relative;
+    width: 123px;
+    height: 42px;
+    border-radius: 36px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.overlayBadge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 36px;
+    padding: 1px;
+    background: conic-gradient(
+        from 225deg,
+        rgba(255, 255, 255, 0.9) 0deg,
+        rgba(255, 255, 255, 0.1) 50deg,
+        rgba(255, 255, 255, 0.1) 180deg,
+        rgba(255, 255, 255, 0.9) 230deg,
+        rgba(255, 255, 255, 0.1) 280deg,
+        rgba(255, 255, 255, 0.1) 360deg
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+.overlayTitle {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 26px;
+    color: #fff;
+    max-width: 400px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px 20px;
+    justify-content: center;
+}
+
+.badge {
+    display: inline-flex;
+    justify-content: center;
+    padding: 4px 16px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 20px;
+    color: rgba(80, 80, 80, 1);
+    position: relative;
+    width: 207px;
+    border-radius: 36px;
+}
+
+.badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    padding: 1px;
+    background: linear-gradient(132.52deg, rgba(1, 72, 194, 0) -26.71%, rgba(1, 72, 194, 0.83) 143.92%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.title {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 38px;
+    color: rgba(80, 80, 80, 1);
+}
+
+.description {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(98, 98, 98, 1);
+    overflow: hidden;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.authorInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.authorName {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 12.01px;
+    line-height: 18.02px;
+    color: rgba(98, 98, 98, 1);
+}
+
+.date {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size: 10.01px;
+    line-height: 18.02px;
+    color: rgba(98, 98, 98, 1);
+}
+
+
+
+@media (max-width: 1280px) {
+    .inner {
+        padding: 0 60px;
+    }
+
+    .title {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .badge {
+        font-size: 17px;
+        width: auto;
+        padding: 4px 20px;
+    }
+
+    .content {
+        padding: 32px 16px;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .section {
+        padding: 32px 0;
+    }
+
+    .inner {
+        padding: 0 32px;
+    }
+
+    .card {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 12px;
+    }
+
+    .imageWrap {
+        width: 100%;
+        height: 300px;
+    }
+
+    .content {
+        padding: 24px 8px 8px;
+        gap: 12px;
+    }
+
+    .title {
+        font-size: 22px;
+        line-height: 30px;
+    }
+
+    .badge {
+        font-size: 16px;
+        width: auto;
+        padding: 4px 20px;
+    }
+
+    .overlayTitle {
+        font-size: 16px;
+    }
+
+    .overlayBadge {
+        font-size: 16px;
+        width: auto;
+        padding: 4px 16px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 600px) {
+    .inner {
+        padding: 0 20px;
+    }
+
+    .card {
+        padding: 10px;
+        border-radius: 14px;
+    }
+
+    .imageWrap {
+        height: 220px;
+        border-radius: 10px;
+    }
+
+    .imageOverlay {
+        padding: 16px 20px 20px;
+        gap: 8px;
+    }
+
+    .overlayBadge {
+        font-size: 13px;
+        height: 30px;
+        width: auto;
+        padding: 4px 12px;
+    }
+
+    .overlayTitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .content {
+        padding: 18px 6px 6px;
+        gap: 10px;
+    }
+
+    .badge {
+        font-size: 14px;
+        width: auto;
+        padding: 4px 16px;
+    }
+
+    .title {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    .description {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    .meta {
+        margin-top: 4px;
+    }
+
+    .avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .authorName {
+        font-size: 11px;
+    }
+
+    .date {
+        font-size: 9px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .inner {
+        padding: 0 14px;
+    }
+
+    .imageWrap {
+        height: 190px;
+    }
+
+    .title {
+        font-size: 16px;
+        line-height: 23px;
+    }
+
+    .badge {
+        font-size: 13px;
+    }
+}

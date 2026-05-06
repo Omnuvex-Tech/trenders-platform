@@ -261,51 +261,255 @@
     animation: slideInLeft 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-@media (max-width: 1100px) {
+
+
+
+
+
+
+
+@media (max-width: 1280px) {
+    .testimonialsDivider {
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+
+    .inner {
+        padding: 0 60px;
+        gap: 40px;
+    }
+
+    .left {
+        width: 320px;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+
+    .card {
+        width: 340px;
+        min-height: 480px;
+    }
+
+    .quote {
+        font-size: 30px;
+    }
+
+    .company {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .testimonialsDivider {
+        margin-left: 48px;
+        margin-right: 48px;
+    }
+
     .inner {
         padding: 0 48px;
-        gap: 40px;
+        gap: 32px;
     }
 
     .left {
         width: 260px;
     }
 
+    .title {
+        font-size: 30px;
+    }
+
+    .description {
+        font-size: 13px;
+    }
+
+    .card {
+        width: 300px;
+        min-height: 460px;
+        padding: 22px 20px 32px;
+    }
+
     .quote {
+        font-size: 26px;
+    }
+
+    .company {
         font-size: 18px;
+    }
+
+    .name {
+        font-size: 17px;
+    }
+
+    .avatar {
+        width: 64px;
+        height: 62px;
     }
 }
 
 @media (max-width: 900px) {
+    .section {
+        padding: 60px 0;
+    }
+
+    .testimonialsDivider {
+        margin-left: 32px;
+        margin-right: 32px;
+        margin-bottom: 48px;
+    }
+
     .inner {
-        flex-direction: column;
         padding: 0 32px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 32px;
     }
 
     .left {
         width: 100%;
-        padding-top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 16px;
+    }
+
+    .title {
+        font-size: 32px;
+        flex: 1 1 100%;
+    }
+
+    .description {
+        flex: 1 1 60%;
+        max-width: 100%;
+    }
+
+    .arrows {
+        margin-top: 0;
+        flex: 0 0 auto;
     }
 
     .cards {
-        grid-template-columns: 1fr;
+        width: 100%;
     }
 
-    .card:last-child {
-        display: none;
+    .card {
+        width: 300px;
+        min-height: 420px;
+    }
+
+    .quote {
+        font-size: 24px;
     }
 }
+
 
 @media (max-width: 600px) {
     .section {
         padding: 48px 0;
     }
 
+    .testimonialsDivider {
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 36px;
+    }
+
+    .inner {
+        padding: 0 20px;
+        gap: 24px;
+    }
+
     .title {
-        font-size: 32px;
+        font-size: 26px;
+    }
+
+    .description {
+        font-size: 13px;
+    }
+
+    .cards {
+        width: 100%;
+    }
+
+    .card {
+        width: calc(100vw - 40px);
+        /* inner padding 20px * 2 */
+        min-height: 380px;
+        padding: 18px 16px 24px;
+        border-radius: 20px;
+        flex-shrink: 0;
+    }
+
+    .cardsTrack {
+        gap: 12px;
+    }
+
+    .cardExpanded {
+        min-height: 560px;
+    }
+
+    .company {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .quoteIcon {
+        font-size: 100px;
+        height: 55px;
     }
 
     .quote {
-        font-size: 16px;
+        font-size: 20px;
+    }
+
+    .avatar {
+        width: 52px;
+        height: 50px;
+    }
+
+    .name {
+        font-size: 15px;
+    }
+
+    .role {
+        font-size: 11px;
+    }
+
+    .arrowBtn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .inner {
+        padding: 0 14px;
+    }
+
+    .testimonialsDivider {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+
+    .card {
+        width: calc(100vw - 28px);
+        /* inner padding 14px * 2 */
+        min-height: 360px;
+
+    }
+
+    .quote {
+        font-size: 18px;
+    }
+
+    .company {
+        font-size: 14px;
     }
 }

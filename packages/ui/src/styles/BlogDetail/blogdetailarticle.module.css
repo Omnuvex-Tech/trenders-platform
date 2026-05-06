@@ -1,0 +1,153 @@
+.section {
+    width: 100%;
+}
+
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.block:last-child {
+    margin-bottom: 0;
+}
+
+
+.mainTitle {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 118%;
+    color: rgba(1, 72, 194, 1);
+}
+
+.heading {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 29.05px;
+    line-height: 118%;
+    color: rgba(1, 72, 194, 1);
+}
+
+.paragraph {
+    color: rgba(36, 36, 36, 1);
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: justify;
+}
+
+.twoCol {
+    display: grid;
+grid-template-columns: 1fr 292px;
+    gap: 48px;
+    align-items: start;
+}
+
+.leftCol {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.rightCol {
+    position: sticky;
+    top: 100px;
+}
+
+.sideImg {
+    width: 292px;
+    height: 480px;
+    border-radius: 30px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Hashtag seksiya */
+.hashBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hashTag {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    color: rgba(1, 72, 194, 1);
+
+}
+
+@media (max-width: 1100px) {
+    .inner {
+        padding: 0 48px;
+    }
+
+    .mainTitle {
+        font-size: 34px;
+    }
+
+    .twoCol {
+        grid-template-columns: 1fr 300px;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 900px) {
+    .inner {
+        padding: 0 32px;
+    }
+
+    .twoCol {
+        grid-template-columns: 1fr;
+    }
+
+    .rightCol {
+        position: relative;
+        top: auto;
+    }
+
+    .mainTitle {
+        font-size: 28px;
+    }
+
+    .heading {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section {
+        padding: 40px 0 60px;
+    }
+
+    .inner {
+        padding: 0 20px;
+        gap: 32px;
+    }
+
+    .mainTitle {
+        font-size: 24px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+
+    .paragraph {
+        font-size: 14px;
+    }
+}

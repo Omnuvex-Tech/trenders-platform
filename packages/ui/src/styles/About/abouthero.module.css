@@ -1,0 +1,154 @@
+.section {
+    width: 100%;
+    padding: 60px 0 0;
+}
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+/* Böyük şəkil */
+.heroWrap {
+width: 1240px;
+height: 475px;
+border-radius: 32px;
+ overflow: hidden;
+}
+
+.heroImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Aşağı 2 sütun */
+.content {
+    display: grid;
+    grid-template-columns: 0.45fr 1fr;
+    padding-left: 214px;
+}
+
+/* Sol */
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 16px;
+    background: linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
+    color: #fff;
+    width: fit-content;
+font-family: 'Poppins';
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+width: 118px;
+height: 34px;
+border-radius: 36px;
+
+}
+
+.title {
+font-family: 'Poppins';
+font-weight: 500;
+font-size: 28px;
+    color: rgba(1, 72, 194, 1);
+    text-transform: uppercase;
+
+}
+
+/* Sağ */
+.right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 4px;
+}
+
+.paragraph {
+font-family: 'Poppins';
+font-weight: 400;
+font-size: 16px;
+line-height: 144%;
+    color: rgba(36, 36, 36, 1);
+}
+
+.paragraph strong {
+    font-weight: 700;
+    color: rgba(30, 30, 30, 1);
+}
+
+@media (max-width: 1100px) {
+    .inner {
+        padding: 0 48px;
+        gap: 40px;
+    }
+
+    .content {
+        padding-left: 24px;
+        gap: 32px;
+    }
+
+    .heroImg {
+        height: 380px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 900px) {
+    .inner {
+        padding: 0 32px;
+        gap: 32px;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+        padding-left: 0;
+        gap: 24px;
+    }
+
+    .heroImg {
+        height: 300px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section {
+        padding: 40px 0 60px;
+    }
+
+    .inner {
+        padding: 0 20px;
+        gap: 24px;
+    }
+
+    .heroImg {
+        height: 220px;
+        border-radius: 20px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .paragraph {
+        font-size: 14px;
+    }
+}

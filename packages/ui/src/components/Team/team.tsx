@@ -35,11 +35,28 @@ export function TeamUI({ title, members, featuredImage }: TeamUIProps) {
     const trackRef = useRef<HTMLDivElement | null>(null);
     const initialized = useRef(false);
 
+    // const cardW = useCallback(() => {
+    //     const track = trackRef.current;
+    //     if (!track || !track.children[0]) return 312;
+    //     return (track.children[0] as HTMLElement).offsetWidth + 20;
+    // }, []);
+
+
+
     const cardW = useCallback(() => {
-        const track = trackRef.current;
-        if (!track || !track.children[0]) return 312;
-        return (track.children[0] as HTMLElement).offsetWidth + 20;
-    }, []);
+    if (typeof window !== "undefined") {
+        if (window.innerWidth <= 400) {
+            return window.innerWidth - 28 + 12;
+        }
+        if (window.innerWidth <= 600) {
+            return window.innerWidth - 40 + 12;
+        }
+    }
+    const track = trackRef.current;
+    if (!track || !track.children[0]) return 312;
+    return (track.children[0] as HTMLElement).offsetWidth + 20;
+}, []);
+
 
     const slide = useCallback((dir: "left" | "right") => {
         if (sliding) return;

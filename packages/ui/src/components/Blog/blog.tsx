@@ -21,7 +21,7 @@ export interface BlogUIProps {
     posts: BlogPost[];
 }
 
-export function BlogUI({ title, allPostsLabel, allPostsHref = "#", posts }: BlogUIProps) {
+export function BlogUI({ title, allPostsLabel, allPostsHref = "#", posts,  }: BlogUIProps) {
     return (
         <section className={styles.section}>
             <div className={styles.blogDivider}></div>

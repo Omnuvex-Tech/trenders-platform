@@ -115,7 +115,6 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-
 /* Poppins */
 @font-face {
     font-family: 'Poppins';
@@ -124,6 +123,16 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 
 @font-face {
     font-family: 'Poppins';
@@ -144,8 +153,16 @@
 
 @font-face {
     font-family: 'Inter';
-    src: url('/fonts/Inter/Inter-SemiBold.ttf') format('truetype');
+    src: url('/fonts/Inter/Inter_18pt-SemiBold.ttf') format('truetype');
     font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter/Inter_18pt-Bold.ttf') format('truetype');
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
@@ -159,7 +176,7 @@
 }
 
 @font-face {
-    font-family: 'Inter';
+    font-family: 'Manrope';
     src: url('/fonts/Inter/Manrope-Regular.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
@@ -167,8 +184,25 @@
 }
 
 @font-face {
-    font-family: 'Inter';
+    font-family: 'Manrope';
     src: url('/fonts/Inter/Manrope-Medium.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('/fonts/Inter/Manrope-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: 'Sora';
+    src: url('/fonts/Sora/Sora-Bold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;

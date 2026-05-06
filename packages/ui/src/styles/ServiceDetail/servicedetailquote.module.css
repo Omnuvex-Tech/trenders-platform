@@ -1,0 +1,301 @@
+.section {
+    width: 100%;
+    padding: 60px 0;
+}
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+    padding-left: 10%;
+}
+
+.number {
+    color: rgba(70, 70, 70, 0.15);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    width: 269px;
+    font-family: 'Poppins';
+    font-weight: 250;
+
+
+
+    font-size: 220px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    padding-top: 33px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 16px;
+    background: linear-gradient(134.09deg, #89B5FF -1.29%, #1360E4 109.15%);
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    width: 105px;
+    height: 34px;
+    border-radius: 36px;
+}
+
+.title {
+    color: rgba(1, 72, 194, 1);
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 54px;
+    line-height: 104%;
+    letter-spacing: 0%;
+    margin: 0;
+}
+
+.desc {
+    color: rgba(70, 70, 70, 1);
+    margin: 0;
+    text-align: justify;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0%;
+}
+
+/* Aşağı quote bloku */
+.quoteBlock {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 400px;
+}
+
+/* Sol şəkil */
+.imgWrap {
+    width: 100%;
+    max-width: 832px;
+    height: 475px;
+    border-radius: 42.27px;
+    overflow: hidden;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.quoteTextWrap {
+    position: absolute;
+    right: 22px;
+    width: 67%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    top: 48%;
+}
+
+.quoteText {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size: 42px;
+    line-height: 126%;
+    text-align: right;
+    color: rgba(150, 150, 150, 1);
+    flex: 1;
+    z-index: 2;
+    position: relative;
+}
+
+.quoteText strong {
+
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 42px;
+    color: rgba(40, 40, 40, 1);
+}
+
+/* Sağdakı böyük dırnaq */
+.quoteMark {
+    color: #96969633;
+    align-self: flex-end;
+    margin-left: -60px;
+    font-family: Poppins;
+    font-size: 383.6px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 77%;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ================== 1200px ================== */
+@media (max-width: 1200px) {
+    .inner {
+        padding: 0 60px;
+    }
+
+    .title {
+        font-size: 42px;
+    }
+
+    .quoteText,
+    .quoteText strong {
+        font-size: 32px;
+    }
+}
+
+/* ================== 992px ================== */
+@media (max-width: 992px) {
+    .inner {
+        padding: 0 40px;
+    }
+
+    .row {
+        flex-direction: column;
+        padding-left: 0;
+        gap: 12px;
+    }
+
+    .number {
+        font-size: 120px;
+    }
+
+    .content {
+        padding-top: 0;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+
+    .desc {
+        font-size: 16px;
+    }
+
+    .imgWrap {
+        height: 360px;
+    }
+}
+
+/* ================== 768px ================== */
+@media (max-width: 768px) {
+    .inner {
+        padding: 0 24px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .desc {
+        font-size: 15px;
+        text-align: left;
+    }
+
+    .number {
+        font-size: 80px;
+    }
+
+    /* 🔥 QUOTE FIX */
+    .quoteBlock {
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: auto;
+        gap: 20px;
+    }
+
+    .quoteTextWrap {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .quoteText {
+        text-align: left;
+        font-size: 24px;
+    }
+
+    .quoteText strong {
+        font-size: 24px;
+    }
+
+    .quoteMark {
+        position: absolute;
+        right: 0;
+        top: -20px;
+        font-size: 120px;
+        margin-left: 0;
+    }
+
+    .imgWrap {
+        height: 260px;
+    }
+}
+
+/* ================== 480px ================== */
+@media (max-width: 480px) {
+    .inner {
+        padding: 0 16px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .desc {
+        font-size: 14px;
+    }
+
+    .number {
+        font-size: 60px;
+    }
+
+    .badge {
+        font-size: 12px;
+        height: 28px;
+        width: auto;
+    }
+
+    .quoteText {
+        font-size: 18px;
+    }
+
+    .quoteText strong {
+        font-size: 18px;
+    }
+
+    .quoteMark {
+        font-size: 80px;
+    }
+
+    .imgWrap {
+        height: 200px;
+        border-radius: 24px;
+    }
+}
