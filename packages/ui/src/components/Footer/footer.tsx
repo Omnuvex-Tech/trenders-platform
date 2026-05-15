@@ -1,3 +1,4 @@
+
 "use client";
 
 import styles from "../../styles/Footer/footer.module.css";
@@ -7,46 +8,50 @@ export interface FooterLink {
     href: string;
 }
 
+export interface FooterContactItem {
+    label: string;
+    value: string;
+    href?: string;
+}
+
 export interface FooterUIProps {
     logoSrc: string;
+    description: string;
     navLinks: FooterLink[];
     socialLinks: FooterLink[];
+    contactItems: FooterContactItem[];
     copyrightYear: number;
     copyrightName: string;
+    privacyLabel?: string;
+    privacyHref?: string;
 }
 
 export function FooterUI({
     logoSrc,
+    description,
     navLinks,
     socialLinks,
+    contactItems,
     copyrightYear,
     copyrightName,
+    privacyLabel = "Məxfilik siyasəti | Bütün hüquqlar qorunur",
+    privacyHref = "#",
 }: FooterUIProps) {
     return (
         <footer className={styles.footer}>
             <div className={styles.inner}>
-                {/* Sol tərəf — logo + sosial ikonlar */}
                 <div className={styles.left}>
-                    <img
-                        src={logoSrc}
-                        alt={copyrightName}
-                        className={styles.logo}
-                    />
+                    <img src={logoSrc} alt={copyrightName} className={styles.logo} />
+                    <p className={styles.description}>{description}</p>
                     <div className={styles.socials}>
                         {socialLinks.map(link => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                className={styles.socialBtn}
-                                aria-label={link.label}
-                            >
+                            <a key={link.label} href={link.href} className={styles.socialBtn} aria-label={link.label}>
                                 {getSocialIcon(link.label)}
                             </a>
                         ))}
                     </div>
                 </div>
 
-                {/* Sağ tərəf — nav linklər + sosial adlar */}
                 <div className={styles.right}>
                     <div className={styles.navLinks}>
                         {navLinks.map(link => (
@@ -55,20 +60,33 @@ export function FooterUI({
                             </a>
                         ))}
                     </div>
-                    <div className={styles.socialNames}>
-                        {socialLinks.map(link => (
-                            <a key={link.label} href={link.href} className={styles.socialName}>
-                                {link.label}
-                            </a>
+
+                    <div className={styles.contactCol}>
+                        {contactItems.map(item => (
+                            <div key={item.label} className={styles.contactItem}>
+                                <p className={styles.contactLabel}>{item.label}</p>
+                                {item.href ? (
+                                    <a href={item.href} className={styles.contactValue}>
+                                        {item.value}
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                            <polyline points="12 5 19 12 12 19" />
+                                        </svg>
+                                    </a>
+                                ) : (
+                                    <p className={styles.contactValue}>{item.value}</p>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
             </div>
 
-            {/* Alt xətt */}
             <div className={styles.divider} />
             <div className={styles.bottom}>
                 <p className={styles.copyright}>© {copyrightYear} {copyrightName}</p>
+                <a href={privacyHref} className={styles.privacy}>{privacyLabel}</a>
             </div>
         </footer>
     );

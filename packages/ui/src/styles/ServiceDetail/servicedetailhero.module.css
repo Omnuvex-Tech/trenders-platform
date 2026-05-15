@@ -41,27 +41,22 @@
 .overlay {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    padding: 28px 9px 32px;
+    padding: 65px 9px 32px;
     border-radius: 0 16px 16px 0;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 8px;
 }
 
 .badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 16px;
-    border-radius: 36px;
-    width: 96px;
-    height: 34px;
-    background:
-        linear-gradient(134.09deg, #89B5FF -1.29%, #1360E4 109.15%);
-    color: rgba(255, 255, 255, 1);
+    display: block;
+    text-transform: uppercase;
+    color: rgba(154, 154, 154, 1);
     font-family: 'Poppins';
     font-weight: 500;
-    font-size: 14px;
-
+    font-size: 16px;
+    line-height: 18px;
+    text-transform: uppercase;
 }
 
 .title {
@@ -206,8 +201,6 @@
     position: relative;
 }
 
-
-/* Bottom şəkil */
 .bottomWrap {
     width: 100%;
     max-width: 1240px;
@@ -226,84 +219,102 @@
 
 
 
-
-
-
-
-
-/* ================== 1200px ================== */
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
     .inner {
         padding: 0 60px;
     }
 
+    .heroWrap {
+        height: 620px;
+        --overlap: 220px;
+    }
+
     .overlayWrap {
-        width: 75%;
+        width: 68%;
     }
 
     .title {
-        font-size: 42px;
+        font-size: 46px;
     }
 
     .quoteText {
-        font-size: 32px;
+        font-size: 36px;
+    }
+
+    .bottomWrap {
+        height: 420px;
     }
 }
 
-/* ================== 992px ================== */
-@media (max-width: 992px) {
+@media (max-width: 1100px) {
     .inner {
-        padding: 0 40px;
+        padding: 0 48px;
     }
 
     .heroWrap {
         height: 560px;
+        --overlap: 180px;
     }
 
     .overlayWrap {
-        width: 85%;
+        width: 78%;
     }
 
     .title {
-        font-size: 36px;
+        font-size: 38px;
     }
 
     .desc {
         font-size: 16px;
     }
 
-    .heroStatCards {
-        flex-wrap: wrap;
-        gap: 16px;
+    .heroStatCard {
+        width: 148px;
+        height: 80px;
+        padding: 12px 14px;
+    }
+
+    .heroStatValue {
+        font-size: 22px;
+    }
+
+    .heroStatLabel {
+        font-size: 13px;
+    }
+
+    .quoteText {
+        font-size: 30px;
     }
 
     .bottomWrap {
-        width: 100%;
-        height: 360px;
+        height: 380px;
     }
 }
 
-/* ================== 768px (tablet) ================== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .inner {
-        padding: 0 24px;
+        padding: 0 32px;
+        gap: 0;
     }
 
     .heroWrap {
-        height: 420px;
-        --overlap: 120px;
+        height: 460px;
+        --overlap: 140px;
+        border-radius: 28px;
     }
 
     .overlayWrap {
-        width: 100%;
+        width: 90%;
     }
 
     .overlay {
+        padding: 48px 16px 28px;
         border-radius: 16px;
+        gap: 10px;
     }
 
     .title {
-        font-size: 28px;
+        font-size: 32px;
     }
 
     .desc {
@@ -311,81 +322,267 @@
         text-align: left;
     }
 
-    .heroStatsRow {
-        flex-direction: column;
-        align-items: flex-start;
+    .heroStatCards {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .heroStatCard {
+        width: calc(50% - 6px);
+        height: auto;
+        padding: 12px 14px;
+    }
+
+    .heroStatValue {
+        font-size: 20px;
+    }
+
+    .heroStatLabel {
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .quoteWrap {
+        margin-top: 48px;
+    }
+
+    .quoteIcon {
+        font-size: 200px;
+        height: 140px;
+        transform: translateY(-30%);
+    }
+
+    .quoteText {
+        font-size: 26px;
+    }
+
+    .bottomWrap {
+        width: 100%;
+        height: 320px;
+        border-radius: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .inner {
+        padding: 0 24px;
+    }
+
+    .quoteIcon {
+        display: none;
+    }
+
+    .heroWrap {
+        height: 380px;
+        --overlap: 100px;
+        border-radius: 24px;
+    }
+
+    .overlayWrap {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .overlay {
+        border-radius: 12px;
+        padding: 40px 14px 24px;
+        gap: 8px;
+    }
+
+    .badge {
+        font-size: 13px;
+    }
+
+    .title {
+        font-size: 26px;
+    }
+
+    .desc {
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .heroStatsWrap {
+        padding-top: 20px;
     }
 
     .heroStatCards {
+        flex-wrap: wrap;
+        gap: 10px;
         width: 100%;
-        justify-content: space-between;
+    }
+
+    .heroStatCard {
+        width: calc(50% - 5px);
+        height: auto;
+        padding: 10px 12px;
+    }
+
+    .heroStatValue {
+        font-size: 18px;
+    }
+
+    .heroStatLabel {
+        font-size: 11px;
+        margin-top: 2px;
+    }
+
+    .heroStatIcon {
+        min-width: 28px;
+        min-height: 28px;
     }
 
     .quoteWrap {
         flex-direction: column;
-        margin-top: 40px;
+        margin-top: 36px;
     }
 
     .quoteIcon {
-        font-size: 120px;
+        font-size: 100px;
         height: auto;
         transform: none;
+        line-height: 0.7;
     }
 
     .quoteText {
-        font-size: 24px;
+        font-size: 20px;
+        line-height: 1.4;
     }
 
     .bottomWrap {
-        height: 260px;
+        height: 240px;
+        border-radius: 20px;
     }
 }
 
-/* ================== 480px (mobile) ================== */
 @media (max-width: 480px) {
+    .section {
+        padding: 40px 0;
+    }
+
     .inner {
         padding: 0 16px;
     }
 
     .heroWrap {
-        height: 320px;
-        border-radius: 24px;
+        height: 280px;
+        --overlap: 80px;
+        border-radius: 20px;
     }
 
     .overlay {
-        padding: 20px;
+        padding: 32px 12px 1px;
+        gap: 8px;
     }
 
     .badge {
-        font-size: 12px;
-        height: 28px;
-        width: auto;
+        font-size: 11px;
     }
 
     .title {
-        font-size: 22px;
+        font-size: 20px;
+        line-height: 1.2;
     }
 
     .desc {
-        font-size: 14px;
+        font-size: 13px;
+        line-height: 1.6;
     }
 
-    .heroStatCard {
-        width: 100%;
-        height: auto;
+    .heroStatsWrap {
+        padding-top: 16px;
     }
 
     .heroStatCards {
-        flex-direction: column;
-        gap: 12px;
+        gap: 8px;
     }
 
-    .quoteText {
+    .heroStatCard {
+        width: calc(50% - 4px);
+        padding: 12px 14px;
+        gap: 10px;
+        height: auto;
+        min-height: 70px;
+    }
+
+    .heroStatIcon {
+        min-width: 32px;
+        min-height: 32px;
+        flex-shrink: 0;
+    }
+
+    .heroStatValue {
         font-size: 18px;
     }
 
+    .quoteIcon {
+        display: none;
+    }
+
+    .heroStatLabel {
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    .heroStatCard::before {
+        background: linear-gradient(115.2deg, rgba(125, 177, 255, 0.4) 0.81%, rgba(0, 56, 159, 0.4) 110.18%);
+    }
+
+    .quoteWrap {
+        margin-top: 28px;
+        margin-bottom: 12px;
+    }
+
+    .quoteText {
+        font-size: 16px;
+        line-height: 1.45;
+    }
+
     .bottomWrap {
-        height: 200px;
-        border-radius: 24px;
+        height: 190px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .inner {
+        padding: 0 12px;
+    }
+
+    .heroWrap {
+        height: 240px;
+        --overlap: 60px;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .desc {
+        font-size: 12px;
+    }
+
+    .heroStatCard {
+        padding: 8px;
+    }
+
+    .heroStatValue {
+        font-size: 14px;
+    }
+
+    .heroStatLabel {
+        font-size: 9px;
+    }
+
+    .quoteText {
+        font-size: 14px;
+    }
+
+    .quoteIcon {
+        display: none;
+    }
+
+    .bottomWrap {
+        height: 160px;
     }
 }

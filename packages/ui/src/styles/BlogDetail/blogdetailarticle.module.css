@@ -27,7 +27,7 @@
 .mainTitle {
     font-family: 'Poppins';
     font-weight: 500;
-    font-size: 50px;
+    font-size: 29px;
     line-height: 118%;
     color: rgba(1, 72, 194, 1);
 }
@@ -51,7 +51,7 @@
 
 .twoCol {
     display: grid;
-grid-template-columns: 1fr 292px;
+    grid-template-columns: 1fr 292px;
     gap: 48px;
     align-items: start;
 }
@@ -75,7 +75,6 @@ grid-template-columns: 1fr 292px;
     display: block;
 }
 
-/* Hashtag seksiya */
 .hashBlock {
     display: flex;
     flex-direction: column;
@@ -83,13 +82,46 @@ grid-template-columns: 1fr 292px;
 }
 
 .hashTag {
+    display: block;
+    color: rgba(1, 72, 194, 1);
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 16px;
     line-height: 18px;
-    color: rgba(1, 72, 194, 1);
-
 }
+
+.hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+        max-width: 66%;
+}
+
+.hashtag {
+    color: rgba(131, 131, 131, 1);
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size: 13.31px;
+    line-height: 17.12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 1100px) {
     .inner {
@@ -127,16 +159,30 @@ grid-template-columns: 1fr 292px;
     .heading {
         font-size: 22px;
     }
+
+    .sideImg {
+        width: 400px;
+        height: 201px;
+    }
+
+    .block {
+        margin-bottom: 11px;
+    }
+
 }
 
 @media (max-width: 600px) {
     .section {
-        padding: 40px 0 60px;
+        padding: 18px 0 39px;
+    }
+
+
+    .block {
+        margin-bottom: 11px;
     }
 
     .inner {
         padding: 0 20px;
-        gap: 32px;
     }
 
     .mainTitle {
@@ -150,4 +196,5 @@ grid-template-columns: 1fr 292px;
     .paragraph {
         font-size: 14px;
     }
+    .hashtags{    max-width: 100%;}
 }

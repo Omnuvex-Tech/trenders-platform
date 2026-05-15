@@ -1,6 +1,6 @@
 .section {
     width: 100%;
-    padding: 80px 0;
+    padding: 45px 0;
 }
 
 .inner {
@@ -157,7 +157,7 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-     padding-top: 109px;
+    padding-top: 109px;
 }
 
 .numberWrap {
@@ -174,12 +174,14 @@
     flex-shrink: 0;
     font-family: 'Inter', sans-serif;
     letter-spacing: -0.02em;
-    width: 110px; /* sabit en - textContent həmişə eyni yerdən başlayır */
+    width: 110px;
+    /* sabit en - textContent həmişə eyni yerdən başlayır */
 }
 
 .textContent {
     flex: 1;
 }
+
 .title {
     color: rgba(19, 96, 228, 1);
     font-family: Poppins;
@@ -200,7 +202,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px 78px;
-        max-width: 44px;
+    max-width: 44px;
 }
 
 .bottomContent {
@@ -216,8 +218,8 @@
     gap: 8px;
     color: rgba(61, 61, 61, 1);
     font-family: Poppins;
-font-weight: 600;
-font-size: 15.22px;
+    font-weight: 600;
+    font-size: 15.22px;
 
 }
 
@@ -238,12 +240,12 @@ font-size: 15.22px;
     gap: 6px;
     padding: 10px 22px;
     border-radius: 50px;
-background:
-linear-gradient(134.09deg, #89B5FF -1.29%, #1360E4 109.15%);
+    background:
+        linear-gradient(134.09deg, #89B5FF -1.29%, #1360E4 109.15%);
     color: #fff;
-font-family: Poppins;
-font-weight: 400;
-font-size: 14px;
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 14px;
     text-decoration: none;
     transition: opacity 0.2s ease;
 }
@@ -257,22 +259,25 @@ font-size: 14px;
     align-items: center;
     gap: 6px;
     color: rgba(61, 61, 61, 1);
-font-family: Poppins;
-font-weight: 500;
-font-size: 12px;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 12px;
     letter-spacing: 0.04em;
     transition: color 0.2s ease;
-    border-bottom: 1px solid #1a1a1a; /* ← bunu əlavə et */
+    border-bottom: 1px solid #1a1a1a;
+    /* ← bunu əlavə et */
     padding-bottom: 2px;
 }
 
 .detailBtn:hover {
     color: #276DE4;
-    border-bottom-color: #276DE4; /* hover-da da rəng dəyişsin */
+    border-bottom-color: #276DE4;
+    /* hover-da da rəng dəyişsin */
 }
 
-
-
+.detailBtnMobile {
+    display: none;
+}
 
 @media (max-width: 1280px) {
     .inner {
@@ -303,6 +308,10 @@ font-size: 12px;
     .description {
         font-size: 15px;
     }
+
+    .imageWrap {
+        height: 420px;
+    }
 }
 
 @media (max-width: 1100px) {
@@ -311,24 +320,29 @@ font-size: 12px;
     }
 
     .serviceRow {
-        gap: 40px;
+        gap: 32px;
     }
 
     .number {
-        font-size: 56px;
-        width: 70px;
+        font-size: 64px;
+        width: 76px;
     }
 
     .bottomContent {
-        padding-left: 86px;
+        padding-left: 92px;
     }
 
     .title {
-        font-size: 26px;
+        font-size: 24px;
     }
 
     .content {
-        padding-top: 60px;
+        padding-top: 40px;
+        gap: 24px;
+    }
+
+    .imageWrap {
+        height: 380px;
     }
 
     .imageDesc {
@@ -336,26 +350,40 @@ font-size: 12px;
     }
 
     .badge {
-        font-size: 17px;
+        font-size: 16px;
     }
 }
 
 @media (max-width: 900px) {
     .section {
-        padding: 60px 0;
+        padding: 56px 0;
+    }
+
+    .detailBtnDesktop {
+        display: none;
+    }
+
+    .detailBtnMobile {
+        display: inline-flex;
     }
 
     .inner {
         padding: 0 32px;
     }
 
+    .pageTitle {
+        font-size: 32px;
+        margin-bottom: 28px;
+    }
+
     .servicesList {
-        gap: 60px;
+        gap: 56px;
     }
 
     .serviceRow {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 34px;
+        direction: ltr;
     }
 
     .serviceRowReverse {
@@ -367,13 +395,14 @@ font-size: 12px;
     }
 
     .imageWrap {
-        max-width: 100%;
-        height: 360px;
+        width: 100%;
+        height: 340px;
+        border-radius: 16px;
     }
 
     .content {
         padding-top: 0;
-        gap: 24px;
+        gap: 20px;
     }
 
     .number {
@@ -383,7 +412,7 @@ font-size: 12px;
 
     .bottomContent {
         padding-left: 0;
-        gap: 24px;
+        gap: 20px;
     }
 
     .title {
@@ -392,16 +421,27 @@ font-size: 12px;
 
     .description {
         max-width: 100%;
+        font-size: 15px;
     }
 
     .items {
-        gap: 10px 40px;
+           grid-template-columns: 1fr 1fr;
+        gap: 8px 92px;
+        padding-left: 47px;
     }
 }
 
 @media (max-width: 600px) {
     .section {
-        padding: 48px 0;
+        padding: 40px 0;
+    }
+
+    .detailBtnDesktop {
+        display: none;
+    }
+
+    .detailBtnMobile {
+        display: inline-flex;
     }
 
     .inner {
@@ -409,71 +449,79 @@ font-size: 12px;
     }
 
     .pageTitle {
-        font-size: 28px;
-        margin-bottom: 24px;
+        font-size: 26px;
+        margin-bottom: 20px;
     }
 
     .servicesList {
-        gap: 48px;
+        gap: 40px;
     }
 
     .imageWrap {
-        height: 260px;
+        height: 240px;
         border-radius: 14px;
     }
 
     .imageOverlay {
-        padding: 16px 20px 20px;
+        padding: 14px 16px 18px;
         gap: 8px;
     }
 
     .badge {
-        font-size: 15px;
-        padding: 5px 14px;
+        font-size: 13px;
+        padding: 5px 12px;
     }
 
     .imageDesc {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .numberWrap {
-        gap: 12px;
+        gap: 10px;
     }
 
     .number {
-        font-size: 56px;
+        font-size: 48px;
     }
 
     .title {
-        font-size: 22px;
+        font-size: 20px;
+        line-height: 1.2;
     }
 
     .description {
         font-size: 14px;
+        line-height: 1.6;
     }
 
     .items {
-        grid-template-columns: 1fr;
-        gap: 10px;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 92px;
+        padding-left: 47px;
     }
 
     .item {
-        font-size: 14px;
+        font-size: 13px;
     }
 
+
     .actions {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 14px;
+        justify-content: flex-end;
+        gap: 18px;
     }
 
     .portfolioBtn {
         font-size: 13px;
-        padding: 9px 18px;
+        padding: 6px 16px;
     }
 
     .detailBtn {
         font-size: 11px;
+    }
+
+    .bottomContent {
+        padding-left: 0;
+        gap: 18px;
     }
 }
 
@@ -483,22 +531,26 @@ font-size: 12px;
     }
 
     .pageTitle {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .imageWrap {
-        height: 220px;
+        height: 200px;
     }
 
     .number {
-        font-size: 44px;
+        font-size: 38px;
     }
 
     .title {
-        font-size: 19px;
+        font-size: 18px;
     }
 
     .description {
         font-size: 13px;
+    }
+
+    .item {
+        font-size: 12px;
     }
 }

@@ -1,6 +1,6 @@
 .section {
     width: 100%;
-    padding: 80px 0;
+    padding: 35px 0 60px;
 }
 
 .testimonialsDivider {
@@ -55,13 +55,14 @@
     display: flex;
     gap: 8px;
     margin-top: 8px;
+    
 }
 
 .arrowBtn {
     width: 41px;
     height: 40px;
     border-radius: 50%;
-    border: 1.5px solid #d0d8f0;
+    border: 1.5px solid rgba(87, 149, 255, 1);
     background: #fff;
     color: #7a8aac;
     display: flex;
@@ -72,14 +73,16 @@
 }
 
 .arrowBtn:hover {
-    background: linear-gradient(93.6deg, #6080FF -24.77%, rgba(202, 221, 255, 0.2) 191.06%);
+    background:
+linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
+
     border: 1.22px solid rgba(0, 51, 255, 0.44);
     color: #fff;
 }
 
 .arrowBtnActive {
     background: #fff;
-    border: 1.5px solid #d0d8f0;
+    border: 1.5px solid rgba(87, 149, 255, 1);
     color: #7a8aac;
 }
 
@@ -349,139 +352,170 @@
 }
 
 @media (max-width: 900px) {
-    .section {
-        padding: 60px 0;
-    }
+  .section {
+    padding: 56px 0;
+  }
 
-    .testimonialsDivider {
-        margin-left: 32px;
-        margin-right: 32px;
-        margin-bottom: 48px;
-    }
+  .testimonialsDivider {
+    margin-left: 32px;
+    margin-right: 32px;
+    margin-bottom: 40px;
+  }
 
-    .inner {
-        padding: 0 32px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 32px;
-    }
+  .inner {
+    padding: 0 32px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
 
-    .left {
-        width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-end;
-        gap: 16px;
-    }
+  /* Sol blok: başlıq tam en, description + oxlar yan-yana */
+  .left {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 
-    .title {
-        font-size: 32px;
-        flex: 1 1 100%;
-    }
+  .title {
+    font-size: 34px;
+    flex: unset;
+    width: 100%;
+  }
 
-    .description {
-        flex: 1 1 60%;
-        max-width: 100%;
-    }
+  .description {
+    font-size: 14px;
+    max-width: 580px;
+    flex: unset;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
-    .arrows {
-        margin-top: 0;
-        flex: 0 0 auto;
-    }
+  .arrows {
+    margin-top: 4px;
+    flex: 0 0 auto;
+  }
 
-    .cards {
-        width: 100%;
-    }
+  /* Kartlar — tablet üçün rahat en */
+  .cards {
+    width: 100%;
+  }
 
-    .card {
-        width: 300px;
-        min-height: 420px;
-    }
+  .card {
+    width: 420px;        /* ← 300→420, tablet üçün rahat */
+    min-height: 400px;
+    padding: 24px 22px 32px;
+  }
 
-    .quote {
-        font-size: 24px;
-    }
+  .quote {
+    font-size: 26px;
+  }
+
+  .company {
+    font-size: 18px;
+  }
+
+  .name {
+    font-size: 17px;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
 }
-
 
 @media (max-width: 600px) {
-    .section {
-        padding: 48px 0;
-    }
+  .section {
+    padding: 30px 0px 40px;
+  }
 
-    .testimonialsDivider {
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-bottom: 36px;
-    }
+  .inner {
+    padding: 0 20px;
+    gap: 20px;
+  }
 
-    .inner {
-        padding: 0 20px;
-        gap: 24px;
-    }
+  /* Sol blok: sıra ilə düz, oxlar aşağıda */
+  .left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
 
-    .title {
-        font-size: 26px;
-    }
+  .title {
+    font-size: 28px;
+    flex: unset;
+  }
 
-    .description {
-        font-size: 13px;
-    }
+  .description {
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 100%;
+    /* 3 sətirdən artığını gizlə */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 
-    .cards {
-        width: 100%;
-    }
+  .arrows {
+    margin-top: 4px;
+  }
 
-    .card {
-        width: calc(100vw - 40px);
-        /* inner padding 20px * 2 */
-        min-height: 380px;
-        padding: 18px 16px 24px;
-        border-radius: 20px;
-        flex-shrink: 0;
-    }
+  /* Kart ölçüləri */
+  .card {
+    width: calc(100vw - 40px);
+    min-height: unset;          /* ← hündürlüyü məzmun qoy idarə etsin */
+    padding: 20px 18px 24px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
 
-    .cardsTrack {
-        gap: 12px;
-    }
+  .cardsTrack {
+    gap: 12px;
+  }
 
-    .cardExpanded {
-        min-height: 560px;
-    }
+  .cardExpanded {
+    min-height: unset;
+  }
 
-    .company {
-        font-size: 16px;
-        margin-bottom: 16px;
-    }
+  .company {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
 
-    .quoteIcon {
-        font-size: 100px;
-        height: 55px;
-    }
+  .quoteIcon {
+    font-size: 72px;
+    height: 40px;
+  }
 
-    .quote {
-        font-size: 20px;
-    }
+  .quote {
+    font-size: 18px;    
+    line-height: 1.45;
+    margin-bottom: 20px;
+  }
 
-    .avatar {
-        width: 52px;
-        height: 50px;
-    }
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
 
-    .name {
-        font-size: 15px;
-    }
+  .name {
+    font-size: 14px;
+  }
 
-    .role {
-        font-size: 11px;
-    }
+  .role {
+    font-size: 11px;
+  }
 
-    .arrowBtn {
-        width: 36px;
-        height: 36px;
-    }
+  .arrowBtn {
+    width: 36px;
+    height: 36px;
+  }
 }
-
 
 @media (max-width: 400px) {
     .inner {

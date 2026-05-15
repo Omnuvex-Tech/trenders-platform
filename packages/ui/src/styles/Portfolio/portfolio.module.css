@@ -2,7 +2,6 @@
   padding: 37px 100px;
   width: 100%;
   box-sizing: border-box;
-  padding-bottom: 120px;
 }
 
 .projectsHeader {
@@ -140,102 +139,84 @@
 }
 
 
-
 .controls {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
-
-.searchWrap {
+.dropdownWrap {
   position: relative;
-  display: flex;
+  overflow: visible;
+}
+
+.dropdownBtn {
+  display: inline-flex;
   align-items: center;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 16px;
-  color: #555;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.filterBtn {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  font-size: 15px;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  color: #1a1a1a;
-  background: none;
-  border: none;
-  border-bottom: 1.5px solid #1a1a1a;
-  cursor: pointer;
-  padding: 10px 4px;
-  padding-bottom: 4px;
-}
-
-
-.searchInput {
-  padding: 10px 44px 10px 22px;
+  gap: 6px;
+  padding: 8px 18px;
   border-radius: 50px;
-  border: 1.5px solid #89B5FF;
-  outline: none;
-  width: 120px;
-  font-family: Poppins;
+  border: 1px solid rgba(19, 96, 228, 1);
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 14px;
-  color: rgba(85, 85, 85, 1);
-  background: #fff;
-}
-
-.searchInput:focus {
-  border-color: #1360E4;
-}
-
-
-.filterWrap {
+  color: rgba(40, 40, 40, 1);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s ease;
   position: relative;
+  z-index: 11;
 }
 
-.filterDropdown {
+.dropdownBtn:hover,
+.dropdownBtnOpen {
+  border-color: rgba(1, 72, 194, 0.5);
+}
+
+.dropdownList {
   position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  overflow: hidden;
-  min-width: 130px;
+  top: 60%;
   z-index: 10;
+  padding-top: 21px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(19, 96, 228, 0.4);
+  border-top: none;
+  box-shadow: 0 8px 24px rgba(19, 96, 228, 0.08);
+  width: 100%;
+  min-width: 154px;
+  border-bottom-right-radius: 22px;
+  border-bottom-left-radius: 22px;
 }
 
-.filterOption {
+.dropdownOption {
   display: block;
   width: 100%;
-  padding: 12px 20px;
-  color: rgba(61, 61, 61, 1);
-  background: none;
+  padding: 10px 18px;
+  background: transparent;
   border: none;
+  border-bottom: 1px solid rgba(19, 96, 228, 0.1);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(60, 60, 60, 1);
   cursor: pointer;
-  text-align: left;
   transition: background 0.15s ease;
-  font-family: Poppins;
+}
+
+.dropdownOption:last-child {
+  border-bottom: none;
+}
+
+.dropdownOption:hover {
+  background: rgba(19, 96, 228, 0.05);
+}
+
+.dropdownOptionActive {
+  color: rgba(1, 72, 194, 1);
   font-weight: 500;
-  font-size: 16px;
-
-}
-
-.filterOption:hover {
-  background: #f5f5f5;
-}
-
-.filterOption.active {
-  color: #276DE4;
-  font-weight: 600;
 }
 
 
@@ -246,37 +227,156 @@
 
 
 
+
+@media (max-width: 1280px) {
+  .projects {
+    padding: 37px 60px;
+  }
+
+  .projectsTitle {
+    font-size: 38px;
+  }
+
+  .projectCard {
+    height: 500px;
+  }
+}
 
 @media (max-width: 1100px) {
   .projects {
-    padding: 60px 48px;
+    padding: 37px 48px;
+  }
+
+  .projectsTitle {
+    font-size: 34px;
+  }
+
+  .projectsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .projectCard {
+    height: 440px;
   }
 }
 
 @media (max-width: 900px) {
+  .dropdownList {
+    background: #ffffffe9;
+  }
+
   .projects {
-    padding: 48px 32px;
+    padding: 32px 32px;
+  }
+
+  .projectsHeader {
+    margin-bottom: 36px;
+  }
+
+  .projectsTitle {
+    font-size: 30px;
   }
 
   .projectsGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .projectCard {
+    height: 380px;
+    border-radius: 20px;
+  }
+
+  .projectCardTitle {
+    font-size: 22px;
+  }
+
+  .projectTag {
+    font-size: 13px;
+    padding: 6px 16px;
   }
 }
 
 @media (max-width: 600px) {
   .projects {
-    padding: 40px 20px;
+    padding: 24px 20px;
+  }
+
+  .projectsHeader {
+    margin-bottom: 20px;
   }
 
   .projectsTitle {
     font-size: 24px;
   }
 
+  .projectsMoreBtn {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
   .projectsGrid {
     grid-template-columns: 1fr;
+    /* ← tək sütun */
+    gap: 14px;
+  }
+
+  .projectCard {
+    height: 300px;
+    /* ← kiçildi */
+    border-radius: 18px;
+  }
+
+  .projectCardContent {
+    bottom: 20px;
+    padding: 16px;
   }
 
   .projectCardTitle {
-    font-size: 17px;
+    font-size: 18px;
+  }
+
+  .projectTag {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+
+  /* Dropdown */
+  .dropdownBtn {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+
+  .dropdownList {
+    min-width: 130px;
+    background: #ffffffe9;
+  }
+
+  .dropdownOption {
+    font-size: 12px;
+    padding: 9px 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .projects {
+    padding: 20px 14px;
+  }
+
+  .projectsTitle {
+    font-size: 20px;
+  }
+
+  .projectCard {
+    height: 260px;
+    border-radius: 14px;
+  }
+
+  .projectCardTitle {
+    font-size: 16px;
+  }
+    .dropdownList {
+    background: #ffffffe9;
   }
 }

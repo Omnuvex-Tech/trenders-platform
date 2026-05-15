@@ -50,6 +50,7 @@
     flex-direction: column;
     gap: 10px;
 }
+
 .overlayBadge {
     display: inline-flex;
     align-items: center;
@@ -74,21 +75,20 @@
     inset: 0;
     border-radius: 36px;
     padding: 1px;
-    background: conic-gradient(
-        from 225deg,
-        rgba(255, 255, 255, 0.9) 0deg,
-        rgba(255, 255, 255, 0.1) 50deg,
-        rgba(255, 255, 255, 0.1) 180deg,
-        rgba(255, 255, 255, 0.9) 230deg,
-        rgba(255, 255, 255, 0.1) 280deg,
-        rgba(255, 255, 255, 0.1) 360deg
-    );
+    background: conic-gradient(from 225deg,
+            rgba(255, 255, 255, 0.9) 0deg,
+            rgba(255, 255, 255, 0.1) 50deg,
+            rgba(255, 255, 255, 0.1) 180deg,
+            rgba(255, 255, 255, 0.9) 230deg,
+            rgba(255, 255, 255, 0.1) 280deg,
+            rgba(255, 255, 255, 0.1) 360deg);
     -webkit-mask: linear-gradient(#fff 0 0) content-box,
-                  linear-gradient(#fff 0 0);
+        linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
 }
+
 .overlayTitle {
     font-family: 'Poppins';
     font-weight: 600;
@@ -101,36 +101,18 @@
 .content {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     padding: 40px 20px;
     justify-content: center;
 }
 
 .badge {
-    display: inline-flex;
-    justify-content: center;
-    padding: 4px 16px;
+    display: block;
+    color: rgba(154, 154, 154, 1);
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 20px;
-    color: rgba(80, 80, 80, 1);
-    position: relative;
-    width: 207px;
-    border-radius: 36px;
-}
-
-.badge::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50px;
-    padding: 1px;
-    background: linear-gradient(132.52deg, rgba(1, 72, 194, 0) -26.71%, rgba(1, 72, 194, 0.83) 143.92%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    line-height: 22px;
 }
 
 .title {
@@ -243,7 +225,7 @@
     .badge {
         font-size: 16px;
         width: auto;
-        padding: 4px 20px;
+        padding: 4px 2px;
     }
 
     .overlayTitle {
@@ -252,7 +234,7 @@
 
     .overlayBadge {
         font-size: 16px;
-        width: auto;
+        width: 100px;
         padding: 4px 16px;
         height: 36px;
     }
@@ -283,6 +265,15 @@
         height: 30px;
         width: auto;
         padding: 4px 12px;
+        background: #9b98983d;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .overlayBadge {
+        font-size: 13px;
+        height: 30px;
+        width: 87px;
+        padding: 4px 12px;
     }
 
     .overlayTitle {
@@ -298,7 +289,7 @@
     .badge {
         font-size: 14px;
         width: auto;
-        padding: 4px 16px;
+        padding: 4px 1px;
     }
 
     .title {
@@ -346,5 +337,13 @@
 
     .badge {
         font-size: 13px;
+    }
+
+    .overlayBadge {
+        font-size: 13px;
+        height: 30px;
+        width: 87px;        padding: 4px 12px;
+        background: #9b98983d;
+        border: 1px solid rgba(255, 255, 255, 0.6);
     }
 }

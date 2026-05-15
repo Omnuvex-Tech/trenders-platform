@@ -77,15 +77,18 @@
 .textBlock {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 13px;
 }
 
+
 .hashtag {
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    color: rgba(1, 72, 194, 1);
+    display: block;
+    color: rgba(154, 154, 154, 1);
+ font-family: 'Poppins';
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+text-transform: uppercase;
 }
 
 .title {

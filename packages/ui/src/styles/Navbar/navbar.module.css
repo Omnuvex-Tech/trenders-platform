@@ -134,8 +134,11 @@
 
 .mobileDrawerBackdrop {
   position: absolute;
-  inset: 0;
-  background: rgba(15, 15, 35, 0.35);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+    background: rgba(15, 15, 35, 0.35);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   opacity: 0;
@@ -279,7 +282,10 @@
 
 .searchOverlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 98;
   background: transparent;
   pointer-events: none;
@@ -393,8 +399,11 @@ font-size: 20px;
     display: none;
   }
 
-  .navbarRight {
+ .navbarRight {
+    position: static;
+    transform: none;
     gap: 16px;
+    margin-left: auto; 
   }
 
   .searchBtn {
@@ -431,3 +440,5 @@ font-size: 20px;
     font-size: 14px;
   }
 }
+
+

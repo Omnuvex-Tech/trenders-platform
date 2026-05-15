@@ -8,47 +8,52 @@
   padding: 0 100px;
 }
 
+/* ── Top ── */
+
 .top {
   display: flex;
   align-items: flex-start;
   gap: 24px;
   margin-bottom: 60px;
   padding-left: 55px;
+  position: relative;
 }
 
 .bigNumber {
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   font-weight: 250;
   font-size: 220px;
   line-height: 135%;
-  text-align: justify;
   color: rgba(70, 70, 70, 0.15);
+  flex-shrink: 0;
+}
+
+.topContent {
+  padding-top: 70px;
+  max-width: 840px;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 6px 18px;
-  border-radius: 50px;
-  background: linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%),
-    linear-gradient(134.09deg, #89B5FF -1.29%, #1360E4 109.15%);
-  color: rgba(255, 255, 255, 1);
-  font-family: Poppins;
-  font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 16px;
+  padding: 6px 4px;
+  color: rgba(154, 154, 154, 1);
+  font-family: 'Poppins';
+font-weight: 500;
+font-size: 16px;
+line-height: 18px;
+text-transform: uppercase;
+
 }
 
 .title {
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
   font-size: 34px;
   line-height: 124%;
-  letter-spacing: 0%;
   color: rgba(1, 72, 194, 1);
   margin: 0 0 24px;
   max-width: 520px;
-  /* ← əlavə et */
 }
 
 .descriptions {
@@ -58,21 +63,16 @@
 }
 
 .desc {
-  font-family: "Poppins";
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-style: Medium;
   font-size: 18px;
   text-align: justify;
   word-spacing: 3px;
   color: rgba(70, 70, 70, 1);
+  margin: 0;
 }
 
-
-.topContent {
-  padding-top: 70px;
-  max-width: 840px;
-
-}
+/* ── Grid ── */
 
 .grid {
   display: flex;
@@ -91,10 +91,8 @@
 
 .imgWrap {
   overflow: hidden;
-  width: 296;
-  height: 355;
+  height: 355px;
   border-radius: 14px;
-
 }
 
 .img {
@@ -105,17 +103,15 @@
   transition: transform 0.5s ease;
 }
 
-
 .numberBlock {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 16px;
   justify-content: flex-end;
+  gap: 16px;
 }
 
 .number {
-  font-family: "Poppins";
+  font-family: 'Poppins', sans-serif;
   font-weight: 300;
   font-size: 138.4px;
   color: #acacac;
@@ -124,39 +120,101 @@
 }
 
 .itemTitle {
-  font-family: "Poppins";
+  font-family: 'Poppins', sans-serif;
   font-weight: 500;
   font-size: 22.52px;
   line-height: 34px;
-  letter-spacing: 0%;
-
   color: rgba(98, 98, 98, 1);
+  margin: 0;
 }
 
-@media (max-width: 900px) {
-  .row {
-    grid-template-columns: 1fr 1fr;
-  }
+/* ── Responsive ── */
 
-  .empty {
-    display: none;
-  }
-
-  .numberBlock {
-    grid-column: span 2;
-  }
+@media (max-width: 1280px) {
+  .inner      { padding: 0 64px; }
+  .bigNumber  { font-size: 160px; }
+  .number     { font-size: 100px; }
+  .imgWrap    { height: 300px; }
 }
-
-@media (max-width: 600px) {
+ 
+@media (max-width: 1024px) {
+  .inner      { padding: 0 48px; }
+  .top        { padding-left: 0; gap: 16px; }
+  .bigNumber  { font-size: 120px; }
+  .topContent { padding-top: 40px; }
+  .title      { font-size: 28px; margin: 0 0 6px;}
+  .desc       { font-size: 16px; }
+  .number     { font-size: 80px; }
+  .itemTitle  { font-size: 18px; line-height: 1.5; }
+  .imgWrap    { height: 260px; }
+}
+ 
+@media (max-width: 768px) {
+  .inner { padding: 0 32px; }
+ 
+  .top {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-bottom: 33px;
+    padding-left: 0;
+  }
+ 
+  .bigNumber {
+    font-size: 80px;
+    line-height: 1;
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+ 
+  .topContent {
+    padding-top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+ 
+  .title   { font-size: 22px; max-width: 100%; margin: 0 0 6px;}
+  .desc    { font-size: 15px; }
+  .badge   { font-size: 14px; padding: 5px 0px; }
+ 
+  /* Grid: 1 sütun, hər şey üst-üstə */
   .row {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-
+ 
+  .empty { display: none; }
+ 
   .numberBlock {
-    grid-column: span 1;
-  }
-
-  .imgWrap {
-    height: 220px;
-  }
+    flex-direction: row;
+        grid-column: span 1;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 19px 2px 0
+        }
+ 
+  .number    { font-size: 48px; color: #c8c8c8; }
+  .itemTitle { font-size: 15px; line-height: 1.4; }
+  .imgWrap   { height: 240px; border-radius: 10px; }
+  .grid      { gap: 24px; }
+}
+ 
+@media (max-width: 480px) {
+  .inner     { padding: 0 20px; }
+  .bigNumber { font-size: 60px; }
+  .title     { font-size: 20px; margin: 0 0 6px; }
+  .desc      { font-size: 14px; }
+ 
+  .number    { font-size: 40px; }
+  .itemTitle { font-size: 14px; }
+  .imgWrap   { height: 210px; }
+}
+ 
+@media (max-width: 360px) {
+  .inner      { padding: 0 16px; }
+  .bigNumber  { font-size: 48px; }
+  .title      { font-size: 18px; margin: 0 0 6px; }
+  .number     { font-size: 34px; }
+  .imgWrap    { height: 180px; }
 }

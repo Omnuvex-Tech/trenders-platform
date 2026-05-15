@@ -16,7 +16,7 @@ export function ProjectsWrapper() {
   return (
     <ProjectsUI
       sectionTitle="Proyektlər"
-      moreBtnLabel="Daha ətraflı"
+      moreBtnLabel="Bütün layihələrə bax"
       moreBtnHref="#"
       projects={PROJECTS}
     />

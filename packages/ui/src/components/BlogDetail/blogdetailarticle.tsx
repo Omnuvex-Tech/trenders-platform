@@ -19,9 +19,10 @@ export interface BlogDetailArticleSection {
 export interface BlogDetailArticleUIProps {
     mainTitle: string;
     sections: BlogDetailArticleSection[];
+     hashtags?: string[];
 }
 
-export function BlogDetailArticleUI({ mainTitle, sections }: BlogDetailArticleUIProps) {
+export function BlogDetailArticleUI({ mainTitle, sections, hashtags  }: BlogDetailArticleUIProps) {
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
@@ -73,6 +74,14 @@ export function BlogDetailArticleUI({ mainTitle, sections }: BlogDetailArticleUI
                         </div>
                     );
                 })}
+
+                 {hashtags && hashtags.length > 0 && (
+                    <div className={styles.hashtags}>
+                        {hashtags.map((tag, i) => (
+                            <span key={i} className={styles.hashtag}>{tag}</span>
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );

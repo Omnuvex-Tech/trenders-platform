@@ -123,13 +123,18 @@ export function PartnersWrapper() {
   return (
     <PartnersUI
       sectionTitle="Tərəfdaşlarımız"
-      description={
-        <>
-          Biz tipik bir marketinq şirkəti deyilik! Bir çox brendlər trendləri
-          izləməyə çalışdığı zaman,{' '}
-          <strong>biz sizə trendi yaratmağa kömək edəcəyik.</strong>
-        </>
-      }
+    description={
+  <>
+    Biz tipik bir marketinq şirkəti deyilik! Bir çox brendlər trendləri izləməyə çalışdığı zaman, <strong>biz sizə trendi yaratmağa kömək edəcəyik.</strong>
+    {' '}
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+      <svg width="36" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="8" x2="28" y2="8" stroke="#3E82F6" strokeWidth="1.5"/>
+        <path d="M22 2L30 8L22 14" stroke="#3E82F6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </span>
+  </>
+}
       row1={ROW1}
       row2={ROW2}
     />

@@ -5,7 +5,7 @@ export function BlogDetailContentWrapper() {
         <BlogDetailContentUI
             heroImage="/images/blogdetail3.png"
             heroImageAlt="Young Lions Azerbaijan"
-            overlapTitle="Young Lions Azerbaijan: Gənc yaradıcılar üçün beynəlxalq karyera platforması."
+            overlapTitle="Sizi Trend Edəcək Marketinq Agentliyi"
             introParagraphs={[
                 "Young Lions Azerbaijan 30 yaşadək yaradıcı, media və marketinq mütəxəssisləri üçün nəzərdə tutulmuş beynəlxalq \"Young Lions\" proqramının Azərbaycan üzrə rəsmi seçim mərhələsidir. Bu proqram dünyanın ən nüfuzlu yaradıcılıq tədbirlərindən biri olan Cannes Lions International Festival of Creativity çərçivəsində keçirilir və gənc mütəxəssislərə öz ölkələrini beynəlxalq səviyyədə təmsil etmək imkanı yaradır.",
                 "Azərbaycan bu proqramda 2022-ci ildən etibarən rəsmi şəkildə iştirak edir. Bu müddət ərzində Young Lions Azerbaijan ölkədə yaradıcı sənayenin inkişafına töhfə verən, yeni nəsil kreativlərin formalaşmasına xidmət edən mühüm platformaya çevrilib.",

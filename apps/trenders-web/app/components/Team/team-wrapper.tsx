@@ -22,11 +22,11 @@ const TEAM_MEMBERS: TeamMember[] = [
         role: "Qrafik Dizayner",
         image: "/images/team3.jpg",
     },
-    {
+       {
         id: 4,
-        name: "Əli Həsənov",
-        role: "SMM Mütəxəssisi",
-        image: "/images/team4.jpg",
+        name: "Leila Akhbarova",
+        role: "Qrafik Dizayner",
+        image: "/images/team1.jpg",
     },
 ];
 

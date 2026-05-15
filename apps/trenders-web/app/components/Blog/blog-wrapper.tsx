@@ -41,7 +41,7 @@ export function BlogWrapper() {
     return (
         <BlogUI
             title="Bloglar"
-            allPostsLabel="Bütün yazılar"
+            allPostsLabel="Bloglara keçid"
             allPostsHref="/blog"
             posts={POSTS}
         />

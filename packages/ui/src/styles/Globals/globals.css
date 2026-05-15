@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import 'leaflet/dist/leaflet.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -114,6 +115,14 @@
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
 }
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+
 
 /* Poppins */
 @font-face {

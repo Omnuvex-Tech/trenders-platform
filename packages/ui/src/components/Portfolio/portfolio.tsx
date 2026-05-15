@@ -17,7 +17,8 @@ export interface PortfolioUIProps {
   moreBtnHref?: string
   projects: PortfolioItem[]
   showControls?: boolean
-  
+  dropdownLabel?: string
+  dropdownOptions?: string[]
 }
 
 export function PortfolioUI({
@@ -26,23 +27,20 @@ export function PortfolioUI({
   moreBtnHref,
   projects,
   showControls = false,
+  dropdownLabel = "Filter",
+  dropdownOptions = [],
 }: PortfolioUIProps) {
-  const [search, setSearch] = useState('')
-  const [sort, setSort] = useState<'asc' | 'desc' | 'default'>('default')
-  const [filterOpen, setFilterOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [selectedOption, setSelectedOption] = useState<string | null>(null)
 
   const displayed = useMemo(() => {
-    let result = [...projects]
-    if (search.trim()) {
-      result = result.filter(p =>
-        p.title.toLowerCase().includes(search.toLowerCase()) ||
-        p.tags.some(t => t.toLowerCase().includes(search.toLowerCase()))
+    if (selectedOption) {
+      return projects.filter(p =>
+        p.tags.some(t => t === selectedOption)
       )
     }
-    if (sort === 'asc') result.sort((a, b) => a.title.localeCompare(b.title))
-    if (sort === 'desc') result.sort((a, b) => b.title.localeCompare(a.title))
-    return result
-  }, [projects, search, sort])
+    return projects
+  }, [projects, selectedOption])
 
   return (
     <section className={styles.projects}>
@@ -51,46 +49,31 @@ export function PortfolioUI({
 
         {showControls ? (
           <div className={styles.controls}>
-            <div className={styles.searchWrap}>
-              <input
-                type="text"
-                placeholder="Search ..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                className={styles.searchInput}
-              />
-              <svg className={styles.searchIcon} width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </div>
-
-            <div className={styles.filterWrap}>
+            <div className={styles.dropdownWrap}>
               <button
-                className={styles.filterBtn}
-                onClick={() => setFilterOpen(prev => !prev)}
+                className={`${styles.dropdownBtn} ${dropdownOpen ? styles.dropdownBtnOpen : ""}`}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Filter
+                {selectedOption || dropdownLabel}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points={filterOpen ? "18 15 12 9 6 15" : "6 9 12 15 18 9"} />
+                  <polyline points="6 9 12 15 18 9" />
                 </svg>
               </button>
-              {filterOpen && (
-                <div className={styles.filterDropdown}>
-                  <button
-                    className={`${styles.filterOption} ${sort === 'asc' ? styles.active : ''}`}
-                    onClick={() => { setSort('asc'); setFilterOpen(false) }}
-                  >
-                    A → Z
-                  </button>
-                  <button
-                    className={`${styles.filterOption} ${sort === 'desc' ? styles.active : ''}`}
-                    onClick={() => { setSort('desc'); setFilterOpen(false) }}
-                  >
-                    Z → A
-                  </button>
+              {dropdownOpen && (
+                <div className={styles.dropdownList}>
+                  {dropdownOptions.map((opt) => (
+                    <button
+                      key={opt}
+                      className={`${styles.dropdownOption} ${selectedOption === opt ? styles.dropdownOptionActive : ""}`}
+                      onClick={() => {
+                        setSelectedOption(selectedOption === opt ? null : opt)
+                        setDropdownOpen(false)
+                      }}
+                    >
+                      {opt}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>

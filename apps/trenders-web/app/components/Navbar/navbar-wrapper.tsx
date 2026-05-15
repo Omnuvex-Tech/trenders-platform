@@ -10,7 +10,7 @@ const NAV_LINKS = [
     { label: "Haqqımızda", href: "/About" },
     { label: "Service", href: "/Service" },
     { label: "Portfolio", href: "/Portfolio" },
-    { label: "Vakansiyalar", href: "#" },
+    { label: "Vakansiyalar", href: "/Vacancy" },
     { label: "Blog", href: "/Blog" },
     { label: "Əlaqə", href: "/Contact" },
 ];

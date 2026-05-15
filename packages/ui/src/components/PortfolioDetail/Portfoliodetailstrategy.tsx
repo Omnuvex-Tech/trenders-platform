@@ -5,6 +5,7 @@ import styles from '../../styles/PortfolioDetail/portfoliodetailstrategy.module.
 export interface PortfolioDetailStrategyProps {
   quote:  React.ReactNode;
   quoteImage: string 
+  badge?: string
   mainImage: string
   smallImages: [string, string]
   title: string
@@ -13,6 +14,7 @@ export interface PortfolioDetailStrategyProps {
 
 export function PortfolioDetailStrategyUI({
   quote,
+  badge,
   quoteImage,
   mainImage,
   smallImages,
@@ -56,11 +58,12 @@ export function PortfolioDetailStrategyUI({
           </div>
 
           {/* Col 3 — mətn */}
-          <div className={styles.textCol}>
-            <h3 className={styles.textTitle}>{title}</h3>
-            <p className={styles.textBody}>{descriptions[0]}</p>
-            <p className={styles.textBody}>{descriptions[1]}</p>
-          </div>
+         <div className={styles.textCol}>
+  {badge && <span className={styles.badge}>{badge}</span>}
+  <h3 className={styles.textTitle}>{title}</h3>
+  <p className={styles.textBody}>{descriptions[0]}</p>
+  <p className={styles.textBody}>{descriptions[1]}</p>
+</div>
 
         </div>
       </div>

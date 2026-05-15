@@ -12,29 +12,29 @@
     position: relative;
     width: 100%;
     border-radius: 20px;
-    --hero-height: 714px;     
-    --overlap: 267px;      
+    --hero-height: 714px;
+    --overlap: 267px;
 }
 
 .heroImg {
     object-fit: cover;
     display: block;
-width: 1240px;
-opacity: 1;
-border-radius: 42.27px;
+    width: 1240px;
+    opacity: 1;
+    border-radius: 42.27px;
     height: var(--hero-height);
 }
 
 .content {
     position: relative;
-    margin-top: calc(var(--overlap) * -1);  
+    margin-top: calc(var(--overlap) * -1);
     width: 70%;
     z-index: 2;
 }
 
 .contentTop {
-    background:white;
-    padding:65px 9px 0px;
+    background: white;
+    padding: 65px 9px 0px;
     border-radius: 0 42px 0 0;
     display: flex;
     flex-direction: column;
@@ -43,24 +43,20 @@ border-radius: 42.27px;
 .contentBottom {
     background: white;
     padding: 0px 70px 0px 10px;
-        display: flex;
+    display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
 .badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 16px;
-    background: linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%),
-                linear-gradient(134.09deg, #89B5FF -1.29%, #1360E4 109.15%);
-    font-family: "Poppins";
+    display: block;
+    text-transform: uppercase;
+    color: rgba(154, 154, 154, 1);
+    font-family: 'Poppins';
     font-weight: 500;
     font-size: 16px;
-    width: 105px;
-    height: 34px;
-    border-radius: 36px;
-    color: rgba(255, 255, 255, 1);
+    line-height: 18px;
+    text-transform: uppercase;
 }
 
 .title {
@@ -80,56 +76,196 @@ border-radius: 42.27px;
     font-size: 18px;
 }
 
-@media (max-width: 1100px) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1280px) {
     .inner {
-        padding: 0 48px;
+        padding: 48px 60px;
     }
+
     .container {
-        --hero-height: 380px;
-        --overlap: 80px;
+        --hero-height: 600px;
+        --overlap: 220px;
     }
+
+    .heroImg {
+        border-radius: 32px;
+    }
+
     .content {
         width: 72%;
     }
+
     .title {
-        font-size: 28px;
+        font-size: 44px;
+    }
+
+    .desc {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .inner {
+        padding: 40px 48px;
+    }
+
+    .container {
+        --hero-height: 520px;
+        --overlap: 180px;
+    }
+
+    .content {
+        width: 78%;
+    }
+
+    .contentTop {
+        padding: 48px 9px 0;
+        border-radius: 0 32px 0 0;
+    }
+
+    .contentBottom {
+        padding: 0 40px 0 10px;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+
+    .desc {
+        font-size: 15px;
     }
 }
 
 @media (max-width: 900px) {
     .inner {
-        padding: 0 32px;
+        padding: 32px 32px;
     }
+
     .container {
-        --hero-height: 300px;
-        --overlap: 60px;
+        --hero-height: 420px;
+        --overlap: 140px;
     }
+
+    .heroImg {
+        border-radius: 24px;
+    }
+
     .content {
-        width: 85%;
+        width: 88%;
     }
+
+    .contentTop {
+        padding: 36px 9px 0;
+        border-radius: 0 24px 0 0;
+    }
+
+    .contentBottom {
+        padding: 0 24px 0 10px;
+        gap: 12px;
+    }
+
     .title {
-        font-size: 24px;
+        font-size: 30px;
+    }
+
+    .desc {
+        font-size: 15px;
+        text-align: left;
     }
 }
 
 @media (max-width: 600px) {
-    .section {
-        padding: 48px 0;
-    }
     .inner {
-        padding: 0 20px;
+        padding: 24px 20px;
     }
+
     .container {
-        --hero-height: 240px;
-        --overlap: 40px;
+        --hero-height: 280px;
+        --overlap: 80px;
     }
+
+    .heroImg {
+        border-radius: 18px;
+    }
+
     .content {
-        width: 100%;
+        width: 82%;
+        padding-top: 13px;
     }
+
+    .contentTop {
+        padding: 22px 12px 12px;
+        border-radius: 0 16px 0 0;
+    }
+
+    .badge {
+        font-size: 12px;
+    }
+
     .title {
-        font-size: 20px;
+        font-size: 22px;
+        line-height: 1.2;
     }
+
+    .contentBottom {
+        gap: 10px;
+        width: calc(100% + 81px);
+    }
+
     .desc {
         font-size: 14px;
+        line-height: 1.6;
+        text-align: justify;
+    }
+}
+
+@media (max-width: 400px) {
+    .inner {
+        padding: 20px 14px;
+    }
+
+    .container {
+        --hero-height: 220px;
+        --overlap: 60px;
+    }
+
+    .heroImg {
+        border-radius: 14px;
+    }
+
+    .contentTop {
+        padding: 18px 10px 0;
+        border-radius: 0 12px 0 0;
+    }
+
+    .contentBottom {
+        padding: 0 10px 0 10px;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .desc {
+        font-size: 13px;
     }
 }

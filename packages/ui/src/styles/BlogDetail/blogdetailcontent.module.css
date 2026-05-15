@@ -14,10 +14,8 @@
 
 .heroWrap {
     position: relative;
-    width: 1240px;
+    width: 100%;
     height: 558px;
-    --overlap: 80px;
-    margin-bottom: calc(var(--overlap) * -1);
 }
 
 .heroImg {
@@ -29,15 +27,10 @@
 }
 
 .overlapBlock {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: translateY(50%);
-    padding: 0 0 0 0;
+    position: relative;
     z-index: 2;
-    width: 1024px;
-    height: 305px;
-
+    width: 82%;
+    margin-top: -117px;
 }
 
 .overlapTitle {
@@ -45,18 +38,18 @@
     color: rgba(1, 72, 194, 1);
     margin: 0;
     background: rgba(253, 253, 253, 1);
-    padding: 39px 75px 15px 1px;
+    padding: 32px 75px 0px 1px;
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 50px;
     line-height: 118%;
 }
 
+
 .introBlock {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: calc(var(--overlap, 101px) + 21px);
 }
 
 .sections {
@@ -76,7 +69,6 @@
     font-weight: 500;
     font-size: 29.05px;
     line-height: 118%;
-
     color: rgba(1, 72, 194, 1);
 }
 
@@ -108,169 +100,69 @@
 
 .bottomImgLeft,
 .bottomImgRight {
+    width: 100%;
     object-fit: cover;
     display: block;
     border-radius: 30px;
 }
 
+.bottomImgLeft  { height: 448px; }
+.bottomImgRight { height: 448px; }
 
-.bottomImgRight {
-    width: 819px;
-    height: 448px;
-}
 
-.bottomImgLeft {
-    width: 397px;
-    height: 448px;
-}
 
 
 @media (max-width: 1280px) {
-    .inner {
-        padding: 0 48px;
-    }
-
-    .heroWrap {
-        width: 100%;
-        height: 480px;
-    }
-
-    .overlapBlock {
-        width: 80%;
-    }
-
-    .overlapTitle {
-        font-size: 40px;
-    }
-
-    .bottomImgLeft {
-        width: 100%;
-        height: 380px;
-    }
-
-    .bottomImgRight {
-        width: 100%;
-        height: 380px;
-    }
+    .inner          { padding: 0 48px; }
+    .heroWrap       { height: 480px; }
+    .overlapBlock   { width: 80%; margin-top: -90px; }
+    .overlapTitle   { font-size: 40px; padding: 28px 60px 0px 1px; }
+    .bottomImgLeft,
+    .bottomImgRight { height: 380px; }
 }
 
 @media (max-width: 1024px) {
-    .heroWrap {
-        height: 400px;
-    }
-
-    .overlapBlock {
-        width: 85%;
-        height: auto;
-    }
-
-    .overlapTitle {
-        font-size: 34px;
-        padding: 28px 48px 12px 1px;
-    }
-
-    .introBlock {
-        margin-top: 80px;
-    }
-
-    .sectionTitle {
-        font-size: 24px;
-    }
-
+    .section{    padding: 0 0 12px;}
+    .heroWrap       { height: 400px; }
+    .overlapBlock   { width: 85%; margin-top: -70px; }
+    .overlapTitle   { font-size: 34px; padding: 24px 48px 0px 1px; }
+    .sectionTitle   { font-size: 24px; }
     .bottomImgLeft,
-    .bottomImgRight {
-        height: 320px;
-    }
+    .bottomImgRight { height: 320px; }
 }
 
 @media (max-width: 768px) {
-    .inner {
-        padding: 0 32px;
-        gap: 28px;
-    }
-
-    .heroWrap {
-        height: 320px;
-    }
-
-    .overlapBlock {
-        width: 90%;
-        height: auto;
-    }
-
-    .overlapTitle {
-        font-size: 26px;
-        padding: 20px 32px 10px 1px;
-        border-radius: 0px 28px 0px;
-    }
-
-    .introBlock {
-        margin-top: 60px;
-    }
-
-    .sectionTitle {
-        font-size: 20px;
-    }
-
-    .paragraph {
-        font-size: 15px;
-    }
-
-    .bottomImages {
-        grid-template-columns: 1fr 1fr;
-    }
-
+    .section{    padding: 0 0 12px;}
+    .inner          { padding: 0 32px; gap: 28px; }
+    .heroWrap       { height: 320px; }
+    .overlapBlock   { width: 92%; margin-top: -55px; }
+    .overlapTitle   { font-size: 22px; padding: 18px 28px 0px 1px; border-radius: 0 24px 0; }
+    .sectionTitle   { font-size: 20px; }
+    .paragraph      { font-size: 15px; }
+    .bottomImages   { grid-template-columns: 1fr 1fr; }
     .bottomImgLeft,
-    .bottomImgRight {
-        width: 100%;
-        height: 240px;
-    }
+    .bottomImgRight { height: 220px; border-radius: 20px; }
 }
 
 @media (max-width: 480px) {
-    .section {
-        padding: 0 0 24px;
-    }
-
-    .inner {
-        padding: 0 20px;
-        gap: 20px;
-    }
-
-    .heroWrap {
-        height: 240px;
-    }
-
-    .overlapBlock {
-        width: 100%;
-        height: auto;
-    }
-
-    .overlapTitle {
-        font-size: 20px;
-        padding: 16px 20px 10px 1px;
-        border-radius: 0px 20px 0px;
-    }
-
-    .introBlock {
-        margin-top: 48px;
-    }
-
-    .sectionTitle {
-        font-size: 18px;
-    }
-
-    .paragraph {
-        font-size: 14px;
-    }
-
-    .bottomImages {
-        grid-template-columns: 1fr;
-    }
-
+    .section{    padding: 0 0 12px;}
+    .inner          { padding: 0 20px; gap: 18px; }
+    .heroWrap       { height: 220px; }
+    .overlapBlock   { width: 100%; margin-top: -50px; }
+    .overlapTitle   { font-size: 16px; padding: 14px 16px 0px 4px; border-radius: 0 16px 0; }
+    .sectionTitle   { font-size: 16px; }
+    .paragraph      { font-size: 13px; line-height: 1.6; }
+    .bottomImages   { grid-template-columns: 1fr; }
     .bottomImgLeft,
-    .bottomImgRight {
-        width: 100%;
-        height: 200px;
-    }
+    .bottomImgRight { height: 180px; border-radius: 16px; }
+}
+
+@media (max-width: 400px) {
+    .section{    padding: 0 0 12px;}
+    .inner          { padding: 0 14px; }
+    .heroWrap       { height: 190px; }
+    .overlapBlock   { margin-top: -40px; }
+    .overlapTitle   { font-size: 14px; padding: 12px 12px 0px 4px; }
+    .bottomImgLeft,
+    .bottomImgRight { height: 160px; border-radius: 14px; }
 }

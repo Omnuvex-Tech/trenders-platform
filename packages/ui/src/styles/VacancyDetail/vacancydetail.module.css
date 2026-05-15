@@ -1,0 +1,540 @@
+.section {
+    width: 100%;
+    padding: 60px 0 0px;
+}
+
+.inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.backRow {
+    display: flex;
+    align-items: center;
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(36, 36, 36, 1);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    margin-bottom: 13px;
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 32px;
+}
+
+.backLink:hover {
+    opacity: 0.7;
+}
+
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.jobTitle {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 32px;
+    color: rgba(36, 36, 36, 1);
+}
+
+.sectionBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.sectionTitle {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 32px;
+    text-transform: uppercase;
+    color: rgba(36, 36, 36, 1);
+
+}
+
+.sectionText {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    color: rgba(36, 36, 36, 1);
+    text-align: justify;
+}
+
+.skillTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skillTag {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(19, 96, 228, 1);
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(36, 36, 36, 1);
+    white-space: nowrap;
+}
+
+.bulletList {
+    padding-left: 20px;
+}
+
+.bulletItem {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    color: rgba(36, 36, 36, 1);
+    text-align: justify;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 32px;
+}
+
+.applyTitle {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: rgba(20, 20, 20, 1);
+    margin-bottom: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 31px
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fieldLabel {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(36, 36, 36, 1);
+}
+
+.fieldInput {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    outline: none;
+    padding: 8px 0;
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: rgba(126, 126, 126, 1);
+    background: transparent;
+    transition: border-color 0.2s ease;
+}
+
+.fieldInput::placeholder {
+    color: rgba(160, 160, 160, 1);
+}
+
+.fieldInput:focus {
+    border-bottom-color: rgba(1, 72, 194, 1);
+}
+
+/* File upload */
+.fileRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.fileRow:hover {
+    border-bottom-color: rgba(1, 72, 194, 1);
+}
+
+.filePlaceholder {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(160, 160, 160, 1);
+}
+
+.fileInput {
+    display: none;
+}
+
+.submitRow {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+.submitBtn {
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    background: linear-gradient(134.09deg, #89b5ff -1.29%, #1360e4 109.15%);
+    border: none;
+    border-radius: 36px;
+    align-items: center;
+    gap: 3px;
+    height: 34px;
+    padding: 10px 24px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    transition: opacity .2s;
+    display: inline-flex;
+}
+
+.submitBtn:hover {
+    opacity: 0.88;
+}
+
+.mapCard {
+    border-radius: 20px;
+    overflow: visible;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 12px;
+    background: #fff;
+}
+
+.mapWrap {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.mapWrap :global(.leaflet-container) {
+    filter: hue-rotate(180deg) saturate(0.4) brightness(1.3);
+    border-radius: 14px 14px 0 0;
+}
+
+
+.mapIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    filter: grayscale(100%) contrast(0.9) brightness(1.05);
+}
+
+.contactInfo {
+    padding: 16px 20px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+    background: #fff;
+}
+
+.contactItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contactItem:last-child {
+    grid-column: 1 / -1;
+}
+
+.contactLabel {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(120, 120, 120, 1);
+    text-transform: capitalize;
+}
+
+.contactValue {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 13px;
+    color: rgba(20, 20, 20, 1);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contactValue:hover {
+    color: rgba(1, 72, 194, 1);
+}
+
+.contactValuePlain {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 13px;
+    color: rgba(20, 20, 20, 1);
+}
+
+.contentRow {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 60px;
+    align-items: start;
+}
+
+.formCard {
+    background: #fff;
+    border: 2px solid rgba(4, 0, 0, 0.08);
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+}
+
+@media (max-width: 1280px) {
+    .inner {
+        padding: 0 60px;
+    }
+
+    .contentRow {
+        grid-template-columns: 1fr 380px;
+        gap: 48px;
+    }
+
+    .backLink {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .inner {
+        padding: 0 48px;
+        gap: 32px;
+    }
+
+    .contentRow {
+        grid-template-columns: 1fr 340px;
+        gap: 36px;
+    }
+
+    .backLink {
+        font-size: 30px;
+    }
+
+    .jobTitle {
+        font-size: 26px;
+    }
+
+    .sectionText,
+    .bulletItem {
+        font-size: 16px;
+    }
+
+    .applyTitle {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .inner {
+        padding: 0 32px;
+        gap: 0px;
+    }
+
+    .bulletList {
+        display: contents;
+    }
+
+    .contentRow {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .right {
+        position: static;
+    }
+
+    .backLink {
+        font-size: 28px;
+    }
+
+    .jobTitle {
+        font-size: 26px;
+    }
+
+    .applyTitle {
+        font-size: 22px;
+    }
+
+    .mapWrap {
+        height: 220px;
+    }
+
+    .sectionBlock {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section {
+        padding: 32px 0 33px;
+    }
+
+    .bulletList {
+        display: contents;
+    }
+
+    .inner {
+        padding: 0 20px;
+        gap: 0px;
+    }
+
+    .backLink {
+        font-size: 22px;
+        gap: 6px;
+    }
+
+    .backLink svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .jobTitle {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .sectionBlock {
+        gap: 6px;
+    }
+
+    .sectionTitle {
+        font-size: 15px;
+        line-height: 26px;
+    }
+
+    .sectionText,
+    .bulletItem {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .skillTag {
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+
+    .applyTitle {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .formCard {
+        padding: 20px 18px;
+        gap: 16px;
+        border-radius: 14px;
+    }
+
+    .form {
+        gap: 20px;
+    }
+
+    .fieldLabel {
+        font-size: 11px;
+    }
+
+    .fieldInput {
+        font-size: 13px;
+    }
+
+    .submitBtn {
+        font-size: 13px;
+        padding: 9px 20px;
+    }
+
+    .mapWrap {
+        height: 180px;
+    }
+
+    .contactInfo {
+        grid-template-columns: 1fr 1fr;
+        padding: 14px 16px 16px;
+        gap: 12px 16px;
+    }
+
+    .contactItem:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .contactLabel {
+        font-size: 10px;
+    }
+
+    .contactValue,
+    .contactValuePlain {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .inner {
+        padding: 0 14px;
+        gap: 0;
+    }
+
+    .bulletList {
+        display: contents;
+    }
+
+    .backLink {
+        font-size: 18px;
+    }
+
+    .jobTitle {
+        font-size: 18px;
+    }
+
+    .sectionText,
+    .bulletItem {
+        font-size: 13px;
+    }
+
+    .formCard {
+        padding: 16px 14px;
+    }
+
+    .mapWrap {
+        height: 160px;
+    }
+
+    .contactInfo {
+        grid-template-columns: 1fr;
+    }
+
+    .contactItem:last-child {
+        grid-column: auto;
+    }
+}

@@ -3,7 +3,6 @@
     padding: 34px 0;
 }
 
-
 .inner {
     max-width: 1440px;
     margin: 0 auto;
@@ -13,7 +12,6 @@
     gap: 0;
 }
 
-/* ─── Author kart ─────────────────────────────────── */
 .authorCard {
     border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 28px 24px 32px;
@@ -25,7 +23,6 @@
     width: 361px;
     height: 380px;
     border-radius: 18px;
-
 }
 
 .avatarWrap {
@@ -57,7 +54,6 @@
     justify-content: center;
     color: #fff;
     text-decoration: none;
-    position: absolute;
     transition: opacity 0.2s ease;
 }
 
@@ -107,7 +103,7 @@
 .authorBio {
     font-family: 'Inter';
     font-weight: 400;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
     color: rgba(70, 70, 70, 1);
 }
@@ -142,12 +138,11 @@
     color: rgba(76, 76, 76, 1);
 }
 
-
 /* ─── Posts ───────────────────────────────────────── */
 .postsWrap {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 0;
 }
 
 .postsTitle {
@@ -156,7 +151,7 @@
     font-size: 30px;
     line-height: 38px;
     color: rgba(56, 56, 56, 1);
-    padding-left: calc(390px + 5px);
+    padding-left: 0;
     margin-bottom: 18px;
 }
 
@@ -245,7 +240,6 @@
     line-height: 18px;
 }
 
-
 .contentRow {
     display: grid;
     grid-template-columns: 380px 1fr;
@@ -253,12 +247,18 @@
     align-items: start;
 }
 
-
-@media (max-width: 1100px) {
+/* ─── 1280px ──────────────────────────────────────── */
+@media (max-width: 1280px) {
     .inner {
-        padding: 0 48px;
-        grid-template-columns: 300px 1fr;
-        gap: 32px;
+        padding: 0 60px;
+    }
+
+    .contentRow {
+        grid-template-columns: 320px 1fr;
+    }
+
+    .postsTitle {
+        font-size: 26px;
     }
 
     .postImg {
@@ -267,46 +267,196 @@
     }
 }
 
-@media (max-width: 900px) {
+/* ─── 1100px ──────────────────────────────────────── */
+@media (max-width: 1100px) {
     .inner {
-        padding: 0 32px;
-        grid-template-columns: 1fr;
+        padding: 0 48px;
     }
 
-    .authorCard {
-        position: static;
+    .contentRow {
+        grid-template-columns: 280px 1fr;
+        gap: 12px;
     }
 
-    .avatar {
-        width: 120px;
-        height: 120px;
+    .postsTitle {
+        font-size: 24px;
     }
 
     .postImg {
-        width: 180px;
+        width: 190px;
         height: 140px;
+    }
+
+    .postTitle {
+        font-size: 15px;
+    }
+
+    .postExcerpt {
+        font-size: 13px;
     }
 }
 
-@media (max-width: 600px) {
-    .section {
-        padding: 48px 0;
+/* ─── 900px — mobil başlayır ──────────────────────── */
+@media (max-width: 900px) {
+    .inner {
+        padding: 0 32px;
     }
 
+    .contentRow {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    /* Author card: şəkil sol, ad+skills sağ, bio altda tam genişlikdə */
+    .authorCard {
+        position: static;
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "avatar  info"
+            "avatar  skills"
+            "bio     bio";
+        column-gap: 16px;
+        row-gap: 0;
+        align-items: start;
+    }
+
+    .avatarWrap {
+        grid-area: avatar;
+        align-self: start;
+    }
+
+    .authorInfo {
+        grid-area: info;
+        align-self: start;
+        gap: 3px;
+    }
+
+    .skillsBlock {
+        grid-area: skills;
+        margin-top: 10px;
+        gap: 6px;
+    }
+
+    .authorBio {
+        grid-area: bio;
+        margin-top: 14px;
+    }
+
+    /* Posts */
+    .postsTitle {
+        padding-left: 0;
+        font-size: 24px;
+        margin-bottom: 12px;
+    }
+
+    .postImg {
+        width: 200px;
+        height: 150px;
+    }
+
+    /* Button sağa */
+    .readBtn {
+        align-self: flex-end;
+        margin-left: auto;
+        width: auto;
+        padding: 0 20px;
+    }
+}
+
+/* ─── 600px ───────────────────────────────────────── */
+@media (max-width: 600px) {
     .inner {
         padding: 0 20px;
     }
 
-    .postsTitle {
-        font-size: 26px;
+    .contentRow {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 
+    /* Author card grid eyni qalır, avatar kiçilir */
+    .authorCard {
+        grid-template-columns: auto 1fr;
+        column-gap: 18px;
+    }
+
+    /* Post card tam genişlik */
     .postItem {
         grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 16px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
     }
 
     .postImg {
         width: 100%;
         height: 200px;
+        border-radius: 12px;
+    }
+
+    .postContent {
+        padding-top: 0;
+    }
+
+    .postsTitle {
+        font-size: 22px;
+        margin-top: 8px;
+        margin-bottom: 12px;
+    }
+
+    .postTitle {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    .postExcerpt {
+        font-size: 13px;
+    }
+
+    .readBtn {
+        align-self: flex-end;
+        margin-left: auto;
+        width: auto;
+        padding: 0 20px;
+        font-size: 13px;
+    }
+
+    .skill {
+        font-size: 12px;
+    }
+}
+
+/* ─── 400px ───────────────────────────────────────── */
+@media (max-width: 400px) {
+    .inner {
+        padding: 0 14px;
+    }
+
+    .postsTitle {
+        font-size: 18px;
+    }
+
+    .postImg {
+        height: 170px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 98px;
+    }
+
+    .postItem {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .skill {
+        font-size: 12px;
     }
 }

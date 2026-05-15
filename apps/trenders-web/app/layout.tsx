@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { NotifyProvider, NotifyContainer } from "@repo/ui";
 import { QueryProvider } from "@/app/providers";
@@ -14,13 +14,16 @@ export const metadata: Metadata = {
   keywords: [...config.project.keywords],
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
-
-
   return (
     <html lang="az">
       <head>
@@ -35,13 +38,7 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <NotifyProvider>
-            {/* <NavbarWrapper 
-                locale={"az"} 
-                languages={langResponse.data}
-                initialTranslations={translationResponse.data ?? []}
-            /> */}
             <main className="mx-auto w-full">{children}</main>
-
             <FooterWrapper />
             <NotifyContainer />
           </NotifyProvider>

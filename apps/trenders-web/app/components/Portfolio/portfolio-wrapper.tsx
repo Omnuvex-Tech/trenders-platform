@@ -25,10 +25,12 @@ const PROJECTS: PortfolioItem[] = [
 
 export function PortfolioWrapper() {
   return (
-    <PortfolioUI
-      sectionTitle="Portfolio"
-      projects={PROJECTS}
-      showControls={true}
-    />
+  <PortfolioUI
+  sectionTitle="Portfolio"
+  projects={PROJECTS}
+  showControls={true}
+  dropdownLabel="Xidmətləri seçin"
+  dropdownOptions={['SMM', 'Development', 'Branding', 'Website', 'Ux/Ui dizayn']}
+/>
   )
 }

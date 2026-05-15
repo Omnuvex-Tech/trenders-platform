@@ -205,7 +205,7 @@
 
 @media (max-width: 900px) {
     .section {
-        padding: 32px 0;
+        padding: 0px 0;
     }
 
     .inner {
@@ -216,6 +216,10 @@
         grid-template-columns: 1fr;
         height: auto;
         padding: 12px;
+    }
+
+    .header {
+        margin-bottom: 7px;
     }
 
     .imageWrap {
@@ -252,8 +256,15 @@
 }
 
 @media (max-width: 600px) {
+    .sectionTitle {
+        font-size: 22px;
+    }
+
     .inner {
-        padding: 0 20px;
+        padding: 0px 20px 41px;    }
+
+    .header {
+        margin-bottom: 7px;
     }
 
     .card {
@@ -272,10 +283,12 @@
     }
 
     .overlayBadge {
-        font-size: 13px;
-        height: 30px;
-        width: auto;
+width: 120px;
+        height: 34px;
         padding: 4px 12px;
+        font-size: 13px;
+        background-color: #ffffff80;
+        color: #000000b5;
     }
 
     .overlayTitle {
@@ -285,13 +298,13 @@
 
     .content {
         padding: 18px 6px 6px;
-        gap: 10px;
+        gap: 2px;
     }
 
     .badge {
         font-size: 14px;
         width: auto;
-        padding: 4px 16px;
+        padding: 4px 0px;
     }
 
     .title {
@@ -324,8 +337,16 @@
 
 
 @media (max-width: 400px) {
+    .sectionTitle {
+        font-size: 22px;
+    }
+
     .inner {
         padding: 0 14px;
+    }
+
+    .header {
+        margin-bottom: 7px;
     }
 
     .imageWrap {

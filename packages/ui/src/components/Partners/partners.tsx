@@ -27,7 +27,7 @@ export function PartnersUI({
       <div className={styles.partnersDivider} />
       <div className={styles.partnersHeader}>
         <h2 className={styles.partnersTitle}>{sectionTitle}</h2>
-        <p className={styles.partnersDescription}>{description}</p>
+        <p className={styles.partnersDescription}>{description}  </p>
       </div>
 
       <AutoScroll direction="ltr" speed={20}>

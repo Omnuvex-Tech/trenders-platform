@@ -222,8 +222,6 @@
     position: absolute;
 }
 
-
-
 .quoteContent {
     position: relative;
     z-index: 2;
@@ -265,7 +263,6 @@
 .quoteText strong {
     color: rgba(40, 40, 40, 1);
 }
-
 
 
 
@@ -314,7 +311,6 @@
     }
 }
 
-
 @media (max-width: 900px) {
     .section {
         padding: 48px 0;
@@ -332,6 +328,7 @@
 
     .grid {
         grid-template-columns: 1fr;
+                gap: 30px;
     }
 
     .featuredWrap {

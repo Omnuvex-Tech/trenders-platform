@@ -1,5 +1,5 @@
 .projects {
-  padding: 37px 100px;
+  padding: 22px 100px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -14,25 +14,23 @@
 .projectsTitle {
   font-size: 46px;
   font-weight: 700;
-      font-family: 'Poppins', sans-serif;
-  color:rgba(56, 56, 56, 1);
+  font-family: 'Poppins', sans-serif;
+  color: rgba(56, 56, 56, 1);
   margin: 0;
 }
 
 .projectsMoreBtn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: 'Manrope', sans-serif; ;
-  color: #276DE4;
-  text-decoration: none;
-  padding: 10px 22px;
+  color: #276de4;
   border-radius: 50px;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 19px;
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background .2s, color .2s;
+  display: flex;
   position: relative;
-  transition: background 0.2s ease, color 0.2s ease;
-  white-space: nowrap;
 }
 
 .projectsMoreBtn::before {
@@ -78,7 +76,7 @@
 .projectCardOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.65) 100%);
   border-radius: 20px;
 }
 
@@ -106,9 +104,9 @@
   font-weight: 300;
   font-family: 'Poppins', sans-serif;
   color: #ffffff;
-  background: linear-gradient(132.52deg, rgba(255,255,255,0) -26.71%, rgba(153,153,153,0.2) 143.92%);
+  background: linear-gradient(132.52deg, rgba(255, 255, 255, 0) -26.71%, rgba(153, 153, 153, 0.2) 143.92%);
   backdrop-filter: blur(30px);
-  border: 1.5px solid rgba(255,255,255,0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
   border-radius: 50px;
   padding: 8px 20px;
   white-space: nowrap;
@@ -121,10 +119,9 @@
   border-radius: 50px;
   border: 1.5px solid transparent;
   background: linear-gradient(135deg,
-    rgba(255,255,255,1) 0%,
-    rgba(255,255,255,0.6) 15%,
-    rgba(255,255,255,0.0) 30%
-  ) border-box;
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.6) 15%,
+      rgba(255, 255, 255, 0.0) 30%) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
@@ -139,17 +136,80 @@
 }
 
 @media (max-width: 1100px) {
-  .projects { padding: 60px 48px; }
+  .projects {
+    padding: 60px 48px;
+  }
+
+  .projectsHeader {
+    margin-bottom: 36px;
+  }
+
+  .projectsHeader {
+    margin-bottom: 36px;
+  }
 }
 
 @media (max-width: 900px) {
-  .projects { padding: 48px 32px; }
-  .projectsGrid { grid-template-columns: repeat(2, 1fr); }
+  .projects {
+    padding: 48px 32px;
+  }
+
+  .projectsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projectsHeader {
+    margin-bottom: 36px;
+  }
 }
 
 @media (max-width: 600px) {
-  .projects { padding: 40px 20px; }
-  .projectsTitle { font-size: 24px; }
-  .projectsGrid { grid-template-columns: 1fr; }
-  .projectCardTitle { font-size: 17px; }
+ .projectsHeader {
+    margin-bottom: 24px;
+  }
+
+  .projects {
+    padding: 2px 20px 30px;
+  }
+
+  .projectsTitle {
+    font-size: 24px;
+  }
+
+  .projectsMoreBtn {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .projectCard {
+    height: 320px;  
+    border-radius: 20px;
+  }
+
+  .projectCardTitle {
+    font-size: 17px;
+  }
+
+  .projectTag {
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+
+  .projectCardContent {
+    bottom: 20px;
+    padding: 16px;
+  }
+}
+
+
+
+@media (max-width: 400px) {
+  .projectCard {
+    height: 280px;
+  }
 }

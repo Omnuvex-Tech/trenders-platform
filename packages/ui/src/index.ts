@@ -74,7 +74,6 @@ export { BlogDetailArticleUI } from "./components/BlogDetail/blogdetailarticle";
 export type { BlogDetailArticleUIProps, BlogDetailArticleSection, BlogDetailHashSection } from "./components/BlogDetail/blogdetailarticle";
 
 
-
 export { BlogAuthorHeroUI } from "./components/BlogAuthor/blogauthorhero";
 export type { BlogAuthorHeroUIProps, BlogAuthorHeroAuthor, BlogAuthorHeroPost, BlogAuthorSkill } from "./components/BlogAuthor/blogauthorhero";
 export { BlogDetailPreviewUI } from "./components/BlogAuthor/blogauthorpreview";
@@ -95,33 +94,12 @@ export { OurTeamUI } from "./components/OurTeam/ourteam";
 export type { OurTeamUIProps, OurTeamMember } from "./components/OurTeam/ourteam";
 
 
+export { VacancyUI } from "./components/Vacancy/vacancy";
+export type { VacancyUIProps, VacancyItem, VacancyTag } from "./components/Vacancy/vacancy";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export { VacancyDetailUI } from "./components/VacancyDetail/vacancydetail";
+export type { VacancyDetailUIProps, VacancyDetailSection, VacancyDetailContact } from "./components/VacancyDetail/vacancydetail";
 
 
 
