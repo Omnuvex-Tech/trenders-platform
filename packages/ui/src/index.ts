@@ -102,7 +102,8 @@ export { VacancyDetailUI } from "./components/VacancyDetail/vacancydetail";
 export type { VacancyDetailUIProps, VacancyDetailSection, VacancyDetailContact } from "./components/VacancyDetail/vacancydetail";
 
 
-
+export { PartnersPageUI } from "./components/PartnersPage/partnerspage";
+export type { PartnersPageUIProps, PartnerPageItem } from "./components/PartnersPage/partnerspage";
 
 
 

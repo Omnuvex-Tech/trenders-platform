@@ -3,6 +3,7 @@ import { api } from "@/lib/api";
 import { config } from "@/config";
 import type { Language, Translation } from "@repo/types/types";
 import { ContactWrapper } from "../components/Contact/contact-wrapper";
+import { PartnersPageWrapper } from "../components/PartnersPage/partnerspage-wrapper";
 
 export default async function ServicesPage() {
     const langResponse = await api.get<Language[]>(config.endpoints.languages.list);
@@ -18,6 +19,7 @@ export default async function ServicesPage() {
                 languages={langResponse.data ?? []}
                 initialTranslations={translationResponse.data ?? []}
             />
+            <PartnersPageWrapper/>
             <ContactWrapper/>
         </div>
     );
