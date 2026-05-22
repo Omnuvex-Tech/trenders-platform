@@ -5,10 +5,12 @@ import { useState, useMemo } from 'react'
 import styles from "../../styles/Portfolio/portfolio.module.css";
 
 export interface PortfolioItem {
-  id: number
-  image: string
-  tags: string[]
-  title: string
+  id: number;
+  image: string;
+  imageAlt?: string;   // ← YENİ
+  tags: string[];
+  title: string;
+  slug?: string;
 }
 
 export interface PortfolioUIProps {
@@ -95,10 +97,14 @@ export function PortfolioUI({
 
       <div className={styles.projectsGrid}>
         {displayed.map((project, i) => (
-          <div key={`${project.id}-${i}`} className={styles.projectCard}>
+          <Link
+            key={`${project.id}-${i}`}
+            href={project.slug ? `/portfolio/${project.slug}` : '#'}
+            className={styles.projectCard}
+          >
             <img
               src={project.image}
-              alt={project.title}
+              alt={project.imageAlt || ""}   // ← YENİ
               className={styles.projectCardImg}
             />
             <div className={styles.projectCardOverlay} />
@@ -108,9 +114,12 @@ export function PortfolioUI({
                   <span key={tag} className={styles.projectTag}>{tag}</span>
                 ))}
               </div>
-              <h3 className={styles.projectCardTitle}>{project.title}</h3>
+              <div
+                className={styles.projectCardTitle}
+                dangerouslySetInnerHTML={{ __html: project.title }}
+              />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

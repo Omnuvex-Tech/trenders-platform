@@ -5,78 +5,80 @@ import styles from '../../styles/PortfolioDetail/portfolioDetailService.module.c
 export interface PortfolioDetailServiceItem {
   number: string
   title: string
+  imagesAlt?: string;
   images: string[]
 }
-
 export interface PortfolioDetailServiceProps {
-    badge: string
-    title: string
-    bigNumber: string
-    descriptions: string[]
-    items: PortfolioDetailServiceItem[]
+  badge: string;
+  title: string;
+  bigNumber: string;
+  descriptions: (string | React.ReactNode)[];
+  items: PortfolioDetailServiceItem[];
+
 }
 
 export function PortfolioDetailServiceUI({
-    badge,
-    title,
-    bigNumber,
-    descriptions,
-    items,
+  badge, title, bigNumber, descriptions, items,
 }: PortfolioDetailServiceProps) {
-    return (
-        <section className={styles.section}>
-            <div className={styles.inner}>
-
-                {/* Yuxarı mətn hissəsi */}
-                <div className={styles.top}>
-                    <span className={styles.bigNumber}>{bigNumber}</span>
-                    <div className={styles.topContent}>
-                        <span className={styles.badge}>{badge}</span>
-                        <h2 className={styles.title}>{title}</h2>
-                        <div className={styles.descriptions}>
-                            {descriptions.map((desc, i) => (
-                                <p key={i} className={styles.desc}>{desc}</p>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-<div className={styles.grid}>
-  {items[0] && (
-    <div className={styles.row}>
-      <div className={styles.imgWrap}>
-        <img src={items[0].images[0]} alt="" className={styles.img} />
-      </div>
-      <div className={styles.numberBlock}>
-        <span className={styles.number}>/{items[0].number}</span>
-        <p className={styles.itemTitle}>{items[0].title}</p>
-      </div>
-      <div className={styles.imgWrap}>
-        <img src={items[0].images[1]} alt="" className={styles.img} />
-      </div>
-      <div className={styles.imgWrap}>
-        <img src={items[0].images[2]} alt="" className={styles.img} />
-      </div>
-    </div>
-  )}
-
-  {items[1] && (
-    <div className={styles.row}>
-      <div className={styles.empty} />
-      <div className={styles.imgWrap}>
-        <img src={items[1].images[0]} alt="" className={styles.img} />
-      </div>
-      <div className={styles.numberBlock}>
-        <span className={styles.number}>/{items[1].number}</span>
-        <p className={styles.itemTitle}>{items[1].title}</p>
-      </div>
-      <div className={styles.imgWrap}>
-        <img src={items[1].images[1]} alt="" className={styles.img} />
-      </div>
-    </div>
-  )}
-</div>
-
+  return (
+    <section className={styles.section}>
+      <div className={styles.inner}>
+        <div className={styles.top}>
+          <span className={styles.bigNumber}>{bigNumber}</span>
+          <div className={styles.topContent}>
+            <span className={styles.badge}>{badge}</span>
+            <div
+              className={styles.title}
+              dangerouslySetInnerHTML={{ __html: title }}
+            />            <div className={styles.descriptions}>
+              {descriptions.map((desc, i) =>
+                typeof desc === "string" ? (
+                  <div
+                    key={i}
+                    className={styles.desc}
+                    dangerouslySetInnerHTML={{ __html: desc }}
+                  />
+                ) : (
+                  <div key={i} className={styles.desc}>{desc}</div>
+                )
+              )}
             </div>
-        </section>
-    )
+          </div>
+        </div>
+
+        <div className={styles.grid}>
+          {items[0] && (
+            <div className={styles.row}>
+              <div className={styles.imgWrap}>
+                <img src={items[0].images[0]} alt={items[0].imagesAlt || ""} className={styles.img} />
+              </div>
+              <div className={styles.numberBlock}>
+                <span className={styles.number}>{items[0].number}</span>
+                <p className={styles.itemTitle}>{items[0].title}</p>
+              </div>
+              <div className={styles.imgWrap}>
+                <img src={items[0].images[1]} alt={items[0].imagesAlt || ""} className={styles.img} />
+              </div>
+              <div className={styles.imgWrap}>
+                <img src={items[0].images[2]} alt={items[0].imagesAlt || ""} className={styles.img} /> </div>
+            </div>
+          )}
+          {items[1] && (
+            <div className={styles.row}>
+              <div className={styles.empty} />
+              <div className={styles.imgWrap}>
+                <img src={items[1].images[0]} alt={items[1].imagesAlt || ""} className={styles.img} />
+              </div>
+              <div className={styles.numberBlock}>
+                <span className={styles.number}>{items[1].number}</span>
+                <p className={styles.itemTitle}>{items[1].title}</p>
+              </div>
+              <div className={styles.imgWrap}>
+                <img src={items[1].images[1]} alt={items[1].imagesAlt || ""} className={styles.img} /> </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
 }

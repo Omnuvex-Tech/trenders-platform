@@ -10,13 +10,16 @@ export interface VacancyTag {
 export interface VacancyItem {
     id: number;
     date: string;
+    closingDate?: string;
     isNew?: boolean;
+    newLabel?: string;
     title: string;
     tags: VacancyTag[];
     detailLabel?: string;
     detailHref?: string;
     category: string;
 }
+
 
 export interface VacancyUIProps {
     title: string;
@@ -99,11 +102,16 @@ export function VacancyUI({
                 <div className={styles.grid}>
                     {filtered.map((vacancy) => (
                         <div key={vacancy.id} className={styles.card}>
-                            {vacancy.isNew && (
-                                <span className={styles.newBadge}>NEW</span>
+                           {vacancy.isNew && vacancy.newLabel && (
+                                <span className={styles.newBadge}>{vacancy.newLabel}</span>
                             )}
-                            <div className={styles.cardTop}>
+                           <div className={styles.cardTop}>
                                 <span className={styles.cardDate}>{vacancy.date}</span>
+                                {vacancy.closingDate && (
+                                    <span className={styles.cardClosingDate}>
+                                       {vacancy.closingDate}
+                                    </span>
+                                )}
                             </div>
                             <h3 className={styles.cardTitle}>{vacancy.title}</h3>
                             <div className={styles.tagList}>

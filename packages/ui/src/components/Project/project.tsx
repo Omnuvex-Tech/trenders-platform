@@ -53,8 +53,10 @@ export function ProjectsUI({
                   <span key={tag} className={styles.projectTag}>{tag}</span>
                 ))}
               </div>
-              <h3 className={styles.projectCardTitle}>{project.title}</h3>
-            </div>
+              <div
+                className={styles.projectCardTitle}
+                dangerouslySetInnerHTML={{ __html: project.title }}
+              />            </div>
           </div>
         ))}
       </div>

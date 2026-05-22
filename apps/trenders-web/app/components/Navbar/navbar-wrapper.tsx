@@ -9,7 +9,7 @@ import type { Language, Translation } from "@repo/types/types";
 const NAV_LINKS = [
     { label: "Haqqımızda", href: "/About" },
     { label: "Service", href: "/Service" },
-    { label: "Portfolio", href: "/Portfolio" },
+    { label: "Portfolio", href: "/portfolio" },
     { label: "Vakansiyalar", href: "/Vacancy" },
     { label: "Blog", href: "/Blog" },
     { label: "Əlaqə", href: "/Contact" },

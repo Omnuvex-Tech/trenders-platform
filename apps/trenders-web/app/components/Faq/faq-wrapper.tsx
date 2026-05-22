@@ -1,31 +1,18 @@
-import { FaqUI } from "@repo/ui";
-import type { FaqItem } from "@repo/ui";
+import { FaqUI } from "@repo/ui";  // və ya nə varsa import
 
-const FAQ_ITEMS: FaqItem[] = [
-    {
-        id: 1,
-        question: "Where can I watch?",
-        answer: "Nibh quisque suscipit fermentum netus nulla cras porttitor euismod nulla. Orci, dictumst nec aliquet id ullamcorper venenatis. Fermentum sulla craspor ttitore ismod nulla.",
-    },
-    {
-        id: 2,
-        question: "Where can I watch?",
-        answer: "Nibh quisque suscipit fermentum netus nulla cras porttitor euismod nulla. Orci, dictumst nec aliquet id ullamcorper venenatis.",
-    },
-    {
-        id: 3,
-        question: "Where can I watch?",
-        answer: "Nibh quisque suscipit fermentum netus nulla cras porttitor euismod nulla. Orci, dictumst nec aliquet id ullamcorper venenatis.",
-    },
-    {
-        id: 4,
-        question: "Where can I watch?",
-        answer: "Nibh quisque suscipit fermentum netus nulla cras porttitor euismod nulla. Orci, dictumst nec aliquet id ullamcorper venenatis.",
-    },
-];
+async function getFaqs() {
+  try {
+    const res = await fetch(`${process.env.API_URL}/faq/public`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
 
-export function FaqWrapper() {
-    return (            <FaqUI items={FAQ_ITEMS} />
-
-    );
+export async function FaqWrapper() {
+  const items = await getFaqs();
+  return <FaqUI items={items} />;
 }

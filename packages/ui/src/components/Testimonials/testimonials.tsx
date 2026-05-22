@@ -10,7 +10,8 @@ export interface Testimonial {
     quote: string;
     name: string;
     role: string;
-    image: string;
+ image: string;
+  altText?: string;
 }
 
 export interface TestimonialsUIProps {
@@ -27,12 +28,6 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
     const initialized = useRef(false);
 
     const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);
-
-    // const cardW = useCallback(() => {
-    //     const track = trackRef.current;
-    //     if (!track || !track.children[0]) return 340;
-    //     return (track.children[0] as HTMLElement).offsetWidth + 24;
-    // }, []);
     const cardW = useCallback(() => {
     if (typeof window !== "undefined" && window.innerWidth <= 600) {
         const gap = 12;
@@ -143,8 +138,7 @@ useEffect(() => {
                                     <div className={styles.quoteIcon}>"</div>
                                     <p className={styles.quote}>{t.quote}</p>
                                     <div className={styles.author}>
-                                        <img src={t.image} alt={t.name} className={styles.avatar} />
-                                        <div>
+<img src={t.image} alt={t.altText || t.name} className={styles.avatar} />                                        <div>
                                             <p className={styles.name}>{t.name}</p>
                                             <p className={styles.role}>{t.role}</p>
                                         </div>

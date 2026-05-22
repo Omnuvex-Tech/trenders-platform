@@ -7,7 +7,7 @@ export interface PortfolioDetailOverlayUIProps {
     imageAlt?: string;
     badge: string;
     title: string;
-    descriptions: string[];
+    descriptions: (string | React.ReactNode)[];
 }
 
 export function PortfolioDetailOverlayUI({
@@ -21,20 +21,26 @@ export function PortfolioDetailOverlayUI({
         <section className={styles.section}>
             <div className={styles.inner}>
                 <div className={styles.container}>
-                    <img
-                        src={image}
-                        alt={imageAlt}
-                        className={styles.heroImg}
-                    />
+                    <img src={image} alt={imageAlt} className={styles.heroImg} />
                     <div className={styles.content}>
                         <div className={styles.contentTop}>
                             <span className={styles.badge}>{badge}</span>
-                            <h2 className={styles.title}>{title}</h2>
-                        </div>
+<div
+  className={styles.title}
+  dangerouslySetInnerHTML={{ __html: title }}
+/>                        </div>
                         <div className={styles.contentBottom}>
-                            {descriptions.map((desc, i) => (
-                                <p key={i} className={styles.desc}>{desc}</p>
-                            ))}
+                            {descriptions.map((desc, i) =>
+                                typeof desc === "string" ? (
+                                    <div
+                                        key={i}
+                                        className={styles.desc}
+                                        dangerouslySetInnerHTML={{ __html: desc }}
+                                    />
+                                ) : (
+                                    <div key={i} className={styles.desc}>{desc}</div>
+                                )
+                            )}
                         </div>
                     </div>
                 </div>

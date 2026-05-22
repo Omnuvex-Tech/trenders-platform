@@ -1,24 +1,40 @@
-'use client'
-
 import { ProjectsUI } from '@repo/ui'
 import type { ProjectItem } from '@repo/ui'
 
-const PROJECTS: ProjectItem[] = [
-  { id: 1, image: '/images/project1.png', tags: ['SMM', 'Development'], title: 'East Park Premium Suites' },
-  { id: 2, image: '/images/project2.png', tags: ['SMM', 'Development'], title: 'Marina Village' },
-  { id: 3, image: '/images/project3.png', tags: ['Website', 'Development'], title: 'Marina Village' },
-  { id: 4, image: '/images/project4.png', tags: ['Branding', 'Ux/Ui dizayn'], title: 'Whitestone Estate branding visualization' },
-  { id: 5, image: '/images/project5.png', tags: ['SMM', 'Development'], title: 'TREVA Real Estate' },
-  { id: 6, image: '/images/project6.png', tags: ['SMM', 'Development'], title: 'AI Lab' },
-]
+const API = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL
 
-export function ProjectsWrapper() {
+async function getHomepageProjects(): Promise<ProjectItem[]> {
+  try {
+    const res = await fetch(`${API}/portfolio/homepage`, {
+      next: { revalidate: 10 },
+    })
+    console.log('[ProjectsWrapper] status:', res.status, 'url:', `${API}/portfolio/homepage`)
+    if (!res.ok) return []
+    const data = await res.json()
+    console.log('[ProjectsWrapper] data length:', data.length)
+    return data.map((p: any) => ({
+      id: p.id,
+      image: p.coverImage?.startsWith('http') ? p.coverImage : `${API}${p.coverImage}`,
+      tags: p.tags ?? [],
+      title: p.title,
+      slug: p.slug,
+    }))
+  } catch (e) {
+    console.error('[ProjectsWrapper] fetch error:', e)
+    return []
+  }
+}
+
+export async function ProjectsWrapper() {
+  const projects = await getHomepageProjects()
+  console.log('[ProjectsWrapper] rendering with', projects.length, 'projects')
+
   return (
     <ProjectsUI
       sectionTitle="Proyektlər"
       moreBtnLabel="Bütün layihələrə bax"
-      moreBtnHref="#"
-      projects={PROJECTS}
+      moreBtnHref="/portfolio"
+      projects={projects}
     />
   )
 }

@@ -4,7 +4,8 @@ import { config } from "@/config";
 import type { Language, Translation } from "@repo/types/types";
 import { PortfolioWrapper } from "../components/Portfolio/portfolio-wrapper";
 import { ContactWrapper } from "../components/Contact/contact-wrapper";
-export default async function ServicesPage() {
+
+export default async function PortfolioPage() {
     const langResponse = await api.get<Language[]>(config.endpoints.languages.list);
     const translationResponse = await api.get<Translation[]>(
         config.endpoints.translations.list,
@@ -18,8 +19,8 @@ export default async function ServicesPage() {
                 languages={langResponse.data ?? []}
                 initialTranslations={translationResponse.data ?? []}
             />
-            <PortfolioWrapper/>
-            <ContactWrapper/>
+            <PortfolioWrapper />
+            <ContactWrapper />
         </div>
     );
 }

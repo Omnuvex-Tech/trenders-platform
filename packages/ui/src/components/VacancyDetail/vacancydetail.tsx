@@ -14,9 +14,12 @@ export interface VacancyDetailSection {
 export interface VacancyDetailContact {
     email: string;
     emailHref?: string;
+    emailLabel?: string;
     phone: string;
     phoneHref?: string;
+    phoneLabel?: string;
     location: string;
+    locationLabel?: string;
     embedUrl?: string;
 }
 
@@ -205,21 +208,21 @@ export function VacancyDetailUI({
                         </div>
 
                         {/* Kontakt - mapCard xaricində, aşağıda sərbəst */}
-                        <div className={styles.contactInfo}>
+                       <div className={styles.contactInfo}>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>Email Adres</span>
+                                <span className={styles.contactLabel}>{contact.emailLabel || "Email Adres"}</span>
                                 <a href={contact.emailHref || `mailto:${contact.email}`} className={styles.contactValue}>
                                     {contact.email} →
                                 </a>
                             </div>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>Phone</span>
+                                <span className={styles.contactLabel}>{contact.phoneLabel || "Phone"}</span>
                                 <a href={contact.phoneHref || `tel:${contact.phone}`} className={styles.contactValue}>
                                     {contact.phone} →
                                 </a>
                             </div>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>Location</span>
+                                <span className={styles.contactLabel}>{contact.locationLabel || "Location"}</span>
                                 <span className={styles.contactValuePlain}>{contact.location}</span>
                             </div>
                         </div>

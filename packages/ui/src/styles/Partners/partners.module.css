@@ -155,7 +155,14 @@ color: rgba(62, 130, 246, 1);
 
 
 
-
+.partnerLogo {
+  width: 160px;
+  height: 60px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 
 .partnersSection {

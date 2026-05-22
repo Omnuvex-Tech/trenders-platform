@@ -1,36 +1,44 @@
-'use client'
+import { PortfolioUI } from '@repo/ui';
+import type { PortfolioItem } from '@repo/ui';
 
-import { PortfolioUI } from '@repo/ui'
-import type { PortfolioItem } from '@repo/ui'
+function stripHtml(html: string) {
+  return (html ?? "").replace(/<[^>]*>/g, "").trim();
+}
 
+async function getPortfolios(): Promise<PortfolioItem[]> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/portfolio/public`, {
+      cache: 'no-store',
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.map((p: any) => ({
+      id: p.id,
+      image: p.coverImage.startsWith('http')
+        ? p.coverImage
+        : `${process.env.API_URL}${p.coverImage}`,
+      imageAlt: p.coverImageAlt || stripHtml(p.title ?? ''),
+      tags: p.tags,
+      title: p.title,
+      slug: p.slug,
+    }));
+  } catch {
+    return [];
+  }
+}
 
-const PROJECTS: PortfolioItem[] = [
-  { id: 1, image: '/images/project1.png', tags: ['SMM', 'Development'], title: 'East Park Premium Suites' },
-  { id: 2, image: '/images/project2.png', tags: ['SMM', 'Development'], title: 'Marina Village' },
-  { id: 3, image: '/images/project3.png', tags: ['Website', 'Development'], title: 'Marina Village' },
-  { id: 4, image: '/images/project4.png', tags: ['Branding', 'Ux/Ui dizayn'], title: 'Whitestone Estate branding visualization' },
-  { id: 5, image: '/images/project5.png', tags: ['SMM', 'Development'], title: 'TREVA Real Estate' },
-  { id: 6, image: '/images/project6.png', tags: ['SMM', 'Development'], title: 'East Park Premium Suites' },
-  { id: 6, image: '/images/project7.png', tags: ['SMM', 'Development'], title: 'AI Lab' },
-  { id: 6, image: '/images/project8.png', tags: ['SMM', 'Development'], title: 'Marina Village' },
-  { id: 6, image: '/images/project9.png', tags: ['SMM', 'Development'], title: 'AI Lab' },
-  { id: 6, image: '/images/project10.png', tags: ['SMM', 'Development'], title: 'TREVA Real Estate' },
-  { id: 6, image: '/images/project1.png', tags: ['SMM', 'Development'], title: 'East Park Premium Suites' },
-  { id: 6, image: '/images/project4.png', tags: ['SMM', 'Development'], title: 'AI Lab' },
-  { id: 6, image: '/images/project7.png', tags: ['SMM', 'Development'], title: 'Marina Village' },
-  { id: 6, image: '/images/project2.png', tags: ['SMM', 'Development'], title: 'East Park Premium Suites' },
-  { id: 6, image: '/images/project10.png', tags: ['SMM', 'Development'], title: 'East Park Premium Suites' },
+export async function PortfolioWrapper() {
+  const projects = await getPortfolios();
 
-]
+  const allTags = Array.from(new Set(projects.flatMap(p => p.tags)));
 
-export function PortfolioWrapper() {
   return (
-  <PortfolioUI
-  sectionTitle="Portfolio"
-  projects={PROJECTS}
-  showControls={true}
-  dropdownLabel="Xidmətləri seçin"
-  dropdownOptions={['SMM', 'Development', 'Branding', 'Website', 'Ux/Ui dizayn']}
-/>
-  )
+    <PortfolioUI
+      sectionTitle="Portfolio"
+      projects={projects}
+      showControls={true}
+      dropdownLabel="Xidmətləri seçin"
+      dropdownOptions={allTags}
+    />
+  );
 }

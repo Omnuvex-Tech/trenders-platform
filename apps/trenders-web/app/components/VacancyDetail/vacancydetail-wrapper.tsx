@@ -1,67 +1,145 @@
-"use client";
-
-import dynamic from "next/dynamic";
 import { VacancyDetailUI } from "@repo/ui";
+import type { VacancyDetailSection } from "@repo/ui";
+import MapComponent from "@/app/components/VacancyDetail/mapcomponent";
 
-const MapComponent = dynamic(
-    () => import("./mapcomponent"),
-    { ssr: false }
-);
-
-export function VacancyDetailWrapper() {
-    return (
-        <VacancyDetailUI
-            backLabel="Vakansiya"
-            backHref="/vacancy"
-            pageTitle="Vakansiya"
-            jobTitle="Graphic Designer"
-            sections={[
-                {
-                    title: "About The Role",
-                    type: "text",
-                    content: "Brendin pozisiyası, markanın rəqiblərinə nisbətən bazarda özünəməxsus mövqeyinin müəyyən edilməsi prosesidir. Bu, bir markanın əsas üstünlüklərini və xüsusiyyətlərini müəyyənləşdirməyi və müştərilərə informasiyanı birbaşa şəkildə çatdırmağı əhatə edir.",
-                },
-                {
-                    title: "Skills",
-                    type: "skills",
-                    skills: ["Branding", "Graphic Design Skills", "Graphic Skills", "Visual Design Skills", "3D Rendering"],
-                },
-                {
-                    title: "Responsible",
-                    type: "bullets",
-                    bullets: [
-                        "• Markanın rəqiblərinə nisbətən bazarda özünəməxsus mövqeyinin müəyyən edilməsi prosesidir.",
-                        "• Bu, bir markanın əsas üstünlüklərini və xüsusiyyətlərini müəyyənləşdirməyi və müştərilərə informasiyanı",
-                        "• Birbaşa şəkildə çatdırmağı əhatə edir. Trendlər müştərilərə onları rəqiblərindən fərqləndirən və müştəriləri.",
-                        "• Brendin pozisiyası, rendlər müştərilərə onları rəqiblərindən fərqləndirən və müştərləri. Brendin pozisiyası",
-                    ],
-                },
-                {
-                    title: "Requirements",
-                    type: "bullets",
-                    bullets: [
-                        "• Brend identifikasiyası brendin vizual və emosional ifadəsidir.",
-                        "• Trendlər müştərilərə öz brendlərinin mahiyyətini əks etdirən, onları rəqiblərindən fərqləndirən, unikal və yaddaqalan brend şəxsiyyətlərini inkişaf etdirməyə kömək edir.",
-                        "• Bizim brend identifikasiyası xidmətlərimizə loqo dizaynı, vizual brend dizaynı və brend stilistikası daxildir.",
-                        "• Loqo dizaynı brendi təmsil edən fərqli vizual simvolun yaradılması prosesidir.",
-                    ],
-                },
-            ]}
-            applyTitle="APPLY NOW"
-            contact={{
-                email: "trenders@mail.com",
-                phone: "+(994) 502263035",
-                location: "Baku, Sabail Alibayov Gardashlari, 12",
-            }}
-          mapComponent={
-    <MapComponent lat={40.35156} lng={49.83206} />
+interface VacancyCategory {
+  id: number;
+  name: string;
 }
-            namePlaceholder="Your name*"
-            phonePlaceholder="Your phone*"
-            emailPlaceholder="Your email*"
-            cvLabel="Cv yüklə"
-            cvPlaceholder="pdf, png, jpg"
-            submitLabel="Göndər"
-        />
-    );
+
+interface VacancyFromAPI {
+  id: number;
+  title: string;
+  tags: string[];
+  skills: string[];
+  isNew: boolean;
+  newLabel: string | null;
+  isVisible: boolean;
+  order: number;
+  categoryId: number;
+  category: VacancyCategory;
+  createdAt: string;
+  closingDate: string | null;
+  isDateVisible: boolean;
+  aboutRole: string | null;
+  responsible: string[];
+  responsibleType: "BULLET" | "NUMBERED" | "DASH";
+  requirements: string[];
+  requirementsType: "BULLET" | "NUMBERED" | "DASH";
+}
+
+interface VacancySettings {
+  backLabel: string;
+  applyTitle: string;
+  aboutRoleLabel: string;
+  skillsLabel: string;
+  responsibleLabel: string;
+  requirementsLabel: string;
+  email: string;
+  emailHref: string;
+  phone: string;
+  phoneHref: string;
+  location: string;
+  emailLabel: string;
+  phoneLabel: string;
+  locationLabel: string;
+}
+
+function getBulletPrefix(type: "BULLET" | "NUMBERED" | "DASH", index: number): string {
+  if (type === "NUMBERED") return `${index + 1}. `;
+  if (type === "DASH") return "- ";
+  return "• ";
+}
+
+async function getVacancy(slug: string): Promise<VacancyFromAPI | null> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/vacancy/slug/${slug}`, {  
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+async function getSettings(): Promise<VacancySettings | null> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/vacancy-settings`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function VacancyDetailWrapper({ slug }: { slug: string }) {
+  const [vacancy, settings] = await Promise.all([
+    getVacancy(slug),
+    getSettings(),
+  ]);
+
+  if (!vacancy || !vacancy.isVisible) return null;
+  const s = settings;
+
+  const sections: VacancyDetailSection[] = [];
+
+  if (vacancy.aboutRole) {
+    sections.push({
+      title: s?.aboutRoleLabel || "About the Role",
+      type: "text",
+      content: vacancy.aboutRole,
+    });
+  }
+
+  if (vacancy.skills && vacancy.skills.length > 0) {
+    sections.push({
+      title: s?.skillsLabel || "Skills",
+      type: "skills",
+      skills: vacancy.skills,
+    });
+  }
+
+  if (vacancy.responsible && vacancy.responsible.length > 0) {
+    sections.push({
+      title: s?.responsibleLabel || "Responsible",
+      type: "bullets",
+      bullets: vacancy.responsible.map((item, i) =>
+        `${getBulletPrefix(vacancy.responsibleType, i)}${item}`
+      ),
+    });
+  }
+
+  if (vacancy.requirements && vacancy.requirements.length > 0) {
+    sections.push({
+      title: s?.requirementsLabel || "Requirements",
+      type: "bullets",
+      bullets: vacancy.requirements.map((item, i) =>
+        `${getBulletPrefix(vacancy.requirementsType, i)}${item}`
+      ),
+    });
+  }
+
+  return (
+    <VacancyDetailUI
+      backHref="/Vacancy"
+      pageTitle={s?.backLabel || "Vakansiyalar"}
+      jobTitle={vacancy.title}
+      sections={sections}
+      applyTitle={s?.applyTitle || "APPLY NOW"}
+    contact={{
+        email: s?.email || "",
+        emailHref: s?.emailHref || "",
+        emailLabel: s?.emailLabel || "Email Adres",
+        phone: s?.phone || "",
+        phoneHref: s?.phoneHref || "",
+        phoneLabel: s?.phoneLabel || "Phone",
+        location: s?.location || "",
+        locationLabel: s?.locationLabel || "Location",
+      }}
+      mapComponent={<MapComponent />}
+    />
+  );
 }

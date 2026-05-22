@@ -9,7 +9,7 @@ export interface PortfolioDetailStep {
 }
 
 export interface PortfolioDetailStepsUIProps {
-    description: React.ReactNode;
+    description: string | React.ReactNode;
     steps: PortfolioDetailStep[];
 }
 
@@ -20,26 +20,30 @@ export function PortfolioDetailStepsUI({
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                {/* Yuxarı açıqlama mətni */}
-                <p className={styles.description}>{description}</p>
+                {typeof description === "string" ? (
+                    <div
+                        className={styles.description}
+                        dangerouslySetInnerHTML={{ __html: description }}
+                    />
+                ) : (
+                    <div className={styles.description}>{description}</div>
+                )}
 
-                {/* Staircase kartlar */}
-              <div className={styles.staircase}>
-    {steps.map((step, i) => (
-        <div key={i} className={styles.card} style={{ marginTop: `${i * 100}px` }}>
-            <span className={styles.stepNumber}>/{step.number}</span>
-            <p className={styles.stepLabel}>{step.label}</p>
-        </div>
-    ))}
-    {/* Divider xətlər */}
-    {[1, 2, 3].map((_, i) => (
-        <div
-            key={`divider-${i}`}
-            className={styles.divider}
-            style={{ left: `${(i + 1) * 25}%` }}
-        />
-    ))}
-</div>
+                <div className={styles.staircase}>
+                    {steps.map((step, i) => (
+                        <div key={i} className={styles.card} style={{ marginTop: `${i * 100}px` }}>
+                            <span className={styles.stepNumber}>/{step.number}</span>
+                            <p className={styles.stepLabel}>{step.label}</p>
+                        </div>
+                    ))}
+                    {[1, 2, 3].map((_, i) => (
+                        <div
+                            key={`divider-${i}`}
+                            className={styles.divider}
+                            style={{ left: `${(i + 1) * 25}%` }}
+                        />
+                    ))}
+                </div>
             </div>
         </section>
     );
