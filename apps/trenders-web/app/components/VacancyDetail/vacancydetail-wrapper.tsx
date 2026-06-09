@@ -1,6 +1,11 @@
+
 import { VacancyDetailUI } from "@repo/ui";
 import type { VacancyDetailSection } from "@repo/ui";
 import MapComponent from "@/app/components/VacancyDetail/mapcomponent";
+import { submitVacancyForm } from "@/app/actions/vacancy";
+
+
+const API = process.env.API_URL;
 
 interface VacancyCategory {
   id: number;
@@ -43,6 +48,17 @@ interface VacancySettings {
   emailLabel: string;
   phoneLabel: string;
   locationLabel: string;
+  formNameLabel: string;
+  formNamePlaceholder: string;
+  formEmailLabel: string;
+  formEmailPlaceholder: string;
+  formPhoneLabel: string;
+  formPhonePlaceholder: string;
+  formMessageLabel: string;
+  formMessagePlaceholder: string;
+  formCvLabel: string;
+  formCvPlaceholder: string;
+  formSubmitLabel: string;
 }
 
 function getBulletPrefix(type: "BULLET" | "NUMBERED" | "DASH", index: number): string {
@@ -53,9 +69,7 @@ function getBulletPrefix(type: "BULLET" | "NUMBERED" | "DASH", index: number): s
 
 async function getVacancy(slug: string): Promise<VacancyFromAPI | null> {
   try {
-    const res = await fetch(`${process.env.API_URL}/vacancy/slug/${slug}`, {  
-      cache: "no-store",
-    });
+    const res = await fetch(`${API}/vacancy/slug/${slug}`, { cache: "no-store" });
     if (!res.ok) return null;
     return res.json();
   } catch {
@@ -65,9 +79,7 @@ async function getVacancy(slug: string): Promise<VacancyFromAPI | null> {
 
 async function getSettings(): Promise<VacancySettings | null> {
   try {
-    const res = await fetch(`${process.env.API_URL}/vacancy-settings`, {
-      cache: "no-store",
-    });
+    const res = await fetch(`${API}/vacancy/settings`, { cache: "no-store" });
     if (!res.ok) return null;
     return res.json();
   } catch {
@@ -82,6 +94,7 @@ export async function VacancyDetailWrapper({ slug }: { slug: string }) {
   ]);
 
   if (!vacancy || !vacancy.isVisible) return null;
+
   const s = settings;
 
   const sections: VacancyDetailSection[] = [];
@@ -94,7 +107,7 @@ export async function VacancyDetailWrapper({ slug }: { slug: string }) {
     });
   }
 
-  if (vacancy.skills && vacancy.skills.length > 0) {
+  if (vacancy.skills?.length > 0) {
     sections.push({
       title: s?.skillsLabel || "Skills",
       type: "skills",
@@ -102,7 +115,7 @@ export async function VacancyDetailWrapper({ slug }: { slug: string }) {
     });
   }
 
-  if (vacancy.responsible && vacancy.responsible.length > 0) {
+  if (vacancy.responsible?.length > 0) {
     sections.push({
       title: s?.responsibleLabel || "Responsible",
       type: "bullets",
@@ -112,7 +125,7 @@ export async function VacancyDetailWrapper({ slug }: { slug: string }) {
     });
   }
 
-  if (vacancy.requirements && vacancy.requirements.length > 0) {
+  if (vacancy.requirements?.length > 0) {
     sections.push({
       title: s?.requirementsLabel || "Requirements",
       type: "bullets",
@@ -127,9 +140,11 @@ export async function VacancyDetailWrapper({ slug }: { slug: string }) {
       backHref="/Vacancy"
       pageTitle={s?.backLabel || "Vakansiyalar"}
       jobTitle={vacancy.title}
+      vacancyId={vacancy.id}
+      vacancyTitle={vacancy.title}
       sections={sections}
       applyTitle={s?.applyTitle || "APPLY NOW"}
-    contact={{
+      contact={{
         email: s?.email || "",
         emailHref: s?.emailHref || "",
         emailLabel: s?.emailLabel || "Email Adres",
@@ -140,6 +155,18 @@ export async function VacancyDetailWrapper({ slug }: { slug: string }) {
         locationLabel: s?.locationLabel || "Location",
       }}
       mapComponent={<MapComponent />}
+      nameLabel={s?.formNameLabel || "Name"}
+      namePlaceholder={s?.formNamePlaceholder || "Your name*"}
+      emailLabel={s?.formEmailLabel || "Email"}
+      emailPlaceholder={s?.formEmailPlaceholder || "Your email*"}
+      phoneLabel={s?.formPhoneLabel || "Phone"}
+      phonePlaceholder={s?.formPhonePlaceholder || "Your phone*"}
+      messageLabel={s?.formMessageLabel || "Message"}
+      messagePlaceholder={s?.formMessagePlaceholder || "Your message"}
+      cvLabel={s?.formCvLabel || "CV yüklə*"}
+      cvPlaceholder={s?.formCvPlaceholder || "pdf, png, jpg"}
+      submitLabel={s?.formSubmitLabel || "Göndər"}
+      onSubmit={submitVacancyForm}
     />
   );
 }
