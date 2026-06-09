@@ -32,14 +32,14 @@ export default async function HomePage() {
                 languages={langResponse.data}
                 initialTranslations={translationResponse.data ?? []}
             />
-            <HeroWrapper />
-            <ProjectsWrapper />
-            <PartnersWrapper />
-            <TestimonialsWrapper />
-            <TeamWrapper />
-            <BlogWrapper/>
-            <ContactWrapper />
-            <FaqWrapper />
+            <HeroWrapper locale="az" />
+            <ProjectsWrapper locale="az" />
+            <PartnersWrapper locale="az" />
+            <TestimonialsWrapper locale="az" />
+            <TeamWrapper locale="az" />
+            <BlogWrapper locale="az" />
+            <ContactWrapper locale="az" />
+            <FaqWrapper locale="az" />
         </div>
     );
 }

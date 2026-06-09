@@ -64,7 +64,7 @@ const ANIM_DURATION  = 1000;
 const AUTOPLAY_MS    = 4000;
 const MOBILE_BP      = 768;
 
-export function HeroWrapper() {
+export function HeroWrapper({ locale = "az" }: { locale?: string }) {
     const [active,         setActive        ] = useState(INITIAL_ACTIVE);
     const [leftLimit,      setLeftLimit     ] = useState(-2);
     const [rightLimit,     setRightLimit    ] = useState(4);

@@ -53,7 +53,7 @@ async function getHomePartners(): Promise<{
   }
 }
 
-export async function PartnersWrapper() {
+export async function PartnersWrapper({ locale = "az" }: { locale?: string }) {
   const { sectionTitle, description, partners } = await getHomePartners()
 
   return (

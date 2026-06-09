@@ -37,7 +37,7 @@ async function getHomeBlogs(): Promise<BlogPost[]> {
   }
 }
 
-export async function BlogWrapper() {
+export async function BlogWrapper({ locale = "az" }: { locale?: string }) {
   const posts = await getHomeBlogs();
   if (posts.length === 0) return null;
   return (

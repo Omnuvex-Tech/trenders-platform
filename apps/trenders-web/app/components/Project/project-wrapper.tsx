@@ -26,7 +26,7 @@ async function getHomepageProjects(): Promise<ProjectItem[]> {
   }
 }
 
-export async function ProjectsWrapper() {
+export async function ProjectsWrapper({ locale = "az" }: { locale?: string }) {
   const projects = await getHomepageProjects()
   console.log('[ProjectsWrapper] rendering with', projects.length, 'projects')
 

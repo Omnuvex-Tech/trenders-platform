@@ -36,7 +36,7 @@ async function getServiceOptions(): Promise<string[]> {
     }
 }
 
-export async function ContactWrapper() {
+export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
     const [data, serviceOptions] = await Promise.all([
         getContactData(),
         getServiceOptions(),

@@ -29,7 +29,7 @@ async function getHomeTeamMembers(): Promise<TeamMember[]> {
     }
 }
 
-export async function TeamWrapper() {
+export async function TeamWrapper({ locale = "az" }: { locale?: string }) {
     const members = await getHomeTeamMembers();
 
     return (

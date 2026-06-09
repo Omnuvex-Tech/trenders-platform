@@ -424,7 +424,7 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
   };
 
   // Mətni boşluqlara görə massivə bölürük
-  const words = description.split(" ");
+  const words = (description || "").split(" ");
 
   // --- SLIDER MEXANİKMASI ---
   const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);

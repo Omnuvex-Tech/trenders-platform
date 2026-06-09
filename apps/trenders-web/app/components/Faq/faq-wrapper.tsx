@@ -12,7 +12,7 @@ async function getFaqs() {
   }
 }
 
-export async function FaqWrapper() {
+export async function FaqWrapper({ locale = "az" }: { locale?: string }) {
   const items = await getFaqs();
   return <FaqUI items={items} />;
 }
