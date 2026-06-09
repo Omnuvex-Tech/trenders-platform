@@ -29,11 +29,10 @@ export function ServiceDetailOverlayUI({
                     <div className={styles.content}>
                         <div className={styles.contentTop}>
                             <span className={styles.badge}>{badge}</span>
-                            <h2 className={styles.title}>{title}</h2>
-                        </div>
+                            <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />                        </div>
                         <div className={styles.contentBottom}>
                             {descriptions.map((desc, i) => (
-                                <p key={i} className={styles.desc}>{desc}</p>
+                                <div key={i} className={styles.desc} dangerouslySetInnerHTML={{ __html: desc }} />
                             ))}
                         </div>
                     </div>

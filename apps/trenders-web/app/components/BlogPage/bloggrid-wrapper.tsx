@@ -1,46 +1,48 @@
 import { BlogGridUI } from "@repo/ui";
 import type { BlogGridItem } from "@repo/ui";
 
-const POSTS: BlogGridItem[] = [
-    {
-        id: 1,
-        image: "/images/blog1.png",
-        category: "Marketing",
-        title: "Young Lions Azerbaijan nədir?",
-        excerpt: `Young Lions Azerbaijan 30 yaşadək yaradıcı, media və marketinq mütəxəssisləri üçün nəzərdə tutulmuş beynəlxalq "Young Lions" proqramının Azərbaycan üzrə...`,
-        authorImage: "/images/team3.jpg",
-        authorName: "Almaz Abdullayeva",
-        date: "February 24, 2026",
-        href: "#",
-    },
-    {
-        id: 2,
-        image: "/images/blog2.png",
-        category: "AI",
-        title: "Süni İntellekt Erasında Necə Sağ Qalmaq?",
-        excerpt: "Süni intellekt dövründə sağ qalmağın yolu ona qarşı mübarizə aparmaq deyil, onunla birlikdə işləməyi öyrənməkdir. AI insanı əvəz etmir; onu effektiv istifadə...",
-        authorImage: "/images/team1.jpg",
-        authorName: "Ramal Xankişiyev",
-        date: "February 24, 2026",
-        href: "#",
-    },
-    {
-        id: 3,
-        image: "/images/blog3.png",
-        category: "Design",
-        title: "Bir vizual, min fikir: İdeyanı 'kill etmə' mədəniyyəti",
-        excerpt: "Hər dizayn prosesinin əvvəlində ağlında partlayan onlarcafikir olur. Heç biri tam formalaşmayıb, amma hamısında bir potensial var. Bu mərhələ,ağ səhifə...",
-        authorImage: "/images/testimonials1.jpg",
-        authorName: "Güler Məmmədova",
-        date: "October 17, 2025",
-        href: "#",
-    },
-];
+function toAbsUrl(path: string) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${process.env.API_URL}${path}`;
+}
 
-export function BlogGridWrapper() {
-    return (
-        <BlogGridUI
-            posts={POSTS}
-        />
-    );
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "long", day: "numeric", year: "numeric",
+  });
+}
+
+async function getBlogGridData(): Promise<BlogGridItem[]> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/blog`, { cache: "no-store" });
+    const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
+    if (!res.ok) return [];
+    const blogs = await res.json();
+    return (blogs as any[])
+      .filter((b) => b.isVisible && b.isGrid)
+      .sort((a, b) => a.order - b.order)
+      .map((b) => ({
+        id: b.id,
+        image: toAbsUrl(b.coverImage ?? ""),
+        imageAlt: b.coverImageAlt || stripHtml(b.title ?? ""),
+        category: b.badge ?? "",
+        title: b.title ?? "",
+        excerpt: b.excerpt ?? "",
+        authorImage: toAbsUrl(b.author?.avatar ?? ""),
+        authorImageAlt: b.author?.name ?? "",
+        authorName: b.author?.name ?? "",
+        authorHref: b.author?.slug ? `/BlogAuthor/${b.author.slug}` : undefined,
+        date: b.publishedAt ? formatDate(b.publishedAt) : "",
+        href: `/Blog/${b.slug}`,
+      }));
+  } catch {
+    return [];
+  }
+}
+
+export async function BlogGridWrapper() {
+  const posts = await getBlogGridData();
+  if (posts.length === 0) return null;
+  return <BlogGridUI posts={posts} />;
 }

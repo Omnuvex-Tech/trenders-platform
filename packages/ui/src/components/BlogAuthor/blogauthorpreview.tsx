@@ -5,9 +5,11 @@ import styles from "../../styles/BlogAuthor/blogauthorpreview.module.css";
 export interface BlogAuthorDetail {
     name: string;
     avatar: string;
+    href?: string;
 }
 
 export interface BlogDetailPreviewUIProps {
+    href?: string;
     sectionTitle: string;
     image: string;
     imageAlt?: string;
@@ -21,6 +23,7 @@ export interface BlogDetailPreviewUIProps {
 }
 
 export function BlogDetailPreviewUI({
+    href,
     sectionTitle,
     image,
     imageAlt = "",
@@ -40,8 +43,7 @@ export function BlogDetailPreviewUI({
                 </div>
                 <div className={styles.card}>
 
-                    {/* Sol: şəkil */}
-                    <div className={styles.imageWrap}>
+                    <a href={href} className={styles.imageWrap}>
                         <img
                             src={image}
                             alt={imageAlt}
@@ -49,28 +51,35 @@ export function BlogDetailPreviewUI({
                         />
                         <div className={styles.imageOverlay}>
                             <span className={styles.overlayBadge}>{overlayBadge}</span>
-                            <p className={styles.overlayTitle}>{overlayTitle}</p>
+                            <div className={styles.overlayTitle} dangerouslySetInnerHTML={{ __html: overlayTitle }} />
                         </div>
-                    </div>
+                    </a>
 
-                    {/* Sağ: məzmun */}
                     <div className={styles.content}>
                         <span className={styles.badge}>{badge}</span>
-                        <h1 className={styles.title}>{title}</h1>
-                        <p className={styles.description}>{description}</p>
+                        <a href={href}>
+                            <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
+                            <div className={styles.description} dangerouslySetInnerHTML={{ __html: description }} />
+                        </a>
                         <div className={styles.meta}>
-                            <img
-                                src={author.avatar}
-                                alt={author.name}
-                                className={styles.avatar}
-                            />
-                            <div className={styles.authorInfo}>
-                                <span className={styles.authorName}>{author.name}</span>
-                                <span className={styles.date}>{date}</span>
-                            </div>
+                            <a
+                                href={author.href}
+                                className={styles.authorLink}
+                                onClick={(e) => e.stopPropagation()}
+                                style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}
+                            >
+                                <img
+                                    src={author.avatar}
+                                    alt={author.name}
+                                    className={styles.avatar}
+                                />
+                                <div className={styles.authorInfo}>
+                                    <span className={styles.authorName}>{author.name}</span>
+                                    <span className={styles.date}>{date}</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>

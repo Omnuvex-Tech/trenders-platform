@@ -8,11 +8,15 @@ export interface ServiceDetailContentItem {
     badge: string;
     title: string;
     descriptions: string[];
-    quote: React.ReactNode;
+    quote: string;
     quoteImage: string
-    subText?: React.ReactNode;
+    subText?: string;
     image?: string;
     imageAlt?: string;
+    number2?: string;
+    badge2?: string;
+    title2?: string;
+    descriptions2?: string[];
 }
 
 export interface ServiceDetailContentUIProps {
@@ -30,9 +34,9 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
                             <span className={styles.number}>{item.number}</span>
                             <div className={styles.content}>
                                 <span className={styles.badge}>{item.badge}</span>
-                                <h2 className={styles.title}>{item.title}</h2>
+                                <div className={styles.title} dangerouslySetInnerHTML={{ __html: item.title }} />
                                 {item.descriptions.map((desc, j) => (
-                                    <p key={j} className={styles.desc}>{desc}</p>
+                                    <div key={j} className={styles.desc} dangerouslySetInnerHTML={{ __html: desc }} />
                                 ))}
                             </div>
                         </div>
@@ -43,8 +47,7 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
                                 <div className={styles.quoteText}>
                                     <div className={styles.quoteInner}>
                                         <span className={styles.quoteMark}>"</span>
-                                        <span className={styles.quoteLight}>{item.quote}</span>
-                                    </div>
+                                        <div className={styles.quoteLight} dangerouslySetInnerHTML={{ __html: item.quote ?? '' }} />  </div>
                                 </div>
                                 <div className={styles.quoteImgWrap}>
                                     <img src={item.quoteImage} alt="Quote side" className={styles.quoteImg} />
@@ -54,9 +57,9 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
 
                         {/* Kiçik mətn */}
                         {item.subText && (
-                            <p className={styles.subText}>{item.subText}</p>
+                            <div className={styles.subText} dangerouslySetInnerHTML={{ __html: item.subText as string }} />
                         )}
-
+                        
                         {/* Şəkil */}
                         {item.image && (
                             <div className={styles.imageWrap}>

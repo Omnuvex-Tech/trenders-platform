@@ -34,6 +34,7 @@ export interface VacancyDetailUIProps {
     mapComponent?: React.ReactNode;
     onSubmit?: (data: { name: string; phone: string; email: string; cv: File | null }) => void;
     namePlaceholder?: string;
+    messagePlaceholder?: string;
     phonePlaceholder?: string;
     emailPlaceholder?: string;
     cvLabel?: string;
@@ -52,9 +53,10 @@ export function VacancyDetailUI({
     mapComponent,
     onSubmit,
     namePlaceholder = "Your name*",
+    messagePlaceholder = "Your message",
     phonePlaceholder = "Your phone*",
     emailPlaceholder = "Your email*",
-    cvLabel = "Cv yüklə",
+    cvLabel = "CV yüklə*",
     cvPlaceholder = "pdf, png, jpg",
     submitLabel = "Göndər",
 }: VacancyDetailUIProps) {
@@ -123,11 +125,7 @@ export function VacancyDetailUI({
                             </div>
                         ))}
                     </div>
-
-                    {/* Sağ: Form + xəritə + kontakt */}
                     <aside className={styles.right}>
-
-                        {/* Apply title - formCard xaricində */}
                         <div>
                             <h2 className={styles.applyTitle}>{applyTitle}</h2>
                             <div className={styles.formCard}>
@@ -138,6 +136,17 @@ export function VacancyDetailUI({
                                         <input
                                             type="text"
                                             placeholder={namePlaceholder}
+                                            className={styles.fieldInput}
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
+                                    </div>
+
+                                      <div className={styles.fieldGroup}>
+                                        <label className={styles.fieldLabel}>Message</label>
+                                        <input
+                                            type="text"
+                                            placeholder={messagePlaceholder}
                                             className={styles.fieldInput}
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
@@ -212,13 +221,13 @@ export function VacancyDetailUI({
                             <div className={styles.contactItem}>
                                 <span className={styles.contactLabel}>{contact.emailLabel || "Email Adres"}</span>
                                 <a href={contact.emailHref || `mailto:${contact.email}`} className={styles.contactValue}>
-                                    {contact.email} →
+                                    {contact.email}
                                 </a>
                             </div>
                             <div className={styles.contactItem}>
                                 <span className={styles.contactLabel}>{contact.phoneLabel || "Phone"}</span>
                                 <a href={contact.phoneHref || `tel:${contact.phone}`} className={styles.contactValue}>
-                                    {contact.phone} →
+                                    {contact.phone}
                                 </a>
                             </div>
                             <div className={styles.contactItem}>

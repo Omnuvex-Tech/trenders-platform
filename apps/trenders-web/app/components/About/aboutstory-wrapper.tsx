@@ -1,28 +1,32 @@
 import { AboutStoryUI } from "@repo/ui";
 
-export function AboutStoryWrapper() {
-    return (
-        <AboutStoryUI
-            blocks={[
-                {
-                    title: "Komandamız dizayn, rəqəmsal media.",
-                    paragraphs: [
-                        "Young Lions Azerbaijan 30 yaşadək yaradıcı, media və marketinq mütəxəssisləri üçün nəzərdə tutulmuş beynəlxalq \"Young Lions\" proqramının Azərbaycan üzrə rəsmi seçim mərhələsidir. Bu proqram dünyanın ən nüfuzlu yaradıcılıq tədbirlərindən biri olan Cannes Lions International Festival of Creativity çərçivəsində keçirilir və gənc mütəxəssislərə öz ölkələrini beynəlxalq səviyyədə təmsil etmək imkanı yaradır. Azərbaycan bu proqramda 2022-ci ildən etibarən rəsmi şəkildə iştirak edir.",
+function toAbsUrl(path: string) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${process.env.API_URL}${path}`;
+}
 
-                        "Young Lions Azerbaijan artıq 3 ildir ki, ölkəmizdə keçirilir. İlk dəfə yerli mərhələnin təşkili ilə Azərbaycan beynəlxalq Young Lions şəbəkəsinə qoşulub. Sonrakı illərdə yarışmaya maraq artıb və hər il daha çox komanda qeydiyyatdan keçib. Bu artım həm yerli kreativ sənayenin inkişafını, həm də gənc mütəxəssislərin beynəlxalq platformalara çıxışa olan marağını göstərir."
-                    ],
-                    image: "/images/about2.jpg",
-                    imageAlt: "Komanda işi",
-                },
-                {
-                    title: "Komandamız dizayn, rəqəmsal media.",
-                    paragraphs: [
-                        "Young Lions Azerbaijan 30 yaşadək yaradıcı, media və marketinq mütəxəssisləri üçün nəzərdə tutulmuş beynəlxalq \"Young Lions\" proqramının Azərbaycan üzrə rəsmi seçim mərhələsidir. Bu proqram dünyanın ən nüfuzlu yaradıcılıq tədbirlərindən biri olan Cannes Lions International Festival of Creativity çərçivəsində keçirilir və gənc mütəxəssislərə öz ölkələrini beynəlxalq səviyyədə təmsil etmək imkanı yaradır. Azərbaycan bu proqramda 2022-ci ildən etibarən rəsmi şəkildə iştirak edir. Bu müddət ərzində Young Lions Azerbaijan ölkədə yaradıcı sənayenin inkişafına töhfə verən, yeni nəsil kreativlərin formalaşmasına xidmət edən mühüm platformaya çevrilib.",
+async function getAboutSettings() {
+  try {
+    const res = await fetch(`${process.env.API_URL}/about/settings`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
 
-                        "Azərbaycan bu proqramda 2022-ci ildən etibarən rəsmi şəkildə iştirak edir. Bu müddət ərzində Young Lions Azerbaijan ölkədə yaradıcı sənayenin inkişafına töhfə verən, yeni nəsil kreativlərin formalaşmasına xidmət edən mühüm platformaya çevrilib."
-                    ],
-                },
-            ]}
-        />
-    );
+export async function AboutStoryWrapper() {
+  const s = await getAboutSettings();
+  if (!s) return null;
+  const blocks = Array.isArray(s.storyBlocks) ? s.storyBlocks : [];
+  if (blocks.length === 0) return null;
+  return (
+    <AboutStoryUI
+      blocks={blocks.map((b: any) => ({
+        title: b.title ?? "",
+        paragraphs: Array.isArray(b.paragraphs) ? b.paragraphs : [],
+        image: b.image ? toAbsUrl(b.image) : undefined,
+        imageAlt: b.imageAlt ?? "",
+      }))}
+    />
+  );
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import styles from "../../styles/BlogDetail/blogdetailhero.module.css";
-
 export interface BlogDetailHeroAuthor {
     name: string;
     role: string;
     avatar: string;
+    href?: string;
 }
 
 export interface BlogDetailPageHeroUIProps {
@@ -36,26 +36,41 @@ export function BlogDetailPageHeroUI({
                         alt={heroImageAlt}
                         className={styles.heroImg}
                     />
-                    <div className={styles.authorCard}>
-                        <img
-                            src={author.avatar}
-                            alt={author.name}
-                            className={styles.authorAvatar}
-                        />
-                        <div className={styles.authorInfo}>
-                            <span className={styles.authorName}>{author.name}</span>
-                            <span className={styles.authorRole}>{author.role}</span>
+                   {author.href ? (
+                        <a href={author.href} className={styles.authorCard}>
+                            <img
+                                src={author.avatar}
+                                alt={author.name}
+                                className={styles.authorAvatar}
+                            />
+                            <div className={styles.authorInfo}>
+                                <span className={styles.authorName}>{author.name}</span>
+                                <span className={styles.authorRole}>{author.role}</span>
+                            </div>
+                        </a>
+                    ) : (
+                        <div className={styles.authorCard}>
+                            <img
+                                src={author.avatar}
+                                alt={author.name}
+                                className={styles.authorAvatar}
+                            />
+                            <div className={styles.authorInfo}>
+                                <span className={styles.authorName}>{author.name}</span>
+                                <span className={styles.authorRole}>{author.role}</span>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
 
                 {/* Mətn bloku */}
                 <div className={styles.textBlock}>
                     <span className={styles.hashtag}>{hashtag}</span>
-                    <h1 className={styles.title}>{title}</h1>
+                    <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
                     <div className={styles.paragraphs}>
+
                         {paragraphs.map((p, i) => (
-                            <p key={i} className={styles.paragraph}>{p}</p>
+                            <div key={i} className={styles.paragraph} dangerouslySetInnerHTML={{ __html: p }} />
                         ))}
                     </div>
                 </div>

@@ -1,40 +1,41 @@
-"use client";
-
 import { TeamUI } from "@repo/ui";
 import type { TeamMember } from "@repo/ui";
 
-const TEAM_MEMBERS: TeamMember[] = [
-    {
-        id: 1,
-        name: "Cəmilə Əhmədova",
-        role: "Baş İcraçı Direktor",
-        image: "/images/team1.jpg",
-    },
-    {
-        id: 2,
-        name: "Səbinə Akhundov",
-        role: "Marketinq Direktoru",
-        image: "/images/team2.jpg",
-    },
-    {
-        id: 3,
-        name: "Kanan Akhbarov",
-        role: "Qrafik Dizayner",
-        image: "/images/team3.jpg",
-    },
-       {
-        id: 4,
-        name: "Leila Akhbarova",
-        role: "Qrafik Dizayner",
-        image: "/images/team1.jpg",
-    },
-];
+function toAbsUrl(path: string) {
+    if (!path) return "";
+    if (path.startsWith("http")) return path;
+    return `${process.env.API_URL}${path}`;
+}
 
-export function TeamWrapper() {
+async function getHomeTeamMembers(): Promise<TeamMember[]> {
+    try {
+        const res = await fetch(`${process.env.API_URL}/blog/authors/about-team`, {
+            cache: "no-store",
+        });
+        if (!res.ok) return [];
+        const authors = await res.json();
+        return (authors as any[])
+            .slice(0, 3)
+            .map((a) => ({
+                id: a.id,
+                name: a.name ?? "",
+                role: a.role ?? "",
+                image: toAbsUrl(a.avatar ?? ""),
+                imageAlt: a.avatarAlt ?? a.name ?? "",
+                href: a.slug ? `/BlogAuthor/${a.slug}` : "#",
+            }));
+    } catch {
+        return [];
+    }
+}
+
+export async function TeamWrapper() {
+    const members = await getHomeTeamMembers();
+
     return (
         <TeamUI
             title="İlham Verən Komanda"
-            members={TEAM_MEMBERS}
+            members={members}
             featuredImage="/images/team2.jpg"
         />
     );

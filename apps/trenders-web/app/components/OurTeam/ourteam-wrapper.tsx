@@ -1,72 +1,39 @@
 import { OurTeamUI } from "@repo/ui";
 import type { OurTeamMember } from "@repo/ui";
 
-const MEMBERS: OurTeamMember[] = [
-    {
-        id: 1,
-        image: "/images/team5.png",
-        name: "Cavid Axundov",
-        role: "Baş İcarçı Direktor",
-        href: "#",
-    },
-    {
-        id: 2,
-        image: "/images/team6.jpg",
-        name: "Fuada Isgender",
-        role: "Marketing Direktor",
-        href: "#",
-    },
-    {
-        id: 3,
-        image: "/images/team3.jpg",
-        name: "İlham Aghazade",
-        role: "Asistant",
-        href: "#",
-    },
-    {
-        id: 4,
-        image: "/images/team4.jpg",
-        name: "Nazrin Axundova",
-        role: "Baş İcarçı Direktor",
-        href: "#",
-    },
-     {
-        id: 5,
-        image: "/images/team1.jpg",
-        name: "Cavid Axundov",
-        role: "Baş İcarçı Direktor",
-        href: "#",
-    },
-    {
-        id: 6,
-        image: "/images/team5.png",
-        name: "Cavid Axundov",
-        role: "Baş İcarçı Direktor",
-        href: "#",
-    },
-    {
-        id: 7,
-        image: "/images/team3.jpg",
-        name: "İlham Aghazade",
-        role: "Asistant",
-        href: "#",
-    },
-    {
-        id: 8,
-        image: "/images/team4.jpg",
-        name: "Nazrin Axundova",
-        role: "Baş İcarçı Direktor",
-        href: "#",
-    },
-];
+function toAbsUrl(path: string) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${process.env.API_URL}${path}`;
+}
 
-export function OurTeamWrapper() {
-    return (
-        <OurTeamUI
-            title="Komandamız"
-            descriptionText="Biz tipik bir marketinq şirkəti deyilik! Bir çox brendlər trendləri izləməyə çalışdığı zaman,"
-            descriptionLink="biz sizə trendi yaratmağa kömək edəcəyik."
-            members={MEMBERS}
-        />
-    );
+async function getOurTeamMembers(): Promise<OurTeamMember[]> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/blog/authors/our-team`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const authors = await res.json();
+    return (authors as any[]).map((a) => ({
+      id: a.id,
+      image: toAbsUrl(a.avatar ?? ""),
+      imageAlt: a.avatarAlt ?? a.name ?? "",
+      name: a.name ?? "",
+      role: a.role ?? "",
+      href: a.slug ? `/BlogAuthor/${a.slug}` : "#",
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function OurTeamWrapper() {
+  const members = await getOurTeamMembers();
+  if (members.length === 0) return null;
+  return (
+    <OurTeamUI
+      title="Komandamız"
+      descriptionText="Biz tipik bir marketinq şirkəti deyilik! Bir çox brendlər trendləri izləməyə çalışdığı zaman,"
+      descriptionLink="biz sizə trendi yaratmağa kömək edəcəyik."
+      members={members}
+    />
+  );
 }

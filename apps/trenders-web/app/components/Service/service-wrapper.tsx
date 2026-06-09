@@ -1,150 +1,105 @@
+// import { ServicesUI } from "@repo/ui";
+// import type { Service } from "@repo/ui";
+
+// function toAbsUrl(path: string): string {
+//     if (!path) return "";
+//     if (path.startsWith("http")) return path;
+//     return `${process.env.API_URL}${path}`;
+// }
+
+
+// async function getServices(): Promise<Service[]> {
+//     try {
+//         const res = await fetch(`${process.env.API_URL}/services`, {
+//             cache: "no-store",
+//         });
+//         if (!res.ok) return [];
+//         const data = await res.json();
+//         return (data as any[])
+//             .filter((s) => s.isVisible)
+//             .sort((a, b) => a.order - b.order)
+//             .map((s) => ({
+//                 id: s.id,
+//                 number: s.number ?? "",
+//                 title: s.title ?? "",
+//                 imageAlt: s.imageAlt ?? "",
+//                 description: s.description ?? "",
+//                 image: toAbsUrl(s.image ?? ""),
+//                 gif: s.gif ? toAbsUrl(s.gif) : undefined,
+//                 badge: s.badge ?? "",
+//                 imageDescription: s.description ?? "",
+//                 items: (s.features ?? []).map((f: any) => ({ label: f.label })),
+//                 portfolioHref: s.portfolioButtonLink || "#",
+//                 portfolioNewTab: s.portfolioButtonNewTab ?? false,
+//                 detailHref: s.detailButtonLink || `/service/${s.slug}`,
+//                 detailNewTab: s.detailButtonNewTab ?? false,
+//             }));
+//     } catch {
+//         return [];
+//     }
+// }
+
+// export async function ServicesWrapper() {
+//     const services = await getServices();
+//     if (services.length === 0) return null;
+//     return <ServicesUI title="Xidmətlərimiz" services={services} />;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 import { ServicesUI } from "@repo/ui";
 import type { Service } from "@repo/ui";
 
-const SERVICES: Service[] = [
-    {
-        id: 1,
-        number: "01",
-        title: "Brendinq",
-        description: "Korporativ üslubunuzu yaradaraq, rəqiblərinizdan fərqlənməyə kömək edirik.",
-        image: "/images/service1.png",
-        gif:"./gifs/animation art GIF by Motion Addicts.gif",
-        badge: "Brendinq",
-        imageDescription: "Korporativ üslubunuzu yaradaraq, rəqiblərinizdan fərqlənməyə kömək edirik.",
-        items: [
-            { label: "Brend Mesajlaşması:" },
-            { label: "Brend Strategiyası:" },
-            { label: "Brend Pozisyası:" },
-            { label: "Brend Kimliyi:" },
-            { label: "Brend İdarəetmə:" },
-            { label: "Brend Strategiyası:" },
-        ],
-        portfolioHref: "#",
-        detailHref: "#",
-    },
-    {
-        id: 2,
-        number: "02",
-        title: "Vebsayt",
-        description: "Ziyarətçiləri potensial müştərilərə çevirəcək, istifadəsi rahat və kreativ vebsayt hazırlayırıq.",
-        image: "/images/service2.png",
-        gif:"./gifs/Art Stacking GIF by Pi-Slices.gif",
-        badge: "Vebsayt",
-        imageDescription: "Ziyarətçiləri potensial müştərilərə çevirəcək, istifadəsi rahat və kreativ vebsayt hazırlayırıq.",
-        items: [
-            { label: "Veb-sayt dizaynı:" },
-            { label: "Brend Strategiyası:" },
-            { label: "Veb-sayt dizayn xidmətlərimizə daxildir:" },
-            { label: "Brend Kimliyi:" },
-            { label: "Brend İdarəetmə:" },
-            { label: "Brend Strategiyası:" },
-        ],
-        portfolioHref: "#",
-        detailHref: "#",
-    },
-    {
-        id: 3,
-        number: "03",
-        title: "Qrafik Dizayn",
-        description: "Marketinq məqsədlərinə və auditoriyansa cavab verən vizual yaradırıq.",
-        image: "/images/service3.png",
-        badge: "Qrafik Dizayn",
-        imageDescription: "Marketinq məqsədlərinə və auditoriyansa cavab verən vizual yaradırıq.",
-        items: [
-            { label: "Brend Mesajlaşması:" },
-            { label: "Brend Strategiyası:" },
-            { label: "Brend Pozisyası:" },
-            { label: "Brend Kimliyi:" },
-            { label: "Brend İdarəetmə:" },
-            { label: "Brend Strategiyası:" },
-        ],
-        portfolioHref: "#",
-        detailHref: "#",
-    },
-     {
-        id: 4,
-        number: "04",
-        title: "Motion & Video",
-        description: "Mesajınızı yaradıcı yanaşma ilə çatdırmaq üçün aktual və kreativ video-kontent yaradırıq.",
-        image: "/images/service2.png",
-        badge: "Qrafik Dizayn",
-        imageDescription: "Mesajınızı yaradıcı yanaşma ilə çatdırmaq üçün aktual və kreativ video-kontent yaradırıq.",
-        items: [
-            { label: "Brend Mesajlaşması:" },
-            { label: "Brend Strategiyası:" },
-            { label: "Brend Pozisyası:" },
-            { label: "Brend Kimliyi:" },
-            { label: "Brend İdarəetmə:" },
-            { label: "Brend Strategiyası:" },
-        ],
-        portfolioHref: "#",
-        detailHref: "#",
-    },
-     {
-        id: 5,
-        number: "05",
-        title: "SMM",
-        description: "Korporativ üslubunuzu yaradaraq, rəqiblərinizdən fərqlənməyə kömək edirik.",
-        image: "/images/service1.png",
-        badge: "Qrafik Dizayn",
-        imageDescription: "Peşəkar düşünülmüş sosial media marketinq strategiyası, vizual kontent, kopiraytinq, hər bir sosial şəbəkəyə fərdi yanaşmamız ilə sizi trenddə saxlayırıq.",
-        items: [
-            { label: "Brend Mesajlaşması:" },
-            { label: "Brend Strategiyası:" },
-            { label: "Brend Pozisyası:" },
-            { label: "Brend Kimliyi:" },
-            { label: "Brend İdarəetmə:" },
-            { label: "Brend Strategiyası:" },
-        ],
-        portfolioHref: "#",
-        detailHref: "#",
-    },
-     {
-        id: 6,
-        number: "06",
-        title: "ADS & Targeting",
-        description: "Sosial şəbəkələrdə düzgün irəliləmək, hədəf auditoriyanızı seçmək və potensial müştərilərinizi cəlb etmək üçün tarqetinq və reklam kampaniyalarını idarə edirik.",
-        image: "/images/service3.png",
-        gif: "./gifs/gif.gif",
-        badge: "Qrafik Dizayn",
-        imageDescription: "Sosial şəbəkələrdə düzgün irəliləmək, hədəf auditoriyanızı seçmək və potensial müştərilərinizi cəlb etmək üçün tarqetinq və reklam kampaniyalarını idarə edirik.",
-        items: [
-            { label: "Brend Mesajlaşması:" },
-            { label: "Brend Strategiyası:" },
-            { label: "Brend Pozisyası:" },
-            { label: "Brend Kimliyi:" },
-            { label: "Brend İdarəetmə:" },
-            { label: "Brend Strategiyası:" },
-        ],
-        portfolioHref: "#",
-        detailHref: "#",
-    },
-     {
-        id: 7,
-        number: "07",
-        title: "SEO",
-        description: "Saytınız düzgün SEO və Axtarış motoru strategiyası ilə rəqiblərdən öndə görünsün.",
-        image: "/images/service2.png",
-        badge: "Qrafik Dizayn",
-        imageDescription: "Saytınız düzgün SEO və Axtarış motoru strategiyası ilə rəqiblərdən öndə görünsün.",
-        items: [
-            { label: "Brend Mesajlaşması:" },
-            { label: "Brend Strategiyası:" },
-            { label: "Brend Pozisyası:" },
-            { label: "Brend Kimliyi:" },
-            { label: "Brend İdarəetmə:" },
-            { label: "Brend Strategiyası:" },
-        ],
-        portfolioHref: "#",
-        detailHref: "#",
-    },
-];
+function toAbsUrl(path: string): string {
+    if (!path) return "";
+    if (path.startsWith("http")) return path;
+    return `${process.env.API_URL}${path}`;
+}
 
-export function ServicesWrapper() {
-    return (
-        <ServicesUI
-            title="Xidmətlərimiz"
-            services={SERVICES}
-        />
-    );
+async function getServices(): Promise<Service[]> {
+    try {
+        const res = await fetch(`${process.env.API_URL}/services`, {
+            cache: "no-store",
+        });
+        if (!res.ok) return [];
+        const data = await res.json();
+        return (data as any[])
+            .filter((s) => s.isVisible)
+            .sort((a, b) => a.order - b.order)
+            .map((s) => ({
+                id: s.id,
+                number: s.number ?? "",
+                title: s.title ?? "",
+                imageAlt: s.imageAlt ?? "",
+                description: s.description ?? "",
+                image: toAbsUrl(s.image ?? ""),
+                gif: s.gif ? toAbsUrl(s.gif) : undefined,
+                badge: s.badge ?? "",
+                imageDescription: s.description ?? "",
+                items: (s.features ?? []).map((f: any) => ({ label: f.label })),
+                portfolioHref: s.portfolioButtonLink || "#",
+                portfolioNewTab: s.portfolioButtonNewTab ?? false,
+                detailHref: s.detailButtonLink || `/service/${s.slug}`,
+                detailNewTab: s.detailButtonNewTab ?? false,
+                portfolioLabel: s.portfolioButtonText ?? "Portfolio",
+detailLabel: s.detailButtonText ?? "DAHA ƏTRAFLI",
+            }));
+    } catch {
+        return [];
+    }
+}
+
+export async function ServicesWrapper() {
+    const services = await getServices();
+    if (services.length === 0) return null;
+    return <ServicesUI title="Xidmətlərimiz" services={services} />;
 }

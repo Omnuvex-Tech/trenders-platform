@@ -4,16 +4,15 @@
 }
 
 .testimonialsDivider {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin-bottom: 70px;
-    margin-left: 100px;
-    margin-right: 100px;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin-bottom: 70px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
-
 .inner {
-    max-width: 1440px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 100px;
     display: flex;
@@ -514,6 +513,18 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
   .arrowBtn {
     width: 36px;
     height: 36px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    width: calc((100vw - 200px - 414px - 48px) / 2);
+  }
+}
+
+@media (min-width: 1800px) {
+  .card {
+    width: calc((100vw - 200px - 414px - 72px) / 3);
   }
 }
 

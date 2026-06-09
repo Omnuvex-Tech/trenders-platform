@@ -8,7 +8,7 @@ export interface AboutHeroUIProps {
     heroImageAlt?: string;
     badge: string;
     title: string;
-    paragraphs: React.ReactNode[];
+    paragraphs: string[];
 }
 
 export function AboutHeroUI({
@@ -39,7 +39,11 @@ export function AboutHeroUI({
                     </div>
                     <div className={styles.right}>
                         {paragraphs.map((p, i) => (
-                            <p key={i} className={styles.paragraph}>{p}</p>
+                            <div
+                                key={i}
+                                className={styles.paragraph}
+                                dangerouslySetInnerHTML={{ __html: p }}
+                            />
                         ))}
                     </div>
                 </div>

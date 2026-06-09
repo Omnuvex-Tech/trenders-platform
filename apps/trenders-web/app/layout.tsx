@@ -1,3 +1,4 @@
+
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { NotifyProvider, NotifyContainer } from "@repo/ui";
@@ -5,6 +6,7 @@ import { QueryProvider } from "@/app/providers";
 import { config } from "@/config";
 import { NavbarWrapper } from "./components/Navbar/navbar-wrapper";
 import { FooterWrapper } from "./components/Footer/footer-wrapper";
+import { SmoothScrollProvider } from "./components/SmoothScrollProvider";
 
 import "./globals.css";
 
@@ -38,8 +40,11 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <NotifyProvider>
-            <main className="mx-auto w-full">{children}</main>
-            <FooterWrapper />
+            <SmoothScrollProvider>
+              <main className="mx-auto w-full">{children}</main>
+              <FooterWrapper />
+            </SmoothScrollProvider>
+            
             <NotifyContainer />
           </NotifyProvider>
         </QueryProvider>
@@ -47,3 +52,4 @@ export default function RootLayout({
     </html>
   );
 }
+

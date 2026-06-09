@@ -1,20 +1,46 @@
 import { BlogDetailPreviewUI } from "@repo/ui";
 
-export function BlogAuthorPreviewWrapper() {
+function toAbsUrl(path: string) {
+    if (!path) return "";
+    if (path.startsWith("http")) return path;
+    return `${process.env.API_URL}${path}`;
+}
+function formatDate(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString("en-US", {
+        month: "long", day: "numeric", year: "numeric",
+    });
+}
+async function getAuthorPreviewBlog() {
+    try {
+        const res = await fetch(`${process.env.API_URL}/blog`, { cache: "no-store" });
+        if (!res.ok) return null;
+        const blogs = await res.json();
+        return (blogs as any[]).find((b) => b.isVisible && b.isAuthorPreview) ?? null;
+    } catch {
+        return null;
+    }
+}
+export async function BlogAuthorPreviewWrapper() {
+    const blog = await getAuthorPreviewBlog();
+    const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
+    if (!blog) return null;
     return (
         <BlogDetailPreviewUI
+            href={`/Blog/${blog.slug}`}
             sectionTitle="Digər bloqlar"
-            image="/images/blogdetail4.png"
-            overlayBadge="Brendinq"
-            overlayTitle="Korporativ üslubunuzu yaradaraq, rəqiblərinizdən fərqlənməyə kömək edirik."
-            badge="Graphic Designer"
-            title="Korporativ üslubunuzu yaradaraq, rəqiblərinizdən fərqlənməyə kömək edirik."
-            description="Hər dizayn prosesinin əvvəlində ağlında partlayan onlarcafikir olur. Heç biri tam formalaşmayıb, amma hamısında bir potensial Hər dizayn prosesinin əvvəlində ağlında partlayan onlarcafikir olur. Heç biri tam formalaşmayıb, amma hamısında bir potensial ..."
+            image={toAbsUrl(blog.coverImage ?? "")}
+            imageAlt={blog.coverImageAlt ?? ""}
+            overlayBadge={blog.badge ?? ""}
+            badge={blog.badge ?? ""}
+            overlayTitle={stripHtml(blog.title ?? "")}
+            title={stripHtml(blog.title ?? "")}
+            description={stripHtml(blog.excerpt ?? "")}
             author={{
-                name: "Leyla Abdullayeva",
-                avatar: "/images/team1.jpg",
+                name: blog.author?.name ?? "",
+                avatar: toAbsUrl(blog.author?.avatar ?? ""),
+                href: blog.author?.slug ? `/BlogAuthor/${blog.author.slug}` : undefined,
             }}
-            date="February 24, 2026"
+            date={blog.publishedAt ? formatDate(blog.publishedAt) : ""}
         />
     );
 }

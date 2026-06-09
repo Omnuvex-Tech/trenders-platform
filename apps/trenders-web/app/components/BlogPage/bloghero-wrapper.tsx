@@ -1,64 +1,80 @@
 import { BlogSectionUI } from "@repo/ui";
-import type { BlogItem, BlogSectionQuote } from "@repo/ui";
+import type { BlogItem } from "@repo/ui";
 
-const FEATURED_POST: BlogItem = {
-    id: 1,
-    image: "/images/blogp3.png",
-    badge: "Brendinq",
-    title: "Young Lions Azerbaijan nədir?",
-    description: "Korporativ üslubunuzu yaradaraq, rəqiblərinizdən fərqlənməyə kömək edirik.Süni intellekt dövründə sağ qalmağın yolu ona qarşı ",
-    date: "FEBRUARY 24, 2026",
-    href: "#",
-};
+function toAbsUrl(path: string) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${process.env.API_URL}${path}`;
+}
 
-const SIDE_POSTS: [BlogItem, BlogItem, BlogItem] = [
-    {
-        id: 2,
+function formatDate(dateStr: string) {
+  return new Date(dateStr)
+    .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+    .toUpperCase();
+}
 
-        image: "/images/blog5.jpg",
-        badge: "AI",
-        title: "Young Lions Azerbaijan nədir?",
-        description: "Young Lions Azerbaijan 30 yaşadək yaradıcı, media və marketinq mütəxəssisləri üçün",
-        date: "FEBRUARY 24, 2026",
-        href: "#",
-    },
-    {
-        id: 3,
-        image: "/images/blogp2.png",
-        badge: "AI",
-        title: "Süni İntellekt Erasında Necə Sağ Qalmaq?",
-        description: "Süni intellekt dövründə sağ qalmağın yolu ona qarşı mübarizə aparmaq deyil, onunla birlikdə işləməyi öyrənməkdir.",
-        date: "FEBRUARY 24, 2026",
-        href: "#",
-    },
-    {
-        id: 4,
-        image: "/images/blogp1.png", badge: "Dizayn",
-        title: "Bir vizual, min fikir: İdeyanı 'kill etmə' mədəniyyəti",
-        description: "Hər dizayn prosesinin əvvəlində ağlında partlayan onlarcafikir olur. Heç biri tam formalaşmayıb, amma hamısında bir potensial ...",
-        date: "FEBRUARY 24, 2026",
-        href: "#",
-    },
-];
+function stripHtml(html: string) {
+  return (html ?? "").replace(/<[^>]*>/g, "").trim();
+}
 
-const QUOTE: BlogSectionQuote = {
-    backgroundImage: "/images/blogp4.jpg",
-    text: (
-        <>
-            Agentliyimizin brend strategiyası xidmətlərinə{" "}
-            <strong>bazar araşdırması, rəqabət təhlili, brend memarlığı və brend qaydaları daxildir.</strong>
-        </>
-    ),
-};
+function mapBlogItem(b: any): BlogItem {
+  return {
+    id: b.id,
+    image: toAbsUrl(b.coverImage ?? ""),
+    imageAlt: b.coverImageAlt ?? "",
+    badge: b.badge ?? "",
+    title: b.title ?? "",
+    description: b.excerpt ?? "",
+    date: b.publishedAt ? formatDate(b.publishedAt) : "",
+    href: `/Blog/${b.slug}`,
+  };
+}
 
-export function BlogSectionWrapper() {
-    return (
-        <BlogSectionUI
-            title="Bloglar"
-            portfolioHref="#"
-            featuredPost={FEATURED_POST}
-            sidePosts={SIDE_POSTS}
-            quote={QUOTE}
-        />
-    );
+async function getBlogSectionData() {
+  try {
+    const [featuredRes, settingsRes] = await Promise.all([
+      fetch(`${process.env.API_URL}/blog/featured`, { cache: "no-store" }),
+      fetch(`${process.env.API_URL}/blog/settings`, { cache: "no-store" }),
+    ]);
+
+    const featured = featuredRes.ok ? await featuredRes.json() : { main: null, side: [] };
+    const settings = settingsRes.ok ? await settingsRes.json() : {};
+
+    return {
+      featured: featured.main ?? null,
+      side: featured.side ?? [],
+      settings,
+    };
+  } catch {
+    return { featured: null, side: [], settings: {} };
+  }
+}
+
+export async function BlogSectionWrapper() {
+  const { featured, side, settings } = await getBlogSectionData();
+
+  console.log("BLOG FEATURED:", JSON.stringify(featured, null, 2));
+  console.log("BLOG SETTINGS:", JSON.stringify(settings, null, 2));
+  
+  if (!featured) return null;
+
+  return (
+    <BlogSectionUI
+      title={settings.pageTitle || "Bloglar"}
+      portfolioHref={settings.buttonLink || "/blog"}
+      portfolioLabel={settings.buttonText || "Portfolio"}
+      portfolioNewTab={settings.buttonNewTab ?? false}
+      featuredPost={mapBlogItem(featured)}
+      sidePosts={side.map(mapBlogItem)}
+      quote={
+        settings.quoteText
+          ? {
+              text: settings.quoteText,
+              image: settings.quoteImage ? toAbsUrl(settings.quoteImage) : undefined,
+              imageAlt: settings.quoteImageAlt ?? "",
+            }
+          : null
+      }
+    />
+  );
 }

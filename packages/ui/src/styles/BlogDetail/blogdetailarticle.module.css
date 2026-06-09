@@ -37,6 +37,7 @@
     font-weight: 500;
     font-size: 29.05px;
     line-height: 118%;
+    margin-top: 26px;
     color: rgba(1, 72, 194, 1);
 }
 
@@ -94,7 +95,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px 12px;
-        max-width: 66%;
+    max-width: 66%;
 }
 
 .hashtag {
@@ -196,5 +197,44 @@
     .paragraph {
         font-size: 14px;
     }
-    .hashtags{    max-width: 100%;}
+
+    .hashtags {
+        max-width: 100%;
+    }
+}
+
+
+
+
+
+
+.paragraph blockquote p::before,
+.paragraphs blockquote p::before {
+    content: '\201C';
+    font-size: 32px;
+    color: #94a3b8;
+    font-family: Georgia, serif;
+    font-style: italic;
+    line-height: 0.8;
+    vertical-align: -8px;
+    margin-right: 3px;
+}
+
+.paragraph blockquote p::after,
+.paragraphs blockquote p::after {
+    content: '\201D';
+    font-size: 32px;
+    color: #94a3b8;
+    font-family: Georgia, serif;
+    font-style: italic;
+    line-height: 0.8;
+    vertical-align: -8px;
+    margin-left: 3px;
+}
+
+.paragraph blockquote,
+.paragraphs blockquote {
+    margin: 8px 0;
+    padding: 4px 0;
+    font-style: normal;
 }

@@ -12,16 +12,29 @@
     gap: 0;
 }
 
+/* .authorCard {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 28px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    position: sticky;
+    top: 32px;
+    width: 361px;
+    height: 380px;
+    border-radius: 18px;
+} */
+
 .authorCard {
     border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 28px 24px 32px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 13px;
     position: sticky;
-    top: 32px;
+    top: 90px;        /* 32px → 90px (navbar hündürlüyü qədər) */
     width: 361px;
-    height: 380px;
+    height: auto;     /* 380px → auto */
     border-radius: 18px;
 }
 
@@ -80,32 +93,33 @@
 .authorInfo {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .authorName {
+    color: #212121;
     font-family: 'Inter';
     font-weight: 700;
     font-size: 16px;
     line-height: 100%;
-    color: rgba(33, 33, 33, 1);
+
 }
 
 .authorRole {
+    text-transform: uppercase;
+    color: #212121;
     font-family: 'Inter';
     font-weight: 400;
     font-size: 10px;
     line-height: 100%;
-    text-transform: uppercase;
-    color: rgba(33, 33, 33, 1);
 }
 
 .authorBio {
     font-family: 'Inter';
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 18px;
-    color: rgba(70, 70, 70, 1);
+    color: #212121;
 }
 
 .skillsBlock {
@@ -116,12 +130,13 @@
 }
 
 .skillsTitle {
+    color: #212121;
     font-family: 'Inter';
     font-weight: 700;
     font-size: 10px;
     line-height: 100%;
     text-transform: uppercase;
-    color: rgba(33, 33, 33, 1);
+
 }
 
 .skillsList {
@@ -131,14 +146,13 @@
 }
 
 .skill {
+    color: #212121;
     font-family: 'Poppins';
     font-weight: 300;
     font-size: 10px;
     line-height: 18px;
-    color: rgba(76, 76, 76, 1);
 }
 
-/* ─── Posts ───────────────────────────────────────── */
 .postsWrap {
     display: flex;
     flex-direction: column;

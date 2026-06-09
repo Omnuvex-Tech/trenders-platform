@@ -1,88 +1,189 @@
+// import { BlogListUI } from "@repo/ui";
+// import type { BlogListItem, BlogCategory, FeaturedBlog } from "@repo/ui";
+
+// function toAbsUrl(path: string) {
+//   if (!path) return "";
+//   if (path.startsWith("http")) return path;
+//   return `${process.env.API_URL}${path}`;
+// }
+
+// function formatDate(dateStr: string) {
+//   return new Date(dateStr).toLocaleDateString("en-US", {
+//     month: "long", day: "numeric", year: "numeric",
+//   });
+// }
+
+// async function getBlogListData() {
+//   try {
+//     const [blogsRes, catsRes] = await Promise.all([
+//       fetch(`${process.env.API_URL}/blog`, { cache: "no-store" }),
+//       fetch(`${process.env.API_URL}/blog/categories`, { cache: "no-store" }),
+//     ]);
+//     return {
+//       blogs: blogsRes.ok ? await blogsRes.json() : [],
+//       cats: catsRes.ok ? await catsRes.json() : [],
+//     };
+//   } catch {
+//     return { blogs: [], cats: [] };
+//   }
+// }
+
+// export async function BlogListWrapper() {
+//   const { blogs, cats } = await getBlogListData();
+
+//   const posts: BlogListItem[] = (blogs as any[])
+//     .filter((b) => b.isVisible && b.isPreview)
+//     .sort((a: any, b: any) => a.order - b.order)
+//     .map((b: any) => ({
+//       id: b.id,
+//       image: toAbsUrl(b.coverImage ?? ""),
+//       imageAlt: b.coverImageAlt ?? "",
+//       badge: b.badge ?? "",
+//       title: b.title ?? "",
+//      author: {
+//         name: b.author?.name ?? "",
+//         avatar: toAbsUrl(b.author?.avatar ?? ""),
+//         avatarAlt: b.author?.name ?? "",
+//         href: b.author?.slug ? `/BlogAuthor/${b.author.slug}` : undefined,
+//       },
+//       date: b.publishedAt ? formatDate(b.publishedAt) : "",
+//       href: `/Blog/${b.slug}`,
+//     }));
+
+//   const categories: BlogCategory[] = (cats as any[]).map((c: any) => ({
+//     id: c.id,
+//     label: c.label,
+//     href: `/Blog?category=${c.slug}`,
+//   }));
+
+//   const pickOfWeek = (blogs as any[]).find((b) => b.isVisible && b.isPickOfWeek);
+//   const featuredBlog: FeaturedBlog | undefined = pickOfWeek
+//     ? {
+//         image: toAbsUrl(pickOfWeek.coverImage ?? ""),
+//         imageAlt: pickOfWeek.coverImageAlt ?? "",
+//         badge: pickOfWeek.badge ?? "",
+//         title: pickOfWeek.title ?? "",
+//         date: pickOfWeek.publishedAt ? formatDate(pickOfWeek.publishedAt) : "",
+//         href: `/Blog/${pickOfWeek.slug}`,
+//       }
+//     : undefined;
+
+//   return (
+//     <BlogListUI
+//       posts={posts}
+//       categories={categories}
+//       featuredBlog={featuredBlog}
+//       searchPlaceholder="Axtarış ..."
+//       categoriesTitle="KATEQORİYALAR"
+//       featuredBlogTitle="Həftənin seçilmiş blogu"
+//     />
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { BlogListUI } from "@repo/ui";
 import type { BlogListItem, BlogCategory, FeaturedBlog } from "@repo/ui";
 
-const POSTS: BlogListItem[] = [
-    {
-        id: 1,
-        image: "/images/blog1.png",
-        badge: "Design",
-        title: "Hər dizayn prosesinin əvvəlində ağlında partlayan onlarca fikir olur ...",
-        author: {
-            name: "Almaz Abdullayeva",
-            avatar: "/images/team1.jpg",
-        },
-        date: "February 24, 2026",
-        href: "#",
-    },
-    {
-        id: 2,
-        image: "/images/blog2.png",
-        badge: "Marketing",
-        title: "Hər dizayn prosesinin əvvəlində ağlında partlayan onlarca fikir olur ...",
-        author: {
-            name: "Almaz Abdullayeva",
-            avatar: "/images/team3.jpg",
-        },
-        date: "February 24, 2026",
-        href: "#",
-    },
-    {
-        id: 3,
-        image: "/images/blog3.png",
-        badge: "Case Studies",
-        title: "Hər dizayn prosesinin əvvəlində ağlında partlayan onlarca fikir olur ...",
-        author: {
-            name: "Almaz Abdullayeva",
-            avatar: "/images/team4.jpg",
-        },
-        date: "February 24, 2026",
-        href: "#",
-    },
-    {
-        id: 4,
-        image: "/images/blog5.jpg",
-        badge: "Creators",
-        title: "Hər dizayn prosesinin əvvəlində ağlında partlayan onlarca fikir olur ...",
-        author: {
-            name: "Almaz Abdullayeva",
-            avatar: "/images/testimonials1.jpg",
-        },
-        date: "February 24, 2026",
-        href: "#",
-    },
-];
+function toAbsUrl(path: string) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${process.env.API_URL}${path}`;
+}
 
-const CATEGORIES: BlogCategory[] = [
-    { id: 1, label: "AI", href: "#" },
-    { id: 2, label: "E-Commerce", href: "#" },
-    { id: 3, label: "AEO", href: "#" },
-    { id: 4, label: "Trend", href: "#" },
-    { id: 5, label: "Marketing", href: "#" },
-    { id: 6, label: "Case Studies", href: "#" },
-    { id: 7, label: "Creators", href: "#" },
-    { id: 8, label: "Design", href: "#" },
-    { id: 9, label: "Social Media", href: "#" },
-    { id: 10, label: "SMM", href: "#" },
-    { id: 11, label: "Graphic Designer", href: "#" },
-];
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "long", day: "numeric", year: "numeric",
+  });
+}
 
-const FEATURED_BLOG: FeaturedBlog = {
-    image: "/images/blogp2.png",
-    badge: "Marketing",
-    title: "Hər dizayn prosesinin əvvəlində ağlında partla...",
-    date: "February 24, 2026",
-    href: "#",
-};
+async function getBlogListData() {
+  try {
+    const [blogsRes, catsRes] = await Promise.all([
+      fetch(`${process.env.API_URL}/blog`, { cache: "no-store" }),
+      fetch(`${process.env.API_URL}/blog/categories`, { cache: "no-store" }),
+    ]);
+    return {
+      blogs: blogsRes.ok ? await blogsRes.json() : [],
+      cats: catsRes.ok ? await catsRes.json() : [],
+    };
+  } catch {
+    return { blogs: [], cats: [] };
+  }
+}
 
-export function BlogListWrapper() {
-    return (
-        <BlogListUI
-            posts={POSTS}
-            categories={CATEGORIES}
-            featuredBlog={FEATURED_BLOG}
-            searchPlaceholder="Axtarış ..."
-            categoriesTitle="KATEQORİYALAR"
-            featuredBlogTitle="Həftənin seçilmiş blogu"
-        />
-    );
+export async function BlogListWrapper() {
+  const { blogs, cats } = await getBlogListData();
+
+  const mapPost = (b: any): BlogListItem => ({
+    id: b.id,
+    image: toAbsUrl(b.coverImage ?? ""),
+    imageAlt: b.coverImageAlt ?? "",
+    badge: b.badge ?? "",
+    title: b.title ?? "",
+     categorySlug: b.category?.slug ?? "",
+    categoryLabel: b.category?.label ?? "",
+    author: {
+      name: b.author?.name ?? "",
+      avatar: toAbsUrl(b.author?.avatar ?? ""),
+      avatarAlt: b.author?.avatarAlt ?? b.author?.name ?? "",
+      href: b.author?.slug ? `/BlogAuthor/${b.author.slug}` : undefined,
+    },
+    date: b.publishedAt ? formatDate(b.publishedAt) : "",
+    href: `/Blog/${b.slug}`,
+  });
+
+  const posts: BlogListItem[] = (blogs as any[])
+    .filter((b) => b.isVisible && b.isGrid)
+    .sort((a: any, b: any) => a.order - b.order)
+    .map(mapPost);
+
+  const allPosts: BlogListItem[] = (blogs as any[])
+    .filter((b) => b.isVisible)
+    .sort((a: any, b: any) => a.order - b.order)
+    .map(mapPost);
+
+  const categories: BlogCategory[] = (cats as any[]).map((c: any) => ({
+    id: c.id,
+    label: c.label,
+    slug: c.slug,
+    href: `/Blog?category=${c.slug}`,
+  }));
+
+  const pickOfWeek = (blogs as any[]).find((b) => b.isVisible && b.isPickOfWeek);
+  const featuredBlog: FeaturedBlog | undefined = pickOfWeek
+    ? {
+        image: toAbsUrl(pickOfWeek.coverImage ?? ""),
+        imageAlt: pickOfWeek.coverImageAlt ?? "",
+        badge: pickOfWeek.badge ?? "",
+        title: pickOfWeek.title ?? "",
+        date: pickOfWeek.publishedAt ? formatDate(pickOfWeek.publishedAt) : "",
+        href: `/Blog/${pickOfWeek.slug}`,
+      }
+    : undefined;
+
+  return (
+    <BlogListUI
+      posts={posts}
+      allPosts={allPosts}
+      categories={categories}
+      featuredBlog={featuredBlog}
+      searchPlaceholder="Axtarış ..."
+      categoriesTitle="KATEQORİYALAR"
+      featuredBlogTitle="Həftənin seçilmiş blogu"
+    />
+  );
 }

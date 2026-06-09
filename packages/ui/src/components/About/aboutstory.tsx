@@ -5,7 +5,7 @@ import styles from "../../styles/About/aboutstory.module.css";
 
 export interface AboutStoryBlock {
     title: string;
-    paragraphs: React.ReactNode[];
+    paragraphs: string[];
     image?: string;
     imageAlt?: string;
 }
@@ -23,7 +23,11 @@ export function AboutStoryUI({ blocks }: AboutStoryUIProps) {
                         <h2 className={styles.title}>{block.title}</h2>
                         <div className={styles.paragraphs}>
                             {block.paragraphs.map((p, j) => (
-                                <p key={j} className={styles.paragraph}>{p}</p>
+                                <div
+                                    key={j}
+                                    className={styles.paragraph}
+                                    dangerouslySetInnerHTML={{ __html: p }}
+                                />
                             ))}
                         </div>
                         {block.image && (

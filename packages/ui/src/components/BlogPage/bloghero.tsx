@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import styles from "../../styles/BlogPage/bloghero.module.css";
 
 export interface BlogItem {
@@ -14,22 +15,26 @@ export interface BlogItem {
 }
 
 export interface BlogSectionQuote {
-    text: React.ReactNode;
-    backgroundImage: string;
-    backgroundImageAlt?: string;
+    text: string;
+    image?: string;
+    imageAlt?: string;
 }
 
 export interface BlogSectionUIProps {
     title: string;
     portfolioHref?: string;
+    portfolioLabel?: string;
+    portfolioNewTab?: boolean;
     featuredPost: BlogItem;
-    sidePosts: [BlogItem, BlogItem, BlogItem];
-    quote: BlogSectionQuote;
+    sidePosts: BlogItem[];
+    quote?: BlogSectionQuote | null;
 }
 
 export function BlogSectionUI({
     title,
     portfolioHref = "#",
+    portfolioLabel = "PORTFOLIO",
+    portfolioNewTab = false,
     featuredPost,
     sidePosts,
     quote,
@@ -37,22 +42,22 @@ export function BlogSectionUI({
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-
-                {/* Header */}
                 <div className={styles.header}>
                     <h2 className={styles.title}>{title}</h2>
-                    <a href={portfolioHref} className={styles.portfolioLink}>
-                        PORTFOLIO
+                    <a
+                        href={portfolioHref}
+                        className={styles.portfolioLink}
+                        target={portfolioNewTab ? "_blank" : "_self"}
+                        rel={portfolioNewTab ? "noopener noreferrer" : undefined}
+                    >
+                        {portfolioLabel}
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6" />
                         </svg>
                     </a>
                 </div>
 
-                {/* Blog Grid */}
                 <div className={styles.grid}>
-
-                    {/* Sol: Featured Post */}
                     <a href={featuredPost.href || "#"} className={styles.featuredWrap}>
                         <img
                             src={featuredPost.image}
@@ -61,12 +66,10 @@ export function BlogSectionUI({
                         />
                         <div className={styles.featuredOverlay}>
                             <span className={styles.featuredBadge}>{featuredPost.badge}</span>
-                            <h3 className={styles.featuredTitle}>{featuredPost.title}</h3>
-                            <p className={styles.featuredDesc}>{featuredPost.description}</p>
+                            <div className={styles.featuredTitle} dangerouslySetInnerHTML={{ __html: featuredPost.title }} />
                         </div>
                     </a>
 
-                    {/* Sağ: 3 Side Posts */}
                     <div className={styles.sideList}>
                         {sidePosts.map((post) => (
                             <a key={post.id} href={post.href || "#"} className={styles.sidePost}>
@@ -76,29 +79,33 @@ export function BlogSectionUI({
                                     className={styles.sideImg}
                                 />
                                 <div className={styles.sideContent}>
-                                    <h3 className={styles.sideTitle}>{post.title}</h3>
-                                    <p className={styles.sideDesc}>{post.description}</p>
+                                    <div className={styles.sideTitle} dangerouslySetInnerHTML={{ __html: post.title }} />
+                                    <div className={styles.sideDesc} dangerouslySetInnerHTML={{ __html: post.description }} />
                                     <span className={styles.sideDate}>{post.date}</span>
                                 </div>
                             </a>
                         ))}
                     </div>
-
                 </div>
 
-                {/* Quote */}
-                <div className={styles.quoteSection}>
-                    <img
-                        src={quote.backgroundImage}
-                        alt={quote.backgroundImageAlt || ""}
-                        className={styles.quoteImg}
-                    />
-                    <div className={styles.quoteContent}>
-                        <span className={styles.quoteIcon}>"</span>
-                        <p className={styles.quoteText}>{quote.text}</p>
+                {quote && (
+                    <div className={styles.quoteSection}>
+                        {quote.image && (
+                            <img
+                                src={quote.image}
+                                alt={quote.imageAlt || ""}
+                                className={styles.quoteImg}
+                            />
+                        )}
+                        <div className={styles.quoteContent}>
+                            <span className={styles.quoteIcon}>"</span>
+                            <div
+                                className={styles.quoteText}
+                                dangerouslySetInnerHTML={{ __html: quote.text }}
+                            />
+                        </div>
                     </div>
-                </div>
-
+                )}
             </div>
         </section>
     );

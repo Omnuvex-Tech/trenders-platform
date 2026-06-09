@@ -1,10 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import styles from "../../styles/BlogAuthor/blogauthorsearch.module.css";
 
 export interface BlogAuthors {
     name: string;
     avatar: string;
+    avatarAlt?: string;
+    href?: string;
 }
 
 export interface BlogListItems {
@@ -23,7 +26,6 @@ export interface BlogCategories {
     label: string;
     href?: string;
 }
-
 
 export interface BlogAuthorListUIProps {
     posts: BlogListItems[];
@@ -48,28 +50,38 @@ export function BlogAuthorListUI({
                 {/* Sol: Blog siyahısı */}
                 <div className={styles.postList}>
                     {posts.map((post) => (
-                        <a key={post.id} href={post.href || "#"} className={styles.postItem}>
-                            <img
-                                src={post.image}
-                                alt={post.imageAlt || post.title}
-                                className={styles.postImg}
-                            />
+                        <div key={post.id} className={styles.postItem}>
+                            <Link href={post.href || "#"} className={styles.postImgLink}>
+                                <img
+                                    src={post.image}
+                                    alt={post.imageAlt || post.title}
+                                    className={styles.postImg}
+                                />
+                            </Link>
                             <div className={styles.postContent}>
                                 <span className={styles.postBadge}>{post.badge}</span>
-                                <h3 className={styles.postTitle}>{post.title}</h3>
+                                <Link href={post.href || "#"} className={styles.postTitleLink}>
+                                    <div className={styles.postTitle} dangerouslySetInnerHTML={{ __html: post.title }} />
+                                </Link>
                                 <div className={styles.postMeta}>
-                                    <img
-                                        src={post.author.avatar}
-                                        alt={post.author.name}
-                                        className={styles.authorAvatar}
-                                    />
-                                    <div className={styles.authorInfo}>
-                                        <span className={styles.authorName}>{post.author.name}</span>
-                                        <span className={styles.postDate}>{post.date}</span>
-                                    </div>
+                                    <Link
+                                        href={post.author.href || "#"}
+                                        className={styles.authorLink}
+                                        style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}
+                                    >
+                                        <img
+                                            src={post.author.avatar}
+                                            alt={post.author.avatarAlt || post.author.name}
+                                            className={styles.authorAvatar}
+                                        />
+                                        <div className={styles.authorInfo}>
+                                            <span className={styles.authorName}>{post.author.name}</span>
+                                            <span className={styles.postDate}>{post.date}</span>
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     ))}
                 </div>
 
@@ -97,15 +109,14 @@ export function BlogAuthorListUI({
                             <h4 className={styles.categoriesTitle}>{categoriesTitle}</h4>
                             <div className={styles.categoryTags}>
                                 {categories.map((cat) => (
-                                    <a key={cat.id} href={cat.href || "#"} className={styles.categoryTag}>
+                                    <Link key={cat.id} href={cat.href || "#"} className={styles.categoryTag}>
                                         {cat.label}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         </div>
                     </div>
 
-            
                 </aside>
 
             </div>

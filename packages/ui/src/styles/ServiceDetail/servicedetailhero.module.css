@@ -166,7 +166,6 @@
 }
 
 
-/* Quote */
 .quoteWrap {
     display: flex;
     align-items: flex-start;
@@ -175,16 +174,17 @@
 }
 
 .quoteIcon {
-    font-size: 383px;
-    font-weight: 300;
-    font-style: italic;
-    color: rgb(196, 196, 196);
-    font-family: 'Poppins';
-    position: relative;
-    height: 260px;
-    display: flex;
-    transform: translateY(-52%);
+color: #c4c4c494;
     align-items: flex-start;
+    height: 260px;
+    font-family: 'Poppins';
+    font-size: 383px;
+    font-style: italic;
+    font-weight: 300;
+    display: flex;
+    position: relative;
+    transform: translateY(-37%);
+    right: 23px;
 }
 
 
@@ -195,10 +195,11 @@
 .quoteText {
     color: #969696;
     font-family: 'Poppins';
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 300;
     line-height: 121%;
     position: relative;
+    padding-bottom: 32px;
 }
 
 .bottomWrap {

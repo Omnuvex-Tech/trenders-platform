@@ -15,7 +15,7 @@ export interface ServiceDetailHeroUIProps {
     title: string;
     descriptions: string[];
     stats: ServiceDetailStat[];
-    quoteText: React.ReactNode;
+    quoteText: string;
     bottomImage: string;
     bottomImageAlt?: string;
 }
@@ -42,34 +42,33 @@ export function ServiceDetailHeroUI({
                 <div className={styles.overlayWrap}>
                     <div className={styles.overlay}>
                         <span className={styles.badge}>{badge}</span>
-                        <h1 className={styles.title}>{title}</h1>
+                        <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
                         {descriptions.map((d, i) => (
-                            <p key={i} className={styles.desc}>{d}</p>
+                            <div key={i} className={styles.desc} dangerouslySetInnerHTML={{ __html: d }} />
                         ))}
-                          <div className={styles.heroStatsWrap}>
-                                        <div className={styles.heroStatsRow}>
-                                            <div className={styles.heroStatCards}>
-                                                {stats.map((stat, i) => (
-                                                    <div key={i} className={styles.heroStatCard}>
-                                                        <div className={styles.heroStatIcon}>{stat.icon}</div>
-                                                        <div>
-                                                            <p className={styles.heroStatLabel}>{stat.label}</p>
-                                                            <p className={styles.heroStatValue}>{stat.value}</p>
-                                                        </div>
-                                                    </div>
-                                                ))}
+                        <div className={styles.heroStatsWrap}>
+                            <div className={styles.heroStatsRow}>
+                                <div className={styles.heroStatCards}>
+                                    {stats.map((stat, i) => (
+                                        <div key={i} className={styles.heroStatCard}>
+                                            <div className={styles.heroStatIcon}>{stat.icon}</div>
+                                            <div>
+                                                <p className={styles.heroStatLabel}>{stat.label}</p>
+                                                <p className={styles.heroStatValue}>{stat.value}</p>
                                             </div>
-                                          
                                         </div>
-                                    </div>
+                                    ))}
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* Quote */}
                 <div className={styles.quoteWrap}>
                     <span className={styles.quoteIcon}>"</span>
-                    <p className={styles.quoteText}>{quoteText}</p>
-                </div>
+                    <div className={styles.quoteText} dangerouslySetInnerHTML={{ __html: quoteText as string }} />  </div>
 
                 {/* Bottom şəkil */}
                 <div className={styles.bottomWrap}>

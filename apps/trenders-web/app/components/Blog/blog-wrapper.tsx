@@ -1,49 +1,51 @@
 import { BlogUI } from "@repo/ui";
 import type { BlogPost } from "@repo/ui";
 
-const POSTS: BlogPost[] = [
-    {
-        id: 1,
-        image: "/images/blog1.png",
-        category: "Marketing",
-        title: "Young Lions Azerbaijan nədir?",
-        excerpt: `Young Lions Azerbaijan 30 yaşadək yaradıcı, media və marketinq mütəxəssisləri üçün nəzərdə tutulmuş beynəlxalq "Young Lions" proqramının Azərbaycan üzrə...`,
-        authorImage: "/images/team3.jpg",
-        authorName: "Almaz Abdullayeva",
-        date: "February 24, 2026",
-        href: "#",
-    },
-    {
-        id: 2,
-        image: "/images/blog2.png",
-        category: "AI",
-        title: "Süni İntellekt Erasında Necə Sağ Qalmaq?",
-        excerpt: "Süni intellekt dövründə sağ qalmağın yolu ona qarşı mübarizə aparmaq deyil, onunla birlikdə işləməyi öyrənməkdir. AI insanı əvəz etmir; onu effektiv istifadə...",
-        authorImage: "/images/team1.jpg",
-        authorName: "Ramal Xankişiyev",
-        date: "February 24, 2026",
-        href: "#",
-    },
-    {
-        id: 3,
-        image: "/images/blog3.png",
-        category: "Design",
-        title: "Bir vizual, min fikir: İdeyanı 'kill etmə' mədəniyyəti",
-        excerpt: "Hər dizayn prosesinin əvvəlində ağlında partlayan onlarcafikir olur. Heç biri tam formalaşmayıb, amma hamısında bir potensial var. Bu mərhələ,ağ səhifə...",
-        authorImage: "/images/testimonials1.jpg",
-        authorName: "Güler Məmmədova",
-        date: "October 17, 2025",
-        href: "#",
-    }
-];
+function toAbsUrl(path: string) {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${process.env.API_URL}${path}`;
+}
 
-export function BlogWrapper() {
-    return (
-        <BlogUI
-            title="Bloglar"
-            allPostsLabel="Bloglara keçid"
-            allPostsHref="/blog"
-            posts={POSTS}
-        />
-    );
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("az-AZ", {
+    month: "long", day: "numeric", year: "numeric",
+  });
+}
+
+async function getHomeBlogs(): Promise<BlogPost[]> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/blog/home`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const blogs = await res.json();
+    return (blogs as any[]).map((b) => ({
+      id: b.id,
+      image: toAbsUrl(b.coverImage ?? ""),
+      imageAlt: b.coverImageAlt ?? "",
+      category: b.category?.label ?? b.badge ?? "",
+      title: b.title?.replace(/<[^>]*>/g, "") ?? "",
+      excerpt: b.excerpt?.replace(/<[^>]*>/g, "") ?? "",
+      authorImage: toAbsUrl(b.author?.avatar ?? ""),
+      authorImageAlt: b.author?.name ?? "",
+      authorName: b.author?.name ?? "",
+      authorHref: b.author?.slug ? `/BlogAuthor/${b.author.slug}` : undefined,
+      date: b.publishedAt ? formatDate(b.publishedAt) : "",
+      href: `/Blog/${b.slug}`,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function BlogWrapper() {
+  const posts = await getHomeBlogs();
+  if (posts.length === 0) return null;
+  return (
+    <BlogUI
+      title="Bloglar"
+      allPostsLabel="Bloglara keçid"
+      allPostsHref="/Blog"
+      posts={posts}
+    />
+  );
 }

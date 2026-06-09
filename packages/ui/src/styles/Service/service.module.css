@@ -174,13 +174,21 @@
     flex-shrink: 0;
     font-family: 'Inter', sans-serif;
     letter-spacing: -0.02em;
-    width: 110px;
-    /* sabit en - textContent həmişə eyni yerdən başlayır */
+    width: 126px;
+    text-align: right; 
 }
 
 .textContent {
     flex: 1;
+    
 }
+
+.serviceRowReverse .textContent {
+    padding-left: 13px;
+}
+
+.serviceRowReverse .bottomContent{padding-left: 140px;}
+
 
 .title {
     color: rgba(19, 96, 228, 1);

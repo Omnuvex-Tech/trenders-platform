@@ -10,7 +10,7 @@ export interface ServiceDetailQuoteUIProps {
     descriptions: string[];
     quoteImage: string;
     quoteImageAlt?: string;
-    quoteText: React.ReactNode;
+    quoteText: string;
 }
 
 export function ServiceDetailQuoteUI({
@@ -25,22 +25,18 @@ export function ServiceDetailQuoteUI({
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-
-                {/* Yuxarı hissə — 01 kimi */}
                 <div className={styles.row}>
                     <span className={styles.number}>{number}</span>
                     <div className={styles.content}>
                         <span className={styles.badge}>{badge}</span>
-                        <h2 className={styles.title}>{title}</h2>
+                        <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
                         {descriptions.map((desc, i) => (
-                            <p key={i} className={styles.desc}>{desc}</p>
+                            <div key={i} className={styles.desc} dangerouslySetInnerHTML={{ __html: desc }} />
                         ))}
                     </div>
                 </div>
 
-                {/* Aşağı hissə — şəkil + mətn overlap */}
                 <div className={styles.quoteBlock}>
-                    {/* Sol şəkil */}
                     <div className={styles.imgWrap}>
                         <img
                             src={quoteImage}
@@ -49,10 +45,8 @@ export function ServiceDetailQuoteUI({
                         />
                     </div>
 
-                    {/* Sağ mətn — şəkilin üzərinə çıxır */}
                     <div className={styles.quoteTextWrap}>
-                        <p className={styles.quoteText}>{quoteText}</p>
-                        <span className={styles.quoteMark}>"</span>
+                        <div className={styles.quoteText} dangerouslySetInnerHTML={{ __html: quoteText as string }} />                        <span className={styles.quoteMark}>"</span>
                     </div>
                 </div>
 

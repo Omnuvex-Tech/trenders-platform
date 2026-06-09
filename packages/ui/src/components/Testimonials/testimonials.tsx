@@ -1,154 +1,585 @@
+// "use client";
+
+// import { useState, useRef, useCallback, useEffect } from "react";
+// import styles from '../../styles/Testimonials/testimonials.module.css'
+// import { flushSync } from "react-dom";
+
+// export interface Testimonial {
+//     id: number;
+//     company: string;
+//     quote: string;
+//     name: string;
+//     role: string;
+//  image: string;
+//   altText?: string;
+// }
+
+// export interface TestimonialsUIProps {
+//     title: string;
+//     description: string;
+//     testimonials: Testimonial[];
+// }
+
+// export function TestimonialsUI({ title, description, testimonials }: TestimonialsUIProps) {
+//     const total = testimonials.length;
+//     const [current, setCurrent] = useState(0);
+//     const [sliding, setSliding] = useState(false);
+//     const trackRef = useRef<HTMLDivElement | null>(null);
+//     const initialized = useRef(false);
+
+//     const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);
+//     const cardW = useCallback(() => {
+//     if (typeof window !== "undefined" && window.innerWidth <= 600) {
+//         const gap = 12;
+//         const padding = window.innerWidth <= 400 ? 28 : 40;
+//         return window.innerWidth - padding + gap;
+//     }
+//     const track = trackRef.current;
+//     if (!track || !track.children[0]) return 340;
+//     return (track.children[0] as HTMLElement).offsetWidth + 24;
+// }, []);
+
+//     const getCards = useCallback((cur: number) => [
+//         testimonials[getIdx(cur - 1)],
+//         testimonials[getIdx(cur)],
+//         testimonials[getIdx(cur + 1)],
+//         testimonials[getIdx(cur + 2)],
+//     ], [testimonials, getIdx]);
+
+//     const [cards, setCards] = useState(() => getCards(0));
+
+//     const slide = useCallback((dir: "left" | "right") => {
+//         if (sliding) return;
+//         setSliding(true);
+
+//         const track = trackRef.current;
+//         if (!track) return;
+
+//         const cw = cardW();
+
+//         track.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+//         track.style.transform = `translateX(${dir === 'right' ? -cw * 2 : 0}px)`;
+
+//         const onEnd = () => {
+//             track.removeEventListener("transitionend", onEnd);
+
+//             const next = getIdx(dir === "right" ? current + 1 : current - 1);
+
+//             flushSync(() => {
+//                 setCurrent(next);
+//                 setCards(getCards(next));
+//             });
+
+//             track.style.transition = "none";
+//             track.style.transform = `translateX(${-cw}px)`;
+//             track.getBoundingClientRect();
+
+//             setSliding(false);
+//         };
+
+//         track.addEventListener("transitionend", onEnd);
+//     }, [sliding, current, cardW, getIdx, getCards]);
+
+//     const slideRef = useRef<(dir: "left" | "right") => void>(() => {});
+
+// useEffect(() => {
+//     slideRef.current = slide;
+// }, [slide]);
+
+// useEffect(() => {
+//     const interval = setInterval(() => {
+//         slideRef.current("right");
+//     }, 4000);
+//     return () => clearInterval(interval);
+// }, []);
+
+//     return (
+//         <section className={styles.section}>
+//             <div className={styles.testimonialsDivider} />
+
+//             <div className={styles.inner}>
+//                 <div className={styles.left}>
+//                     <h2 className={styles.title}>{title}</h2>
+//                     <p className={styles.description}>{description}</p>
+//                     <div className={styles.arrows}>
+//                         <button className={styles.arrowBtn} onClick={() => slide("left")} aria-label="Əvvəlki">
+//                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+//                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                                 <polyline points="15 18 9 12 15 6" />
+//                             </svg>
+//                         </button>
+//                         <button className={`${styles.arrowBtn} ${styles.arrowBtnActive}`} onClick={() => slide("right")} aria-label="Növbəti">
+//                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+//                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                                 <polyline points="9 18 15 12 9 6" />
+//                             </svg>
+//                         </button>
+//                     </div>
+//                 </div>
+
+//                 <div className={styles.cards}>
+//                     <div
+//                         className={styles.cardsTrack}
+//                         ref={(el) => {
+//                             trackRef.current = el;
+//                             if (el && !initialized.current) {
+//                                 const cw = (el.children[0] as HTMLElement)?.offsetWidth + 24 || 340;
+//                                 el.style.transition = "none";
+//                                 el.style.transform = `translateX(${-cw}px)`;
+//                                 initialized.current = true;
+//                             }
+//                         }}
+//                     >
+//                         {cards.map((t, pos) => {
+//                             if (!t) return null;
+//                             return (
+//                                 <div key={`${t.id}-${pos}`} className={styles.card}>
+//                                     <p className={styles.company}>{t.company}</p>
+//                                     <div className={styles.quoteIcon}>"</div>
+//                                     <p className={styles.quote}>{t.quote}</p>
+//                                     <div className={styles.author}>
+// <img src={t.image} alt={t.altText || t.name} className={styles.avatar} />                                        <div>
+//                                             <p className={styles.name}>{t.name}</p>
+//                                             <p className={styles.role}>{t.role}</p>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             );
+//                         })}
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//     );
+// }
+
+
+
+
+
+
+
+
+
+// "use client";
+
+// import { useState, useRef, useCallback, useEffect } from "react";
+// import styles from '../../styles/Testimonials/testimonials.module.css'
+// import { flushSync } from "react-dom";
+// import { motion, useScroll, useTransform } from "framer-motion"; // ← Framer Motion əlavə olundu
+
+// export interface Testimonial {
+//   id: number;
+//   company: string;
+//   quote: string;
+//   name: string;
+//   role: string;
+//   image: string;
+//   altText?: string;
+// }
+
+// export interface TestimonialsUIProps {
+//   title: string;
+//   description: string;
+//   testimonials: Testimonial[];
+// }
+
+// export function TestimonialsUI({ title, description, testimonials }: TestimonialsUIProps) {
+//   const total = testimonials.length;
+//   const [current, setCurrent] = useState(0);
+//   const [sliding, setSliding] = useState(false);
+//   const trackRef = useRef<HTMLDivElement | null>(null);
+//   const initialized = useRef(false);
+
+//   // ─── PREMIUM SCROLL ANIMASIYASI ───
+//   const sectionRef = useRef<HTMLDivElement>(null);
+  
+//   const { scrollYProgress } = useScroll({
+//     target: sectionRef,
+//     offset: ["start end", "end start"]
+//   });
+
+//   // PO-nun bəyəndiyi o müqəddəs balans nöqtələri
+//   const startTrigger = 0.06;
+//   const endTrigger = 0.28;
+
+//   // Digər bölmələrlə vizual bütövlük təşkil edən ərimə parametrləri
+//   const y = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [70, 35, 0]);
+//   const opacity = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [0, 0.1, 1]);
+//   const scale = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [0.96, 0.98, 1]);
+//   // ──────────────────────────────────
+
+//   const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);
+//   const cardW = useCallback(() => {
+//     if (typeof window !== "undefined" && window.innerWidth <= 600) {
+//       const gap = 12;
+//       const padding = window.innerWidth <= 400 ? 28 : 40;
+//       return window.innerWidth - padding + gap;
+//     }
+//     const track = trackRef.current;
+//     if (!track || !track.children[0]) return 340;
+//     return (track.children[0] as HTMLElement).offsetWidth + 24;
+//   }, []);
+
+//   const getCards = useCallback((cur: number) => [
+//     testimonials[getIdx(cur - 1)],
+//     testimonials[getIdx(cur)],
+//     testimonials[getIdx(cur + 1)],
+//     testimonials[getIdx(cur + 2)],
+//   ], [testimonials, getIdx]);
+
+//   const [cards, setCards] = useState(() => getCards(0));
+
+//   const slide = useCallback((dir: "left" | "right") => {
+//     if (sliding) return;
+//     setSliding(true);
+
+//     const track = trackRef.current;
+//     if (!track) return;
+
+//     const cw = cardW();
+
+//     track.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+//     track.style.transform = `translateX(${dir === 'right' ? -cw * 2 : 0}px)`;
+
+//     const onEnd = () => {
+//       track.removeEventListener("transitionend", onEnd);
+
+//       const next = getIdx(dir === "right" ? current + 1 : current - 1);
+
+//       flushSync(() => {
+//         setCurrent(next);
+//         setCards(getCards(next));
+//       });
+
+//       track.style.transition = "none";
+//       track.style.transform = `translateX(${-cw}px)`;
+//       track.getBoundingClientRect();
+
+//       setSliding(false);
+//     };
+
+//     track.addEventListener("transitionend", onEnd);
+//   }, [sliding, current, cardW, getIdx, getCards]);
+
+//   const slideRef = useRef<(dir: "left" | "right") => void>(() => {});
+
+//   useEffect(() => {
+//     slideRef.current = slide;
+//   }, [slide]);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       slideRef.current("right");
+//     }, 4000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   return (
+//     // Section-a ref-i bağlayırıq ki, skrol yerini düzgün təyin etsin
+//     <section ref={sectionRef} className={styles.section}>
+//       <div className={styles.testimonialsDivider} />
+
+//       {/* Slider mexanizmini zədələməmək üçün bütün daxili strukturu 
+//           skrola zəncirlənmiş vahid bir motion.div-ə bükürük
+//       */}
+//       <motion.div 
+//         style={{ y, opacity, scale }}
+//         className="w-full"
+//       >
+//         <div className={styles.inner}>
+//           <div className={styles.left}>
+//             <h2 className={styles.title}>{title}</h2>
+//             <p className={styles.description}>{description}</p>
+//             <div className={styles.arrows}>
+//               <button className={styles.arrowBtn} onClick={() => slide("left")} aria-label="Əvvəlki">
+//                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+//                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                   <polyline points="15 18 9 12 15 6" />
+//                 </svg>
+//               </button>
+//               <button className={`${styles.arrowBtn} ${styles.arrowBtnActive}`} onClick={() => slide("right")} aria-label="Növbəti">
+//                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+//                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+//                   <polyline points="9 18 15 12 9 6" />
+//                 </svg>
+//               </button>
+//             </div>
+//           </div>
+
+//           <div className={styles.cards}>
+//             <div
+//               className={styles.cardsTrack}
+//               ref={(el) => {
+//                 trackRef.current = el;
+//                 if (el && !initialized.current) {
+//                   const cw = (el.children[0] as HTMLElement)?.offsetWidth + 24 || 340;
+//                   el.style.transition = "none";
+//                   el.style.transform = `translateX(${-cw}px)`;
+//                   initialized.current = true;
+//                 }
+//               }}
+//             >
+//               {cards.map((t, pos) => {
+//                 if (!t) return null;
+//                 return (
+//                   <div key={`${t.id}-${pos}`} className={styles.card}>
+//                     <p className={styles.company}>{t.company}</p>
+//                     <div className={styles.quoteIcon}>"</div>
+//                     <p className={styles.quote}>{t.quote}</p>
+//                     <div className={styles.author}>
+//                       <img src={t.image} alt={t.altText || t.name} className={styles.avatar} />
+//                       <div>
+//                         <p className={styles.name}>{t.name}</p>
+//                         <p className={styles.role}>{t.role}</p>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         </div>
+//       </motion.div>
+//     </section>
+//   );
+// }
+
+
+
+
+
+
+
+
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import styles from '../../styles/Testimonials/testimonials.module.css'
 import { flushSync } from "react-dom";
+import { motion, useScroll, useTransform, Variants } from "framer-motion"; // ← Variants import olundu
 
 export interface Testimonial {
-    id: number;
-    company: string;
-    quote: string;
-    name: string;
-    role: string;
- image: string;
+  id: number;
+  company: string;
+  quote: string;
+  name: string;
+  role: string;
+  image: string;
   altText?: string;
 }
 
 export interface TestimonialsUIProps {
-    title: string;
-    description: string;
-    testimonials: Testimonial[];
+  title: string;
+  description: string;
+  testimonials: Testimonial[];
 }
 
 export function TestimonialsUI({ title, description, testimonials }: TestimonialsUIProps) {
-    const total = testimonials.length;
-    const [current, setCurrent] = useState(0);
-    const [sliding, setSliding] = useState(false);
-    const trackRef = useRef<HTMLDivElement | null>(null);
-    const initialized = useRef(false);
+  const total = testimonials.length;
+  const [current, setCurrent] = useState(0);
+  const [sliding, setSliding] = useState(false);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const initialized = useRef(false);
 
-    const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);
-    const cardW = useCallback(() => {
+  // --- ÜMUMİ BÖLMƏ ÜÇÜN SCROLL AYARLARI ---
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const startTrigger = 0.06;
+  const endTrigger = 0.28;
+
+  const y = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [70, 35, 0]);
+  const opacity = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [0, 0.1, 1]);
+  const scale = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [0.96, 0.98, 1]);
+
+  // --- FOCAL MƏTN ANIMASIYASI VARIANTLARI (TS XƏTASIZ) ---
+  const textContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.03,
+        delayChildren: 0.2,
+      }
+    }
+  };
+
+  const wordVariants: Variants = {
+    hidden: { 
+      opacity: 0, 
+      y: "100%" 
+    },
+    visible: { 
+      opacity: 1, 
+      y: "0%",
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] as const // ← "as const" TypeScript-i sakitləşdirir
+      }
+    }
+  };
+
+  // Mətni boşluqlara görə massivə bölürük
+  const words = description.split(" ");
+
+  // --- SLIDER MEXANİKMASI ---
+  const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);
+  const cardW = useCallback(() => {
     if (typeof window !== "undefined" && window.innerWidth <= 600) {
-        const gap = 12;
-        const padding = window.innerWidth <= 400 ? 28 : 40;
-        return window.innerWidth - padding + gap;
+      const gap = 12;
+      const padding = window.innerWidth <= 400 ? 28 : 40;
+      return window.innerWidth - padding + gap;
     }
     const track = trackRef.current;
     if (!track || !track.children[0]) return 340;
     return (track.children[0] as HTMLElement).offsetWidth + 24;
-}, []);
+  }, []);
 
-    const getCards = useCallback((cur: number) => [
-        testimonials[getIdx(cur - 1)],
-        testimonials[getIdx(cur)],
-        testimonials[getIdx(cur + 1)],
-        testimonials[getIdx(cur + 2)],
-    ], [testimonials, getIdx]);
+  const getCards = useCallback((cur: number) => [
+    testimonials[getIdx(cur - 1)],
+    testimonials[getIdx(cur)],
+    testimonials[getIdx(cur + 1)],
+    testimonials[getIdx(cur + 2)],
+  ], [testimonials, getIdx]);
 
-    const [cards, setCards] = useState(() => getCards(0));
+  const [cards, setCards] = useState(() => getCards(0));
 
-    const slide = useCallback((dir: "left" | "right") => {
-        if (sliding) return;
-        setSliding(true);
+  const slide = useCallback((dir: "left" | "right") => {
+    if (sliding) return;
+    setSliding(true);
 
-        const track = trackRef.current;
-        if (!track) return;
+    const track = trackRef.current;
+    if (!track) return;
 
-        const cw = cardW();
+    const cw = cardW();
 
-        track.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
-        track.style.transform = `translateX(${dir === 'right' ? -cw * 2 : 0}px)`;
+    track.style.transition = 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
+    track.style.transform = `translateX(${dir === 'right' ? -cw * 2 : 0}px)`;
 
-        const onEnd = () => {
-            track.removeEventListener("transitionend", onEnd);
+    const onEnd = () => {
+      track.removeEventListener("transitionend", onEnd);
+      const next = getIdx(dir === "right" ? current + 1 : current - 1);
 
-            const next = getIdx(dir === "right" ? current + 1 : current - 1);
+      flushSync(() => {
+        setCurrent(next);
+        setCards(getCards(next));
+      });
 
-            flushSync(() => {
-                setCurrent(next);
-                setCards(getCards(next));
-            });
+      track.style.transition = "none";
+      track.style.transform = `translateX(${-cw}px)`;
+      track.getBoundingClientRect();
+      setSliding(false);
+    };
 
-            track.style.transition = "none";
-            track.style.transform = `translateX(${-cw}px)`;
-            track.getBoundingClientRect();
+    track.addEventListener("transitionend", onEnd);
+  }, [sliding, current, cardW, getIdx, getCards]);
 
-            setSliding(false);
-        };
+  const slideRef = useRef<(dir: "left" | "right") => void>(() => {});
 
-        track.addEventListener("transitionend", onEnd);
-    }, [sliding, current, cardW, getIdx, getCards]);
-
-    const slideRef = useRef<(dir: "left" | "right") => void>(() => {});
-
-useEffect(() => {
+  useEffect(() => {
     slideRef.current = slide;
-}, [slide]);
+  }, [slide]);
 
-useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
-        slideRef.current("right");
+      slideRef.current("right");
     }, 4000);
     return () => clearInterval(interval);
-}, []);
+  }, []);
 
-    return (
-        <section className={styles.section}>
-            <div className={styles.testimonialsDivider} />
+  return (
+    <section ref={sectionRef} className={styles.section}>
+      <div className={styles.testimonialsDivider} />
 
-            <div className={styles.inner}>
-                <div className={styles.left}>
-                    <h2 className={styles.title}>{title}</h2>
-                    <p className={styles.description}>{description}</p>
-                    <div className={styles.arrows}>
-                        <button className={styles.arrowBtn} onClick={() => slide("left")} aria-label="Əvvəlki">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="15 18 9 12 15 6" />
-                            </svg>
-                        </button>
-                        <button className={`${styles.arrowBtn} ${styles.arrowBtnActive}`} onClick={() => slide("right")} aria-label="Növbəti">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="9 18 15 12 9 6" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+      <motion.div style={{ y, opacity, scale }} className="w-full">
+        <div className={styles.inner}>
+          <div className={styles.left}>
+            <h2 className={styles.title}>{title}</h2>
+            
+            {/* ─── FOCAL SÖZ-SÖZ REVEAL ANIMASIYASI ─── */}
+            <motion.p 
+              className={styles.description}
+              variants={textContainerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              style={{ display: "flex", flexWrap: "wrap" }} 
+            >
+              {words.map((word, index) => (
+                <span 
+                  key={index} 
+                  style={{ 
+                    overflow: "hidden", 
+                    display: "inline-block",
+                    marginRight: "0.25em",
+                    lineHeight: "1.2"
+                  }}
+                >
+                  <motion.span
+                    variants={wordVariants}
+                    style={{ display: "inline-block" }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
+            </motion.p>
+            {/* ────────────────────────────────────── */}
 
-                <div className={styles.cards}>
-                    <div
-                        className={styles.cardsTrack}
-                        ref={(el) => {
-                            trackRef.current = el;
-                            if (el && !initialized.current) {
-                                const cw = (el.children[0] as HTMLElement)?.offsetWidth + 24 || 340;
-                                el.style.transition = "none";
-                                el.style.transform = `translateX(${-cw}px)`;
-                                initialized.current = true;
-                            }
-                        }}
-                    >
-                        {cards.map((t, pos) => {
-                            if (!t) return null;
-                            return (
-                                <div key={`${t.id}-${pos}`} className={styles.card}>
-                                    <p className={styles.company}>{t.company}</p>
-                                    <div className={styles.quoteIcon}>"</div>
-                                    <p className={styles.quote}>{t.quote}</p>
-                                    <div className={styles.author}>
-<img src={t.image} alt={t.altText || t.name} className={styles.avatar} />                                        <div>
-                                            <p className={styles.name}>{t.name}</p>
-                                            <p className={styles.role}>{t.role}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+            <div className={styles.arrows}>
+              <button className={styles.arrowBtn} onClick={() => slide("left")} aria-label="Əvvəlki">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button className={`${styles.arrowBtn} ${styles.arrowBtnActive}`} onClick={() => slide("right")} aria-label="Növbəti">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
             </div>
-        </section>
-    );
+          </div>
+
+          <div className={styles.cards}>
+            <div
+              className={styles.cardsTrack}
+              ref={(el) => {
+                trackRef.current = el;
+                if (el && !initialized.current) {
+                  const cw = (el.children[0] as HTMLElement)?.offsetWidth + 24 || 340;
+                  el.style.transition = "none";
+                  el.style.transform = `translateX(${-cw}px)`;
+                  initialized.current = true;
+                }
+              }}
+            >
+              {cards.map((t, pos) => {
+                if (!t) return null;
+                return (
+                  <div key={`${t.id}-${pos}`} className={styles.card}>
+                    <p className={styles.company}>{t.company}</p>
+                    <div className={styles.quoteIcon}>"</div>
+                    <p className={styles.quote}>{t.quote}</p>
+                    <div className={styles.author}>
+                      <img src={t.image} alt={t.altText || t.name} className={styles.avatar} />
+                      <div>
+                        <p className={styles.name}>{t.name}</p>
+                        <p className={styles.role}>{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </section>
+  );
 }

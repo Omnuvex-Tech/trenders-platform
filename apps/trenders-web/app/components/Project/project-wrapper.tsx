@@ -12,13 +12,14 @@ async function getHomepageProjects(): Promise<ProjectItem[]> {
     if (!res.ok) return []
     const data = await res.json()
     console.log('[ProjectsWrapper] data length:', data.length)
-    return data.map((p: any) => ({
-      id: p.id,
-      image: p.coverImage?.startsWith('http') ? p.coverImage : `${API}${p.coverImage}`,
-      tags: p.tags ?? [],
-      title: p.title,
-      slug: p.slug,
-    }))
+   return data.map((p: any) => ({
+  id: p.id,
+  image: p.coverImage?.startsWith('http') ? p.coverImage : `${API}${p.coverImage}`,
+  tags: p.tags ?? [],
+  title: p.title,
+  slug: p.slug,
+  href: `/portfolio/${p.slug}`, 
+}))
   } catch (e) {
     console.error('[ProjectsWrapper] fetch error:', e)
     return []

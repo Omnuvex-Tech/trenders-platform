@@ -342,7 +342,8 @@
     .overlayBadge {
         font-size: 13px;
         height: 30px;
-        width: 87px;        padding: 4px 12px;
+        width: 87px;        
+        padding: 4px 12px;
         background: #9b98983d;
         border: 1px solid rgba(255, 255, 255, 0.6);
     }

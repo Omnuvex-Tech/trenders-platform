@@ -153,7 +153,11 @@
 .dropdownBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
+  width: 200px;  
+  min-width: 160px;
+  max-width: 160px;
   padding: 8px 18px;
   border-radius: 50px;
   border: 1px solid rgba(19, 96, 228, 1);
@@ -164,30 +168,28 @@
   color: rgba(40, 40, 40, 1);
   cursor: pointer;
   white-space: nowrap;
-  transition: border-color 0.2s ease;
-  position: relative;
-  z-index: 11;
-}
-
-.dropdownBtn:hover,
-.dropdownBtnOpen {
-  border-color: rgba(1, 72, 194, 0.5);
+   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dropdownList {
   position: absolute;
   top: 60%;
+  right: 0;
+  min-width: 160px;
   z-index: 10;
   padding-top: 21px;
-  right: 0;
-  background: rgba(255, 255, 255, 0.7);
+  background: #ffffffeb;
   border: 1.5px solid rgba(19, 96, 228, 0.4);
   border-top: none;
   box-shadow: 0 8px 24px rgba(19, 96, 228, 0.08);
-  width: 100%;
-  min-width: 154px;
   border-bottom-right-radius: 22px;
   border-bottom-left-radius: 22px;
+}
+
+.dropdownBtn:hover,
+.dropdownBtnOpen {
+  border-color: rgba(1, 72, 194, 0.5);
 }
 
 .dropdownOption {
@@ -385,4 +387,70 @@
     .dropdownList {
     background: #ffffffe9;
   }
+}
+
+
+
+.moreBtnWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 48px;
+}
+
+.projectsMoreBtn {
+  color: #276de4;
+  border-radius: 50px;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 19px;
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 600ms ease, color 600ms ease, border-color 600ms ease;
+  display: flex;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid rgba(0, 135, 219, 0.35);
+  background: transparent;
+}
+
+.projectsMoreBtn::before {
+  content: none;
+}
+
+.projectsMoreBtn::after {
+  background: rgba(255, 255, 255, 0.25);
+  content: "";
+  height: 155px;
+  left: -75px;
+  opacity: 1;
+  position: absolute;
+  top: -50px;
+  transform: rotate(35deg);
+  transition: all 950ms cubic-bezier(0.19, 1, 0.22, 1);
+  width: 80px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.projectsMoreBtn:hover::after {
+  left: 120%;
+}
+
+.projectsMoreBtn:hover {
+  background: linear-gradient(135deg, #276de4, #5795ff);
+  color: #fff;
+  border-color: transparent;
+}
+
+.projectsMoreBtn svg {
+  transition: transform 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.projectsMoreBtn:hover svg {
+  transform: translateX(3px);
 }

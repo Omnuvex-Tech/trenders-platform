@@ -1,54 +1,68 @@
 import { BlogAuthorHeroUI } from "@repo/ui";
 
-export function BlogAuthorHeroWrapper() {
+const API = process.env.API_URL;
+
+function toAbsUrl(path: string) {
+    if (!path) return "";
+    if (path.startsWith("http")) return path;
+    return `${API}${path}`;
+}
+
+function formatDate(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString("az-AZ");
+}
+
+async function getAuthorData(authorSlug: string) {
+    try {
+        const [authorRes, blogsRes] = await Promise.all([
+            fetch(`${API}/blog/authors/slug/${authorSlug}`, { cache: "no-store" }),
+            fetch(`${API}/blog/authors/slug/${authorSlug}/blogs`, { cache: "no-store" }),
+        ]);
+        return {
+            author: authorRes.ok ? await authorRes.json() : null,
+            blogs: blogsRes.ok ? await blogsRes.json() : [],
+        };
+    } catch {
+        return { author: null, blogs: [] };
+    }
+}
+
+interface Props {
+    authorSlug: string;
+}
+
+export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
+    const { author, blogs } = await getAuthorData(authorSlug);
+
+    if (!author) return null;
+
+    const posts = (blogs as any[]).slice(0, 3).map((b: any) => ({
+        id: b.id,
+        image: toAbsUrl(b.coverImage ?? ""),
+        imageAlt: b.coverImageAlt ?? b.title,
+        category: b.badge ?? b.category?.label ?? "",
+        date: b.publishedAt ? formatDate(b.publishedAt) : "",
+        title: b.title?.replace(/<[^>]*>/g, "") ?? "",
+        excerpt: b.excerpt?.replace(/<[^>]*>/g, "") ?? "",
+        readHref: `/Blog/${b.slug}`,
+        readLabel: "Məqaləni oxu",
+    }));
+
     return (
         <BlogAuthorHeroUI
             author={{
-                name: "Cavid Axundov",
-                role: "Baş İcarçı Direktor",
-                avatar: "/images/team5.png",
-                linkedinHref: "https://linkedin.com",
-                bio: "Trenders-in təsisçisi, daşınmaz əmlak, biznesin inkişafı və korporativ idarəetmə sahələrində 10 ildən artıq təcrübəyə malik sahibkar və sistem qurucusudur.",
-                skillsTitle: "SKILL",
-                skills: [
-                    { label: "Management" },
-                    { label: "Business Strategy Development" },
-                    { label: "Strategy Development" },
-                ],
+                name: author.name,
+                role: author.role ?? "",
+              avatar: toAbsUrl(author.avatar ?? ""),
+                avatarAlt: author.avatarAlt ?? undefined,
+                linkedinHref: author.linkedinHref ?? undefined,
+                linkedinIcon: author.linkedinIcon ? toAbsUrl(author.linkedinIcon) : undefined,
+                bio: author.bio ?? "",
+                skillsTitle: author.skillsTitle ?? "SKILLS",
+                skills: (author.skills ?? []).map((s: string) => ({ label: s })),
             }}
             postsTitle="Son bloqlar"
-            posts={[
-                {
-                    id: 1,
-                    image: "/images/author2.png",
-                    category: "Visual Design Skills",
-                    date: "17.04.2026",
-                    title: "Bakıda Daşınmaz Əmlakda Satış Uğurunu Nə Müəyyən Edir?",
-                    excerpt: "TREVA bir agentlik deyil, bir platformadır. Biz illərimizi bu infrastrukturu qurmağa həsr etmişik.",
-                    readHref: "#",
-                    readLabel: "Məqaləni oxu",
-                },
-                {
-                    id: 2,
-                    image: "/images/author3.png",
-                    category: "Visual Design Skills",
-                    date: "17.04.2026",
-                    title: "Bakıda Daşınmaz Əmlakda Satış Uğurunu Nə Müəyyən Edir?",
-                    excerpt: "TREVA bir agentlik deyil, bir platformadır. Biz illərimizi bu infrastrukturu qurmağa həsr etmişik.",
-                    readHref: "#",
-                    readLabel: "Məqaləni oxu",
-                },
-                {
-                    id: 3,
-                    image: "/images/author4.jpg",
-                    category: "Visual Design Skills",
-                    date: "17.04.2026",
-                    title: "Bakıda Daşınmaz Əmlakda Satış Uğurunu Nə Müəyyən Edir?",
-                    excerpt: "TREVA bir agentlik deyil, bir platformadır. Biz illərimizi bu infrastrukturu qurmağa həsr etmişik.",
-                    readHref: "#",
-                    readLabel: "Məqaləni oxu",
-                },
-            ]}
+            posts={posts}
         />
     );
 }
