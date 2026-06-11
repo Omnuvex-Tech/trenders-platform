@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { cn } from "../../lib/utils";
 import styles from "../../styles/Navbar/navbar.module.css";
 
@@ -7,6 +8,13 @@ export interface NavLink {
     label: string;
     href: string;
     openInNewTab?: boolean;
+}
+
+export interface SearchResult {
+    title: string;
+    url: string;
+    breadcrumb: string;
+    excerpt: string;
 }
 
 export interface NavbarUIProps {
@@ -22,7 +30,7 @@ export interface NavbarUIProps {
     onSearchChange: (val: string) => void;
     onDrawerToggle: () => void;
     onDrawerClose: () => void;
-    suggestions: string[];
+    suggestions: SearchResult[];
 }
 
 export function NavbarUI({
@@ -40,9 +48,21 @@ export function NavbarUI({
     onDrawerToggle,
     suggestions,
 }: NavbarUIProps) {
-    const filtered = suggestions.filter(s =>
-        searchValue === "" ? true : s.includes(searchValue.toLowerCase())
-    );
+    const popupRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLDivElement>(null);
+    const suggestionsRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!searchOpen || !popupRef.current || !inputRef.current || !suggestionsRef.current) return;
+
+        const popupTop = popupRef.current.getBoundingClientRect().top;
+        const inputHeight = inputRef.current.getBoundingClientRect().height;
+        const gap = 10;
+        const padding = 44;
+        const available = window.innerHeight - popupTop - padding - inputHeight - gap;
+
+        suggestionsRef.current.style.maxHeight = `${available}px`;
+    }, [searchOpen, suggestions]);
 
     return (
         <>
@@ -133,8 +153,11 @@ export function NavbarUI({
                         className={cn(styles.searchOverlay, searchOpen && styles.searchOverlayOpen)}
                         onClick={onSearchToggle}
                     />
-                    <div className={cn(styles.searchPopup, searchOpen && styles.searchPopupOpen)}>
-                        <div className={styles.searchInputWrapper}>
+                    <div
+                        ref={popupRef}
+                        className={cn(styles.searchPopup, searchOpen && styles.searchPopupOpen)}
+                    >
+                        <div ref={inputRef} className={styles.searchInputWrapper}>
                             <div className={styles.searchInputBorder} />
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                 stroke="#1a6fd4" strokeWidth="2"
@@ -150,12 +173,60 @@ export function NavbarUI({
                                 autoFocus={searchOpen}
                             />
                         </div>
-                        <div className={styles.searchSuggestions}>
-                            <div className={styles.searchSuggestionsBorder} />
-                            {filtered.map((item, i) => (
-                                <div key={i} className={styles.searchSuggestionItem}>{item}</div>
-                            ))}
-                        </div>
+                        {suggestions.length > 0 && (
+                            <div className={styles.searchSuggestionsWrapper}>
+                                <div className={styles.searchSuggestionsBorder} />
+                                <div
+                                    ref={suggestionsRef}
+                                    className={styles.searchSuggestions}
+                                    data-lenis-prevent
+                                >
+                                    {searchValue.trim().length < 2 ? (
+                                        suggestions.map((item, i) => (
+                                            <a
+                                                key={i}
+                                                href={item.url}
+                                                className={styles.searchSuggestionItem}
+                                                onClick={onSearchToggle}
+                                            >
+                                                <span className={styles.searchSuggestionTitle}>
+                                                    {item.title}
+                                                </span>
+                                            </a>
+                                        ))
+                                    ) : (
+                                        suggestions.map((item, i) => (
+                                            <a
+                                                key={i}
+                                                href={item.url}
+                                                className={styles.searchSuggestionItem}
+                                                onClick={onSearchToggle}
+                                            >
+                                                <span className={styles.searchSuggestionUrl}>
+                                                    {item.breadcrumb}
+                                                </span>
+                                                <span className={styles.searchSuggestionTitle}>
+                                                    {item.title}
+                                                </span>
+                                                {item.excerpt && (
+                                                    <span className={styles.searchSuggestionExcerpt}>
+                                                        {item.excerpt}
+                                                    </span>
+                                                )}
+                                            </a>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                        {searchValue.trim().length >= 2 && suggestions.length === 0 && (
+                            <div className={styles.searchSuggestionsWrapper}>
+                                <div className={styles.searchSuggestionsBorder} />
+                                <div className={styles.searchSuggestions} data-lenis-prevent>
+                                    <div className={styles.searchNoResult}>Nəticə tapılmadı</div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </>
             )}

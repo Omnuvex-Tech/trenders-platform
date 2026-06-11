@@ -29,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="az">
       <head>
+          <meta httpEquiv="Cache-Control" content="no-store" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -44,7 +45,6 @@ export default function RootLayout({
               <main className="mx-auto w-full">{children}</main>
               <FooterWrapper />
             </SmoothScrollProvider>
-            
             <NotifyContainer />
           </NotifyProvider>
         </QueryProvider>
@@ -52,4 +52,3 @@ export default function RootLayout({
     </html>
   );
 }
-

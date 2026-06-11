@@ -1,5 +1,12 @@
 import { AboutHeroUI } from "@repo/ui";
 
+type LocalizedString = Record<string, string>;
+
+function getLocalizedValue(obj: LocalizedString | any, lang: string): string {
+  if (!obj) return "";
+  return obj[lang] || obj["az"] || "";
+}
+
 function toAbsUrl(path: string) {
   if (!path) return "";
   if (path.startsWith("http")) return path;
@@ -14,17 +21,23 @@ async function getAboutSettings() {
   } catch { return null; }
 }
 
-export async function AboutHeroWrapper() {
+export async function AboutHeroWrapper({ locale = "az" }: { locale?: string }) {
   const s = await getAboutSettings();
   if (!s) return null;
-  const paragraphs: string[] = Array.isArray(s.heroParagraphs) ? s.heroParagraphs : [];
-  if (!s.heroTitle && paragraphs.length === 0) return null;
+
+  const title = getLocalizedValue(s.heroTitle, locale);
+  const paragraphs: string[] = Array.isArray(s.heroParagraphs)
+    ? s.heroParagraphs.map((p: any) => getLocalizedValue(p, locale)).filter(Boolean)
+    : [];
+
+  if (!title && paragraphs.length === 0) return null;
+
   return (
     <AboutHeroUI
       heroImage={toAbsUrl(s.heroImage ?? "")}
-      heroImageAlt={s.heroImageAlt ?? ""}
-      badge={s.heroBadge ?? ""}
-      title={s.heroTitle ?? ""}
+      heroImageAlt={getLocalizedValue(s.heroImageAlt, locale)}
+      badge={getLocalizedValue(s.heroBadge, locale)}
+      title={title}
       paragraphs={paragraphs}
     />
   );

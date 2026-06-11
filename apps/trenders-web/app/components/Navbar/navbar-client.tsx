@@ -1,16 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavbarUI } from "@repo/ui";
 
-const SUGGESTIONS = [
-  "agencyai",
-  "agencystile",
-  "agencyproject",
-  "agencyargument",
-  "agencyportfolio",
-  "agencyprojectai",
-];
+interface SearchResult {
+  title: string;
+  url: string;
+  breadcrumb: string;
+  excerpt: string;
+}
 
 interface NavbarClientProps {
   logo: React.ReactNode;
@@ -20,10 +18,51 @@ interface NavbarClientProps {
   langSlot?: React.ReactNode;
 }
 
+function getCookieLocale(): string {
+  if (typeof document === 'undefined') return 'az';
+  const match = document.cookie.match(/(?:^|;\s*)NEXT_LOCALE=([^;]+)/);
+  return match?.[1] ?? 'az';
+}
+
+const DEFAULT_SUGGESTIONS: SearchResult[] = [
+  { title: 'Portfolio', url: '/portfolio', breadcrumb: 'Portfolio', excerpt: '' },
+  { title: 'Xidmətlər', url: '/services', breadcrumb: 'Xidmətlər', excerpt: '' },
+  { title: 'Blog', url: '/blog', breadcrumb: 'Blog', excerpt: '' },
+  { title: 'Vakansiyalar', url: '/vacancies', breadcrumb: 'Vakansiyalar', excerpt: '' },
+  { title: 'Haqqımızda', url: '/about', breadcrumb: 'Haqqımızda', excerpt: '' },
+  { title: 'Əlaqə', url: '/contact', breadcrumb: 'Əlaqə', excerpt: '' },
+];
+
 export function NavbarClient({ logo, links, showSearch, showLang, langSlot }: NavbarClientProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (searchValue.trim().length < 2) {
+      setResults([]);
+      return;
+    }
+    debounceRef.current = setTimeout(async () => {
+      const locale = getCookieLocale();
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(searchValue)}&locale=${locale}`);
+        const data: SearchResult[] = await res.json();
+        setResults(data);
+      } catch {
+        setResults([]);
+      }
+    }, 300);
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (searchValue.trim().length < 2) setResults([]);
+  }, [searchValue]);
+
+  const displaySuggestions = searchValue.trim().length < 2 ? DEFAULT_SUGGESTIONS : results;
 
   return (
     <NavbarUI
@@ -39,7 +78,7 @@ export function NavbarClient({ logo, links, showSearch, showLang, langSlot }: Na
       onSearchChange={setSearchValue}
       onDrawerToggle={() => setDrawerOpen(prev => !prev)}
       onDrawerClose={() => setDrawerOpen(false)}
-      suggestions={SUGGESTIONS}
+      suggestions={displaySuggestions}
     />
   );
 }

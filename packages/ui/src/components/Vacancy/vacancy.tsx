@@ -20,7 +20,6 @@ export interface VacancyItem {
     category: string;
 }
 
-
 export interface VacancyUIProps {
     title: string;
     filterTags: string[];

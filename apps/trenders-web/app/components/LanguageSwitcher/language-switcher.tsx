@@ -6,28 +6,38 @@ import type { Language, Translation } from "@repo/types/types";
 import { LanguageSwitcher as LanguageSwitcherUI } from "@repo/ui";
 import { api } from "@/lib/api";
 import { config } from "@/config";
+import { useLocaleStore } from "@/store/locale.store";
+
+const KNOWN_LOCALES = ["az", "en", "ru"];
 
 const LanguageSwitcher = ({
     languages,
     initialTranslations,
-    locale,                    // ← prop kimi al
+    locale,
 }: {
     languages: Language[];
     initialTranslations: Translation[];
-    locale: string;            // ← prop kimi al
+    locale: string;
 }) => {
     const router = useRouter();
     const pathname = usePathname();
+    const { setLocale } = useLocaleStore();
 
     const handleLocaleChange = useCallback((nextLocale: string) => {
-        const segments = pathname.split("/").filter(Boolean);
-        if (segments.length === 0) {
-            router.push(`/${nextLocale}`);
-        } else {
+        setLocale(nextLocale);
+
+        const currentPath = pathname ?? "/";
+        const segments = currentPath.split("/").filter(Boolean);
+        const firstSegment = segments[0] ?? "";
+
+        if (segments.length > 0 && KNOWN_LOCALES.includes(firstSegment)) {
             segments[0] = nextLocale;
-            router.push(`/${segments.join("/")}`);
+        } else {
+            segments.unshift(nextLocale);
         }
-    }, [pathname, router]);
+
+        router.push(`/${segments.join("/")}`);
+    }, [pathname, router, setLocale]);
 
     const fetchTranslations = useCallback(async (locale: string): Promise<Translation[]> => {
         const response = await api.get<Translation[]>(config.endpoints.translations.list, { locale });

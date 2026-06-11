@@ -29,9 +29,7 @@ export function HeroUI({
 
     return (
         <section className={styles.hero}>
-            
-            {/* SOL BLOK */}
-            <div className={styles.heroLeft}>
+                        <div className={styles.heroLeft}>
                 <div className={styles.heroTitle}>
                     <h1 className={styles.heroSub}>{subtitle}</h1>
                     <h2 className={styles.heroMain}>{title}</h2>
@@ -66,10 +64,6 @@ export function HeroUI({
                             <div key={idx} className={styles.heroCardItem}>
                                 <img src={card.image} alt={card.label} className={styles.heroImg} />
                                 <div className={styles.cardLabel}>{card.label}</div>
-                                
-                                {/* ─── MAVİ BORDER TAMAMİLƏ SİLİNDİ ─── */}
-                                
-                                {/* Figmadakı mövqeyi tam tənzimlənmiş oyuq və düymə */}
                                 <div className={styles.cardActionContainer}>
                                     <button 
                                         className={styles.actionButton}

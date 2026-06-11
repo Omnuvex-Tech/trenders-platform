@@ -138,7 +138,6 @@
     z-index: 25;
 }
 
-/* ─── ŞƏKİLİN KÜNCÜNÜ AŞAĞI DARTAN VƏ YASTILAYAN STRUKTUR ─── */
 .cardActionContainer {
     position: absolute;
     bottom: -2px;
@@ -146,7 +145,6 @@
     width: 66px;
     height: 66px; 
     background-color: #ffffff; 
-    /* Radius kəskin böyüdüldü ki, şəklin kəsik küncü tam aşağı sıxılsın və yastılansın */
     border-top-left-radius: 48px; 
     z-index: 20;
     display: flex;
@@ -154,7 +152,6 @@
     justify-content: center;
 }
 
-/* Şəklin daxilə doğru bükülən qıvrımları */
 .cardActionContainer::before,
 .cardActionContainer::after {
     content: '';
@@ -165,7 +162,6 @@
     pointer-events: none;
 }
 
-/* Üst hissədəki keçid kölgəsi - şəklin küncünü basıb aşağı salır */
 .cardActionContainer::before {
     top: -24px;
     right: 2px;
@@ -173,7 +169,6 @@
     box-shadow: 6px 6px 0 0 #ffffff; 
 }
 
-/* Sol hissədəki keçid kölgəsi */
 .cardActionContainer::after {
     bottom: 2px;
     left: -24px;
@@ -181,7 +176,6 @@
     box-shadow: 6px 6px 0 0 #ffffff;
 }
 
-/* DÜYMƏ RƏNGİNƏ VƏ FORMALARA QƏTİYYƏN TOXUNULMADI */
 .actionButton {
     -webkit-backdrop-filter: blur(8px);
     cursor: pointer;

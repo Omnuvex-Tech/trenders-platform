@@ -9,6 +9,11 @@ function toAbsUrl(path: string | null | undefined): string {
     return `${API}${path}`;
 }
 
+function t(obj: Record<string, string> | null | undefined, locale: string, fallback = ""): string {
+    if (!obj) return fallback;
+    return obj[locale] || obj["az"] || obj["en"] || fallback;
+}
+
 async function getContactData() {
     try {
         const res = await fetch(`${API}/contact`, { cache: "no-store" });
@@ -19,9 +24,9 @@ async function getContactData() {
     }
 }
 
-async function getServiceOptions(): Promise<string[]> {
+async function getServiceOptions(locale: string): Promise<string[]> {
     try {
-        const res = await fetch(`${API}/services`, { cache: "no-store" }); 
+        const res = await fetch(`${API}/services`, { cache: "no-store" });
         if (!res.ok) return [];
         const data = await res.json();
         return (data as any[])
@@ -29,7 +34,8 @@ async function getServiceOptions(): Promise<string[]> {
             .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
             .map((s: any) => {
                 const raw = s.title ?? s.name ?? "";
-                return raw.replace(/<[^>]*>/g, "").trim();
+                const titleStr = typeof raw === "object" ? (raw[locale] || raw["az"] || raw["en"] || "") : raw;
+                return titleStr.replace(/<[^>]*>/g, "").trim();
             });
     } catch {
         return [];
@@ -39,7 +45,7 @@ async function getServiceOptions(): Promise<string[]> {
 export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
     const [data, serviceOptions] = await Promise.all([
         getContactData(),
-        getServiceOptions(),
+        getServiceOptions(locale),
     ]);
 
     const socialLinks = data?.socialLinks
@@ -56,29 +62,31 @@ export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
     const budgetOptions: string[] = data?.budgetOptions
         ? [...data.budgetOptions]
             .sort((a: any, b: any) => a.order - b.order)
-            .map((o: any) => o.label)
+            .map((o: any) => t(o.label, locale, ""))
+            .filter(Boolean)
         : [];
 
     const timelineOptions: string[] = data?.timelineOptions
         ? [...data.timelineOptions]
             .sort((a: any, b: any) => a.order - b.order)
-            .map((o: any) => o.label)
+            .map((o: any) => t(o.label, locale, ""))
+            .filter(Boolean)
         : [];
 
     return (
         <ContactUI
-            title={data?.title ?? "Contact us"}
-            description={data?.description ?? ""}
+            title={t(data?.title, locale, "Contact us")}
+            description={t(data?.description, locale, "")}
             info={{
-                emailLabel: data?.emailLabel ?? "Email Adress",
-                email: data?.emailValue ?? "",
-                phoneLabel: data?.phoneLabel ?? "Phone",
-                phone: data?.phoneValue ?? "",
-                locationLabel: data?.locationLabel ?? "Location",
-                location: data?.locationValue ?? "",
-                hoursLabel: data?.hoursLabel ?? "Hours",
-                hours: data?.hoursValue ?? "",
-                followUsLabel: data?.followUsLabel ?? "Follow Us",
+                emailLabel: t(data?.emailLabel, locale, "Email Address"),
+                email: t(data?.emailValue, locale, ""),
+                phoneLabel: t(data?.phoneLabel, locale, "Phone"),
+                phone: t(data?.phoneValue, locale, ""),
+                locationLabel: t(data?.locationLabel, locale, "Location"),
+                location: t(data?.locationValue, locale, ""),
+                hoursLabel: t(data?.hoursLabel, locale, "Hours"),
+                hours: t(data?.hoursValue, locale, ""),
+                followUsLabel: t(data?.followUsLabel, locale, "Follow Us"),
                 socialLinks,
                 hashtags: data?.tags ?? [],
             }}
@@ -86,22 +94,22 @@ export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
             budgetOptions={budgetOptions}
             timelineOptions={timelineOptions}
             formLabels={{
-                name: data?.formNameLabel ?? "Name",
-                namePlaceholder: data?.formNamePlaceholder ?? "Your name*",
-                email: data?.formEmailLabel ?? "Email",
-                emailPlaceholder: data?.formEmailPlaceholder ?? "Your email*",
-                phone: data?.formPhoneLabel ?? "Phone",
-                phonePlaceholder: data?.formPhonePlaceholder ?? "Your phone*",
-                service: data?.formServiceLabel ?? "Service",
-                budget: data?.formBudgetLabel ?? "Budget",
-                budgetPlaceholder: data?.formBudgetPlaceholder ?? "Estimated Budget",
-                timeline: data?.formTimelineLabel ?? "Project Timeline",
-                timelinePlaceholder: data?.formTimelinePlaceholder ?? "ASAP",
-                message: data?.formMessageLabel ?? "Message",
-                messagePlaceholder: data?.formMessagePlaceholder ?? "Your message",
-                submit: data?.formSubmitLabel ?? "Submit Inquiry",
+                name: t(data?.formNameLabel, locale, "Name"),
+                namePlaceholder: t(data?.formNamePlaceholder, locale, "Your name*"),
+                email: t(data?.formEmailLabel, locale, "Email"),
+                emailPlaceholder: t(data?.formEmailPlaceholder, locale, "Your email*"),
+                phone: t(data?.formPhoneLabel, locale, "Phone"),
+                phonePlaceholder: t(data?.formPhonePlaceholder, locale, "Your phone*"),
+                service: t(data?.formServiceLabel, locale, "Service"),
+                budget: t(data?.formBudgetLabel, locale, "Budget"),
+                budgetPlaceholder: t(data?.formBudgetPlaceholder, locale, "Estimated Budget"),
+                timeline: t(data?.formTimelineLabel, locale, "Project Timeline"),
+                timelinePlaceholder: t(data?.formTimelinePlaceholder, locale, "ASAP"),
+                message: t(data?.formMessageLabel, locale, "Message"),
+                messagePlaceholder: t(data?.formMessagePlaceholder, locale, "Your message"),
+                submit: t(data?.formSubmitLabel, locale, "Submit Inquiry"),
             }}
-             onSubmit={submitContactForm} 
+            onSubmit={submitContactForm}
         />
     );
 }
