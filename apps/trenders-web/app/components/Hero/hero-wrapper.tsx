@@ -12,7 +12,11 @@ const BASE_CARDS: HeroCard[] = [
 
 const AUTOPLAY_MS = 3000;
 
-export function HeroWrapper() {
+interface HeroWrapperProps {
+    locale?: string;
+}
+
+export function HeroWrapper({ locale: _locale = "az" }: HeroWrapperProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleCards, setVisibleCards] = useState<HeroCard[]>([]);
 
