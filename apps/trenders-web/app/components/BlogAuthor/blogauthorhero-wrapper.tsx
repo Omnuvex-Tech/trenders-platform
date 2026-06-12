@@ -17,6 +17,7 @@ async function getAuthorData(authorSlug: string) {
         const [authorRes, blogsRes] = await Promise.all([
             fetch(`${API}/blog/authors/slug/${authorSlug}`, { cache: "no-store" }),
             fetch(`${API}/blog/authors/slug/${authorSlug}/blogs`, { cache: "no-store" }),
+         
         ]);
         return {
             author: authorRes.ok ? await authorRes.json() : null,
