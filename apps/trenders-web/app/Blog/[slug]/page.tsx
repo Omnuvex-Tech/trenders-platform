@@ -132,9 +132,11 @@ export default async function BlogDetailPage({
         languages={langResponse.data ?? []}
         initialTranslations={translationResponse.data ?? []}
       />
-      {(blog.sections ?? []).map((section: any, i: number) =>
+     {(blog.sections ?? [])
+    .filter((section: any) => section.isVisible !== false)
+    .map((section: any, i: number) =>
         renderSection(section, i, blog)
-      )}
+    )}
       <ContactWrapper />
     </div>
   );

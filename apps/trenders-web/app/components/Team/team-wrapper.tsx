@@ -7,7 +7,7 @@ function toAbsUrl(path: string) {
     return `${process.env.API_URL}${path}`;
 }
 
-async function getHomeTeamMembers(): Promise<TeamMember[]> {
+async function getHomeTeamMembers(locale: string): Promise<TeamMember[]> {
     try {
         const res = await fetch(`${process.env.API_URL}/blog/authors/about-team`, {
             cache: "no-store",
@@ -18,10 +18,10 @@ async function getHomeTeamMembers(): Promise<TeamMember[]> {
             .slice(0, 3)
             .map((a) => ({
                 id: a.id,
-                name: a.name ?? "",
-                role: a.role ?? "",
+                name: typeof a.name === "string" ? a.name : (a.name?.[locale] ?? a.name?.az ?? a.name?.en ?? ""),
+                role: typeof a.role === "string" ? a.role : (a.role?.[locale] ?? a.role?.az ?? a.role?.en ?? ""),
                 image: toAbsUrl(a.avatar ?? ""),
-                imageAlt: a.avatarAlt ?? a.name ?? "",
+                imageAlt: typeof a.avatarAlt === "string" ? a.avatarAlt : (a.avatarAlt?.[locale] ?? a.name?.[locale] ?? ""),
                 href: a.slug ? `/BlogAuthor/${a.slug}` : "#",
             }));
     } catch {
@@ -30,7 +30,7 @@ async function getHomeTeamMembers(): Promise<TeamMember[]> {
 }
 
 export async function TeamWrapper({ locale = "az" }: { locale?: string }) {
-    const members = await getHomeTeamMembers();
+    const members = await getHomeTeamMembers(locale);
 
     return (
         <TeamUI

@@ -148,9 +148,11 @@ export default async function PortfolioDetailPage({
                 languages={langResponse.data ?? []}
                 initialTranslations={translationResponse.data ?? []}
             />
-            {(portfolio.sections ?? []).map((section: any, i: number) =>
-                renderSection(section, i, locale)
-            )}
+            {(portfolio.sections ?? [])
+                .filter((section: any) => section.isVisible !== false)
+                .map((section: any, i: number) =>
+                    renderSection(section, i, locale)
+                )}
             <ContactWrapper locale={locale} />
         </div>
     );

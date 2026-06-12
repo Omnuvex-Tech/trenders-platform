@@ -173,9 +173,11 @@ export default async function ServiceDetailPage({
                 initialTranslations={translationResponse.data ?? []}
             />
 
-            {(service.sections ?? []).map((section: any, i: number) =>
-                renderSection(section, i, locale)
-            )}
+            {(service.sections ?? [])
+                .filter((section: any) => section.isVisible !== false)
+                .map((section: any, i: number) =>
+                    renderSection(section, i, locale)
+                )}
 
             <ContactWrapper locale={locale} />
         </div>

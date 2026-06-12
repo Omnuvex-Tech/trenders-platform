@@ -1,6 +1,3 @@
-
-
-
 import React from 'react'
 import { PartnersUI } from '@repo/ui'
 import type { PartnerItem } from '@repo/ui'
