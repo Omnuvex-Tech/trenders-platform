@@ -21,7 +21,7 @@ export interface TeamUIProps {
     goHref?: string;
 }
 
-export function TeamUI({ title, members, featuredImage, goHref = "/team" }: TeamUIProps) {
+export function TeamUI({ title, members, featuredImage, goHref = "/OurTeam" }: TeamUIProps) {
     const titleContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {

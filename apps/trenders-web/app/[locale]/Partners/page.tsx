@@ -4,11 +4,9 @@ import { api } from "@/lib/api";
 import { config } from "@/config";
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
-import { AboutHeroWrapper } from "@/app/components/About/abouthero-wrapper";
-import { AboutStoryWrapper } from "@/app/components/About/aboutstory-wrapper";
-import { AboutTeamWrapper } from "@/app/components/About/aboutteam-wrapper";
+import { PartnersPageWrapper } from "@/app/components/PartnersPage/partnerspage-wrapper";
 
-export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function PartnersPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
 
     const langResponse = await api.get<Language[]>(config.endpoints.languages.list);
@@ -37,9 +35,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 languages={langResponse.data}
                 initialTranslations={translationResponse.data ?? []}
             />
-            <AboutHeroWrapper locale={locale} />
-            <AboutStoryWrapper locale={locale} />
-            <AboutTeamWrapper locale={locale} />
+            <PartnersPageWrapper locale={locale} />
             <ContactWrapper locale={locale} />
         </div>
     );

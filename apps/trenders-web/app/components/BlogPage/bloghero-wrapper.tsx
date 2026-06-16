@@ -1,80 +1,82 @@
+import { cookies } from "next/headers";
 import { BlogSectionUI } from "@repo/ui";
 import type { BlogItem } from "@repo/ui";
 
+type LocalizedString = Record<string, string>;
+
+function t(obj: LocalizedString | any, locale: string, fallback = ""): string {
+    if (!obj) return fallback;
+    if (typeof obj === "string") return obj;
+    return obj[locale] || obj["az"] || fallback;
+}
+
 function toAbsUrl(path: string) {
-  if (!path) return "";
-  if (path.startsWith("http")) return path;
-  return `${process.env.API_URL}${path}`;
+    if (!path) return "";
+    if (path.startsWith("http")) return path;
+    return `${process.env.API_URL}${path}`;
 }
 
 function formatDate(dateStr: string) {
-  return new Date(dateStr)
-    .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
-    .toUpperCase();
+    return new Date(dateStr)
+        .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+        .toUpperCase();
 }
 
-function stripHtml(html: string) {
-  return (html ?? "").replace(/<[^>]*>/g, "").trim();
-}
-
-function mapBlogItem(b: any): BlogItem {
-  return {
-    id: b.id,
-    image: toAbsUrl(b.coverImage ?? ""),
-    imageAlt: b.coverImageAlt ?? "",
-    badge: b.badge ?? "",
-    title: b.title ?? "",
-    description: b.excerpt ?? "",
-    date: b.publishedAt ? formatDate(b.publishedAt) : "",
-    href: `/Blog/${b.slug}`,
-  };
+function mapBlogItem(b: any, locale: string): BlogItem {
+    const coverImage = t(b.coverImage, locale);
+    return {
+        id: b.id,
+        image: toAbsUrl(coverImage),
+        imageAlt: t(b.coverImageAlt, locale),
+        badge: t(b.badge, locale),
+        title: t(b.title, locale),
+        description: t(b.excerpt, locale),
+        date: b.publishedAt ? formatDate(b.publishedAt) : "",
+        href: `/Blog/${b.slug}`,
+    };
 }
 
 async function getBlogSectionData() {
-  try {
-    const [featuredRes, settingsRes] = await Promise.all([
-      fetch(`${process.env.API_URL}/blog/featured`, { cache: "no-store" }),
-      fetch(`${process.env.API_URL}/blog/settings`, { cache: "no-store" }),
-    ]);
-
-    const featured = featuredRes.ok ? await featuredRes.json() : { main: null, side: [] };
-    const settings = settingsRes.ok ? await settingsRes.json() : {};
-
-    return {
-      featured: featured.main ?? null,
-      side: featured.side ?? [],
-      settings,
-    };
-  } catch {
-    return { featured: null, side: [], settings: {} };
-  }
+    try {
+        const [featuredRes, settingsRes] = await Promise.all([
+            fetch(`${process.env.API_URL}/blog/featured`, { cache: "no-store" }),
+            fetch(`${process.env.API_URL}/blog/settings`, { cache: "no-store" }),
+        ]);
+        const featured = featuredRes.ok ? await featuredRes.json() : { main: null, side: [] };
+        const settings = settingsRes.ok ? await settingsRes.json() : {};
+        return { featured: featured.main ?? null, side: featured.side ?? [], settings };
+    } catch {
+        return { featured: null, side: [], settings: {} };
+    }
 }
 
 export async function BlogSectionWrapper() {
-  const { featured, side, settings } = await getBlogSectionData();
+    const cookieStore = await cookies();
+    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
-  console.log("BLOG FEATURED:", JSON.stringify(featured, null, 2));
-  console.log("BLOG SETTINGS:", JSON.stringify(settings, null, 2));
-  
-  if (!featured) return null;
+    const { featured, side, settings } = await getBlogSectionData();
 
-  return (
-    <BlogSectionUI
-      title={settings.pageTitle || "Bloglar"}
-      portfolioHref={settings.buttonLink || "/blog"}
-      portfolioLabel={settings.buttonText || "Portfolio"}
-      portfolioNewTab={settings.buttonNewTab ?? false}
-      featuredPost={mapBlogItem(featured)}
-      sidePosts={side.map(mapBlogItem)}
-      quote={
-        settings.quoteText
-          ? {
-              text: settings.quoteText,
-              image: settings.quoteImage ? toAbsUrl(settings.quoteImage) : undefined,
-              imageAlt: settings.quoteImageAlt ?? "",
+    if (!featured) return null;
+
+    const quoteImage = t(settings.quoteImage, locale);
+
+    return (
+        <BlogSectionUI
+            title={t(settings.pageTitle, locale, "Bloglar")}
+            portfolioHref={settings.buttonLink || "/blog"}
+            portfolioLabel={t(settings.buttonText, locale, "Portfolio")}
+            portfolioNewTab={settings.buttonNewTab ?? false}
+            featuredPost={mapBlogItem(featured, locale)}
+            sidePosts={side.map((b: any) => mapBlogItem(b, locale))}
+            quote={
+                settings.quoteText
+                    ? {
+                        text: t(settings.quoteText, locale),
+                        image: quoteImage ? toAbsUrl(quoteImage) : undefined,
+                        imageAlt: t(settings.quoteImageAlt, locale),
+                    }
+                    : null
             }
-          : null
-      }
-    />
-  );
+        />
+    );
 }

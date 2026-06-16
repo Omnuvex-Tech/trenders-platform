@@ -2,17 +2,25 @@ import React from 'react'
 import { PartnersUI } from '@repo/ui'
 import type { PartnerItem } from '@repo/ui'
 
+type LocalizedString = Record<string, string>
+
 function toAbsUrl(path: string): string {
   if (!path) return ""
   if (path.startsWith("http")) return path
   return `${process.env.API_URL}${path}`
 }
 
-function stripHtml(html: string): string {
-  return (html ?? "").replace(/<[^>]*>/g, "").trim()
+function t(obj: LocalizedString | any, locale: string, fallback = ""): string {
+  if (!obj) return fallback
+  if (typeof obj === "string") return obj
+  return obj[locale] || obj["az"] || fallback
 }
 
-async function getHomePartners(): Promise<{
+function stripHtml(html: string): string {
+  return (html ?? "").replace(/<[^>]*>/g, "").trim();
+}
+
+async function getHomePartners(locale: string): Promise<{
   sectionTitle: string
   description: string
   partners: PartnerItem[]
@@ -27,22 +35,19 @@ async function getHomePartners(): Promise<{
     const partners: PartnerItem[] = (data.partners as any[])
       .filter((p) => p.isHomepage)
       .sort((a, b) => a.order - b.order)
-      .map((p) => {
-        const altText = p.altText || stripHtml(p.name ?? "")
-        return {
-          id: p.id,
-          svg: (
-            <img
-              src={toAbsUrl(p.image)}
-              alt={altText}
-            />
-          ),
-        }
-      })
+      .map((p) => ({
+        id: p.id,
+        svg: (
+          <img
+            src={toAbsUrl(p.image)}
+            alt={t(p.altText, locale) || t(p.name, locale)}
+          />
+        ),
+      }))
 
     return {
-      sectionTitle: data.title ?? "Tərəfdaşlarımız",
-      description: data.description ?? "",
+      sectionTitle: stripHtml(t(data.title, locale)),
+      description: t(data.description, locale),
       partners,
     }
   } catch {
@@ -51,7 +56,7 @@ async function getHomePartners(): Promise<{
 }
 
 export async function PartnersWrapper({ locale = "az" }: { locale?: string }) {
-  const { sectionTitle, description, partners } = await getHomePartners()
+  const { sectionTitle, description, partners } = await getHomePartners(locale)
 
   return (
     <PartnersUI

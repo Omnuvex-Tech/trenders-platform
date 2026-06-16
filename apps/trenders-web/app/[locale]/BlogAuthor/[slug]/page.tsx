@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { BlogAuthorHeroWrapper } from "@/app/components/BlogAuthor/blogauthorhero-wrapper";
 import { BlogAuthorPreviewWrapper } from "@/app/components/BlogAuthor/blogauthorpreview-wrapper";
 import { BlogAuthorListWrapper } from "@/app/components/BlogAuthor/blogauthorsearch-wrapper";
@@ -10,22 +11,25 @@ import type { Language, Translation } from "@repo/types/types";
 export default async function BlogAuthorPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
+    const cookieStore = await cookies();
+    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
+
     const [langResponse, translationResponse] = await Promise.all([
         api.get<Language[]>(config.endpoints.languages.list),
-        api.get<Translation[]>(config.endpoints.translations.list, { locale: "az" }),
+        api.get<Translation[]>(config.endpoints.translations.list, { locale }),
     ]);
 
     return (
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
             <NavbarWrapper
-                locale="az"
+                locale={locale}
                 languages={langResponse.data ?? []}
                 initialTranslations={translationResponse.data ?? []}
             />
             <BlogAuthorHeroWrapper authorSlug={slug} />
             <BlogAuthorPreviewWrapper />
             <BlogAuthorListWrapper />
-            <ContactWrapper />
+            <ContactWrapper locale={locale} />
         </div>
     );
 }
