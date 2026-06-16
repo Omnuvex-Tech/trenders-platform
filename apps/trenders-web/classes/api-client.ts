@@ -32,7 +32,16 @@ export class ApiClient {
                     ...init.headers,
                 },
             });
-            const body = await response.json() as ApiResponseBody<T>;
+            const rawBody = await response.text();
+            if (!rawBody.trim()) {
+                return new ApiResponse<T>({
+                    success: false,
+                    message: `Empty response body (${response.status})`,
+                    data: null,
+                    errors: [],
+                });
+            }
+            const body = JSON.parse(rawBody) as ApiResponseBody<T>;
             return new ApiResponse<T>(body);
         } catch (error) {
             return new ApiResponse<T>({

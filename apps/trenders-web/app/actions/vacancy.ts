@@ -11,7 +11,10 @@ export async function submitVacancyForm(formData: FormData) {
         body: uploadForm,
     });
     if (!uploadRes.ok) throw new Error("CV yüklənmədi");
-    const { url: cvUrl } = await uploadRes.json();
+    const uploadBody = await uploadRes.text();
+    if (!uploadBody.trim()) throw new Error("CV upload boş cavab qaytardı");
+    const { url: cvUrl } = JSON.parse(uploadBody) as { url?: string };
+    if (!cvUrl) throw new Error("CV upload cavabında url tapılmadı");
     const submitRes = await fetch(`${API}/vacancy/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
