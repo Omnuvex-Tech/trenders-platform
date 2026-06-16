@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { DEFAULT_LOCALE, LOCALES } from "./config/locales";
+import { LOCALES, resolveLocale } from "./config/locales";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
   }
 
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
-  const locale = LOCALES.includes(cookieLocale ?? "") ? cookieLocale! : DEFAULT_LOCALE;
+  const locale = resolveLocale(cookieLocale);
 
   return NextResponse.redirect(
     new URL(`/${locale}${pathname}`, request.url)
