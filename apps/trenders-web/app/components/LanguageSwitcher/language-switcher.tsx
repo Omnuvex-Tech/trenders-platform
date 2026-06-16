@@ -6,9 +6,8 @@ import type { Language, Translation } from "@repo/types/types";
 import { LanguageSwitcher as LanguageSwitcherUI } from "@repo/ui";
 import { api } from "@/lib/api";
 import { config } from "@/config";
+import { LOCALES } from "@/config/locales";
 import { useLocaleStore } from "@/store/locale.store";
-
-const KNOWN_LOCALES = ["az", "en", "ru"];
 
 const LanguageSwitcher = ({
     languages,
@@ -30,7 +29,7 @@ const LanguageSwitcher = ({
         const segments = currentPath.split("/").filter(Boolean);
         const firstSegment = segments[0] ?? "";
 
-        if (segments.length > 0 && KNOWN_LOCALES.includes(firstSegment)) {
+        if (segments.length > 0 && LOCALES.includes(firstSegment as (typeof LOCALES)[number])) {
             segments[0] = nextLocale;
         } else {
             segments.unshift(nextLocale);

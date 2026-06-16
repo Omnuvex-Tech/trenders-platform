@@ -1,7 +1,8 @@
-import type { Language, Translation } from "@repo/types/types";
+import type { Translation } from "@repo/types/types";
 import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
 import { config } from "@/config";
+import { STATIC_LANGUAGES, isSupportedLocale } from "@/config/locales";
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { HeroWrapper } from "@/app/components/Hero/hero-wrapper";
 import { ProjectsWrapper } from "@/app/components/Project/project-wrapper";
@@ -15,17 +16,7 @@ import { FaqWrapper } from "@/app/components/Faq/faq-wrapper";
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
 
-    const langResponse = await api.get<Language[]>(config.endpoints.languages.list);
-
-    if (!langResponse.success || !langResponse.data) {
-        return (
-            <div className="flex min-h-svh items-center justify-center py-8">
-                <p className="text-destructive">{langResponse.message}</p>
-            </div>
-        );
-    }
-
-    if (!langResponse.data.some((language) => language.code === locale)) {
+    if (!isSupportedLocale(locale)) {
         notFound();
     }
 
@@ -35,7 +26,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="flex min-h-svh w-full flex-col items-center justify-start pt-0 pb-8">
             <NavbarWrapper 
                 locale={locale} 
-                languages={langResponse.data}
+                languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
             <HeroWrapper locale={locale} />

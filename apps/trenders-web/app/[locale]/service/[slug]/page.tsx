@@ -9,7 +9,8 @@ import {
 } from "@repo/ui";
 import { api } from "@/lib/api";
 import { config } from "@/config";
-import type { Language, Translation } from "@repo/types/types";
+import { STATIC_LANGUAGES, isSupportedLocale } from "@/config/locales";
+import type { Translation } from "@repo/types/types";
 
 type LocalizedString = Record<string, string>;
 
@@ -137,19 +138,7 @@ export default async function ServiceDetailPage({
 }) {
     const { locale, slug } = await params;
 
-    const langResponse = await api.get<Language[]>(
-        config.endpoints.languages.list
-    );
-
-    if (!langResponse.success || !langResponse.data) {
-        return (
-            <div className="flex min-h-svh items-center justify-center py-8">
-                <p className="text-destructive">{langResponse.message}</p>
-            </div>
-        );
-    }
-
-    if (!langResponse.data.some((l) => l.code === locale)) {
+    if (!isSupportedLocale(locale)) {
         notFound();
     }
 
@@ -169,7 +158,7 @@ export default async function ServiceDetailPage({
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
             <NavbarWrapper
                 locale={locale}
-                languages={langResponse.data}
+                languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
 

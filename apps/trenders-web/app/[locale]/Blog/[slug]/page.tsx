@@ -9,7 +9,8 @@ import {
 } from '@repo/ui';
 import { api } from "@/lib/api";
 import { config } from "@/config";
-import type { Language, Translation } from "@repo/types/types";
+import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
+import type { Translation } from "@repo/types/types";
 
 type LocalizedString = Record<string, string>;
 
@@ -135,11 +136,10 @@ export default async function BlogDetailPage({
     const { slug } = await params;
 
     const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
+    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
 
-    const [blog, langResponse, translationResponse] = await Promise.all([
+    const [blog, translationResponse] = await Promise.all([
         getBlog(slug),
-        api.get<Language[]>(config.endpoints.languages.list),
         api.get<Translation[]>(config.endpoints.translations.list, { locale }),
     ]);
 
@@ -149,7 +149,7 @@ export default async function BlogDetailPage({
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
             <NavbarWrapper
                 locale={locale}
-                languages={langResponse.data ?? []}
+                languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
             {(blog.sections ?? []).map((section: any, i: number) =>

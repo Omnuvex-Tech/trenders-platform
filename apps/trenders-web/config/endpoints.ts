@@ -6,10 +6,6 @@ export const endpoints = {
         me: "/auth/me",
     },
 
-    languages: {
-        list: "/languages",
-    },
-
     translations: {
         list: "/translations",
     },

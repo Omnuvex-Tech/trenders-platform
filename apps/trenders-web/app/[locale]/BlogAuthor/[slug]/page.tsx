@@ -6,24 +6,25 @@ import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 import { api } from "@/lib/api";
 import { config } from "@/config";
-import type { Language, Translation } from "@repo/types/types";
+import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
+import type { Translation } from "@repo/types/types";
 
 export default async function BlogAuthorPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
     const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
+    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
 
-    const [langResponse, translationResponse] = await Promise.all([
-        api.get<Language[]>(config.endpoints.languages.list),
-        api.get<Translation[]>(config.endpoints.translations.list, { locale }),
-    ]);
+    const translationResponse = await api.get<Translation[]>(
+        config.endpoints.translations.list,
+        { locale }
+    );
 
     return (
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
             <NavbarWrapper
                 locale={locale}
-                languages={langResponse.data ?? []}
+                languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
             <BlogAuthorHeroWrapper authorSlug={slug} />
