@@ -359,11 +359,6 @@
   color: #1a1a1a;
 }
 
-.searchSuggestionsWrapper {
-  border-radius: 18px;
-  overflow: hidden;
-  position: relative;
-}
 
 .searchSuggestionsBorder {
   position: absolute;
@@ -379,15 +374,6 @@
   z-index: 1;
 }
 
-.searchSuggestions {
-  border-radius: 18px;
-  overflow-y: auto;
-  max-height: 420px;
-  background: rgba(255, 255, 255, 0.15);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  scrollbar-width: none;
-}
 
 .searchSuggestions::-webkit-scrollbar {
   display: none;
@@ -501,3 +487,53 @@
     font-size: 14px;
   }
 }
+
+
+
+.searchSuggestionsWrapper {
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  clip-path: inset(0 round 18px);
+}
+
+.searchSuggestions {
+  border-radius: 18px;
+  overflow-y: auto;
+  max-height: 420px;
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(39, 109, 228, 0.55) transparent;
+}
+
+.searchSuggestions::-webkit-scrollbar {
+  width: 3px;
+}
+
+.searchSuggestions::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.searchSuggestions::-webkit-scrollbar-thumb {
+  background: rgba(39, 109, 228, 0.6);
+  border-radius: 10px;
+}
+
+.searchSuggestions::-webkit-scrollbar-thumb:hover {
+  background: rgba(39, 109, 228, 0.9);
+}
+.searchSuggestionItem:last-child {
+  border-bottom: none;
+  border-radius: 0 0 18px 18px;
+}
+
+.searchSuggestionItem:first-child {
+  border-radius: 18px 18px 0 0;
+}
+
+
+

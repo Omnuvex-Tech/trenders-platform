@@ -105,9 +105,8 @@ export type { VacancyDetailUIProps, VacancyDetailSection, VacancyDetailContact }
 export { PartnersPageUI } from "./components/PartnersPage/partnerspage";
 export type { PartnersPageUIProps, PartnerPageItem } from "./components/PartnersPage/partnerspage";
 
-
-
-
+export { ContactPageUI } from "./components/ContactPage/contactpage";
+export type { ContactPageUIProps, ContactPageInfo } from "./components/ContactPage/contactpage";
 
 
 

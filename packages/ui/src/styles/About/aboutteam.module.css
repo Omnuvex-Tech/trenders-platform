@@ -40,16 +40,44 @@
 
 .ctaBtn {
     color: #0059ff;
-    border: 1px solid #0059ff;
     border-radius: 63px;
     align-items: center;
-    width: 119px;
+    width: fit-content;
     height: 42px;
     padding: 7px 10px;
     font-family: Manrope;
     font-size: 16px;
     font-weight: 500;
-    transition: background .2s, color .2s;
+    transition: background 600ms ease, color 600ms ease, border-color 600ms ease;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #0059ff80;
+}
+
+.ctaBtn::after {
+    background: rgba(255, 255, 255, 0.25);
+    content: "";
+    height: 155px;
+    left: -75px;
+    opacity: 1;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    transition: all 950ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 80px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.ctaBtn:hover::after {
+    left: 120%;
+}
+
+.ctaBtn:hover {
+    background: linear-gradient(135deg, #0059ff, #4d8aff);
+    color: #fff;
+    border-color: transparent;
 }
 
 .grid {

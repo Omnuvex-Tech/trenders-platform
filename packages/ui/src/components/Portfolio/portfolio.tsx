@@ -21,6 +21,7 @@ export interface PortfolioUIProps {
   showControls?: boolean
   dropdownLabel?: string
   dropdownOptions?: string[]
+  loadMoreLabel?: string
 }
 
 export function PortfolioUI({
@@ -31,6 +32,7 @@ export function PortfolioUI({
   showControls = false,
   dropdownLabel = "Filter",
   dropdownOptions = [],
+  loadMoreLabel = "Daha çox Portfolio",
 }: PortfolioUIProps) {
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -147,7 +149,7 @@ export function PortfolioUI({
             onClick={handleShowMore}
             className={styles.projectsMoreBtn}
           >
-            Daha çox Portfolio
+            {loadMoreLabel}
             <svg
               width="16"
               height="16"

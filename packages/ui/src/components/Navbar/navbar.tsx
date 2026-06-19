@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
 import styles from "../../styles/Navbar/navbar.module.css";
 
@@ -51,6 +51,11 @@ export function NavbarUI({
     const popupRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLDivElement>(null);
     const suggestionsRef = useRef<HTMLDivElement>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     useEffect(() => {
         if (!searchOpen || !popupRef.current || !inputRef.current || !suggestionsRef.current) return;
@@ -173,7 +178,8 @@ export function NavbarUI({
                                 autoFocus={searchOpen}
                             />
                         </div>
-                        {suggestions.length > 0 && (
+
+                        {mounted && suggestions.length > 0 && (
                             <div className={styles.searchSuggestionsWrapper}>
                                 <div className={styles.searchSuggestionsBorder} />
                                 <div
@@ -219,7 +225,8 @@ export function NavbarUI({
                                 </div>
                             </div>
                         )}
-                        {searchValue.trim().length >= 2 && suggestions.length === 0 && (
+
+                        {mounted && searchValue.trim().length >= 2 && suggestions.length === 0 && (
                             <div className={styles.searchSuggestionsWrapper}>
                                 <div className={styles.searchSuggestionsBorder} />
                                 <div className={styles.searchSuggestions} data-lenis-prevent>

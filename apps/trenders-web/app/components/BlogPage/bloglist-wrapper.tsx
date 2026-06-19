@@ -24,24 +24,30 @@ function formatDate(dateStr: string) {
 
 async function getBlogListData() {
     try {
-        const [blogsRes, catsRes] = await Promise.all([
+        const [blogsRes, catsRes, settingsRes] = await Promise.all([
             fetch(`${process.env.API_URL}/blog`, { cache: "no-store" }),
             fetch(`${process.env.API_URL}/blog/categories`, { cache: "no-store" }),
+            fetch(`${process.env.API_URL}/blog/settings`, { cache: "no-store" }),
         ]);
+
         return {
             blogs: blogsRes.ok ? await blogsRes.json() : [],
             cats: catsRes.ok ? await catsRes.json() : [],
+            settings: settingsRes.ok ? await settingsRes.json() : {},
         };
     } catch {
-        return { blogs: [], cats: [] };
+        return {
+            blogs: [],
+            cats: [],
+            settings: {},
+        };
     }
 }
-
 export async function BlogListWrapper() {
     const cookieStore = await cookies();
     const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
-    const { blogs, cats } = await getBlogListData();
+    const { blogs, cats, settings } = await getBlogListData();
 
     const mapPost = (b: any): BlogListItem => {
         const coverImage = t(b.coverImage, locale);
@@ -99,9 +105,9 @@ export async function BlogListWrapper() {
             allPosts={allPosts}
             categories={categories}
             featuredBlog={featuredBlog}
-            searchPlaceholder="Axtarış ..."
-            categoriesTitle="KATEQORİYALAR"
-            featuredBlogTitle="Həftənin seçilmiş blogu"
+            searchPlaceholder={t(settings.searchPlaceholder, locale)}
+            categoriesTitle={t(settings.categoriesLabel, locale)}
+            featuredBlogTitle={t(settings.pickOfWeekLabel, locale)}
         />
     );
 }

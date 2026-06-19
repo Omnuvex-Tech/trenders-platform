@@ -72,30 +72,26 @@ function renderSection(section: any, index: number, locale: string) {
                 />
             );
 
-        case "content":
-            return (
-                <ServiceDetailContentUI
-                    key={index}
-                    items={(section.items ?? []).map((item: any) => ({
-                        number: getL(item.number, locale),
-                        badge: getL(item.badge, locale),
-                        title: getL(item.title, locale),
-                        descriptions: (item.descriptions ?? []).map((d: any) =>
-                            getL(d, locale)
-                        ),
-                        quote: item.quote
-                            ? getL(item.quote, locale)
-                            : null,
-                        quoteImage: toAbsUrl(item.quoteImage ?? ""),
-                        subText: getL(item.subText, locale),
-                        image: item.image
-                            ? toAbsUrl(item.image)
-                            : undefined,
-                        imageAlt: getL(item.imageAlt, locale),
-                    }))}
-                />
-            );
-
+    case "content":
+    return (
+        <ServiceDetailContentUI
+            key={index}
+            items={(section.items ?? []).map((item: any) => ({
+                number: getL(item.number, locale),
+                badge: getL(item.badge, locale),
+                title: getL(item.title, locale),
+                descriptions: (item.descriptions ?? []).map((d: any) =>
+                    getL(d, locale)
+                ),
+                quote: item.quote ? getL(item.quote, locale) : null,
+                quoteImage: toAbsUrl(item.quoteImage ?? ""),
+                subText: getL(item.subText, locale),
+                image: item.image ? toAbsUrl(item.image) : undefined,
+                imageAlt: getL(item.imageAlt, locale),
+                contactLabel: getL(item.contactLabel, locale),
+            }))}
+        />
+    );
         case "quote":
             return (
                 <ServiceDetailQuoteUI

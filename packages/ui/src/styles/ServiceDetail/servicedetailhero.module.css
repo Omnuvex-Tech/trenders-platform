@@ -78,99 +78,11 @@
     text-align: justify;
 }
 
-/* Stats */
-
-.heroStatsWrap {
-    padding: 30px 0 0 0;
-}
-
-.heroStatsRow {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
-.heroStatCards {
-    display: flex;
-    align-items: center;
-    gap: 33px;
-}
-
-.heroStatCard {
-    background: #fff;
-    flex: none;
-    align-items: center;
-    padding: 15px 18px;
-    display: flex;
-    position: relative;
-    width: 162px;
-    height: 87px;
-    border-radius: 21.07px;
-    gap: 10.54px;
-
-}
-
-.heroStatCard::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 28px;
-    padding: 2px;
-    background: linear-gradient(115.2deg, rgba(125, 177, 255, 0.9) 0.81%, #00389F 110.18%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-}
-
-.heroStatIcon {
-    min-width: 35px;
-    min-height: 35px;
-    border-radius: 52px;
-    padding: 5.27px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.heroStatIcon::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 52px;
-    padding: 1.47px;
-    background: linear-gradient(132.52deg, rgba(0, 140, 255, 0) -26.71%, #4099D1 143.92%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-}
-
-.heroStatLabel {
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 14.75px;
-    line-height: 100%;
-    color: rgba(0, 0, 0, 1);
-    margin-top: 10px;
-
-}
-
-.heroStatValue {
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 25.29px;
-    color: rgba(0, 0, 0, 1);
-}
-
-
 .quoteWrap {
     display: flex;
     align-items: flex-start;
     max-width: 96%;
-    margin-top: 60px;
+    margin-top: 16px;
 }
 
 .quoteIcon {
@@ -184,7 +96,7 @@ color: #c4c4c494;
     display: flex;
     position: relative;
     transform: translateY(-37%);
-    right: 23px;
+    right: 30px;
 }
 
 
@@ -199,7 +111,7 @@ color: #c4c4c494;
     font-weight: 300;
     line-height: 121%;
     position: relative;
-    padding-bottom: 32px;
+    padding-top: 49px;
 }
 
 .bottomWrap {

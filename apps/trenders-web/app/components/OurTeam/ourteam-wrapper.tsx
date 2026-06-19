@@ -61,6 +61,7 @@ export async function OurTeamWrapper({ locale }: { locale?: string }) {
 
     const titleHtml = t(settings?.title, resolvedLocale, "Komandamız");
     const descriptionHtml = t(settings?.description, resolvedLocale, "");
+    const moreButtonText = t(settings?.moreBtn, resolvedLocale, "Daha çox");
 
     const resolvedMembers: OurTeamMember[] = members.map((m: any) => ({
         ...m,
@@ -74,6 +75,7 @@ export async function OurTeamWrapper({ locale }: { locale?: string }) {
             title={titleHtml}
             descriptionHtml={descriptionHtml}
             members={resolvedMembers}
+            moreButtonText={moreButtonText}
         />
     );
 }

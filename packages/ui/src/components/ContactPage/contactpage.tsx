@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import styles from "../../styles/Contact/contact.module.css";
+import styles from "../../styles/ContactPage/contactpage.module.css";
 import { motion, Variants } from "framer-motion";
 
-export interface ContactSocialLink {
+export interface ContactPageSocialLink {
     id: number;
     icon: string | null;
     href: string;
 }
 
-export interface ContactInfo {
+export interface ContactPageInfo {
     emailLabel: string;
     email: string;
     phoneLabel: string;
@@ -20,14 +20,16 @@ export interface ContactInfo {
     hoursLabel: string;
     hours: string;
     followUsLabel: string;
-    socialLinks: ContactSocialLink[];
+    socialLinks: ContactPageSocialLink[];
     hashtags: string[];
 }
 
-export interface ContactUIProps {
+export interface ContactPageUIProps {
     title: string;
     description: string;
-    info: ContactInfo;
+    image?: string | null;
+    imageAlt?: string;
+    info: ContactPageInfo;
     serviceOptions: string[];
     budgetOptions: string[];
     timelineOptions: string[];
@@ -47,23 +49,27 @@ export interface ContactUIProps {
         messagePlaceholder: string;
         submit: string;
     };
+    mapComponent?: React.ReactNode;
     termsHref?: string;
     privacyHref?: string;
     onSubmit?: (data: Record<string, string>) => Promise<void>;
 }
 
-export function ContactUI({
+export function ContactPageUI({
     title,
     description,
+    image,
+    imageAlt,
     info,
     serviceOptions,
     budgetOptions,
     timelineOptions,
     formLabels,
+    mapComponent,
     termsHref = "#",
     privacyHref = "#",
     onSubmit,
-}: ContactUIProps) {
+}: ContactPageUIProps) {
     const [form, setForm] = useState({
         name: "", email: "", phone: "", service: "",
         budget: "", timeline: "", message: "",
@@ -206,7 +212,6 @@ export function ContactUI({
 
     return (
         <section className={styles.section} id="contact">
-            <div className={styles.contactDivider} />
             <div className={styles.inner}>
                 {/* Sol */}
                 <motion.div
@@ -214,7 +219,7 @@ export function ContactUI({
                     variants={leftContainerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, amount: 0.15 }}
+                    viewport={{ once: false, amount: 0.15 }}
                 >
                     <motion.h2
                         className={styles.title}
@@ -233,6 +238,16 @@ export function ContactUI({
                     <motion.p className={styles.description} variants={fadeUpVariants}>
                         {description}
                     </motion.p>
+
+                    {image && (
+                        <motion.div className={styles.officeImageWrap} variants={fadeUpVariants}>
+                            <img
+                                src={image}
+                                alt={imageAlt || ""}
+                                className={styles.officeImage}
+                            />
+                        </motion.div>
+                    )}
 
                     <div className={styles.infoGrid}>
                         <motion.div className={styles.infoItem} variants={fadeUpVariants}>
@@ -292,7 +307,7 @@ export function ContactUI({
                     </div>
                 </motion.div>
 
-                {/* Sağ — Form */}
+                {/* Sağ — Form + Map */}
                 <div className={styles.right}>
                     <motion.form
                         className={styles.form}
@@ -300,7 +315,7 @@ export function ContactUI({
                         variants={formContainerVariants}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, amount: 0.1 }}
+                        viewport={{ once: false, amount: 0.1 }}
                     >
                         <motion.div className={styles.row} variants={fadeUpVariants}>
                             <div className={styles.field}>
@@ -396,11 +411,16 @@ export function ContactUI({
                             <a href={privacyHref} className={styles.termsLink}>Privacy Policy.</a>
                         </motion.p>
                     </motion.form>
+
+                    {mapComponent && (
+                        <div className={styles.mapCard}>
+                            <div className={styles.mapWrap}>
+                                {mapComponent}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
     );
 }
-
-
-

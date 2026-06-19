@@ -2,7 +2,6 @@
 
 import React from 'react'
 import styles from '../../styles/PortfolioDetail/portfoliodetailstrategy.module.css'
-
 export interface PortfolioDetailStrategyProps {
   quote: string | React.ReactNode;
   quoteImage: string;
@@ -13,10 +12,15 @@ export interface PortfolioDetailStrategyProps {
   descriptions: (string | React.ReactNode)[];
   quoteImageAlt?: string;
   smallImagesAlt?: string;
+  contactLabel?: string;
+  onContactClick?: () => void;
 }
 
 export function PortfolioDetailStrategyUI({
-  quote, badge, quoteImage, mainImage, smallImages, title, descriptions, quoteImageAlt, smallImagesAlt
+  quote, badge, quoteImage, mainImage, smallImages, title, descriptions,
+  quoteImageAlt, smallImagesAlt,
+  contactLabel = "Bizimlə əlaqə",
+  onContactClick,
 }: PortfolioDetailStrategyProps) {
   return (
     <section className={styles.section}>
@@ -34,7 +38,8 @@ export function PortfolioDetailStrategyUI({
             </div>
           </div>
           <div className={styles.quoteImgWrap}>
-            <img src={quoteImage} alt={quoteImageAlt || ""} className={styles.quoteImg} /></div>
+            <img src={quoteImage} alt={quoteImageAlt || ""} className={styles.quoteImg} />
+          </div>
         </div>
 
         <div className={styles.contentSection}>
@@ -43,23 +48,35 @@ export function PortfolioDetailStrategyUI({
           </div>
           <div className={styles.smallStack}>
             <div className={styles.smallImgWrap}>
-              <img src={smallImages[1]} alt={smallImagesAlt || ""} className={styles.smallImg} /> </div>
+              <img src={smallImages[0]} alt={smallImagesAlt || ""} className={styles.smallImg} />
+            </div>
             <div className={`${styles.smallImgWrap} ${styles.offset}`}>
-              <img src={smallImages[1]} alt={smallImagesAlt || ""} className={styles.smallImg} /> </div>
+              <img src={smallImages[1]} alt={smallImagesAlt || ""} className={styles.smallImg} />
+            </div>
           </div>
           <div className={styles.textCol}>
             {badge && <span className={styles.badge}>{badge}</span>}
             <div
               className={styles.textTitle}
               dangerouslySetInnerHTML={{ __html: title }}
-            />            {descriptions.map((desc, i) =>
+            />
+            {descriptions.map((desc, i) =>
               typeof desc === "string" ? (
                 <div key={i} className={styles.textBody} dangerouslySetInnerHTML={{ __html: desc }} />
               ) : (
                 <div key={i} className={styles.textBody}>{desc}</div>
               )
             )}
-          </div>
+
+            {/* ── Bizimlə əlaqə button ── */}
+            <button
+              className={styles.contactBtn}
+              onClick={() => {
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              {contactLabel}
+            </button>          </div>
         </div>
 
       </div>

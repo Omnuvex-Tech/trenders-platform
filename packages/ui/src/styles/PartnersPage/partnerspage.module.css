@@ -8,12 +8,10 @@
     margin: 0 auto;
     padding: 0 100px;
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 80px;
-    align-items: flex-start;
+    grid-template-columns: 410px 1fr; 
+    align-items: start;
 }
 
-/* Sol — sticky başlıq */
 .left {
     position: sticky;
     top: 100px;
@@ -28,7 +26,6 @@
     margin: 0;
 }
 
-/* Sağ — 3 sütun grid */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

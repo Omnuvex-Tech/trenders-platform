@@ -21,9 +21,12 @@ export interface BlogGridItem {
 
 export interface BlogGridUIProps {
     posts: BlogGridItem[];
+    moreButtonText: string;
 }
-
-export function BlogGridUI({ posts }: BlogGridUIProps) {
+export function BlogGridUI({
+    posts,
+    moreButtonText,
+}: BlogGridUIProps) {
     const [visibleCount, setVisibleCount] = useState(3);
 
     const handleShowMore = () => {
@@ -144,8 +147,7 @@ export function BlogGridUI({ posts }: BlogGridUIProps) {
                             onClick={handleShowMore}
                             className={styles.projectsMoreBtn}
                         >
-                            Daha çox blog
-                            <svg
+                            {moreButtonText}                            <svg
                                 width="16"
                                 height="16"
                                 viewBox="0 0 24 24"

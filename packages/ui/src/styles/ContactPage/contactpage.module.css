@@ -1,14 +1,6 @@
 .section {
     width: 100%;
-    padding: 80px 0;
-}
-
-.contactDivider {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin-bottom: 70px;
-    margin-left: 100px;
-    margin-right: 100px;
+    padding: 40px 0px 71px 0px;
 }
 
 .inner {
@@ -20,7 +12,6 @@
     gap: 80px;
 }
 
-/* Sol tərəf */
 .left {
     flex-shrink: 0;
     width: 480px;
@@ -34,8 +25,6 @@
     font-size: 44px;
     color: rgba(0, 0, 0, 1);
     margin: 0;
-    font-size: 44px;
-    font-weight: 600;
 }
 
 .description {
@@ -48,9 +37,30 @@
     line-height: 26px;
 }
 
+.officeImageWrap {
+    margin-top: 28px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+width: 479px;
+height: 208px;
+top: 332.47px;
+left: 98.43px;
+border-radius: 6px;
+}
+
+.officeImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 .right {
     flex: 1;
     padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
 .infoGrid {
@@ -99,7 +109,6 @@
     font-weight: 300;
     font-size: 12px;
     color: rgba(59, 59, 59, 1);
-
 }
 
 .socials {
@@ -120,7 +129,6 @@
     text-decoration: none;
     position: relative;
     transition: color 0.2s ease;
-
 }
 
 .socialBtn::before {
@@ -196,7 +204,6 @@
 
 .input::placeholder {
     color: rgba(126, 126, 126, 1);
-
     font-weight: 300;
 }
 
@@ -265,7 +272,6 @@
     border-bottom-color: #276DE4;
 }
 
-
 .submitBtn {
     width: 191px;
     height: 38px;
@@ -281,6 +287,7 @@
     font-size: 14px;
     position: relative;
     overflow: hidden;
+    border: none;
 }
 
 .submitBtn::after {
@@ -309,7 +316,6 @@
 .terms {
     font-family: Poppins;
     font-weight: 400;
-    font-style: Regular;
     font-size: 10px;
     color: rgba(109, 109, 109, 1);
     margin: 0;
@@ -318,10 +324,8 @@
 .termsLink {
     font-family: Poppins;
     font-weight: 600;
-    font-style: SemiBold;
     font-size: 10px;
     color: rgba(109, 109, 109, 1);
-    font-weight: 600;
     text-decoration: none;
 }
 
@@ -329,9 +333,35 @@
     color: #276DE4;
 }
 
+/* Map — form-dan sonra */
+.mapCard {
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #fff;
+}
 
+.mapWrap {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 20px;
+}
 
+.mapWrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
 
+.mapWrap :global(.leaflet-container) {
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+/* ─── Responsive ─── */
 
 @media (max-width: 1100px) {
     .inner {
@@ -366,6 +396,14 @@
         grid-template-columns: 1fr;
         gap: 24px;
     }
+
+    .officeImageWrap {
+        aspect-ratio: 16 / 7;
+    }
+
+    .mapWrap {
+        height: 240px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -390,6 +428,12 @@
 
     .description {
         font-size: 15px;
+    }
+
+    .officeImageWrap {
+        margin-top: 20px;
+        border-radius: 12px;
+        aspect-ratio: 16 / 7;
     }
 
     .infoGrid {
@@ -417,6 +461,7 @@
     .right {
         padding-top: 0;
         width: 100%;
+        gap: 24px;
     }
 
     .form {
@@ -499,22 +544,28 @@
 
     .socialBtn::before {
         background: linear-gradient(132.52deg, rgba(1, 72, 194, 0) -26.71%, rgba(1, 72, 194, 0.4) 143.92%);
-
     }
 
-     .selectArrow {
-    width: 20px;
-    height: 20px;
-  }
+    .selectArrow {
+        width: 20px;
+        height: 20px;
+    }
 
+    .textarea {
+        resize: vertical;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M11 5L5 11M14 8L8 14M14 11L11 14' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        background-size: 16px 33px;
+    }
 
-  .textarea {
-    resize: vertical;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M11 5L5 11M14 8L8 14M14 11L11 14' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: 16px 33px;
-  }
+    .mapWrap {
+        height: 200px;
+    }
+
+    .mapCard {
+        border-radius: 14px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -524,7 +575,6 @@
 
     .socialBtn::before {
         background: linear-gradient(132.52deg, rgba(1, 72, 194, 0) -26.71%, rgba(1, 72, 194, 0.4) 143.92%);
-
     }
 
     .contactDivider {
@@ -541,7 +591,7 @@
     }
 }
 
-
+/* ─── Custom Select ─── */
 
 .customSelectWrap {
     position: relative;

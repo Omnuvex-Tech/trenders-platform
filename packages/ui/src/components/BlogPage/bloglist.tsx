@@ -56,6 +56,16 @@ function stripHtml(html: string) {
     return html.replace(/<[^>]*>/g, "").toLowerCase();
 }
 
+function truncateText(html: string, maxLength = 42) {
+    const text = html.replace(/<[^>]*>/g, "");
+
+    if (text.length <= maxLength) {
+        return html;
+    }
+
+    return `${text.slice(0, maxLength).trimEnd()}...`;
+}
+
 export function BlogListUI({
     posts,
     allPosts,
@@ -112,7 +122,6 @@ export function BlogListUI({
         setCurrentIndex(next);
     }, []);
 
-    // Filter dəyişəndə index sıfırla
     useEffect(() => {
         const queryChanged = prevQuery.current !== query;
         const categoryChanged = prevCategory.current !== activeCategory;
@@ -124,7 +133,6 @@ export function BlogListUI({
         }
     }, [query, activeCategory, updateIndex]);
 
-    // DOM ölçümü
     useEffect(() => {
         if (!showCarousel) return;
 
@@ -349,8 +357,12 @@ export function BlogListUI({
                                 <img src={featuredBlog.image} alt={featuredBlog.imageAlt || featuredBlog.title} className={styles.featuredImg} />
                                 <div className={styles.featuredContent}>
                                     <span className={styles.featuredBadge}>{featuredBlog.badge}</span>
-                                    <div className={styles.featuredPostTitle} dangerouslySetInnerHTML={{ __html: featuredBlog.title }} />
-                                    <span className={styles.featuredDate}>{featuredBlog.date}</span>
+                                    <div
+                                        className={styles.featuredPostTitle}
+                                        dangerouslySetInnerHTML={{
+                                            __html: truncateText(featuredBlog.title, 42),
+                                        }}
+                                    />                                    <span className={styles.featuredDate}>{featuredBlog.date}</span>
                                 </div>
                             </a>
                         </div>

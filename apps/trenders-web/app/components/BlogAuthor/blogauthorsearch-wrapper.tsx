@@ -1,4 +1,3 @@
-// blog-author-list-wrapper.tsx
 import { cookies } from "next/headers";
 import { BlogAuthorListUI } from "@repo/ui";
 import type { BlogListItems, BlogCategories } from "@repo/ui";
@@ -26,18 +25,25 @@ function formatDate(dateStr: string) {
     } catch { return ""; }
 }
 
-async function getAuthorListData() {
+async function getBlogListData() {
     try {
-        const [blogsRes, catsRes] = await Promise.all([
-            fetch(`${process.env.API_URL}/blog/author-list`, { cache: "no-store" }),
+        const [blogsRes, catsRes, settingsRes] = await Promise.all([
+            fetch(`${process.env.API_URL}/blog`, { cache: "no-store" }),
             fetch(`${process.env.API_URL}/blog/categories`, { cache: "no-store" }),
+            fetch(`${process.env.API_URL}/blog/settings`, { cache: "no-store" }),
         ]);
+
         return {
             blogs: blogsRes.ok ? await blogsRes.json() : [],
             cats: catsRes.ok ? await catsRes.json() : [],
+            settings: settingsRes.ok ? await settingsRes.json() : {},
         };
     } catch {
-        return { blogs: [], cats: [] };
+        return {
+            blogs: [],
+            cats: [],
+            settings: {},
+        };
     }
 }
 
@@ -45,18 +51,20 @@ export async function BlogAuthorListWrapper() {
     const cookieStore = await cookies();
     const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
-    const { blogs, cats } = await getAuthorListData();
+    const { blogs, cats, settings } = await getBlogListData();
     const stripHtml = (html: string) => html ? html.replace(/<[^>]*>/g, "").trim() : "";
 
     const safeBlogs = Array.isArray(blogs) ? blogs : [];
     const safeCats = Array.isArray(cats) ? cats : [];
 
-    const posts: BlogListItems[] = safeBlogs.map((b: any) => ({
+    const mapPost = (b: any): BlogListItems => ({
         id: b.id,
         image: toAbsUrl(t(b.coverImage, locale)),
         imageAlt: t(b.coverImageAlt, locale),
         badge: t(b.badge, locale),
         title: stripHtml(t(b.title, locale)),
+        categorySlug: b.category?.slug ?? "",
+        categoryLabel: t(b.category?.label, locale),
         author: {
             name: t(b.author?.name, locale),
             avatar: toAbsUrl(b.author?.avatar ?? ""),
@@ -65,11 +73,22 @@ export async function BlogAuthorListWrapper() {
         },
         date: b.publishedAt ? formatDate(b.publishedAt) : "",
         href: `/Blog/${b.slug}`,
-    }));
+    });
+
+    const posts: BlogListItems[] = safeBlogs
+        .filter((b: any) => b.isVisible && b.isGrid)
+        .sort((a: any, b: any) => a.order - b.order)
+        .map(mapPost);
+
+    const allPosts: BlogListItems[] = safeBlogs
+        .filter((b: any) => b.isVisible)
+        .sort((a: any, b: any) => a.order - b.order)
+        .map(mapPost);
 
     const categories: BlogCategories[] = safeCats.map((c: any) => ({
         id: c.id,
         label: t(c.label, locale),
+        slug: c.slug,
         href: `/Blog?category=${c.slug}`,
     }));
 
@@ -78,9 +97,10 @@ export async function BlogAuthorListWrapper() {
     return (
         <BlogAuthorListUI
             posts={posts}
+            allPosts={allPosts}
             categories={categories}
-            searchPlaceholder="Axtarış ..."
-            categoriesTitle="KATEQORİYALAR"
+            searchPlaceholder={t(settings.searchPlaceholder, locale)}
+            categoriesTitle={t(settings.categoriesLabel, locale)}
         />
     );
 }

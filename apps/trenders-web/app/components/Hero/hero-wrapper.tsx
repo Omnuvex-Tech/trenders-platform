@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { HeroUI } from "@repo/ui";
+import { HeroUI } from "@repo/ui"; 
 import type { HeroCard } from "@repo/ui";
 
 const BASE_CARDS: HeroCard[] = [
@@ -30,7 +30,6 @@ export function HeroWrapper({ locale: _locale = "az" }: HeroWrapperProps) {
 
         const timer = setInterval(() => {
             setCurrentIndex((prevIndex) => {
-                // Əgər sona yaxınlaşsaq sıfırlamaq üçün təhlükəsizlik şərti
                 if (prevIndex >= visibleCards.length - 4) {
                     return 0;
                 }
@@ -47,14 +46,20 @@ export function HeroWrapper({ locale: _locale = "az" }: HeroWrapperProps) {
 
     return (
         <HeroUI
-            subtitle="Sizin tərəfinizdən"
-            title={<>seçilən <strong>Marketing</strong> Agentliyi</>}
+            title={
+                <>
+                    Sizin tərəfinizdən
+                    seçilən <strong>Marketing Agentliyi</strong>
+                </>
+            }
             infoText={
                 <p>
                     <strong>Marketing analitikası:</strong> məlumatların incəliklərini deşifrə
                     edərək qələbəyə gedən yolunuzu işıqlandırın. Məlumatların incəliklərini deşifrə
                 </p>
             }
+            primaryBtnText="Bizimlə əlaqə"
+            secondaryBtnText="Services"
             visibleCards={visibleCards}
             currentIndex={currentIndex}
             onDetailClick={handleDetailClick}

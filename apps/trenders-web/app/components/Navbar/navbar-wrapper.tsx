@@ -24,6 +24,20 @@ async function getNavbarData() {
     } catch { return null; }
 }
 
+async function getServiceSuggestions(locale: string) {
+    try {
+        const res = await fetch(`${process.env.API_URL}/services/public`, { cache: "no-store" });
+        if (!res.ok) return [];
+        const services = await res.json();
+        return (Array.isArray(services) ? services : []).map((s: any) => ({
+            title: t(s.title, locale).replace(/<[^>]*>/g, "").trim(),
+            url: `/services/${s.slug ?? s.id}`,
+            breadcrumb: "Xidmətlər",
+            excerpt: "",
+        }));
+    } catch { return []; }
+}
+
 interface NavbarProps {
     languages: Language[];
     locale: string;
@@ -31,7 +45,10 @@ interface NavbarProps {
 }
 
 export async function NavbarWrapper({ locale, languages, initialTranslations }: NavbarProps) {
-    const data = await getNavbarData();
+    const [data, defaultSuggestions] = await Promise.all([
+        getNavbarData(),
+        getServiceSuggestions(locale),
+    ]);
 
     const links = data?.links
         ? [...data.links]
@@ -52,7 +69,7 @@ export async function NavbarWrapper({ locale, languages, initialTranslations }: 
                 <img
                     src={toAbsUrl(data.logoImage)}
                     alt={logoAlt}
-                    width={147}
+                    width={200}
                     height={45}
                 />
             ) : (
@@ -72,6 +89,7 @@ export async function NavbarWrapper({ locale, languages, initialTranslations }: 
             links={links}
             showSearch={data?.showSearch ?? true}
             showLang={data?.showLang ?? true}
+            defaultSuggestions={defaultSuggestions}
             langSlot={
                 <LanguageSwitcher
                     languages={languages}

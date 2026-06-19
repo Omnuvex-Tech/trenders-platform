@@ -45,23 +45,7 @@ export function ServiceDetailHeroUI({
                         <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
                         {descriptions.map((d, i) => (
                             <div key={i} className={styles.desc} dangerouslySetInnerHTML={{ __html: d }} />
-                        ))}
-                        <div className={styles.heroStatsWrap}>
-                            <div className={styles.heroStatsRow}>
-                                <div className={styles.heroStatCards}>
-                                    {stats.map((stat, i) => (
-                                        <div key={i} className={styles.heroStatCard}>
-                                            <div className={styles.heroStatIcon}>{stat.icon}</div>
-                                            <div>
-                                                <p className={styles.heroStatLabel}>{stat.label}</p>
-                                                <p className={styles.heroStatValue}>{stat.value}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                            </div>
-                        </div>
+                        ))}                     
                     </div>
                 </div>
 

@@ -42,10 +42,10 @@ export function BlogDetailHeroUI({
                     {/* Sol: şəkil */}
                     <Link href={href} className={styles.imageWrap}>
                         <img src={image} alt={imageAlt} className={styles.image} />
-                        <div className={styles.imageOverlay}>
+                        {/* <div className={styles.imageOverlay}>
                             <span className={styles.overlayBadge}>{overlayBadge}</span>
                             <div className={styles.overlayTitle} dangerouslySetInnerHTML={{ __html: overlayTitle }} />
-                        </div>
+                        </div> */}
                     </Link>
 
                     {/* Sağ: məzmun */}

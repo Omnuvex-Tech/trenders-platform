@@ -44,24 +44,25 @@ async function getPortfolio(slug: string) {
 
 function renderSection(section: any, index: number, locale: string) {
     switch (section.type) {
-        case 'hero': {
-            const images = toAbsUrls(section.images ?? []);
-            return (
-                <PortfolioDetailHeroUI
-                    key={index}
-                    heroImage={images[0] ?? ''}
-                    heroImageAlt={section.imagesAlt ?? ''}
-                    number={section.number ?? ''}
-                    title={t(section.title, locale)}
-                    description={t(section.description, locale)}
-                    imagesAlt={section.imagesAlt ?? ''}
-                    galleryImages={images.slice(1).map((src) => ({
-                        src,
-                        alt: section.imagesAlt ?? '',
-                    }))}
-                />
-            );
-        }
+      case 'hero': {
+    const images = toAbsUrls(section.images ?? []);
+    return (
+        <PortfolioDetailHeroUI
+            key={index}
+            heroImage={images[0] ?? ''}
+            heroImageAlt={section.imagesAlt ?? ''}
+            number={section.number ?? ''}
+            title={t(section.title, locale)}
+            description={t(section.description, locale)}
+            imagesAlt={section.imagesAlt ?? ''}
+            galleryImages={images.slice(1).map((src) => ({
+                src,
+                alt: section.imagesAlt ?? '',
+            }))}
+            contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
+        />
+    );
+}
         case 'steps': {
             return (
                 <PortfolioDetailStepsUI
@@ -91,22 +92,23 @@ function renderSection(section: any, index: number, locale: string) {
                 />
             );
         }
-        case 'strategy': {
-            return (
-                <PortfolioDetailStrategyUI
-                    key={index}
-                    badge={t(section.badge, locale)}
-                    title={t(section.title, locale)}
-                    quote={t(section.quote, locale)}
-                    mainImage={toAbsUrl(section.mainImage ?? '')}
-                    quoteImage={toAbsUrl(section.quoteImage ?? '')}
-                    quoteImageAlt={section.quoteImageAlt ?? ''}
-                    smallImages={toAbsUrls(section.smallImages ?? ['', '']) as [string, string]}
-                    smallImagesAlt={section.smallImagesAlt ?? ''}
-                    descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
-                />
-            );
-        }
+    case 'strategy': {
+    return (
+        <PortfolioDetailStrategyUI
+            key={index}
+            badge={t(section.badge, locale)}
+            title={t(section.title, locale)}
+            quote={t(section.quote, locale)}
+            mainImage={toAbsUrl(section.mainImage ?? '')}
+            quoteImage={toAbsUrl(section.quoteImage ?? '')}
+            quoteImageAlt={section.quoteImageAlt ?? ''}
+            smallImages={toAbsUrls(section.smallImages ?? ['', '']) as [string, string]}
+            smallImagesAlt={section.smallImagesAlt ?? ''}
+            descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
+            contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
+        />
+    );
+}
         case 'overlay': {
             return (
                 <PortfolioDetailOverlayUI

@@ -16,6 +16,7 @@ interface NavbarClientProps {
   showSearch: boolean;
   showLang: boolean;
   langSlot?: React.ReactNode;
+  defaultSuggestions: SearchResult[];
 }
 
 function getCookieLocale(): string {
@@ -24,16 +25,7 @@ function getCookieLocale(): string {
   return match?.[1] ?? 'az';
 }
 
-const DEFAULT_SUGGESTIONS: SearchResult[] = [
-  { title: 'Portfolio', url: '/portfolio', breadcrumb: 'Portfolio', excerpt: '' },
-  { title: 'Xidmətlər', url: '/services', breadcrumb: 'Xidmətlər', excerpt: '' },
-  { title: 'Blog', url: '/blog', breadcrumb: 'Blog', excerpt: '' },
-  { title: 'Vakansiyalar', url: '/vacancies', breadcrumb: 'Vakansiyalar', excerpt: '' },
-  { title: 'Haqqımızda', url: '/about', breadcrumb: 'Haqqımızda', excerpt: '' },
-  { title: 'Əlaqə', url: '/contact', breadcrumb: 'Əlaqə', excerpt: '' },
-];
-
-export function NavbarClient({ logo, links, showSearch, showLang, langSlot }: NavbarClientProps) {
+export function NavbarClient({ logo, links, showSearch, showLang, langSlot, defaultSuggestions }: NavbarClientProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -58,11 +50,7 @@ export function NavbarClient({ logo, links, showSearch, showLang, langSlot }: Na
     }, 300);
   }, [searchValue]);
 
-  useEffect(() => {
-    if (searchValue.trim().length < 2) setResults([]);
-  }, [searchValue]);
-
-  const displaySuggestions = searchValue.trim().length < 2 ? DEFAULT_SUGGESTIONS : results;
+  const displaySuggestions = searchValue.trim().length < 2 ? defaultSuggestions : results;
 
   return (
     <NavbarUI

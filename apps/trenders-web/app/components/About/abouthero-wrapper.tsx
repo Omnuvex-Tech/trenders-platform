@@ -20,25 +20,30 @@ async function getAboutSettings() {
     return await res.json();
   } catch { return null; }
 }
-
 export async function AboutHeroWrapper({ locale = "az" }: { locale?: string }) {
-  const s = await getAboutSettings();
-  if (!s) return null;
+    const s = await getAboutSettings();
+    if (!s) return null;
 
-  const title = getLocalizedValue(s.heroTitle, locale);
-  const paragraphs: string[] = Array.isArray(s.heroParagraphs)
-    ? s.heroParagraphs.map((p: any) => getLocalizedValue(p, locale)).filter(Boolean)
-    : [];
+    const title = getLocalizedValue(s.heroTitle, locale);
+    const paragraphs: string[] = Array.isArray(s.heroParagraphs)
+        ? s.heroParagraphs.map((p: any) => getLocalizedValue(p, locale)).filter(Boolean)
+        : [];
 
-  if (!title && paragraphs.length === 0) return null;
-
-  return (
+    const stats = Array.isArray(s.heroStats)
+        ? s.heroStats.map((stat: any) => ({
+            icon: stat.icon ? toAbsUrl(stat.icon) : undefined,
+            label: getLocalizedValue(stat.label, locale),
+            value: getLocalizedValue(stat.value, locale) || stat.value || "",
+        }))
+        : [];
+return (
     <AboutHeroUI
-      heroImage={toAbsUrl(s.heroImage ?? "")}
-      heroImageAlt={getLocalizedValue(s.heroImageAlt, locale)}
-      badge={getLocalizedValue(s.heroBadge, locale)}
-      title={title}
-      paragraphs={paragraphs}
+        heroImage={toAbsUrl(s.heroImage ?? "")}
+        heroImageAlt={getLocalizedValue(s.heroImageAlt, locale)}
+        badge={getLocalizedValue(s.heroBadge, locale)}
+        title={title}
+        paragraphs={paragraphs}
+        stats={stats}
     />
-  );
+);
 }

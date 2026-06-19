@@ -35,14 +35,10 @@
     max-width: 368px;
     text-align: right;
 }
-
-.descriptionLink {
-    font-family: 'Poppins';
-    font-weight: 400;
-    font-size: 13px;
-    font-style: italic;
-    color: rgba(19, 96, 228, 1);
-    text-decoration: none;
+.description em {
+    color: #1360E4;
+    font-weight: 700;
+     text-decoration: none;
 }
 
 /* ─── Grid ────────────────────────────────────────── */

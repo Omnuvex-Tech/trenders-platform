@@ -22,13 +22,24 @@ function formatDate(dateStr: string) {
     });
 }
 
-async function getBlogGridData(): Promise<{ blogs: any[] }> {
+async function getBlogGridData(): Promise<{ blogs: any[]; settings: any }> {
     try {
-        const res = await fetch(`${process.env.API_URL}/blog`, { cache: "no-store" });
-        if (!res.ok) return { blogs: [] };
-        return { blogs: await res.json() };
+        const [blogsRes, settingsRes] = await Promise.all([
+            fetch(`${process.env.API_URL}/blog`, { cache: "no-store" }),
+            fetch(`${process.env.API_URL}/blog/settings`, {
+                cache: "no-store",
+            }),
+        ]);
+
+        return {
+            blogs: blogsRes.ok ? await blogsRes.json() : [],
+            settings: settingsRes.ok ? await settingsRes.json() : {},
+        };
     } catch {
-        return { blogs: [] };
+        return {
+            blogs: [],
+            settings: {},
+        };
     }
 }
 
@@ -36,8 +47,7 @@ export async function BlogGridWrapper() {
     const cookieStore = await cookies();
     const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
-    const { blogs } = await getBlogGridData();
-
+    const { blogs, settings } = await getBlogGridData();
     const posts: BlogGridItem[] = blogs
         .filter((b) => b.isVisible && b.isGrid)
         .sort((a, b) => a.order - b.order)
@@ -60,5 +70,10 @@ export async function BlogGridWrapper() {
         });
 
     if (posts.length === 0) return null;
-    return <BlogGridUI posts={posts} />;
+    return (
+        <BlogGridUI
+            posts={posts}
+            moreButtonText={t(settings.moreBlogsButtonText, locale)}
+        />
+    );
 }

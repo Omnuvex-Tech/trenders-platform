@@ -98,7 +98,7 @@
 .quoteText {
     z-index: 2;
     width: 79%;
-    padding-left: 93px;
+    padding-left: 78px;
     position: absolute;
     top: 49%;
     line-height: 1.2;
@@ -465,4 +465,62 @@
     .subText {
         font-size: 12px;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.contactBtn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(132.52deg, rgba(0, 89, 255, 0.01) -26.71%, #0059FF 106.53%) border-box;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1;
+    color: #0059FF;
+    cursor: pointer;
+    margin-top: 12px;
+    width: fit-content;
+    height: 42px;
+    border-radius: 63px;
+    border-width: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: background 600ms ease, color 600ms ease;
+}
+
+.contactBtn::after {
+    background: rgba(255, 255, 255, 0.25);
+    content: "";
+    height: 155px;
+    left: -75px;
+    opacity: 1;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    transition: all 950ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 80px;
+    pointer-events: none;
+}
+
+.contactBtn:hover::after {
+    left: 120%;
+}
+
+.contactBtn:hover {
+    background: linear-gradient(135deg, #276de4, #5795ff) border-box;
+    color: #fff;
+    border-color: transparent;
 }

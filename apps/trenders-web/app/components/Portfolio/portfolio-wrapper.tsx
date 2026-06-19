@@ -39,17 +39,48 @@ async function getPortfolios(locale: string): Promise<PortfolioItem[]> {
     }
 }
 
+interface PortfolioSettings {
+    sectionTitle: string;
+    dropdownLabel: string;
+    moreButtonLabel: string;
+}
+
+async function getPortfolioSettings(locale: string): Promise<PortfolioSettings> {
+    try {
+        const res = await fetch(`${process.env.API_URL}/portfolio/settings`, {
+            cache: 'no-store',
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        return {
+            sectionTitle: stripHtml(t(data?.sectionTitle, locale, "Portfolio")),
+            dropdownLabel: stripHtml(t(data?.dropdownLabel, locale, "Xidmətləri seçin")),
+            moreButtonLabel: stripHtml(t(data?.moreButtonLabel, locale, "Daha çox Portfolio")),
+        };
+    } catch {
+        return {
+            sectionTitle: "Portfolio",
+            dropdownLabel: "Xidmətləri seçin",
+            moreButtonLabel: "Daha çox Portfolio",
+        };
+    }
+}
+
 export async function PortfolioWrapper({ locale = "az" }: { locale?: string }) {
-    const projects = await getPortfolios(locale);
+    const [projects, settings] = await Promise.all([
+        getPortfolios(locale),
+        getPortfolioSettings(locale),
+    ]);
     const allTags = Array.from(new Set(projects.flatMap(p => p.tags)));
 
     return (
         <PortfolioUI
-            sectionTitle="Portfolio"
+            sectionTitle={settings.sectionTitle}
             projects={projects}
             showControls={true}
-            dropdownLabel="Xidmətləri seçin"
+            dropdownLabel={settings.dropdownLabel}
             dropdownOptions={allTags}
+            loadMoreLabel={settings.moreButtonLabel}
         />
     );
 }

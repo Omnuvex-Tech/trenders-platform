@@ -1,6 +1,7 @@
+
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/Hero/hero.module.css";
 
 export interface HeroCard {
@@ -9,9 +10,10 @@ export interface HeroCard {
 }
 
 export interface HeroUIProps {
-    title: React.ReactNode;
-    subtitle: React.ReactNode;
+    title: React.ReactNode;    
     infoText: React.ReactNode;
+    primaryBtnText: string;
+    secondaryBtnText: string;  
     visibleCards: HeroCard[];
     currentIndex: number;
     onDetailClick: (label: string) => void;
@@ -19,20 +21,30 @@ export interface HeroUIProps {
 
 export function HeroUI({
     title,
-    subtitle,
     infoText,
+    primaryBtnText,
+    secondaryBtnText,
     visibleCards,
     currentIndex,
     onDetailClick,
 }: HeroUIProps) {
-    const activeCardLabel = visibleCards[currentIndex]?.label || "Branding";
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return null;
+    }
 
     return (
         <section className={styles.hero}>
-                        <div className={styles.heroLeft}>
+            
+            {/* SOL YAZI VƏ DÜYMƏ BLOKU */}
+            <div className={styles.heroLeft}>
                 <div className={styles.heroTitle}>
-                    <h1 className={styles.heroSub}>{subtitle}</h1>
-                    <h2 className={styles.heroMain}>{title}</h2>
+                    <h1 className={styles.heroMain}>{title}</h1>
                 </div>
                 
                 <div className={styles.heroInfo}>
@@ -40,10 +52,13 @@ export function HeroUI({
                 </div>
 
                 <div className={styles.heroButtonGroup}>
-                    <button className={styles.btnPrimary}>Bizimlə əlaqə</button>
+                    <button className={styles.btnPrimary}>
+                        {primaryBtnText}
+                    </button>
+                    
                     <button className={styles.btnSecondary}>
-                        <span>{activeCardLabel}</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <span>{secondaryBtnText}</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
@@ -51,19 +66,19 @@ export function HeroUI({
                 </div>
             </div>
 
-            {/* SAĞ BLOK */}
             <div className={styles.heroSliderTrack}>
                 <div 
                     className={styles.heroSliderContainer}
                     style={{
-                        transform: `translateX(-${currentIndex * (290 + 24)}px)`
+                        transform: `translateX(-${currentIndex * (342 + 24)}px)`
                     }}
                 >
                     {visibleCards.map((card, idx) => {
                         return (
-                            <div key={idx} className={styles.heroCardItem}>
+                            <div key={`${card.label}-${idx}`} className={styles.heroCardItem}>
                                 <img src={card.image} alt={card.label} className={styles.heroImg} />
                                 <div className={styles.cardLabel}>{card.label}</div>
+                                
                                 <div className={styles.cardActionContainer}>
                                     <button 
                                         className={styles.actionButton}

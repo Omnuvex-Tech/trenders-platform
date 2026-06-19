@@ -1,6 +1,8 @@
 "use client";
 
 import styles from "../../styles/PortfolioDetail/portfolioDetailHero.module.css";
+
+
 export interface PortfolioDetailHeroUIProps {
     heroImage: string;
     heroImageAlt?: string;
@@ -8,11 +10,16 @@ export interface PortfolioDetailHeroUIProps {
     imagesAlt?: string;
     title: string;
     description: React.ReactNode | string;
-    galleryImages: { src: string; alt?: string; }[];
+    galleryImages: { src: string; alt?: string }[];
+    contactLabel?: string; // "Bizimlə əlaqə" və ya lokaldan gələcək
+    onContactClick?: () => void;
 }
 
 export function PortfolioDetailHeroUI({
-    heroImage, heroImageAlt = "", number, title, description, galleryImages, imagesAlt = "",
+    heroImage, heroImageAlt = "", number, title, description,
+    galleryImages, imagesAlt = "",
+    contactLabel = "Bizimlə əlaqə",
+    onContactClick,
 }: PortfolioDetailHeroUIProps) {
     return (
         <section className={styles.section}>
@@ -26,7 +33,8 @@ export function PortfolioDetailHeroUI({
                         <div
                             className={styles.title}
                             dangerouslySetInnerHTML={{ __html: title }}
-                        />                        {typeof description === "string" ? (
+                        />
+                        {typeof description === "string" ? (
                             <div
                                 className={styles.description}
                                 dangerouslySetInnerHTML={{ __html: description }}
@@ -34,41 +42,35 @@ export function PortfolioDetailHeroUI({
                         ) : (
                             <div className={styles.description}>{description}</div>
                         )}
+
+                        {/* ── Bizimlə əlaqə button ── */}
+                        <button
+                            className={styles.contactBtn}
+                            onClick={() => {
+                                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                            }}
+                        >
+                            {contactLabel}
+                        </button>
                     </div>
                 </div>
-                {/* <div className={styles.gallery}>
+
+                <div className={styles.gallery}>
                     {galleryImages.slice(0, 2).length > 0 && (
                         <div className={styles.galleryTop}>
                             {galleryImages.slice(0, 2).map((img, i) => (
                                 <div key={i} className={styles.galleryTopItem}>
-                                    <img src={img.src} alt={img.alt || ""} className={styles.galleryImg} />
+                                    <img src={img.src} alt={imagesAlt || img.alt || ""} className={styles.galleryImg} />
                                 </div>
                             ))}
                         </div>
                     )}
                     {galleryImages[2] && (
                         <div className={styles.galleryBottom}>
-                            <img src={galleryImages[2].src} alt={imagesAlt || galleryImages[2].alt || ""} className={styles.galleryImg} />                        </div>
+                            <img src={galleryImages[2].src} alt={imagesAlt || galleryImages[2].alt || ""} className={styles.galleryImg} />
+                        </div>
                     )}
-                </div> */}
-
-
-                <div className={styles.gallery}>
-  {galleryImages.slice(0, 2).length > 0 && (
-    <div className={styles.galleryTop}>
-      {galleryImages.slice(0, 2).map((img, i) => (
-        <div key={i} className={styles.galleryTopItem}>
-          <img src={img.src} alt={imagesAlt || img.alt || ""} className={styles.galleryImg} />
-        </div>
-      ))}
-    </div>
-  )}
-  {galleryImages[2] && (
-    <div className={styles.galleryBottom}>
-      <img src={galleryImages[2].src} alt={imagesAlt || galleryImages[2].alt || ""} className={styles.galleryImg} />
-    </div>
-  )}
-</div>
+                </div>
             </div>
         </section>
     );
