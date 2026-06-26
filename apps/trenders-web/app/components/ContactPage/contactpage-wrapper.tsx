@@ -93,7 +93,9 @@ export async function ContactPageWrapper({ locale = "az" }: { locale?: string })
                 hours: t(data?.hoursValue, locale, ""),
                 followUsLabel: t(data?.followUsLabel, locale, "Follow Us"),
                 socialLinks,
-                hashtags: data?.tags ?? [],
+               hashtags: (data?.tags ?? []).map((tag: any) =>
+  typeof tag === "object" ? (tag[locale] || tag.az || tag.en || "") : tag
+).filter(Boolean),
             }}
             serviceOptions={serviceOptions}
             budgetOptions={budgetOptions}

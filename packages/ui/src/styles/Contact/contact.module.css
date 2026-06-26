@@ -3,21 +3,24 @@
     padding: 80px 0;
 }
 
-.contactDivider {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin-bottom: 70px;
-    margin-left: 100px;
-    margin-right: 100px;
-}
-
 .inner {
-    max-width: 1440px;
+    max-width: 1920px;
     margin: 0 auto;
     padding: 0 100px;
     display: flex;
     align-items: flex-start;
     gap: 80px;
+}
+
+.contactDivider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin-bottom: 70px;
+    max-width: 1350px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 100px;
+    box-sizing: border-box;
 }
 
 /* Sol tərəf */
@@ -51,7 +54,9 @@
 .right {
     flex: 1;
     padding-top: 30px;
+    overflow: visible;
 }
+
 
 .infoGrid {
     display: grid;
@@ -159,12 +164,15 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
+    overflow: visible; 
 }
+
 
 .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
+    position: relative; 
 }
 
 .field {
@@ -331,7 +339,60 @@
 
 
 
+@media (min-width: 2500px) {
+    .inner {
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 0 100px;
+    }
 
+    .title {
+        font-size: 81px;
+    }
+
+    .left {
+        width: 680px;
+    }
+
+    .description {
+        max-width: 580px;
+        font-size: 32px;
+        line-height: 47px;
+    }
+
+    .infoLabel {
+        font-size: 24px;
+    }
+
+    .infoItem {
+        width: 280px;
+    }
+
+    .infoValue {
+        font-size: 20px;
+    }
+
+    .followLabel {
+        font-size: 24px;
+    }
+
+    .socialBtn {
+        width: 93px;
+        height: 93px;
+    }
+
+    .socialBtn img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .hashtag{font-size: 24.75px;}
+    .label{font-size: 24px;}
+    .input{font-size: 20px;}
+    .submitBtn{ width: 202px; height: 58px; font-size: 28px;}
+    .terms{ font-size: 19px;}
+
+}
 
 @media (max-width: 1100px) {
     .inner {
@@ -502,19 +563,19 @@
 
     }
 
-     .selectArrow {
-    width: 20px;
-    height: 20px;
-  }
+    .selectArrow {
+        width: 20px;
+        height: 20px;
+    }
 
 
-  .textarea {
-    resize: vertical;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M11 5L5 11M14 8L8 14M14 11L11 14' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: 16px 33px;
-  }
+    .textarea {
+        resize: vertical;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M11 5L5 11M14 8L8 14M14 11L11 14' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        background-size: 16px 33px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -542,10 +603,10 @@
 }
 
 
-
 .customSelectWrap {
     position: relative;
     width: 100%;
+        z-index: 10; 
 }
 
 .customSelectTrigger {
@@ -593,15 +654,13 @@
     top: calc(100% + 8px);
     left: 0;
     right: 0;
-    z-index: 50;
+    z-index: 100;            
+    isolation: isolate;       
     border-radius: 18px;
     overflow: hidden;
     background: #ffffff;
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
-
 .customSelectBorder {
     position: absolute;
     inset: 0;
@@ -609,7 +668,7 @@
     padding: 1.43px;
     background: linear-gradient(96.22deg, #FFFFFF -32.1%, #276DE4 56.47%, #FFFFFF 146.76%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box,
-                  linear-gradient(#fff 0 0);
+        linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
@@ -650,3 +709,36 @@
     color: #276DE4;
     font-weight: 500;
 }
+
+.reveal {
+    opacity: 0;
+    margin-top: 28px;
+    transition: opacity 0.5s ease,
+                margin-top 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealVisible {
+    opacity: 1;
+    margin-top: 0;
+}
+
+.revealInner {
+    display: inline-block;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease;
+}
+
+.revealInner.revealVisible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.revealWord {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+

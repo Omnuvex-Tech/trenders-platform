@@ -1,174 +1,175 @@
 .footer {
-    width: 100%;
-    background: rgba(44, 49, 63, 1);
+  width: 100%;
+  background: rgba(44, 49, 63, 1);
 }
 
 .inner {
-    width: 100%;
-    padding: 60px 100px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+  width: 100%;
+  padding: 60px 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .left {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 500px;
 }
 
 .logo {
-    width: 235px;
-    height: auto;
-    object-fit: contain;
+  width: 235px;
+  height: auto;
+  object-fit: contain;
 }
 
 .description {
-    font-family: 'Poppins';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 139%;
-    color: rgba(255, 255, 255, 1);
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 139%;
+  color: rgba(255, 255, 255, 1);
 }
 
 .socials {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .socialBtn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
-    background: transparent;
-    color: rgba(255, 255, 255, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .socialBtn:hover {
-    border-color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .right {
-    display: flex;
-    gap: 120px;
-    margin-top: 8px;
+  display: flex;
+  gap: 120px;
+  margin-top: 8px;
 }
 
 .navLinks {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .navLink {
-    font-family: 'Poppins';
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 30.41px;
-    color: rgba(255, 255, 255, 1);
-    text-decoration: none;
-    transition: opacity 0.2s ease;
+  font-family: 'Poppins';
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 30.41px;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
 .navLink:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .contactCol {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .contactItem {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .contactLabel {
-    font-family: 'Poppins';
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 18px;
-    color: rgba(255, 255, 255, 1);
+  font-family: 'Poppins';
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 1);
 }
 
 .contactValue {
-    font-family: 'Poppins';
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 26px;
-    color: rgba(255, 255, 255, 1);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: opacity 0.2s ease;
-    max-width: 93%;
+  font-family: 'Poppins';
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 26px;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s ease;
+  max-width: 93%;
 }
 
 .contactValue:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .bottom {
-    padding: 24px 100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: 24px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .copyright {
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-    color: rgba(146, 150, 152, 1);
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: rgba(146, 150, 152, 1);
 }
 
 .privacy {
-    font-family: 'Poppins';
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: center;
-    color: rgba(146, 150, 152, 1);
-    text-decoration: none;
-    transition: opacity 0.2s ease;
+  font-family: 'Poppins';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: rgba(146, 150, 152, 1);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
 .privacy:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 @media (max-width: 1100px) {
-    .inner {
-        padding: 48px 48px;
-    }
+  .inner {
+    padding: 48px 48px;
+  }
 
-    .right {
-        gap: 60px;
-    }
+  .right {
+    gap: 60px;
+  }
 
-    .bottom {
-        padding: 24px 48px;
-    }
+  .bottom {
+    padding: 24px 48px;
+  }
 }
+
 @media (max-width: 900px) {
   .inner {
     flex-direction: column;
@@ -194,7 +195,8 @@
     width: 100%;
     gap: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;  /* ← navLinks sol, contactCol sağ */
+    grid-template-columns: 1fr 1fr;
+    /* ← navLinks sol, contactCol sağ */
   }
 
   .navLinks {
@@ -280,13 +282,15 @@
     font-size: 12px;
   }
 }
+
 @media (max-width: 400px) {
   .inner {
     padding: 28px 16px;
   }
 
   .right {
-    grid-template-columns: 1fr 1fr;  /* ← 1fr deyil, həmişə 2 sütun */
+    grid-template-columns: 1fr 1fr;
+    /* ← 1fr deyil, həmişə 2 sütun */
     gap: 0 12px;
   }
 
@@ -305,4 +309,40 @@
   .bottom {
     padding: 14px 16px;
   }
+}
+
+
+
+@media (min-width: 2500px) {
+  .left {
+    max-width: 40%;
+  }
+
+  .logo {
+    width: 317px;
+  }
+
+  .description {
+    font-size: 41px;
+  }
+
+  .socialBtn {
+    width: 100px;
+    height: 100px;
+  }
+
+  .socialBtn img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navLink {
+    font-size: 40px;
+    line-height: 56.41px;
+  }
+  .contactLabel{font-size: 20px;}
+  .contactValue{ font-size: 26px; line-height: 31px;}
+  .copyright{ font-size: 30px;}
+  .privacy{ font-size: 30px;}
+
 }

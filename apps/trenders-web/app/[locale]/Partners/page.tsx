@@ -7,6 +7,23 @@ import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 import { PartnersPageWrapper } from "@/app/components/PartnersPage/partnerspage-wrapper";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  try {
+    const res = await fetch(`${process.env.API_URL}/page-meta/partners`, {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return {
+      title: data?.seoTitle?.[locale] || "Tərəfdaşlar",
+      description: data?.seoDescription?.[locale] || "",
+      keywords: data?.seoKeywords?.[locale] || "",
+    };
+  } catch {
+    return { title: "Tərəfdaşlar" };
+  }
+}
+
 export default async function PartnersPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
 

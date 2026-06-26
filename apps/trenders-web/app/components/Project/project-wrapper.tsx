@@ -7,44 +7,58 @@ type LocalizedString = Record<string, string>
 const API = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL
 
 function t(obj: LocalizedString | any, locale: string, fallback = ""): string {
-    if (!obj) return fallback;
-    if (typeof obj === "string") return obj;
-    return obj[locale] || obj["az"] || fallback;
+  if (!obj) return fallback;
+  if (typeof obj === "string") return obj;
+  return obj[locale] || obj["az"] || fallback;
 }
 
 async function getHomepageProjects(locale: string): Promise<ProjectItem[]> {
-    try {
-        const res = await fetch(`${API}/portfolio/homepage`, {
-            next: { revalidate: 10 },
-        })
-        if (!res.ok) return []
-        const data = await res.json()
-        return data.map((p: any) => ({
-            id: p.id,
-            image: p.coverImage?.startsWith('http') ? p.coverImage : `${API}${p.coverImage}`,
-            tags: p.tags ?? [],
-            title: t(p.title, locale),
-            slug: p.slug,
-            href: `/portfolio/${p.slug}`,
-        }))
-    } catch (e) {
-        console.error('[ProjectsWrapper] fetch error:', e)
-        return []
-    }
+  try {
+    const res = await fetch(`${API}/portfolio/homepage`, {
+      next: { revalidate: 10 },
+    })
+    if (!res.ok) return []
+    const data = await res.json()
+    return data.map((p: any) => ({
+      id: p.id,
+      image: p.coverImage?.startsWith('http') ? p.coverImage : `${API}${p.coverImage}`,
+      tags: p.tags ?? [],
+      title: t(p.title, locale),
+      slug: p.slug,
+      href: `/portfolio/${p.slug}`,
+    }))
+  } catch (e) {
+    console.error('[ProjectsWrapper] fetch error:', e)
+    return []
+  }
+}
+
+async function getHomeSettings() {
+  try {
+    const res = await fetch(`${API}/home`, { next: { revalidate: 10 } })
+    if (!res.ok) return null
+    return await res.json()
+  } catch {
+    return null
+  }
 }
 
 export async function ProjectsWrapper({ locale }: { locale?: string }) {
-    const cookieStore = await cookies()
-    const resolvedLocale = locale ?? cookieStore.get("NEXT_LOCALE")?.value ?? "az"
+  const cookieStore = await cookies()
+  const resolvedLocale = locale ?? cookieStore.get("NEXT_LOCALE")?.value ?? "az"
 
-    const projects = await getHomepageProjects(resolvedLocale)
+  const [projects, home] = await Promise.all([
+    getHomepageProjects(resolvedLocale),
+    getHomeSettings(),
+  ])
 
-    return (
-        <ProjectsUI
-            sectionTitle="Proyektlər"
-            moreBtnLabel="Bütün layihələrə bax"
-            moreBtnHref="/portfolio"
-            projects={projects}
-        />
-    )
+  return (
+    <ProjectsUI
+      sectionTitle={t(home?.projectsTitle, resolvedLocale, "Proyektlər")}
+      moreBtnLabel={t(home?.projectsBtnText, resolvedLocale, "Bütün layihələrə bax")}
+      moreBtnHref={home?.projectsBtnLink || "/portfolio"}
+      moreBtnNewTab={home?.projectsBtnNewTab ?? false}
+      projects={projects}
+    />
+  )
 }

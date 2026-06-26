@@ -7,11 +7,24 @@ import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ServicesWrapper } from "@/app/components/Service/service-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 
-export default async function ServicesPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  try {
+    const res = await fetch(`${process.env.API_URL}/page-meta/services`, {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return {
+      title: data?.seoTitle?.[locale] || "Xidmətlər",
+      description: data?.seoDescription?.[locale] || "",
+      keywords: data?.seoKeywords?.[locale] || "",
+    };
+  } catch {
+    return { title: "Xidmətlər" };
+  }
+}
+
+export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
 
     if (!isSupportedLocale(locale)) {

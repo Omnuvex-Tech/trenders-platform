@@ -44,7 +44,7 @@
   inset: 0;
   border-radius: 50px;
   padding: 1px;
-background: linear-gradient(#0087db4d 0%, #0087db70 100%);
+  background: linear-gradient(#0087db4d 0%, #0087db70 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -73,7 +73,7 @@ background: linear-gradient(#0087db4d 0%, #0087db70 100%);
 .projectsMoreBtn:hover {
   background: linear-gradient(135deg, #276de4, #5795ff);
   color: #fff;
-} 
+}
 
 
 
@@ -197,7 +197,7 @@ background: linear-gradient(#0087db4d 0%, #0087db70 100%);
 }
 
 @media (max-width: 600px) {
- .projectsHeader {
+  .projectsHeader {
     margin-bottom: 24px;
   }
 
@@ -220,7 +220,7 @@ background: linear-gradient(#0087db4d 0%, #0087db70 100%);
   }
 
   .projectCard {
-    height: 320px;  
+    height: 320px;
     border-radius: 20px;
   }
 
@@ -239,13 +239,64 @@ background: linear-gradient(#0087db4d 0%, #0087db70 100%);
   }
 }
 
-
-
 @media (max-width: 400px) {
   .projectCard {
     height: 280px;
   }
 
-  
+}
 
+
+@media (min-width: 2900px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+  }
+
+  .projectsTitle {
+    font-size: 81px;
+  }
+
+  .projectsMoreBtn {
+    font-size: 37px;
+  }
+  .projectCardTitle{font-size: 89px;}
+  .projectTag{padding: 19px 43px; font-size: 55px;}
+  .projectTags{gap: 35px;}
+  .projectCardContent{ padding: 74px;}
+}
+
+
+
+
+@keyframes cardFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(45px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.projectsGrid .projectCard {
+  opacity: 1;
+}
+
+.projectsGridVisible .projectCard {
+  animation: cardFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.projectCard:hover .projectCardImg {
+    transform: scale(1.04);
+}
+
+.projectCard:hover {
+    transform: translateY(-6px);
+    transition: transform 0.3s ease;
+}
+
+.projectCardVisible {
+  animation: cardFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

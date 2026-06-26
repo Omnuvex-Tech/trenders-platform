@@ -25,7 +25,7 @@ interface SectionAPI {
 async function getTestimonials(): Promise<SectionAPI | null> {
   try {
     const res = await fetch(`${process.env.API_URL}/testimonials`, {
-      cache: "no-store",
+      next: { revalidate: 10 },
     });
     if (!res.ok) return null;
     return res.json();
@@ -60,7 +60,7 @@ export async function TestimonialsWrapper({ locale = "az" }: TestimonialsWrapper
     image: t.image.startsWith("http")
       ? t.image
       : `${process.env.API_URL}${t.image}`,
-    altText: t.altText
+    altText: t.altText,
   }));
 
   return (

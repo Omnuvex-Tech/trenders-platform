@@ -1,68 +1,61 @@
-"use client";
+import { HeroClient } from "./hero-client";
 
-import { useState, useEffect, useCallback } from "react";
-import { HeroUI } from "@repo/ui"; 
-import type { HeroCard } from "@repo/ui";
+type LocalizedString = Record<string, string>;
 
-const BASE_CARDS: HeroCard[] = [
-    { label: "Branding", image: "/images/sdetail2.png" },
-    { label: "Website", image: "/images/sdetail3.png" },
-    { label: "Content", image: "/images/service3.png" },
-];
-
-const AUTOPLAY_MS = 3000;
-
-interface HeroWrapperProps {
-    locale?: string;
+function getLoc(obj: LocalizedString | string | undefined, lang: string): string {
+  if (!obj) return "";
+  if (typeof obj === "string") return obj;
+  return obj[lang] || obj["az"] || "";
 }
 
-export function HeroWrapper({ locale: _locale = "az" }: HeroWrapperProps) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [visibleCards, setVisibleCards] = useState<HeroCard[]>([]);
+function toAbsUrl(path: string): string {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${process.env.API_URL}${path}`;
+}
 
-    useEffect(() => {
-        const infiniteList = Array.from({ length: 50 }, (_, i) => BASE_CARDS[i % BASE_CARDS.length]!);
-        setVisibleCards(infiniteList);
-    }, []);
+async function getServices() {
+  try {
+    const res = await fetch(`${process.env.API_URL}/services`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data as any[]).filter(s => s.isVisible).sort((a, b) => a.order - b.order);
+  } catch { return []; }
+}
 
-    useEffect(() => {
-        if (visibleCards.length === 0) return;
+async function getHeroSettings() {
+  try {
+    const res = await fetch(`${process.env.API_URL}/hero`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
 
-        const timer = setInterval(() => {
-            setCurrentIndex((prevIndex) => {
-                if (prevIndex >= visibleCards.length - 4) {
-                    return 0;
-                }
-                return prevIndex + 1;
-            });
-        }, AUTOPLAY_MS);
+interface HeroWrapperProps {
+  locale?: string;
+}
 
-        return () => clearInterval(timer);
-    }, [visibleCards]);
+export async function HeroWrapper({ locale = "az" }: HeroWrapperProps) {
+  const [services, hero] = await Promise.all([getServices(), getHeroSettings()]);
 
-    const handleDetailClick = useCallback((label: string) => {
-        console.log(`Navigating to detail page for: ${label}`);
-    }, []);
+  const baseCards = services.map((s: any) => ({
+    label: getLoc(s.title, locale),
+    image: toAbsUrl(s.image ?? ""),
+    slug: s.slug,
+  }));
 
-    return (
-        <HeroUI
-            title={
-                <>
-                    Sizin tərəfinizdən
-                    seçilən <strong>Marketing Agentliyi</strong>
-                </>
-            }
-            infoText={
-                <p>
-                    <strong>Marketing analitikası:</strong> məlumatların incəliklərini deşifrə
-                    edərək qələbəyə gedən yolunuzu işıqlandırın. Məlumatların incəliklərini deşifrə
-                </p>
-            }
-            primaryBtnText="Bizimlə əlaqə"
-            secondaryBtnText="Services"
-            visibleCards={visibleCards}
-            currentIndex={currentIndex}
-            onDetailClick={handleDetailClick}
-        />
-    );
+  return (
+    <HeroClient
+      locale={locale}
+      baseCards={baseCards}
+      title={getLoc(hero?.title, locale)}
+      description={getLoc(hero?.description, locale)}
+      primaryBtnText={getLoc(hero?.primaryBtnText, locale)}
+      primaryBtnLink={hero?.primaryBtnLink ?? "/contact"}
+      primaryBtnNewTab={hero?.primaryBtnNewTab ?? false}
+      secondaryBtnText={getLoc(hero?.secondaryBtnText, locale)}
+      secondaryBtnLink={hero?.secondaryBtnLink ?? "/service"}
+      secondaryBtnNewTab={hero?.secondaryBtnNewTab ?? false}
+    />
+  );
 }

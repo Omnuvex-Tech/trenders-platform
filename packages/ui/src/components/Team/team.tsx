@@ -19,9 +19,11 @@ export interface TeamUIProps {
     members: TeamMember[];
     featuredImage: string;
     goHref?: string;
+      goLabel?: string;   
+  goNewTab?: boolean;    
 }
 
-export function TeamUI({ title, members, featuredImage, goHref = "/OurTeam" }: TeamUIProps) {
+export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTab = false }: TeamUIProps) {
     const titleContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -96,8 +98,11 @@ export function TeamUI({ title, members, featuredImage, goHref = "/OurTeam" }: T
                         viewport={{ once: true, amount: 0.2 }}
                         style={{ width: "100%" }}
                     >
-                        <Link href={goHref} className={styles.goBtn}>
-                            Keçid edin
+                        <Link
+  href={goHref}
+  className={styles.goBtn}
+  target={goNewTab ? "_blank" : "_self"}
+>{goLabel} 
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />

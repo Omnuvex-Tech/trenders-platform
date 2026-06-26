@@ -1,3 +1,4 @@
+
 import type { Translation } from "@repo/types/types";
 import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
@@ -6,6 +7,37 @@ import { STATIC_LANGUAGES, isSupportedLocale } from "@/config/locales";
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 import { VacancyDetailWrapper } from "@/app/components/VacancyDetail/vacancydetail-wrapper";
+
+async function getVacancy(slug: string) {
+  try {
+    const res = await fetch(`${process.env.API_URL}/vacancy/slug/${slug}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  try {
+    const vacancy = await getVacancy(slug);
+    if (!vacancy) return { title: "Vakansiya" };
+    return {
+      title: vacancy.seoTitle?.[locale] || vacancy.title?.[locale] || vacancy.title?.az || "Vakansiya",
+      description: vacancy.seoDescription?.[locale] || "",
+      keywords: vacancy.seoKeywords?.[locale] || "",
+    };
+  } catch {
+    return { title: "Vakansiya" };
+  }
+}
 
 export default async function VacancyDetailPage({
   params,

@@ -389,7 +389,6 @@
     display: none;
   }
 
-  /* Kartlar: scroll yox, flex wrap */
   .cards {
     width: 100%;
     overflow: visible;
@@ -411,93 +410,29 @@
 }
 
 @media (max-width: 600px) {
-  .teamDivider {
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 32px;
-  }
-
-  .inner {
-    padding: 0 20px;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .featuredWrap {
-    display: block;
-    border-radius: 18px;
-    grid-column: 1 / -1;
-    grid-row: 3;
-    width: 100%;
-    height: 180px;
-  }
-
   .cards {
     width: 100%;
     overflow: visible;
+    display: block;
   }
 
   .cardsTrack {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     width: 100%;
+    flex-shrink: unset;
+    will-change: unset;
   }
 
   .card {
-    width: 100%;
-    height: 250px;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
     border-radius: 18px;
-    flex-shrink: 0;
+    flex-shrink: unset;
+    position: relative;
   }
-
-  .memberName {
-    font-size: 16px;
-    line-height: 1.2;
-  }
-
-  .memberRole {
-    font-size: 10px;
-    white-space: normal;
-  }
-
-  .memberInfo {
-    padding: 10px 12px 12px;
-  }
-
-  .plusBtn {
-    width: 36px;
-    height: 36px;
-    top: 10px;
-    right: 10px;
-  }
-
-  .left {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    align-items: end;
-    gap: 12px 16px;
-    width: 100%;
-  }
-
-  .title {
-    grid-column: 1;
-    grid-row: 1 / 3;
-    font-size: 22px;
-    align-self: end;
-  }
-
-  .goBtn {
-    grid-column: 2;
-    grid-row: 2;
-    font-size: 13px;
-    padding: 9px 13px;
-    margin-bottom: 0;
-    white-space: nowrap;
-    align-self: end;
-  }
-
 }
 
 @media (max-width: 400px) {
@@ -511,91 +446,18 @@
   }
 
   .title {
-    font-size: 20px;
-  }
-
-  .featuredWrap {
-    height: 150px;
+    font-size: 18px;
   }
 
   .card {
-    height: 220px;
+    aspect-ratio: 1 / 1;
+    height: auto !important;
   }
 
   .memberName {
-    font-size: 14px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 600px) {
-  .left {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    align-items: end;
-    gap: 12px 16px;
-    width: 100%;
-  }
-
-  .title {
-    grid-column: 1;
-    grid-row: 1 / 3;
-    font-size: 22px;
-    align-self: end;
-    line-height: 1.2;
-    max-width: 160px;
-    /* ← mətn 2 sətirə qırılır */
-  }
-
-  .goBtn {
-    grid-column: 2;
-    grid-row: 2;
     font-size: 13px;
-    padding: 9px 13px;
-    margin-bottom: 0;
-    white-space: nowrap;
-    align-self: end;
-  }
-
-  .featuredWrap {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    display: block;
-    width: 100%;
-    height: 180px;
-    border-radius: 16px;
-    margin-top: 8px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .cards {
   flex: 1;
@@ -621,4 +483,58 @@
   flex-shrink: 1;
   transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     opacity 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+
+@media (min-width: 2900px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+  }
+
+  .card {
+    width: auto;
+    flex: 1;
+    aspect-ratio: 2 / 3;
+    height: auto;
+    position: relative;
+  }
+  .cardsTrack{gap: 98px;}
+
+  .memberImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .left{width: 645px;}
+  .title{font-size: 81px;}                          .featuredWrap{width: 530px; height: 401px;}
+  .goBtn{font-size: 44px; gap: 18px; padding: 21px 23px;}
+  .memberName{font-size: 120px;}                    .memberRole{font-size: 68px;}
+  .plusBtn{width: 146px; height: 146px; margin-right: 47px; margin-top: 33px;}
+  .plusBtn svg {width: 60px; height: 60px;}
+}
+
+
+@media (min-width: 1600px) and (max-width: 2899px) {
+  .inner {
+    max-width: 100%;
+    padding: 0 100px;
+  }
+
+  .card {
+    flex: 1;
+    min-width: 0;
+    height: auto;
+    aspect-ratio: 2 / 3;
+  }
+
+  .memberImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 }

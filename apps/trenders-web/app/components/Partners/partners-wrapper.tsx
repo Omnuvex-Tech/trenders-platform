@@ -26,9 +26,9 @@ async function getHomePartners(locale: string): Promise<{
   partners: PartnerItem[]
 }> {
   try {
-    const res = await fetch(`${process.env.API_URL}/partners`, {
-      cache: 'no-store',
-    })
+   const res = await fetch(`${process.env.API_URL}/partners`, {
+  next: { revalidate: 10 },
+})
     if (!res.ok) return { sectionTitle: "Tərəfdaşlarımız", description: "", partners: [] }
     const data = await res.json()
 

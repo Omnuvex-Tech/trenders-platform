@@ -2,15 +2,6 @@
     width: 100%;
 }
 
-/* ── Hero şəkil ── */
-
-.heroImageWrap {
-    width: 100%;
-    height: 630px;
-    overflow: hidden;
-    margin-top: 69px;
-}
-
 .heroImage {
     width: 100%;
     height: 100%;
@@ -19,15 +10,11 @@
     display: block;
 }
 
-/* ── Inner konteyner ── */
-
 .inner {
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 100px;
 }
-
-/* ── Başlıq bloku — desktop: number sağda, content solda (flex-end) ── */
 
 .titleBlock {
     display: flex;
@@ -72,15 +59,11 @@
     margin: 0;
 }
 
-
-
 .description strong {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: inherit;
     color: #000000;}
-
-/* ── Qalereya ── */
 
 .gallery {
     display: flex;
@@ -95,18 +78,6 @@
     gap: 16px;
 }
 
-.galleryTopItem {
-    overflow: hidden;
-    height: 399px;
-    border-radius: 14px;
-}
-
-.galleryBottom {
-    overflow: hidden;
-    height: 399px;
-    border-radius: 14px;
-}
-
 .galleryImg {
     width: 100%;
     height: 100%;
@@ -119,26 +90,16 @@
 @media (max-width: 1280px) {
     .inner          { padding: 0 64px; }
     .number         { font-size: 140px; }
-    .heroImageWrap  { height: 520px; }
-    .galleryTopItem,
-    .galleryBottom  { height: 340px; }
 }
 
 @media (max-width: 1024px) {
     .inner          { padding: 0 48px; }
     .number         { font-size: 100px; }
     .titleContent   { padding-top: 28px; }
-    .heroImageWrap  { height: 420px; }
-    .galleryTopItem,
-    .galleryBottom  { height: 280px; }
 }
-
-/* ── 768px: layout dəyişir — number solda, content yanında ── */
 
 @media (max-width: 768px) {
     .inner         { padding: 0 32px; }
-    .heroImageWrap { height: 320px; margin-top: 48px; }
-
     .titleBlock {
         flex-direction: row;
         align-items: flex-start;
@@ -159,14 +120,12 @@
     .description   { font-size: 15px; max-width: 100%; }
 
     .galleryTop    { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .galleryTopItem,
-    .galleryBottom { height: 200px; border-radius: 10px; }
     .gallery       { gap: 12px; padding-bottom: 48px; }
 }
 
 @media (max-width: 480px) {
     .inner         { padding: 0 20px; }
-    .heroImageWrap { height: 240px; margin-top: 32px; }
+    .heroImageWrap { margin-top: 32px; }
 
     .titleBlock    { gap: 10px; padding: 16px 0 24px; }
 
@@ -174,20 +133,14 @@
     .title         { font-size: 17px; }
     .description   { font-size: 14px; line-height: 1.6; }
 
-    .galleryTop    { grid-template-columns: 1fr; gap: 10px; }
-    .galleryTopItem,
-    .galleryBottom { height: 220px; border-radius: 10px; }
-    .gallery       { gap: 10px; padding-bottom: 36px; }
+    .galleryTop    { grid-template-columns: 1fr; gap: 10px; }    .gallery       { gap: 10px; padding-bottom: 36px; }
 }
 
 @media (max-width: 360px) {
-    .inner         { padding: 0 16px; }
-    .heroImageWrap { height: 200px; }
-    .number        { font-size: 38px; }
+    .inner         { padding: 0 16px; }    .number        { font-size: 38px; }
     .title         { font-size: 15px; }
     .description   { font-size: 13px; }
-    .galleryTopItem,
-    .galleryBottom { height: 180px; }
+
 }
 
 
@@ -240,4 +193,32 @@
     background: linear-gradient(135deg, #276de4, #5795ff) border-box;
     color: #fff;
     border-color: transparent;
+}
+
+@media (min-width: 1600px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+}
+
+
+.heroImageWrap {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    margin-top: 69px;
+}
+
+.galleryTopItem {
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+    border-radius: 14px;
+}
+
+.galleryBottom {
+    overflow: hidden;
+    aspect-ratio: 16 / 7;
+    border-radius: 14px;
 }

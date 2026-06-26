@@ -13,12 +13,6 @@
 
 }
 
-.heroWrap {
-    position: relative;
-    width: 100%;
-    height: 558px;
-}
-
 .heroImg {
     width: 100%;
     height: 100%;
@@ -93,38 +87,39 @@
     color: rgba(30, 30, 30, 1);
 }
 
+
+.heroWrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 6;  
+}
+
 .bottomImages {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 16px;
+    align-items: stretch;
 }
 
-.bottomImgLeft,
-.bottomImgRight {
+.bottomImgLeft {
     width: 100%;
+    height: 100%;      
     object-fit: cover;
     display: block;
     border-radius: 30px;
 }
 
-.bottomImgLeft {
-    height: 448px;
-}
-
 .bottomImgRight {
-    height: 448px;
+    height: auto;   
+    aspect-ratio: 16 / 9; 
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 30px;
 }
-
-
-
-
 @media (max-width: 1280px) {
     .inner {
         padding: 0 48px;
-    }
-
-    .heroWrap {
-        height: 480px;
     }
 
     .overlapBlock {
@@ -136,23 +131,12 @@
         font-size: 40px;
         padding: 28px 60px 0px 1px;
     }
-
-    .bottomImgLeft,
-    .bottomImgRight {
-        height: 380px;
-    }
-
 }
 
 @media (max-width: 1024px) {
     .section {
         padding: 0 0 12px;
     }
-
-    .heroWrap {
-        height: 400px;
-    }
-
     .overlapBlock {
         width: 85%;
         margin-top: -70px;
@@ -166,11 +150,6 @@
     .sectionTitle {
         font-size: 24px;
     }
-
-    .bottomImgLeft,
-    .bottomImgRight {
-        height: 320px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -182,11 +161,6 @@
         padding: 0 32px;
         gap: 28px;
     }
-
-    .heroWrap {
-        height: 320px;
-    }
-
     .overlapBlock {
         width: 92%;
         margin-top: -55px;
@@ -209,13 +183,6 @@
     .bottomImages {
         grid-template-columns: 1fr 1fr;
     }
-
-    .bottomImgLeft,
-    .bottomImgRight {
-        height: 220px;
-        border-radius: 20px;
-    }
-
 }
 
 @media (max-width: 480px) {
@@ -227,11 +194,6 @@
         padding: 0 20px;
         gap: 18px;
     }
-
-    .heroWrap {
-        height: 220px;
-    }
-
     .overlapBlock {
         width: 100%;
         margin-top: -50px;
@@ -255,12 +217,6 @@
     .bottomImages {
         grid-template-columns: 1fr;
     }
-
-    .bottomImgLeft,
-    .bottomImgRight {
-        height: 180px;
-        border-radius: 16px;
-    }
 }
 
 @media (max-width: 400px) {
@@ -271,11 +227,6 @@
     .inner {
         padding: 0 14px;
     }
-
-    .heroWrap {
-        height: 190px;
-    }
-
     .overlapBlock {
         margin-top: -40px;
     }
@@ -284,16 +235,15 @@
         font-size: 14px;
         padding: 12px 12px 0px 4px;
     }
-
-    .bottomImgLeft,
-    .bottomImgRight {
-        height: 160px;
-        border-radius: 14px;
-    }
-
 }
 
-
+@media (min-width: 1600px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+}
 
 :global(blockquote) {
     margin: 8px 0;

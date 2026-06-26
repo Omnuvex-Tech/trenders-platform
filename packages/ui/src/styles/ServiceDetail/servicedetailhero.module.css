@@ -21,14 +21,6 @@
     display: block;
 }
 
-.heroWrap {
-    width: 100%;
-    height: 714px;
-    border-radius: 42.27px;
-    overflow: hidden;
-    --overlap: 252px;
-    margin-bottom: calc(var(--overlap) * -1);
-}
 
 .overlayWrap {
     background: white;
@@ -114,13 +106,6 @@ color: #c4c4c494;
     padding-top: 49px;
 }
 
-.bottomWrap {
-    width: 100%;
-    max-width: 1240px;
-    height: 475px;
-    border-radius: 42.27px;
-    overflow: hidden;
-}
 
 .bottomImg {
     width: 100%;
@@ -129,7 +114,23 @@ color: #c4c4c494;
     display: block;
 }
 
+/* sonra */
+.heroWrap {
+    width: 100%;
+    aspect-ratio: 7 / 4;
+    border-radius: 42.27px;
+    overflow: hidden;
+    --overlap: 252px;
+    margin-bottom: calc(var(--overlap) * -1);
+}
 
+.bottomWrap {
+    width: 100%;
+    max-width: 1240px;
+    aspect-ratio: 8 / 3;
+    border-radius: 42.27px;
+    overflow: hidden;
+}
 
 
 @media (max-width: 1280px) {
@@ -498,4 +499,70 @@ color: #c4c4c494;
     .bottomWrap {
         height: 160px;
     }
+}
+
+@media (min-width: 1600px) {
+.inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+
+    .imgWrap {
+        max-width: 100%;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ── Reveal animasiya ── */
+.revealWord {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.revealInner {
+    display: inline-block;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s ease;
+}
+
+.revealInner.revealVisible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+
+.titleWrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+
+.reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.65s ease,
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealVisible {
+    opacity: 1;
+    transform: translateY(0);
 }

@@ -23,13 +23,12 @@ export function FaqUI({ items }: FaqUIProps) {
         setOpenId(prev => prev === id ? null : id);
     };
 
-    // ─── FOCAL ACCORDION LIST ANIMASIYASI ───
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.12, // Sualların arxa-arxaya smooth daxil olması
+                staggerChildren: 0.12, 
             }
         }
     };
@@ -41,7 +40,7 @@ export function FaqUI({ items }: FaqUIProps) {
             y: 0,
             transition: {
                 duration: 0.8,
-                ease: [0.16, 1, 0.3, 1] as const // Focal premium easing formulu
+                ease: [0.16, 1, 0.3, 1] as const
             }
         }
     };
@@ -49,7 +48,6 @@ export function FaqUI({ items }: FaqUIProps) {
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                {/* Ana siyahını motion.div edirik ki, skrol edəndə suallar növbə ilə süzülsün */}
                 <motion.div 
                     className={styles.accordion}
                     variants={containerVariants}
@@ -60,7 +58,6 @@ export function FaqUI({ items }: FaqUIProps) {
                     {items.map((item, index) => {
                         const isOpen = openId === item.id;
                         const num = String(index + 1).padStart(2, "0");
-
                         return (
                             <motion.div 
                                 key={item.id} 
@@ -74,9 +71,7 @@ export function FaqUI({ items }: FaqUIProps) {
                                 >
                                     <span className={styles.number}>{num}</span>
                                     <span className={styles.question}>{item.question}</span>
-                                    
-                                    {/* İkonun + halından X halına fırlanaraq keçməsi */}
-                                    <motion.span 
+                                                                        <motion.span 
                                         className={`${styles.iconBtn} ${isOpen ? styles.iconBtnOpen : ""}`}
                                         animate={{ rotate: isOpen ? 135 : 0 }}
                                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -88,8 +83,6 @@ export function FaqUI({ items }: FaqUIProps) {
                                         </svg>
                                     </motion.span>
                                 </button>
-
-                                {/* ─── CAVABIN SMOOTH AÇILMA ANIMASIYASI ─── */}
                                 <AnimatePresence initial={false}>
                                     {isOpen && (
                                         <motion.div 
@@ -111,13 +104,12 @@ export function FaqUI({ items }: FaqUIProps) {
                                                     opacity: { duration: 0.2 }
                                                 }
                                             }}
-                                            style={{ overflow: "hidden" }} // Animasiya zamanı kənara daşmaları gizlədir
+                                            style={{ overflow: "hidden" }} 
                                         >
                                             <p className={styles.answer}>{item.answer}</p>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
-
                                 <div className={styles.divider} />
                             </motion.div>
                         );

@@ -49,16 +49,6 @@
     align-items: stretch;
 }
 
-.featuredWrap {
-    position: relative;
-    overflow: hidden;
-    display: block;
-    text-decoration: none;
-    width: 713px;
-    height: 514px;
-    border-radius: 18px;
-}
-
 .featuredImg {
     width: 100%;
     height: 100%;
@@ -138,8 +128,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 0;
-}
+    gap: 9px;}
 
 .sidePost {
     display: grid;
@@ -158,14 +147,6 @@
 .sidePost:last-child {
     border-bottom: none;
     padding-bottom: 0;
-}
-
-.sideImg {
-    width: 190px;
-    height: 157px;
-    border-radius: 18px;
-    object-fit: cover;
-    display: block;
 }
 
 .sideContent {
@@ -204,31 +185,12 @@
 
 }
 
-.quoteSection {
-    position: relative;
-    width: 100%;
-    border-radius: 42px;
-    overflow: hidden;
-    /* width: 1240px; */
-    height: 294px;
-}
-
-
 .quoteImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     position: absolute;
-}
-
-.quoteContent {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    padding: 40px 80px;
-    height: 294px;
 }
 
 .quoteIcon {
@@ -265,7 +227,40 @@
 }
 
 
+.featuredWrap {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    width: 100%;  
+    aspect-ratio: 7 / 5; 
+    border-radius: 18px;
+}
 
+.quoteSection {
+    position: relative;
+    width: 100%;
+    border-radius: 42px;
+    overflow: hidden;
+    aspect-ratio: 4 / 1;
+}
+
+.quoteContent {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 40px 80px;
+    height: 100%; 
+}
+
+.sideImg {
+    width: 190px;
+    aspect-ratio: 6 / 5;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
+}
 @media (max-width: 1280px) {
     .inner {
         padding: 0 60px;
@@ -284,7 +279,6 @@
 
     .featuredWrap {
         width: 100%;
-        height: 440px;
     }
 
     .quoteSection {
@@ -295,7 +289,6 @@
     }
 
     .quoteContent {
-        height: auto;
         padding: 48px 60px;
     }
 
@@ -332,7 +325,6 @@
     }
 
     .featuredWrap {
-        width: 100%;
         height: 380px;
     }
 
@@ -354,7 +346,6 @@
 
     .sideImg {
         width: 150px;
-        height: 120px;
     }
 
     .sideTitle {
@@ -364,7 +355,6 @@
 
     .quoteSection {
         border-radius: 24px;
-        min-height: 220px;
     }
 
     .quoteContent {
@@ -407,7 +397,6 @@
     }
 
     .featuredWrap {
-        height: 280px;
         border-radius: 14px;
     }
 
@@ -442,7 +431,6 @@
 
     .sideImg {
         width: 110px;
-        height: 95px;
         border-radius: 12px;
     }
 
@@ -471,7 +459,6 @@
         align-items: flex-start;
         flex-direction: column;
         justify-content: center;
-        min-height: 180px;
     }
 
     .quoteText {
@@ -494,17 +481,38 @@
     .title {
         font-size: 21px;
     }
-
-    .featuredWrap {
-        height: 240px;
-    }
-
     .sidePost {
         grid-template-columns: 90px 1fr;
     }
 
     .sideImg {
         width: 90px;
-        height: 80px;
     }
+}
+
+@media (min-width: 1600px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+
+.sideImg {
+    width: 100%;
+    aspect-ratio: 6 / 5;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
+}
+
+.sidePost {
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;  /* 190px 1fr → */
+    gap: 16px;
+    align-items: flex-start;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.grid{gap: 85px;}
 }

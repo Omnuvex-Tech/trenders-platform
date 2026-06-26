@@ -9,6 +9,24 @@ import { AboutHeroWrapper } from "@/app/components/About/abouthero-wrapper";
 import { AboutStoryWrapper } from "@/app/components/About/aboutstory-wrapper";
 import { AboutTeamWrapper } from "@/app/components/About/aboutteam-wrapper";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  try {
+    const res = await fetch(`${process.env.API_URL}/page-meta/about`, {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return {
+      title: data?.seoTitle?.[locale] || "Haqqımızda",
+      description: data?.seoDescription?.[locale] || "",
+      keywords: data?.seoKeywords?.[locale] || "",
+    };
+  } catch {
+    return { title: "Haqqımızda" };
+  }
+}
+
+
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
 

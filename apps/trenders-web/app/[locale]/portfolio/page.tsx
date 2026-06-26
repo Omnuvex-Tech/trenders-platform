@@ -7,6 +7,24 @@ import type { Translation } from "@repo/types/types";
 import { PortfolioWrapper } from "@/app/components/Portfolio/portfolio-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 
+export async function generateMetadata() {
+  const cookieStore = await cookies();
+  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+  try {
+    const res = await fetch(`${process.env.API_URL}/page-meta/portfolio`, {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return {
+      title: data?.seoTitle?.[locale] || "Portfolio",
+      description: data?.seoDescription?.[locale] || "",
+      keywords: data?.seoKeywords?.[locale] || "",
+    };
+  } catch {
+    return { title: "Portfolio" };
+  }
+}
+
 export default async function PortfolioPage() {
     const cookieStore = await cookies();
     const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);

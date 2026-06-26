@@ -538,3 +538,11 @@
         grid-column: auto;
     }
 }
+
+@media (min-width: 1600px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+}

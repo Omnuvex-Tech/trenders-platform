@@ -275,3 +275,38 @@
     font-size: 11px;
   }
 }
+
+
+@media (min-width: 1600px) {
+.inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+
+.heroWrap {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    height: auto;
+    border-radius: 42.27px;
+    overflow: hidden;
+}
+
+.paragraph{font-size: 22px;}
+.badge{font-size: 24px;}
+.statLabel{font-size: 14.43px;}
+}
+
+
+
+.reveal {
+    opacity: 0;
+    margin-top: 20px;
+    transition: opacity 0.7s ease,
+                margin-top 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealVisible {
+    opacity: 1;
+    margin-top: 0;
+}

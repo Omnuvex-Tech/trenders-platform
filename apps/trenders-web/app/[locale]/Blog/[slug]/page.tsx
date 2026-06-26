@@ -26,6 +26,10 @@ function toAbsUrl(path: string) {
     return `${process.env.API_URL}${path}`;
 }
 
+function stripHtml(html: string): string {
+    return html.replace(/<[^>]*>/g, "").trim();
+}
+
 async function getBlog(slug: string) {
     try {
         const res = await fetch(`${process.env.API_URL}/blog/slug/${slug}`, {
@@ -114,7 +118,9 @@ function renderSection(section: any, index: number, blog: any, locale: string) {
                     }))}
                     hashtags={
                         Array.isArray(section.hashtags)
-                            ? section.hashtags.map((h: any) => t(h, locale))
+                            ? section.hashtags.map((h: any) =>
+                                typeof h === "object" ? (h[locale] || h.az || "") : h
+                            ).filter(Boolean)
                             : typeof section.hashtags === 'string'
                                 ? section.hashtags.split(/[,\s]+/).map((h: string) => h.trim()).filter(Boolean)
                                 : []
@@ -125,6 +131,48 @@ function renderSection(section: any, index: number, blog: any, locale: string) {
 
         default:
             return null;
+    }
+}
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
+    const cookieStore = await cookies();
+    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+
+    try {
+        const blog = await getBlog(slug);
+        if (!blog) return { title: "Blog" };
+        const articleHashtags: string[] = [];
+        for (const section of blog.sections ?? []) {
+            if (section.type === "article") {
+                const raw = section.hashtags;
+                if (Array.isArray(raw)) {
+                    raw.forEach((h: any) => {
+                        const val = typeof h === "object" ? (h[locale] || h.az || "") : h;
+                        if (val) articleHashtags.push(val);
+                    });
+                } else if (typeof raw === "string") {
+                    raw.split(/[,\s]+/).map((h: string) => h.trim()).filter(Boolean).forEach(h => articleHashtags.push(h));
+                }
+            }
+        }
+        const manualKeywords = blog.seoKeywords?.[locale] || "";
+        const allKeywords = [
+            ...manualKeywords.split(",").map((k: string) => k.trim()).filter(Boolean),
+            ...articleHashtags,
+        ].join(", ");
+
+        return {
+            title: blog.seoTitle?.[locale] || stripHtml(t(blog.title, locale)) || "Blog",
+            description: blog.seoDescription?.[locale] || stripHtml(t(blog.excerpt, locale)) || "",
+            keywords: allKeywords || undefined,
+        };
+    } catch {
+        return { title: "Blog" };
     }
 }
 

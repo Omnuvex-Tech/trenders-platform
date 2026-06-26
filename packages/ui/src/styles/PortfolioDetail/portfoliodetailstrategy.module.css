@@ -8,8 +8,6 @@
     padding: 75px 100px;
 }
 
-/* ── Quote section ── */
-
 .quoteSection {
     position: relative;
     margin-bottom: 78px;
@@ -24,14 +22,6 @@
     position: absolute;
     top: 39%;
     line-height: 1.2;
-}
-
-.quoteImgWrap {
-    width: 821px;
-    height: 475px;
-    margin-left: auto;
-    border-radius: 42px;
-    overflow: hidden;
 }
 
 .quoteImg {
@@ -51,7 +41,7 @@
     font-size: 383.6px;
     font-weight: 300;
     position: absolute;
-transform: translate(-61%, -9%);
+    transform: translate(-61%, -9%);
 }
 
 .quoteLight {
@@ -70,18 +60,24 @@ transform: translate(-61%, -9%);
     color: rgba(94, 94, 94, 1);
 }
 
-/* ── Content section ── */
+.quoteImgWrap {
+    width: 75%;
+    aspect-ratio: 7 / 4;
+    margin-left: auto;
+    border-radius: 42px;
+    overflow: hidden;
+}
 
 .contentSection {
     display: grid;
-    grid-template-columns: 397px 281px 1fr;
+    grid-template-columns: 1fr 0.7fr 1.2fr;
     gap: 30px;
     align-items: start;
 }
 
 .mainImgWrap {
-    width: 397px;
-    height: 472px;
+    width: 100%;
+    aspect-ratio: 5 / 6;
     border-radius: 14px;
     overflow: hidden;
 }
@@ -98,12 +94,11 @@ transform: translate(-61%, -9%);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 281px;
 }
 
 .smallImgWrap {
-    width: 181px;
-    height: 229px;
+    width: 67%;
+    aspect-ratio: 4 / 5;
     border-radius: 14px;
     overflow: hidden;
 }
@@ -118,8 +113,8 @@ transform: translate(-61%, -9%);
 
 .offset {
     margin-left: 100px;
-    width: 181px;
-    height: 229px;
+    width: calc(100% - 100px);
+    aspect-ratio: 4 / 5;
     border-radius: 14px;
     overflow: hidden;
 }
@@ -154,104 +149,6 @@ transform: translate(-61%, -9%);
     text-align: justify;
     margin: 0 0 20px;
 }
-
-@media (max-width: 1280px) {
-    .inner        { padding: 60px 64px; }
-    .quoteImgWrap { width: 650px; height: 400px; }
-    .quoteLight,
-    .quoteLight strong { font-size: 34px; }
-    .quoteMark    { font-size: 280px; }
-
-    .contentSection { grid-template-columns: 300px 220px 1fr; gap: 24px; }
-    .mainImgWrap  { width: 100%; height: 400px; }
-    .smallStack   { width: 220px; }
-    .smallImgWrap { width: 140px; height: 180px; }
-    .offset       { width: 140px; height: 180px; margin-left: 80px; }
-    .textTitle    { font-size: 28px; margin: 0px 0 5px; }
-    .textBody     { font-size: 16px; }
-}
-
-@media (max-width: 1024px) {
-    .inner        { padding: 48px; }
-    .quoteImgWrap { width: 520px; height: 340px; }
-    .quoteText    { width: 70%; padding-left: 48px; }
-    .quoteLight,
-    .quoteLight strong { font-size: 26px; }
-    .quoteMark    { font-size: 200px; }
-
-    .contentSection { grid-template-columns: 1fr 1fr; gap: 20px; }
-    .textCol      { grid-column: span 2;     margin-top: 15px; }
-    .mainImgWrap  { width: 100%; height: 320px; }
-    .smallStack   { flex-direction: row; width: 100%; }
-    .smallImgWrap { flex: 1; width: auto; height: 200px; }
-    .offset       { flex: 1; width: auto; height: 200px; margin-left: 0; }
-}
-
-@media (max-width: 768px) {
-    .inner        { padding: 40px 32px; }
-    .quoteSection {
-        position: relative;
-        display: block;
-        margin-bottom: 48px;
-        height: 300px;
-    }
-    .quoteImgWrap {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        margin-left: 0;
-        border-radius: 24px;
-    }
-    .quoteText {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 90%;
-        padding-left: 24px;
-        z-index: 2;
-    }
-    .quoteMark    { font-size: 100px; transform: translate(-20%, -10%); }
-    .quoteLight,
-    .quoteLight strong { font-size: 18px; }
-
-    .contentSection { grid-template-columns: 1fr; gap: 16px; }
-    .textCol      { grid-column: span 1;  margin-top: 15px;}
-    .mainImgWrap  { width: 100%; height: 280px; }
-    .smallStack   { flex-direction: row; width: 100%; gap: 12px; }
-    .smallImgWrap { flex: 1; width: auto; height: 160px; }
-    .offset       { flex: 1; width: auto; height: 160px; margin-left: 0; }
-    .textTitle    { font-size: 22px; margin: 0px 0 5px; }
-    .textBody     { font-size: 15px; }
-    .badge        { font-size: 14px; margin: 0px 0 3px; }
-}
-
-@media (max-width: 480px) {
-    .inner        { padding: 32px 20px 10px; }
-    .quoteSection { height: 240px; }
-    .quoteMark    { font-size: 80px;     margin-top: -20px; }
-    .quoteLight,
-    .quoteLight strong { font-size: 15px; }
-
-    .mainImgWrap  { height: 240px; }
-    .smallImgWrap,
-    .offset       { height: 130px; }
-    .textTitle    { font-size: 20px; margin: 0px 0 5px; }
-    .textBody     { font-size: 14px; }
-}
-
-@media (max-width: 360px) {
-    .inner        { padding: 24px 16px; }
-    .quoteSection { height: 200px; }
-    .quoteLight,
-    .quoteLight strong { font-size: 13px; }
-    .textTitle    { font-size: 18px; margin: 0px 0 5px; }
-    .textBody     { font-size: 13px; }
-    .smallImgWrap,
-    .offset       { height: 110px; }
-}
-
-
 
 .contactBtn {
     display: inline-block;
@@ -299,4 +196,232 @@ transform: translate(-61%, -9%);
     background: linear-gradient(135deg, #276de4, #5795ff) border-box;
     color: #fff;
     border-color: transparent;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1280px) {
+    .inner {
+        padding: 60px 64px;
+    }
+
+    .quoteLight,
+    .quoteLight strong {
+        font-size: 34px;
+    }
+
+    .quoteMark {
+        font-size: 280px;
+    }
+
+    .contentSection {
+        grid-template-columns: 1fr 0.7fr 1.2fr;
+        gap: 24px;
+    }
+
+    .offset {
+        margin-left: 80px;
+        width: calc(100% - 80px);
+    }
+
+    .textTitle {
+        font-size: 28px;
+        margin: 0 0 5px;
+    }
+
+    .textBody {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .inner {
+        padding: 48px;
+    }
+
+    .quoteText {
+        width: 70%;
+        padding-left: 48px;
+    }
+
+    .quoteLight,
+    .quoteLight strong {
+        font-size: 26px;
+    }
+
+    .quoteMark {
+        font-size: 200px;
+    }
+
+    .contentSection {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .textCol {
+        grid-column: span 2;
+        margin-top: 15px;
+    }
+
+    .smallStack {
+        flex-direction: row;
+    }
+
+    .smallImgWrap {
+        flex: 1;
+    }
+
+    .offset {
+        flex: 1;
+        width: auto;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .inner {
+        padding: 40px 32px;
+    }
+
+    .quoteSection {
+        position: relative;
+        display: block;
+        margin-bottom: 48px;
+        aspect-ratio: 16 / 7;
+    }
+
+    .quoteImgWrap {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        aspect-ratio: unset;
+        height: 100%;
+        margin-left: 0;
+        border-radius: 24px;
+    }
+
+    .quoteText {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 90%;
+        padding-left: 24px;
+        z-index: 2;
+    }
+
+    .quoteMark {
+        font-size: 100px;
+        transform: translate(-20%, -10%);
+    }
+
+    .quoteLight,
+    .quoteLight strong {
+        font-size: 18px;
+    }
+
+    .contentSection {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .textCol {
+        grid-column: span 1;
+        margin-top: 15px;
+    }
+
+    .smallStack {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .smallImgWrap {
+        flex: 1;
+    }
+
+    .offset {
+        flex: 1;
+        width: auto;
+        margin-left: 0;
+    }
+
+    .textTitle {
+        font-size: 22px;
+        margin: 0 0 5px;
+    }
+
+    .textBody {
+        font-size: 15px;
+    }
+
+    .badge {
+        font-size: 14px;
+        margin: 0 0 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .inner {
+        padding: 32px 20px 10px;
+    }
+
+    .quoteSection {
+        aspect-ratio: 2 / 1;
+    }
+
+    .quoteMark {
+        font-size: 80px;
+        margin-top: -20px;
+    }
+
+    .quoteLight,
+    .quoteLight strong {
+        font-size: 15px;
+    }
+
+    .textTitle {
+        font-size: 20px;
+        margin: 0 0 5px;
+    }
+
+    .textBody {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 360px) {
+    .inner {
+        padding: 24px 16px;
+    }
+
+    .quoteSection {
+        aspect-ratio: 16 / 7;
+    }
+
+    .quoteLight,
+    .quoteLight strong {
+        font-size: 13px;
+    }
+
+    .textTitle {
+        font-size: 18px;
+        margin: 0 0 5px;
+    }
+
+    .textBody {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .inner {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 100px;
+    }
+
+    .section {
+        margin-top: 108px;
+    }
+
+    .offset{    width: calc(76% - 100px);}
 }

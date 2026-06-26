@@ -82,15 +82,13 @@
     min-height: 400px;
 }
 
-/* Sol şəkil */
 .imgWrap {
     width: 100%;
     max-width: 832px;
-    height: 475px;
+    aspect-ratio: 832 / 475;
     border-radius: 42.27px;
     overflow: hidden;
 }
-
 .img {
     width: 100%;
     height: 100%;
@@ -128,7 +126,6 @@
     color: rgba(40, 40, 40, 1);
 }
 
-/* Sağdakı böyük dırnaq */
 .quoteMark {
     color: #96969633;
     align-self: flex-end;
@@ -141,7 +138,17 @@
      transform: translateX(-46px); 
 }
 
+@media (min-width: 1600px) {
+.inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
 
+    .imgWrap {
+        max-width: 75%;
+    }
+}
 @media (max-width: 1280px) {
     .inner {
         padding: 0 60px;

@@ -368,7 +368,6 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
     gap: 24px;
   }
 
-  /* Sol blok: başlıq tam en, description + oxlar yan-yana */
   .left {
     width: 100%;
     flex-direction: column;
@@ -396,14 +395,12 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
     margin-top: 4px;
     flex: 0 0 auto;
   }
-
-  /* Kartlar — tablet üçün rahat en */
   .cards {
     width: 100%;
   }
 
   .card {
-    width: 420px;        /* ← 300→420, tablet üçün rahat */
+    width: 420px; 
     min-height: 400px;
     padding: 24px 22px 32px;
   }
@@ -436,7 +433,6 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
     gap: 20px;
   }
 
-  /* Sol blok: sıra ilə düz, oxlar aşağıda */
   .left {
     flex-direction: column;
     align-items: flex-start;
@@ -453,7 +449,6 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
     font-size: 13px;
     line-height: 1.5;
     max-width: 100%;
-    /* 3 sətirdən artığını gizlə */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -463,11 +458,9 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
   .arrows {
     margin-top: 4px;
   }
-
-  /* Kart ölçüləri */
   .card {
     width: calc(100vw - 40px);
-    min-height: unset;          /* ← hündürlüyü məzmun qoy idarə etsin */
+    min-height: unset;   
     padding: 20px 18px 24px;
     border-radius: 20px;
     flex-shrink: 0;
@@ -524,7 +517,7 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
 
 @media (min-width: 1800px) {
   .card {
-    width: calc((100vw - 200px - 414px - 72px) / 3);
+    width: calc(31.3333vw - 228.667px);
   }
 }
 
@@ -558,3 +551,77 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
         font-size: 14px;
     }
 }
+
+@media (min-width: 2900px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+  }
+  .title{font-size: 81px;}
+  .left{width: 760px;}
+  .description{max-width: 681px;line-height: 2.4; font-size: 29px;}
+  .arrowBtn{width: 80px; height: 80px;}
+  .company{font-size:65px}
+  .quoteIcon{font-size: 246px;}
+  .quote{font-size: 75px;}   .author{margin-top: 52px;}
+  .avatar{width: 150px; height: 150px;}   .name{font-size: 48px;}   .role{font-size: 45px;}
+  .cardsTrack{gap: 41px;}
+  .card{padding-right: 100px;
+    padding-left: 100px;}
+    .section{padding: 80px 0 120px;}
+}
+
+
+
+
+
+
+
+
+
+
+
+@keyframes testimonialsFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes testimonialsWordReveal {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.testimonialsReveal {
+  animation: testimonialsFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.descriptionWord {
+  overflow: hidden;
+  display: inline-block;
+  margin-right: 0.25em;
+  line-height: 1.2;
+}
+
+.descriptionWord span {
+  display: inline-block;
+  animation: testimonialsWordReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+
+
+
+
+

@@ -13,6 +13,24 @@ import { BlogWrapper } from "@/app/components/Blog/blog-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 import { FaqWrapper } from "@/app/components/Faq/faq-wrapper";
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  try {
+    const res = await fetch(`${process.env.API_URL}/page-meta/home`, {
+      cache: "no-store",
+    });
+    const data = await res.json();
+    return {
+      title: data?.seoTitle?.[locale] || "Ana Səhifə",
+      description: data?.seoDescription?.[locale] || "",
+      keywords: data?.seoKeywords?.[locale] || "",
+    };
+  } catch {
+    return { title: "Ana Səhifə" };
+  }
+}
+
+
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
 
@@ -40,3 +58,4 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
     );
 }
+

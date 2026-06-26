@@ -1,6 +1,6 @@
 .section {
     width: 100%;
-    padding: 0 0 80px;
+    padding: 0 0 8px;
 }
 
 .inner {
@@ -159,4 +159,38 @@ border-radius: 32px;
   .paragraph {
     font-size: 13px;
   }
+}
+
+
+@media (min-width: 1600px) {
+.inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
+.imageWrap {
+    width: 100%;
+    aspect-ratio: 16 / 5;  
+    height: auto;
+    border-radius: 42.27px;
+    overflow: hidden;
+}
+.block{margin-top: 34px;}
+.section{padding: 0 0 80px;}
+.title{font-size: 32.05px;}
+.paragraph{font-size: 22px;}
+}
+
+
+
+.reveal {
+    opacity: 0;
+    margin-top: 20px;
+    transition: opacity 0.7s ease,
+                margin-top 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealVisible {
+    opacity: 1;
+    margin-top: 0;
 }

@@ -86,30 +86,6 @@
   animation: marqueeRtl 20s linear infinite;
 }
 
-@keyframes marqueeLtr {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-25%);
-  }
-}
-
-@keyframes marqueeRtl {
-  0% {
-    transform: translateX(-25%);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.partnersTrackWrapper:hover .partnersTrack {
-  animation-play-state: paused;
-}
-
 @media (max-width: 1024px) {
   .partnersHeader {
     grid-template-columns: 1fr;
@@ -216,4 +192,31 @@
   .partnersScrollWrapper {
     padding: 0 24px;
   }
+}
+
+@media (min-width: 2500px) {
+    .partnersTitle{font-size: 81px;}
+    .partnersDescription{font-size: 65px;}
+    .partnersDescription strong {font-size: 65px;}
+    .partnerLogo{width: 297px; height: 488px;}
+  }
+
+
+  @keyframes partnersFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(70px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.partnersReveal {
+  opacity: 1;
+}
+
+.partnersRevealActive {
+  animation: partnersFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

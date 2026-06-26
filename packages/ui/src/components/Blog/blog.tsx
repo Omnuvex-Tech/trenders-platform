@@ -135,10 +135,12 @@ export interface BlogUIProps {
   title: string;
   allPostsLabel: string;
   allPostsHref?: string;
+  allPostsNewTab?: boolean;
   posts: BlogPost[];
 }
 
-export function BlogUI({ title, allPostsLabel, allPostsHref = "#", posts }: BlogUIProps) {
+export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = false, posts }: BlogUIProps) {
+
   const router = useRouter();
 
   const gridVariants: Variants = {
@@ -146,22 +148,22 @@ export function BlogUI({ title, allPostsLabel, allPostsHref = "#", posts }: Blog
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15, 
+        staggerChildren: 0.15,
       },
     },
   };
 
   const cardVariants: Variants = {
-    hidden: { 
-      opacity: 0, 
-      y: 40 
+    hidden: {
+      opacity: 0,
+      y: 40
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.16, 1, 0.3, 1] as const 
+        ease: [0.16, 1, 0.3, 1] as const
       }
     }
   };
@@ -171,23 +173,27 @@ export function BlogUI({ title, allPostsLabel, allPostsHref = "#", posts }: Blog
       <div className={styles.inner}>
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
-        <Link href={allPostsHref} className={styles.allPostsBtn}>
-  <span style={{ position: 'relative', zIndex: 2 }}>{allPostsLabel}</span>
-  <svg 
-    style={{ position: 'relative', zIndex: 2 }}
-    width="16" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M22 2L30 8L22 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-</Link>
+          <Link
+            href={allPostsHref}
+            className={styles.allPostsBtn}
+            target={allPostsNewTab ? "_blank" : "_self"}
+          >
+            <span style={{ position: 'relative', zIndex: 2 }}>{allPostsLabel}</span>
+            <svg
+              style={{ position: 'relative', zIndex: 2 }}
+              width="16" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M22 2L30 8L22 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
         </div>
 
-        <motion.div 
+        <motion.div
           className={styles.grid}
           variants={gridVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }} 
+          viewport={{ once: true, margin: "-100px" }}
         >
           {posts.map(post => (
             <motion.div
@@ -196,7 +202,7 @@ export function BlogUI({ title, allPostsLabel, allPostsHref = "#", posts }: Blog
               className={styles.card}
               style={{ cursor: "pointer" }}
               onClick={() => router.push(post.href || "#")}
-              whileHover={{ y: -6, transition: { duration: 0.3 } }} 
+              whileHover={{ y: -6, transition: { duration: 0.3 } }}
             >
               <div className={styles.imageWrap}>
                 <img src={post.image} alt={post.imageAlt || post.title} className={styles.image} />

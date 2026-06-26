@@ -69,6 +69,7 @@
 
 }
 
+
 .dropdownBtn {
     display: inline-flex;
     align-items: center;
@@ -83,9 +84,11 @@
     color: rgba(40, 40, 40, 1);
     cursor: pointer;
     white-space: nowrap;
+    justify-content: center;
     transition: border-color 0.2s ease;
     position: relative;
     z-index: 11;
+    min-width: 160px; 
 }
 
 .dropdownBtn:hover,
@@ -466,4 +469,13 @@
     .card {
         padding: 16px 16px 14px;
     }
+}
+
+
+@media (min-width: 1600px) {
+  .inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 100px;
+}
 }

@@ -30,6 +30,11 @@ function toAbsUrls(images: string[]) {
     return (images ?? []).map(toAbsUrl);
 }
 
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, "").trim();
+}
+
+
 async function getPortfolio(slug: string) {
     try {
         const res = await fetch(`${process.env.API_URL}/portfolio/slug/${slug}`, {
@@ -44,25 +49,25 @@ async function getPortfolio(slug: string) {
 
 function renderSection(section: any, index: number, locale: string) {
     switch (section.type) {
-      case 'hero': {
-    const images = toAbsUrls(section.images ?? []);
-    return (
-        <PortfolioDetailHeroUI
-            key={index}
-            heroImage={images[0] ?? ''}
-            heroImageAlt={section.imagesAlt ?? ''}
-            number={section.number ?? ''}
-            title={t(section.title, locale)}
-            description={t(section.description, locale)}
-            imagesAlt={section.imagesAlt ?? ''}
-            galleryImages={images.slice(1).map((src) => ({
-                src,
-                alt: section.imagesAlt ?? '',
-            }))}
-            contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
-        />
-    );
-}
+        case 'hero': {
+            const images = toAbsUrls(section.images ?? []);
+            return (
+                <PortfolioDetailHeroUI
+                    key={index}
+                    heroImage={images[0] ?? ''}
+                    heroImageAlt={section.imagesAlt ?? ''}
+                    number={section.number ?? ''}
+                    title={t(section.title, locale)}
+                    description={t(section.description, locale)}
+                    imagesAlt={section.imagesAlt ?? ''}
+                    galleryImages={images.slice(1).map((src) => ({
+                        src,
+                        alt: section.imagesAlt ?? '',
+                    }))}
+                    contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
+                />
+            );
+        }
         case 'steps': {
             return (
                 <PortfolioDetailStepsUI
@@ -92,23 +97,23 @@ function renderSection(section: any, index: number, locale: string) {
                 />
             );
         }
-    case 'strategy': {
-    return (
-        <PortfolioDetailStrategyUI
-            key={index}
-            badge={t(section.badge, locale)}
-            title={t(section.title, locale)}
-            quote={t(section.quote, locale)}
-            mainImage={toAbsUrl(section.mainImage ?? '')}
-            quoteImage={toAbsUrl(section.quoteImage ?? '')}
-            quoteImageAlt={section.quoteImageAlt ?? ''}
-            smallImages={toAbsUrls(section.smallImages ?? ['', '']) as [string, string]}
-            smallImagesAlt={section.smallImagesAlt ?? ''}
-            descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
-            contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
-        />
-    );
-}
+        case 'strategy': {
+            return (
+                <PortfolioDetailStrategyUI
+                    key={index}
+                    badge={t(section.badge, locale)}
+                    title={t(section.title, locale)}
+                    quote={t(section.quote, locale)}
+                    mainImage={toAbsUrl(section.mainImage ?? '')}
+                    quoteImage={toAbsUrl(section.quoteImage ?? '')}
+                    quoteImageAlt={section.quoteImageAlt ?? ''}
+                    smallImages={toAbsUrls(section.smallImages ?? ['', '']) as [string, string]}
+                    smallImagesAlt={section.smallImagesAlt ?? ''}
+                    descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
+                    contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
+                />
+            );
+        }
         case 'overlay': {
             return (
                 <PortfolioDetailOverlayUI
@@ -123,6 +128,29 @@ function renderSection(section: any, index: number, locale: string) {
         }
         default:
             return null;
+    }
+}
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
+    const cookieStore = await cookies();
+    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+
+    try {
+        const portfolio = await getPortfolio(slug);
+        if (!portfolio) return { title: "Portfolio" };
+
+      return {
+  title: portfolio.seoTitle?.[locale] || stripHtml(t(portfolio.title, locale)) || "Portfolio",
+  description: portfolio.seoDescription?.[locale] || "",
+  keywords: portfolio.seoKeywords?.[locale] || "",
+};
+    } catch {
+        return { title: "Portfolio" };
     }
 }
 

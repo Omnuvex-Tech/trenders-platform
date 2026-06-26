@@ -12,7 +12,7 @@
 }
 
 .inner {
-    max-width:   ;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 100px;
 }
@@ -87,27 +87,28 @@
     left: 120%;
 }
 
-
-
-
-
-
-
-
-
-
-
-/* Grid */
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 397px);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    justify-content: center;
+    justify-content: stretch;
+}
+
+
+.imageWrap {
+    position: relative;
+    width: calc(100% - 16px);
+    height: auto;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 8px;
 }
 
 .card {
-    width: 397px;
-    min-height: 471px;
+    width: 100%;
+    min-height: auto;
     border-radius: 26px;
     box-shadow: 0px 0px 13.4px 0px rgba(12, 12, 13, 0.08);
     background: #fff;
@@ -116,17 +117,6 @@
     text-decoration: none;
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.imageWrap {
-    position: relative;
-    width: 100%;
-    height: 240px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 8px;
-    width: calc(100% - 16px);
 }
 
 .image {
@@ -269,7 +259,10 @@
         margin-left: 30px;
         margin-right: 29px;
     }
-      .header{margin-bottom: 25px;}
+
+    .header {
+        margin-bottom: 25px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -298,5 +291,60 @@
         margin-left: 30px;
         margin-right: 29px;
     }
-    .header{margin-bottom: 25px;}
+
+    .header {
+        margin-bottom: 25px;
+    }
+}
+
+
+
+@media (min-width: 2500px) {
+    .inner {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 100px;
+    }
+
+    .title {
+        font-size: 81px;
+    }
+
+    .allPostsBtn {
+        gap: 11px;
+        padding: 18px 23px;
+        font-size: 36px;
+    }
+
+    .category {
+        padding: 13px 24px;
+        font-size: 36px;
+        bottom: 35px;
+    }
+
+    .postTitle {
+        font-size: 51px;
+    }
+
+    .excerpt {
+        font-size: 31px;
+    }
+
+    .authorImg {
+        width: 85px;
+        height: 85px;
+    }
+
+    .authorName {
+        font-size: 39px;
+    }
+
+    .date {
+        font-size: 35px;
+    }
+
+    .auhtor {
+        padding-top: 31px;
+    }
+
 }

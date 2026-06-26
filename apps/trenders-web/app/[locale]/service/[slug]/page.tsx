@@ -26,6 +26,10 @@ function toAbsUrl(path: string) {
     return `${process.env.API_URL}${path}`;
 }
 
+function stripHtml(html: string): string {
+    return html.replace(/<[^>]*>/g, "").trim();
+}
+
 async function getService(slug: string) {
     try {
         const res = await fetch(
@@ -72,26 +76,26 @@ function renderSection(section: any, index: number, locale: string) {
                 />
             );
 
-    case "content":
-    return (
-        <ServiceDetailContentUI
-            key={index}
-            items={(section.items ?? []).map((item: any) => ({
-                number: getL(item.number, locale),
-                badge: getL(item.badge, locale),
-                title: getL(item.title, locale),
-                descriptions: (item.descriptions ?? []).map((d: any) =>
-                    getL(d, locale)
-                ),
-                quote: item.quote ? getL(item.quote, locale) : null,
-                quoteImage: toAbsUrl(item.quoteImage ?? ""),
-                subText: getL(item.subText, locale),
-                image: item.image ? toAbsUrl(item.image) : undefined,
-                imageAlt: getL(item.imageAlt, locale),
-                contactLabel: getL(item.contactLabel, locale),
-            }))}
-        />
-    );
+        case "content":
+            return (
+                <ServiceDetailContentUI
+                    key={index}
+                    items={(section.items ?? []).map((item: any) => ({
+                        number: getL(item.number, locale),
+                        badge: getL(item.badge, locale),
+                        title: getL(item.title, locale),
+                        descriptions: (item.descriptions ?? []).map((d: any) =>
+                            getL(d, locale)
+                        ),
+                        quote: item.quote ? getL(item.quote, locale) : null,
+                        quoteImage: toAbsUrl(item.quoteImage ?? ""),
+                        subText: getL(item.subText, locale),
+                        image: item.image ? toAbsUrl(item.image) : undefined,
+                        imageAlt: getL(item.imageAlt, locale),
+                        contactLabel: getL(item.contactLabel, locale),
+                    }))}
+                />
+            );
         case "quote":
             return (
                 <ServiceDetailQuoteUI
@@ -124,6 +128,25 @@ function renderSection(section: any, index: number, locale: string) {
 
         default:
             return null;
+    }
+}
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string; slug: string }>;
+}) {
+    const { locale, slug } = await params;
+    try {
+        const service = await getService(slug);
+        if (!service) return { title: "Xidmət" };
+        return {
+            title: service.seoTitle?.[locale] || stripHtml(getL(service.title, locale)) || "Xidmət",
+            description: service.seoDescription?.[locale] || "",
+            keywords: service.seoKeywords?.[locale] || "",
+        };
+    } catch {
+        return { title: "Xidmət" };
     }
 }
 
