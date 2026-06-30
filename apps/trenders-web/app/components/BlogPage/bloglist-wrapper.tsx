@@ -67,6 +67,7 @@ export async function BlogListWrapper() {
             },
             date: b.publishedAt ? formatDate(b.publishedAt) : "",
             href: `/Blog/${b.slug}`,
+            gif: b.gif ? toAbsUrl(b.gif) : undefined,
         };
     };
 
@@ -96,6 +97,7 @@ export async function BlogListWrapper() {
             title: t(pickOfWeek.title, locale),
             date: pickOfWeek.publishedAt ? formatDate(pickOfWeek.publishedAt) : "",
             href: `/Blog/${pickOfWeek.slug}`,
+            gif: pickOfWeek.gif ? toAbsUrl(pickOfWeek.gif) : undefined,
         }
         : undefined;
 

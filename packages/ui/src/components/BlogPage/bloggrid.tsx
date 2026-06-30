@@ -7,6 +7,7 @@ import styles from "../../styles/BlogPage/bloggrid.module.css";
 export interface BlogGridItem {
     id: number;
     image: string;
+    gif?: string;
     imageAlt?: string;
     category: string;
     title: string;
@@ -43,8 +44,15 @@ export function BlogGridUI({
                                 <img
                                     src={post.image}
                                     alt={post.imageAlt || post.title}
-                                    className={styles.image}
+                                    className={`${styles.image} ${post.gif ? styles.imageStatic : ""}`}
                                 />
+                                {post.gif && (
+                                    <img
+                                        src={post.gif}
+                                        alt=""
+                                        className={`${styles.image} ${styles.imageGif}`}
+                                    />
+                                )}
                                 <span className={styles.category}>
                                     {post.category}
                                 </span>

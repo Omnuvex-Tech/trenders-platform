@@ -45,6 +45,7 @@ export async function BlogPostPreviewWrapper() {
         <BlogDetailHeroUI
             href={`/Blog/${blog.slug}`}
             image={toAbsUrl(coverImage)}
+            gif={blog.gif ? toAbsUrl(blog.gif) : undefined}
             imageAlt={t(blog.coverImageAlt, locale)}
             overlayBadge={t(blog.badge, locale)}
             overlayTitle={t(blog.title, locale)}

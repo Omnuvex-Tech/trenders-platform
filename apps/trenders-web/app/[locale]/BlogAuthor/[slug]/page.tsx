@@ -31,38 +31,65 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
 
   try {
-    const author = await getAuthor(slug);
+    const [author, contactRes] = await Promise.all([
+      getAuthor(slug),
+      fetch(`${process.env.API_URL}/contact`, { cache: "no-store" }),
+    ]);
+
     if (!author) return { title: "Author" };
+
+    const contact = contactRes.ok ? await contactRes.json() : null;
+
+    const contactTags: string[] = [];
+    if (Array.isArray(contact?.tags)) {
+      contact.tags.forEach((tag: any) => {
+        const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+        if (val) contactTags.push(val);
+      });
+    }
 
     const name = typeof author.name === "object"
       ? (author.name[locale] || author.name.az || "")
       : (author.name || "");
+
+    const manualKeywords = author.seoKeywords?.[locale] || "";
+    const allKeywords = [
+      ...manualKeywords.split(",").map((k: string) => k.trim()).filter(Boolean),
+      ...contactTags,
+    ].join(", ");
 
     return {
       title: author.seoTitle?.[locale] || stripHtml(name) || "Author",
       description: author.seoDescription?.[locale] || stripHtml(
         typeof author.bio === "object" ? (author.bio[locale] || author.bio.az || "") : (author.bio || "")
       ) || "",
-      keywords: author.seoKeywords?.[locale] || "",
+      keywords: allKeywords || undefined,
     };
   } catch {
     return { title: "Author" };
   }
 }
-
 export default async function BlogAuthorPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
     const cookieStore = await cookies();
     const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
 
-    const translationResponse = await api.get<Translation[]>(
-        config.endpoints.translations.list,
-        { locale }
-    );
+    const [author, translationResponse] = await Promise.all([
+        getAuthor(slug),
+        api.get<Translation[]>(config.endpoints.translations.list, { locale }),
+    ]);
+
+    const jsonLd = author?.schema?.[locale];
 
     return (
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
+            {jsonLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            )}
             <NavbarWrapper
                 locale={locale}
                 languages={STATIC_LANGUAGES}

@@ -141,19 +141,38 @@ export async function generateMetadata({
     const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
 
     try {
-        const portfolio = await getPortfolio(slug);
+        const [portfolio, contactRes] = await Promise.all([
+            getPortfolio(slug),
+            fetch(`${process.env.API_URL}/contact`, { cache: "no-store" }),
+        ]);
+
         if (!portfolio) return { title: "Portfolio" };
 
-      return {
-  title: portfolio.seoTitle?.[locale] || stripHtml(t(portfolio.title, locale)) || "Portfolio",
-  description: portfolio.seoDescription?.[locale] || "",
-  keywords: portfolio.seoKeywords?.[locale] || "",
-};
+        const contact = contactRes.ok ? await contactRes.json() : null;
+
+        const contactTags: string[] = [];
+        if (Array.isArray(contact?.tags)) {
+            contact.tags.forEach((tag: any) => {
+                const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+                if (val) contactTags.push(val);
+            });
+        }
+
+        const manualKeywords = portfolio.seoKeywords?.[locale] || "";
+        const allKeywords = [
+            ...manualKeywords.split(",").map((k: string) => k.trim()).filter(Boolean),
+            ...contactTags,
+        ].join(", ");
+
+        return {
+            title: portfolio.seoTitle?.[locale] || stripHtml(t(portfolio.title, locale)) || "Portfolio",
+            description: portfolio.seoDescription?.[locale] || "",
+            keywords: allKeywords || undefined,
+        };
     } catch {
         return { title: "Portfolio" };
     }
 }
-
 export default async function PortfolioDetailPage({
     params,
 }: {
@@ -171,8 +190,16 @@ export default async function PortfolioDetailPage({
 
     if (!portfolio) notFound();
 
+    const jsonLd = portfolio.schema?.[locale];
+
     return (
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
+            {jsonLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            )}
             <NavbarWrapper
                 locale={locale}
                 languages={STATIC_LANGUAGES}

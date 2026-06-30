@@ -48,13 +48,19 @@ export function FaqUI({ items }: FaqUIProps) {
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                <motion.div 
+                {/* <motion.div 
                     className={styles.accordion}
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.15 }}
-                >
+                > */}
+                <motion.div 
+  className={styles.accordion}
+  variants={containerVariants}
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.15 }}
+>
                     {items.map((item, index) => {
                         const isOpen = openId === item.id;
                         const num = String(index + 1).padStart(2, "0");

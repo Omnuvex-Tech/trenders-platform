@@ -138,12 +138,33 @@ export async function generateMetadata({
 }) {
     const { locale, slug } = await params;
     try {
-        const service = await getService(slug);
+        const [service, contactRes] = await Promise.all([
+            getService(slug),
+            fetch(`${process.env.API_URL}/contact`, { cache: "no-store" }),
+        ]);
+
         if (!service) return { title: "Xidmət" };
+
+        const contact = contactRes.ok ? await contactRes.json() : null;
+
+        const contactTags: string[] = [];
+        if (Array.isArray(contact?.tags)) {
+            contact.tags.forEach((tag: any) => {
+                const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+                if (val) contactTags.push(val);
+            });
+        }
+
+        const manualKeywords = service.seoKeywords?.[locale] || "";
+        const allKeywords = [
+            ...manualKeywords.split(",").map((k: string) => k.trim()).filter(Boolean),
+            ...contactTags,
+        ].join(", ");
+
         return {
             title: service.seoTitle?.[locale] || stripHtml(getL(service.title, locale)) || "Xidmət",
             description: service.seoDescription?.[locale] || "",
-            keywords: service.seoKeywords?.[locale] || "",
+            keywords: allKeywords || undefined,
         };
     } catch {
         return { title: "Xidmət" };
@@ -173,8 +194,16 @@ export default async function ServiceDetailPage({
         notFound();
     }
 
+    const jsonLd = service.schema?.[locale];
+
     return (
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
+            {jsonLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            )}
             <NavbarWrapper
                 locale={locale}
                 languages={STATIC_LANGUAGES}

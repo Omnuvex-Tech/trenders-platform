@@ -29,6 +29,7 @@ async function getPortfolios(locale: string): Promise<PortfolioItem[]> {
         return data.map((p: any) => ({
             id: p.id,
             image: toAbsUrl(p.coverImage),
+            gif: p.gif ? toAbsUrl(p.gif) : undefined,
             imageAlt: t(p.coverImageAlt, locale) || stripHtml(t(p.title, locale)),
             tags: p.tags,
             title: t(p.title, locale),

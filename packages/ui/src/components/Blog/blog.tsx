@@ -188,13 +188,19 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
           </Link>
         </div>
 
-        <motion.div
+        {/* <motion.div
           className={styles.grid}
           variants={gridVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-        >
+        > */}
+        <motion.div
+  className={styles.grid}
+  variants={gridVariants}
+  whileInView="visible"
+  viewport={{ once: true, margin: "-100px" }}
+>
           {posts.map(post => (
             <motion.div
               key={post.id}

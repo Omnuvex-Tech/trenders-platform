@@ -26,15 +26,6 @@ export default function RootLayout({
   return (
     <html lang="az">
       <head>
-     <script
-  dangerouslySetInnerHTML={{
-    __html: `
-      document.addEventListener("visibilitychange", function() {
-        alert("visibilitychange: " + document.visibilityState);
-      });
-    `,
-  }}
-/>
         <meta httpEquiv="Cache-Control" content="no-store" />
         <link
           rel="stylesheet"

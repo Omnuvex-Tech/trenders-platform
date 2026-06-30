@@ -27,12 +27,33 @@ export async function generateMetadata({
 }) {
   const { locale, slug } = await params;
   try {
-    const vacancy = await getVacancy(slug);
+    const [vacancy, contactRes] = await Promise.all([
+      getVacancy(slug),
+      fetch(`${process.env.API_URL}/contact`, { cache: "no-store" }),
+    ]);
+
     if (!vacancy) return { title: "Vakansiya" };
+
+    const contact = contactRes.ok ? await contactRes.json() : null;
+
+    const contactTags: string[] = [];
+    if (Array.isArray(contact?.tags)) {
+      contact.tags.forEach((tag: any) => {
+        const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+        if (val) contactTags.push(val);
+      });
+    }
+
+    const manualKeywords = vacancy.seoKeywords?.[locale] || "";
+    const allKeywords = [
+      ...manualKeywords.split(",").map((k: string) => k.trim()).filter(Boolean),
+      ...contactTags,
+    ].join(", ");
+
     return {
       title: vacancy.seoTitle?.[locale] || vacancy.title?.[locale] || vacancy.title?.az || "Vakansiya",
       description: vacancy.seoDescription?.[locale] || "",
-      keywords: vacancy.seoKeywords?.[locale] || "",
+      keywords: allKeywords || undefined,
     };
   } catch {
     return { title: "Vakansiya" };
@@ -50,13 +71,21 @@ export default async function VacancyDetailPage({
     notFound();
   }
 
-  const translationResponse = await api.get<Translation[]>(
-    config.endpoints.translations.list,
-    { locale }
-  );
+  const [vacancy, translationResponse] = await Promise.all([
+    getVacancy(slug),
+    api.get<Translation[]>(config.endpoints.translations.list, { locale }),
+  ]);
+
+  const jsonLd = vacancy?.schema?.[locale];
 
   return (
     <div className="flex min-h-svh w-full flex-col items-start justify-start">
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <NavbarWrapper
         locale={locale}
         languages={STATIC_LANGUAGES}

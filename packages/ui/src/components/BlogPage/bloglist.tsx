@@ -13,6 +13,7 @@ export interface BlogAuthor {
 export interface BlogListItem {
     id: number;
     image: string;
+    gif?: string;
     imageAlt?: string;
     badge: string;
     title: string;
@@ -32,6 +33,7 @@ export interface BlogCategory {
 
 export interface FeaturedBlog {
     image: string;
+    gif?: string;
     imageAlt?: string;
     badge: string;
     title: string;
@@ -274,11 +276,14 @@ export function BlogListUI({
                                     className={styles.postItem}
                                 >
                                     <a href={post.href || "#"} className={styles.postImgLink}>
-                                        <img
-                                            src={post.image}
-                                            alt={post.imageAlt || post.title}
-                                            className={styles.postImg}
-                                        />
+                                    <img
+    src={post.image}
+    alt={post.imageAlt || post.title}
+    className={`${styles.postImg} ${post.gif ? styles.imageStatic : ""}`}
+/>
+{post.gif && (
+    <img src={post.gif} alt="" className={`${styles.postImg} ${styles.imageGif}`} />
+)}
                                     </a>
                                     <div className={styles.postContent}>
                                         <span className={styles.postBadge}>{post.badge}</span>
@@ -353,9 +358,18 @@ export function BlogListUI({
                     {featuredBlog && (
                         <div className={styles.featuredWrap}>
                             <h4 className={styles.featuredTitle}>{featuredBlogTitle}</h4>
-                            <a href={featuredBlog.href || "#"} className={styles.featuredPost}>
-                                <img src={featuredBlog.image} alt={featuredBlog.imageAlt || featuredBlog.title} className={styles.featuredImg} />
-                                <div className={styles.featuredContent}>
+                      <a href={featuredBlog.href || "#"} className={styles.featuredPost}>
+    <div className={styles.featuredImgWrap}>
+        <img
+            src={featuredBlog.image}
+            alt={featuredBlog.imageAlt || featuredBlog.title}
+            className={`${styles.featuredImg} ${featuredBlog.gif ? styles.imageStatic : ""}`}
+        />
+        {featuredBlog.gif && (
+            <img src={featuredBlog.gif} alt="" className={`${styles.featuredImg} ${styles.imageGif}`} />
+        )}
+    </div>
+    <div className={styles.featuredContent}>
                                     <span className={styles.featuredBadge}>{featuredBlog.badge}</span>
                                     <div
                                         className={styles.featuredPostTitle}

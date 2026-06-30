@@ -353,7 +353,6 @@ export function ServicesUI({ title, services }: ServicesUIProps) {
                                 variants={rowVariants}
                                 initial="hidden"
                                 whileInView="visible"
-                                // viewport={{ once: true, amount: 0.2 }}
                                 viewport={{ once: false, amount: 0.2 }}
                             >
                                 <MotionLink

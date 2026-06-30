@@ -65,9 +65,9 @@ export async function BlogWrapper({ locale }: { locale?: string }) {
     authorImage: toAbsUrl(b.author?.avatar ?? ""),
     authorImageAlt: t(b.author?.avatarAlt, resolvedLocale) || t(b.author?.name, resolvedLocale),
     authorName: t(b.author?.name, resolvedLocale),
-    authorHref: b.author?.slug ? `/${resolvedLocale}/team/${b.author.slug}` : undefined,
+    authorHref: b.author?.slug ? `/${resolvedLocale}/BlogAuthor/${b.author.slug}` : undefined,
     date: b.publishedAt ? formatDate(b.publishedAt) : "",
-    href: `/${resolvedLocale}/blog/${b.slug}`,
+    href: `/${resolvedLocale}/Blog/${b.slug}`,
   }));
 
   return (

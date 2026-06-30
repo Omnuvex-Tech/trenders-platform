@@ -16,20 +16,47 @@ import { FaqWrapper } from "@/app/components/Faq/faq-wrapper";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   try {
-    const res = await fetch(`${process.env.API_URL}/page-meta/home`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
+    const [metaRes, contactRes] = await Promise.all([
+      fetch(`${process.env.API_URL}/page-meta/home`, { cache: "no-store" }),
+      fetch(`${process.env.API_URL}/contact`, { cache: "no-store" }),
+    ]);
+
+    const data = await metaRes.json();
+    const contact = contactRes.ok ? await contactRes.json() : null;
+
+    const contactTags: string[] = [];
+    if (Array.isArray(contact?.tags)) {
+      contact.tags.forEach((tag: any) => {
+        const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+        if (val) contactTags.push(val);
+      });
+    }
+
+    const manualKeywords = data?.seoKeywords?.[locale] || "";
+    const allKeywords = [
+      ...manualKeywords.split(",").map((k: string) => k.trim()).filter(Boolean),
+      ...contactTags,
+    ].join(", ");
+
     return {
       title: data?.seoTitle?.[locale] || "Ana Səhifə",
       description: data?.seoDescription?.[locale] || "",
-      keywords: data?.seoKeywords?.[locale] || "",
+      keywords: allKeywords || undefined,
     };
   } catch {
     return { title: "Ana Səhifə" };
   }
 }
 
+async function getPageSchema(locale: string) {
+  try {
+    const res = await fetch(`${process.env.API_URL}/page-meta/home`, { cache: "no-store" });
+    const data = await res.json();
+    return data?.schema?.[locale] || null;
+  } catch {
+    return null;
+  }
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
@@ -38,10 +65,19 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         notFound();
     }
 
-    const translationResponse = await api.get<Translation[]>(config.endpoints.translations.list, { locale });
+    const [translationResponse, schema] = await Promise.all([
+        api.get<Translation[]>(config.endpoints.translations.list, { locale }),
+        getPageSchema(locale),
+    ]);
 
     return (
         <div className="flex min-h-svh w-full flex-col items-center justify-start pt-0 pb-8">
+            {schema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+                />
+            )}
             <NavbarWrapper 
                 locale={locale} 
                 languages={STATIC_LANGUAGES}
@@ -58,4 +94,3 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
     );
 }
-

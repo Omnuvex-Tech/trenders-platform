@@ -12,6 +12,7 @@ export interface BlogDetailAuthor {
 export interface BlogDetailHeroUIProps {
     href?: string;
     image: string;
+    gif?: string;
     imageAlt?: string;
     overlayBadge: string;
     overlayTitle: string;
@@ -30,6 +31,7 @@ export function BlogDetailHeroUI({
     overlayTitle,
     badge,
     title,
+    gif,
     description,
     author,
     date,
@@ -39,14 +41,11 @@ export function BlogDetailHeroUI({
             <div className={styles.inner}>
                 <div className={styles.card}>
 
-                    {/* Sol: şəkil */}
                     <Link href={href} className={styles.imageWrap}>
-                        <img src={image} alt={imageAlt} className={styles.image} />
-                        {/* <div className={styles.imageOverlay}>
-                            <span className={styles.overlayBadge}>{overlayBadge}</span>
-                            <div className={styles.overlayTitle} dangerouslySetInnerHTML={{ __html: overlayTitle }} />
-                        </div> */}
-                    </Link>
+<img src={image} alt={imageAlt} className={`${styles.image} ${gif ? styles.imageStatic : ""}`} />
+{gif && (
+    <img src={gif} alt="" className={`${styles.image} ${styles.imageGif}`} />
+)}                    </Link>
 
                     {/* Sağ: məzmun */}
                     <div className={styles.content}>

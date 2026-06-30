@@ -64,6 +64,8 @@
     cursor: pointer;
 }
 .projectCardImg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -73,6 +75,24 @@
 
 .projectCard:hover .projectCardImg {
   transform: scale(1.04);
+}
+
+.imageStatic {
+  opacity: 1;
+  transition: opacity 0.6s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.imageGif {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.projectCardWithGif:hover .imageStatic {
+  opacity: 0;
+}
+
+.projectCardWithGif:hover .imageGif {
+  opacity: 1;
 }
 
 .projectCardOverlay {

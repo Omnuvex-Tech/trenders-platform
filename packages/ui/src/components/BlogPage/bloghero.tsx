@@ -6,6 +6,7 @@ import styles from "../../styles/BlogPage/bloghero.module.css";
 export interface BlogItem {
     id: number;
     image: string;
+    gif?: string;
     imageAlt?: string;
     badge: string;
     title: string;
@@ -59,11 +60,18 @@ export function BlogSectionUI({
 
                 <div className={styles.grid}>
                     <a href={featuredPost.href || "#"} className={styles.featuredWrap}>
-                        <img
-                            src={featuredPost.image}
-                            alt={featuredPost.imageAlt || featuredPost.title}
-                            className={styles.featuredImg}
-                        />
+                       <img
+    src={featuredPost.image}
+    alt={featuredPost.imageAlt || featuredPost.title}
+    className={`${styles.featuredImg} ${featuredPost.gif ? styles.imageStatic : ""}`}
+/>
+{featuredPost.gif && (
+    <img
+        src={featuredPost.gif}
+        alt=""
+        className={`${styles.featuredImg} ${styles.imageGif}`}
+    />
+)}
                         <div className={styles.featuredOverlay}>
                             <span className={styles.featuredBadge}>{featuredPost.badge}</span>
                             <div className={styles.featuredTitle} dangerouslySetInnerHTML={{ __html: featuredPost.title }} />

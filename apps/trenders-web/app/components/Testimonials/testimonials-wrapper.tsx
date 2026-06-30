@@ -71,3 +71,9 @@ export async function TestimonialsWrapper({ locale = "az" }: TestimonialsWrapper
     />
   );
 }
+
+
+
+
+
+

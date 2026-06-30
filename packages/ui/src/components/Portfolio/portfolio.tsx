@@ -7,6 +7,7 @@ import styles from "../../styles/Portfolio/portfolio.module.css";
 export interface PortfolioItem {
   id: number;
   image: string;
+  gif?: string;
   imageAlt?: string;
   tags: string[];
   title: string;
@@ -119,13 +120,20 @@ export function PortfolioUI({
           <Link
             key={`${project.id}-${i}`}
             href={project.slug ? `/portfolio/${project.slug}` : '#'}
-            className={styles.projectCard}
+            className={`${styles.projectCard} ${project.gif ? styles.projectCardWithGif : ""}`}
           >
             <img
               src={project.image}
               alt={project.imageAlt || ""}
-              className={styles.projectCardImg}
+              className={`${styles.projectCardImg} ${styles.imageStatic}`}
             />
+            {project.gif && (
+              <img
+                src={project.gif}
+                alt=""
+                className={`${styles.projectCardImg} ${styles.imageGif}`}
+              />
+            )}
             <div className={styles.projectCardOverlay} />
             <div className={styles.projectCardContent}>
               <div className={styles.projectTags}>
@@ -141,7 +149,6 @@ export function PortfolioUI({
           </Link>
         ))}
       </div>
-
       {isMounted && filteredProjects.length > visibleCount && (
         <div className={styles.moreBtnWrapper}>
           <button

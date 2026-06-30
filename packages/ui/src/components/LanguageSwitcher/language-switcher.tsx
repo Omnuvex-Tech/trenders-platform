@@ -1,117 +1,7 @@
-// "use client";
-
-// import { useState, useMemo } from "react";
-// import { ChevronDown } from "lucide-react";
-// import type { Language, LanguageSwitcherProps } from "@repo/types/types";
-// import { cn } from "../../lib/utils";
-
-// const LanguageSwitcher = ({
-//     languages,
-//     defLang,
-//     locale,
-//     onLocaleChange,
-//     variant = "desktop",
-// }: LanguageSwitcherProps & {
-//     locale: string;
-//     onLocaleChange: (locale: string) => void;
-//     variant?: "desktop" | "mobile";
-// }) => {
-//     const [isOpen, setIsOpen] = useState(false);
-//     const activeLocale = locale || defLang;
-
-//     const activeLang = useMemo(() => {
-//         const lang = languages.find((l) => l.code === activeLocale);
-//         return {
-//             code: (lang?.code || activeLocale || "az").toUpperCase(),
-//         };
-//     }, [activeLocale, languages]);
-
-//     const isDesktop = variant === "desktop";
-
-//     return (
-//         <div className="relative">
-// <button
-//     type="button"
-//     className="cursor-pointer text-[15px] font-normal text-[#1a1a1a] bg-none border-none p-0"
-//     onClick={() => setIsOpen((prev) => !prev)}
-//     aria-haspopup="listbox"
-//     aria-expanded={isOpen}
-// >
-//     <span>{activeLang.code}</span>
-// </button>
-//             {isOpen && (
-//                 <div
-//                     className={cn(
-//                         "absolute top-full right-0 z-30 mt-2 rounded-xl border border-[#d7deea] bg-white p-1.5 shadow-[0_10px_24px_rgba(17,24,39,0.12)]",
-//                         isDesktop ? "min-w-[120px]" : "min-w-[110px]"
-//                     )}
-//                 >
-//                     {languages.map((lang) => {
-//                         const isActive = lang.code === activeLocale;
-//                         const code = lang.code.toUpperCase();
-
-//                         return (
-//                             <button
-//                                 key={lang.id}
-//                                 type="button"
-//                                 className={cn(
-//                                     "flex w-full cursor-pointer items-center gap-2 rounded-lg border px-2.5 py-2 text-left text-[14px] font-medium text-[#1d2230] transition-colors",
-//                                     isActive ? "border-[#c7d8fb] bg-[#e7efff]" : "border-transparent hover:bg-[#f3f4f6]"
-//                                 )}
-//                                 onClick={() => {
-//                                     onLocaleChange(lang.code);
-//                                     setIsOpen(false);
-//                                 }}
-//                                 role="option"
-//                                 aria-selected={isActive}
-//                             >
-//                                 <span>{code}</span>
-//                             </button>
-//                         );
-//                     })}
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export { LanguageSwitcher };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
+import { ChevronDown } from "lucide-react";
 import type { Language, LanguageSwitcherProps } from "@repo/types/types";
 import { cn } from "../../lib/utils";
 
@@ -126,6 +16,7 @@ const LanguageSwitcher = ({
     onLocaleChange: (locale: string) => void;
     variant?: "desktop" | "mobile";
 }) => {
+    const [isOpen, setIsOpen] = useState(false);
     const activeLocale = locale || defLang;
 
     const activeLang = useMemo(() => {
@@ -138,46 +29,49 @@ const LanguageSwitcher = ({
     const isDesktop = variant === "desktop";
 
     return (
-        <details className="relative group">
-            <summary className="cursor-pointer text-[15px] font-normal text-[#1a1a1a] p-0 list-none select-none">
-                <span>{activeLang.code}</span>
-            </summary>
-            <div className={cn(
-                "absolute top-full right-0 z-[200] mt-2 rounded-xl border border-[#d7deea] bg-white p-1.5 shadow-[0_10px_24px_rgba(17,24,39,0.12)] hidden group-open:block",
-                isDesktop ? "min-w-[120px]" : "min-w-[110px]"
-            )}>
-                {languages.map((lang) => {
-                    const isActive = lang.code === activeLocale;
-                    const code = lang.code.toUpperCase();
+        <div className="relative">
+<button
+    type="button"
+    className="cursor-pointer text-[15px] font-normal text-[#1a1a1a] bg-none border-none p-0"
+    onClick={() => setIsOpen((prev) => !prev)}
+    aria-haspopup="listbox"
+    aria-expanded={isOpen}
+>
+    <span>{activeLang.code}</span>
+</button>
+            {isOpen && (
+                <div
+                    className={cn(
+                        "absolute top-full right-0 z-30 mt-2 rounded-xl border border-[#d7deea] bg-white p-1.5 shadow-[0_10px_24px_rgba(17,24,39,0.12)]",
+                        isDesktop ? "min-w-[120px]" : "min-w-[110px]"
+                    )}
+                >
+                    {languages.map((lang) => {
+                        const isActive = lang.code === activeLocale;
+                        const code = lang.code.toUpperCase();
 
-                    // URL-i birbaşa hesabla — JS callback yox
-                    const currentPath = typeof window !== "undefined" ? window.location.pathname : "/";
-                    const segments = currentPath.split("/").filter(Boolean);
-                    const knownLocales = languages.map(l => l.code);
-                    if (knownLocales.includes(segments[0] ?? "")) {
-                        segments[0] = lang.code;
-                    } else {
-                        segments.unshift(lang.code);
-                    }
-                    const href = `/${segments.join("/")}`;
-
-                    return (
-                        <a
-                            key={lang.id}
-                            href={href}
-                            className={cn(
-                                "flex w-full items-center gap-2 rounded-lg border px-2.5 py-2 text-left text-[14px] font-medium text-[#1d2230] transition-colors no-underline",
-                                isActive ? "border-[#c7d8fb] bg-[#e7efff]" : "border-transparent hover:bg-[#f3f4f6]"
-                            )}
-                            role="option"
-                            aria-selected={isActive}
-                        >
-                            <span>{code}</span>
-                        </a>
-                    );
-                })}
-            </div>
-        </details>
+                        return (
+                            <button
+                                key={lang.id}
+                                type="button"
+                                className={cn(
+                                    "flex w-full cursor-pointer items-center gap-2 rounded-lg border px-2.5 py-2 text-left text-[14px] font-medium text-[#1d2230] transition-colors",
+                                    isActive ? "border-[#c7d8fb] bg-[#e7efff]" : "border-transparent hover:bg-[#f3f4f6]"
+                                )}
+                                onClick={() => {
+                                    onLocaleChange(lang.code);
+                                    setIsOpen(false);
+                                }}
+                                role="option"
+                                aria-selected={isActive}
+                            >
+                                <span>{code}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+        </div>
     );
 };
 

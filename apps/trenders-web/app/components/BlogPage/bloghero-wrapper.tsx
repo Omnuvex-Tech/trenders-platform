@@ -27,6 +27,7 @@ function mapBlogItem(b: any, locale: string): BlogItem {
     return {
         id: b.id,
         image: toAbsUrl(coverImage),
+        gif: b.gif ? toAbsUrl(b.gif) : undefined,
         imageAlt: t(b.coverImageAlt, locale),
         badge: t(b.badge, locale),
         title: t(b.title, locale),

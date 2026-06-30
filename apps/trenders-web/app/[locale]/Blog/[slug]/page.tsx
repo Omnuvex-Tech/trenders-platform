@@ -144,8 +144,15 @@ export async function generateMetadata({
     const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
 
     try {
-        const blog = await getBlog(slug);
+        const [blog, contactRes] = await Promise.all([
+            getBlog(slug),
+            fetch(`${process.env.API_URL}/contact`, { cache: "no-store" }),
+        ]);
+
         if (!blog) return { title: "Blog" };
+
+        const contact = contactRes.ok ? await contactRes.json() : null;
+
         const articleHashtags: string[] = [];
         for (const section of blog.sections ?? []) {
             if (section.type === "article") {
@@ -160,10 +167,20 @@ export async function generateMetadata({
                 }
             }
         }
+
+        const contactTags: string[] = [];
+        if (Array.isArray(contact?.tags)) {
+            contact.tags.forEach((tag: any) => {
+                const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+                if (val) contactTags.push(val);
+            });
+        }
+
         const manualKeywords = blog.seoKeywords?.[locale] || "";
         const allKeywords = [
             ...manualKeywords.split(",").map((k: string) => k.trim()).filter(Boolean),
             ...articleHashtags,
+            ...contactTags,
         ].join(", ");
 
         return {
@@ -175,7 +192,6 @@ export async function generateMetadata({
         return { title: "Blog" };
     }
 }
-
 export default async function BlogDetailPage({
     params,
 }: {
@@ -193,8 +209,16 @@ export default async function BlogDetailPage({
 
     if (!blog || !blog.isVisible) notFound();
 
+    const jsonLd = blog.schema?.[locale];
+
     return (
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
+            {jsonLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+            )}
             <NavbarWrapper
                 locale={locale}
                 languages={STATIC_LANGUAGES}

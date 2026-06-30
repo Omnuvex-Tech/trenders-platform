@@ -56,6 +56,7 @@ export async function BlogGridWrapper() {
             return {
                 id: b.id,
                 image: toAbsUrl(coverImage),
+                gif: b.gif ? toAbsUrl(b.gif) : undefined,
                 imageAlt: t(b.coverImageAlt, locale) || t(b.title, locale),
                 category: t(b.badge, locale),
                 title: t(b.title, locale),

@@ -22,6 +22,7 @@ async function getHomepageProjects(locale: string): Promise<ProjectItem[]> {
     return data.map((p: any) => ({
       id: p.id,
       image: p.coverImage?.startsWith('http') ? p.coverImage : `${API}${p.coverImage}`,
+      gif: p.gif ? (p.gif.startsWith('http') ? p.gif : `${API}${p.gif}`) : undefined,
       tags: p.tags ?? [],
       title: t(p.title, locale),
       slug: p.slug,
