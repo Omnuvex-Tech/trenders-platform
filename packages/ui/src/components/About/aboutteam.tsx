@@ -92,7 +92,6 @@ export function AboutTeamUI({
     members,
 }: AboutTeamUIProps) {
 
-    // Team-dəki eyni variant-lar (TOXUNULMAYIB)
     const titleContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -154,9 +153,6 @@ export function AboutTeamUI({
     };
 
     const descriptionWords = description.split(" ");
-    // -------------------------------------------------
-
-    // title string-dirsə söz-söz animasiya et, deyilsə (ReactNode) sadə fade-up (TOXUNULMAYIB)
     const words = typeof title === "string" ? title.split(" ") : null;
 
     return (

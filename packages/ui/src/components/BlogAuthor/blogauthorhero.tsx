@@ -74,8 +74,6 @@ export function BlogAuthorHeroUI({ author, postsTitle, posts }: BlogAuthorHeroUI
                             </div>
                         </div>
                     </aside>
-
-                    {/* postsWrap — postsTitle + postsList birlikdə */}
                     <div className={styles.postsWrap}>
                         <h2 className={styles.postsTitle}>{postsTitle}</h2>
                         <div className={styles.postsList}>
@@ -90,7 +88,7 @@ export function BlogAuthorHeroUI({ author, postsTitle, posts }: BlogAuthorHeroUI
                                         <h3 className={styles.postTitle}>{post.title}</h3>
                                         <p className={styles.postExcerpt}>{post.excerpt}</p>
                                         <a href={post.readHref || "#"} className={styles.readBtn}>
-                                            {post.readLabel || "Məqaləni oxu"}
+                                            {post.readLabel}
                                         </a>
                                     </div>
                                 </div>

@@ -146,12 +146,15 @@ export function HeroClient({
     const found = baseCards.find(c => c.label === label);
     if (found?.slug) router.push(`/${locale}/service/${found.slug}`);
   }, [baseCards, locale, router]);
-
-  const handlePrimaryClick = () => {
-    if (primaryBtnNewTab) window.open(primaryBtnLink, "_blank");
-    else router.push(primaryBtnLink);
-  };
-
+  
+const handlePrimaryClick = () => {
+  if (!primaryBtnLink || primaryBtnLink.trim() === "") {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+  if (primaryBtnNewTab) window.open(primaryBtnLink, "_blank");
+  else router.push(primaryBtnLink);
+};
   const handleSecondaryClick = () => {
     if (secondaryBtnNewTab) window.open(secondaryBtnLink, "_blank");
     else router.push(secondaryBtnLink);

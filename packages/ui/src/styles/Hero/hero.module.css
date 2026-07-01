@@ -165,13 +165,6 @@
      transform: translateX(3px);
  }
 
- /* .heroSliderTrack {
-     flex: 1.5;
-     overflow: hidden;
-     height: 470px;
-     position: relative;
- } */
-
  .heroSliderTrack {
      flex: 1.5;
      overflow: hidden;
@@ -186,12 +179,12 @@
      left: 0;
      bottom: 0;
      width: 120px;
-     background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+     background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0) 31%);
      z-index: 15;
      pointer-events: none;
  }
 
- 
+
  .heroSliderContainer {
      display: flex;
      gap: 24px;

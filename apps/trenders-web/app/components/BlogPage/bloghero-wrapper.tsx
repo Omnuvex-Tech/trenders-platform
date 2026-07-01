@@ -63,7 +63,7 @@ export async function BlogSectionWrapper() {
 
     return (
         <BlogSectionUI
-            title={t(settings.pageTitle, locale, "Bloglar")}
+            title={t(settings.pageTitle, locale)}
             portfolioHref={settings.buttonLink || "/blog"}
             portfolioLabel={t(settings.buttonText, locale, "Portfolio")}
             portfolioNewTab={settings.buttonNewTab ?? false}

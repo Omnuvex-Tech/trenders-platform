@@ -224,8 +224,8 @@
     font-weight: 300;
     line-height: 1;
     position: absolute;
-    top: 7px;
-    right: 635px;
+    top: 32px;
+    right: 800px;
     overflow: hidden;
 }
 
@@ -237,8 +237,8 @@
     color: rgba(99, 99, 99, 1);
     position: relative;
     z-index: 1;         
-    max-width: 620px;
-    margin-left: auto;   
+    max-width: 788px;
+        margin-left: auto;   
     margin-right: 0;
 }
 

@@ -12,18 +12,6 @@
     gap: 0;
 }
 
-/* .authorCard {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 28px 24px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
-    position: sticky;
-    top: 32px;
-    width: 361px;
-    height: 380px;
-    border-radius: 18px;
-} */
 
 .authorCard {
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -32,9 +20,9 @@
     flex-direction: column;
     gap: 13px;
     position: sticky;
-    top: 90px;        /* 32px → 90px (navbar hündürlüyü qədər) */
+    top: 90px; 
     width: 361px;
-    height: auto;     /* 380px → auto */
+    height: auto; 
     border-radius: 18px;
 }
 
@@ -237,6 +225,24 @@
     color: rgba(61, 61, 61, 1);
 }
 
+/* .readBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
+    color: #fff;
+    text-decoration: none;
+    margin-top: 4px;
+    width: 126px;
+    height: 34px;
+    border-radius: 36px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+} */
+
+
 .readBtn {
     display: inline-flex;
     align-items: center;
@@ -252,6 +258,32 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.2s ease;
+}
+
+.readBtn::after {
+    background: #fff;
+    content: "";
+    height: 155px;
+    left: -75px;
+    opacity: .15;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    transition: all 950ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 50px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.readBtn:hover {
+    opacity: 0.9;
+}
+
+.readBtn:hover::after {
+    left: 120%;
 }
 
 .contentRow {
@@ -261,7 +293,6 @@
     align-items: start;
 }
 
-/* ─── 1280px ──────────────────────────────────────── */
 @media (max-width: 1280px) {
     .inner {
         padding: 0 60px;

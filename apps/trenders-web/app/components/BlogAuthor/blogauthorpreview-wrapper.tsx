@@ -21,30 +21,35 @@ function formatDate(dateStr: string) {
     });
 }
 
-async function getAuthorPreviewBlog() {
+async function getAuthorPreviewData() {
     try {
-        const res = await fetch(`${process.env.API_URL}/blog`, { cache: "no-store" });
-        if (!res.ok) return null;
-        const blogs = await res.json();
-        return (blogs as any[]).find((b) => b.isVisible && b.isAuthorPreview) ?? null;
+        const [blogRes, settingsRes] = await Promise.all([
+            fetch(`${process.env.API_URL}/blog`, { cache: "no-store" }),
+            fetch(`${process.env.API_URL}/blog/author-settings`, { cache: "no-store" }),
+        ]);
+        const blogs = blogRes.ok ? await blogRes.json() : [];
+        const blog = (blogs as any[]).find((b) => b.isVisible && b.isAuthorPreview) ?? null;
+        const settings = settingsRes.ok ? await settingsRes.json() : null;
+        return { blog, settings };
     } catch {
-        return null;
+        return { blog: null, settings: null };
     }
 }
-
 export async function BlogAuthorPreviewWrapper() {
     const cookieStore = await cookies();
     const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
-    const blog = await getAuthorPreviewBlog();
+    const { blog, settings } = await getAuthorPreviewData();
     if (!blog) return null;
+
+    const sectionTitle = t(settings?.otherBlogsTitle, locale, "Digər bloqlar");
 
     const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
 
     return (
         <BlogDetailPreviewUI
             href={`/Blog/${blog.slug}`}
-            sectionTitle="Digər bloqlar"
+            sectionTitle={sectionTitle}
             image={toAbsUrl(t(blog.coverImage, locale))}
             imageAlt={t(blog.coverImageAlt, locale)}
             overlayBadge={t(blog.badge, locale)}

@@ -23,19 +23,20 @@ function formatDate(dateStr: string) {
 
 async function getAuthorData(authorSlug: string) {
     try {
-        const [authorRes, blogsRes] = await Promise.all([
+        const [authorRes, blogsRes, settingsRes] = await Promise.all([
             fetch(`${API}/blog/authors/slug/${authorSlug}`, { cache: "no-store" }),
             fetch(`${API}/blog/authors/slug/${authorSlug}/blogs`, { cache: "no-store" }),
+            fetch(`${API}/blog/author-settings`, { cache: "no-store" }),
         ]);
         return {
             author: authorRes.ok ? await authorRes.json() : null,
             blogs: blogsRes.ok ? await blogsRes.json() : [],
+            settings: settingsRes.ok ? await settingsRes.json() : null,
         };
     } catch {
-        return { author: null, blogs: [] };
+        return { author: null, blogs: [], settings: null };
     }
 }
-
 interface Props {
     authorSlug: string;
 }
@@ -44,8 +45,11 @@ export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
     const cookieStore = await cookies();
     const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
-    const { author, blogs } = await getAuthorData(authorSlug);
+    const { author, blogs, settings } = await getAuthorData(authorSlug);
     if (!author) return null;
+
+    const readLabel = t(settings?.readArticleLabel, locale, "Məqaləni oxu");
+    const postsTitle = t(settings?.recentBlogsTitle, locale, "Son bloqlar");
 
     const posts = (blogs as any[]).slice(0, 3).map((b: any) => ({
         id: b.id,
@@ -56,7 +60,7 @@ export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
         title: t(b.title, locale).replace(/<[^>]*>/g, ""),
         excerpt: t(b.excerpt, locale).replace(/<[^>]*>/g, ""),
         readHref: `/Blog/${b.slug}`,
-        readLabel: "Məqaləni oxu",
+        readLabel,
     }));
 
     return (
@@ -74,7 +78,7 @@ export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
                     label: typeof s === "object" ? t(s, locale) : s,
                 })),
             }}
-            postsTitle="Son bloqlar"
+            postsTitle={postsTitle}
             posts={posts}
         />
     );
