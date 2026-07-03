@@ -113,9 +113,9 @@ text-transform: uppercase;
     line-height: 148%;
     color: rgba(70, 70, 70, 1);
     text-align: justify;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
-
-
 
 
 

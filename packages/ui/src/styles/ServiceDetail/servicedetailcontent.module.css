@@ -197,6 +197,7 @@
     .quoteLight,
     .quoteLight strong {
         font-size: 34px;
+
     }
 
 }
@@ -290,12 +291,10 @@
         align-items: flex-start;
         gap: 0;
         position: relative;
-        /* ← əlavə et */
     }
 
     .quoteText {
         position: absolute;
-        /* ← şəklin üzərində */
         top: 0;
         left: 0;
         width: 100%;
@@ -319,6 +318,11 @@
         font-size: 15px;
         text-align: left;
         line-height: 1.6;
+    }
+
+    .quoteImgWrap {
+        width: 100%;
+        margin-left: 0;
     }
 }
 
@@ -402,9 +406,11 @@
         font-size: 12px;
     }
     .quoteImgWrap {
+        width: 100%;
         height: 190px;
+        margin-left: 0;
     }
-
+    
     .quoteLight,
     .quoteLight strong {
         font-size: 13px;

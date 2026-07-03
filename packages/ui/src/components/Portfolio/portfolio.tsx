@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import styles from "../../styles/Portfolio/portfolio.module.css";
 
 export interface PortfolioItem {
@@ -40,10 +40,22 @@ export function PortfolioUI({
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(6)
   const [isMounted, setIsMounted] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [dropdownOpen])
 
   const filteredProjects = useMemo(() => {
     if (selectedOption) {
@@ -69,13 +81,13 @@ export function PortfolioUI({
 
         {showControls ? (
           <div className={styles.controls}>
-            <div className={styles.dropdownWrap}>
+            <div className={styles.dropdownWrap} ref={dropdownRef}>
               <button
                 className={`${styles.dropdownBtn} ${dropdownOpen ? styles.dropdownBtnOpen : ""}`}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 {selectedOption || dropdownLabel}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
@@ -83,19 +95,21 @@ export function PortfolioUI({
 
               {dropdownOpen && (
                 <div className={styles.dropdownList}>
-                  {dropdownOptions.map((opt) => (
-                    <button
-                      key={opt}
-                      className={`${styles.dropdownOption} ${selectedOption === opt ? styles.dropdownOptionActive : ""}`}
-                      onClick={() => {
-                        setSelectedOption(selectedOption === opt ? null : opt)
-                        setDropdownOpen(false)
-                        setVisibleCount(6)
-                      }}
-                    >
-                      {opt}
-                    </button>
-                  ))}
+                  <div className={styles.dropdownInner}>
+                    {dropdownOptions.map((opt) => (
+                      <button
+                        key={opt}
+                        className={`${styles.dropdownOption} ${selectedOption === opt ? styles.dropdownOptionActive : ""}`}
+                        onClick={() => {
+                          setSelectedOption(selectedOption === opt ? null : opt)
+                          setDropdownOpen(false)
+                          setVisibleCount(6)
+                        }}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -127,12 +141,24 @@ export function PortfolioUI({
               alt={project.imageAlt || ""}
               className={`${styles.projectCardImg} ${styles.imageStatic}`}
             />
+
             {project.gif && (
-              <img
-                src={project.gif}
-                alt=""
-                className={`${styles.projectCardImg} ${styles.imageGif}`}
-              />
+              project.gif.toLowerCase().endsWith('.mp4') ? (
+                <video
+                  src={project.gif}
+                  className={`${styles.projectCardImg} ${styles.imageGif}`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              ) : (
+                <img
+                  src={project.gif}
+                  alt=""
+                  className={`${styles.projectCardImg} ${styles.imageGif}`}
+                />
+              )
             )}
             <div className={styles.projectCardOverlay} />
             <div className={styles.projectCardContent}>
@@ -149,6 +175,7 @@ export function PortfolioUI({
           </Link>
         ))}
       </div>
+
       {isMounted && filteredProjects.length > visibleCount && (
         <div className={styles.moreBtnWrapper}>
           <button

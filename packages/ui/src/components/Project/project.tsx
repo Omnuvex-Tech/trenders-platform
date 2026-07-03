@@ -79,10 +79,25 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
 
   const inner = (
     <>
-<img src={project.image} alt={project.title} className={`${styles.projectCardImg} ${project.gif ? styles.imageStatic : ""}`} />
-{project.gif && (
-  <img src={project.gif} alt="" className={`${styles.projectCardImg} ${styles.imageGif}`} />
-)}      <div className={styles.projectCardOverlay} />
+      <img src={project.image} alt={project.title} className={`${styles.projectCardImg} ${project.gif ? styles.imageStatic : ""}`} />
+
+      {project.gif && (
+        project.gif.toLowerCase().endsWith('.mp4') ? (
+          <video
+            src={project.gif}
+            className={`${styles.projectCardImg} ${styles.imageGif}`} autoPlay
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <img
+            src={project.gif}
+            alt=""
+            className={`${styles.projectCardImg} ${styles.imageGif}`} />
+        )
+      )}
+      <div className={styles.projectCardOverlay} />
       <div className={styles.projectCardContent}>
         <div className={styles.projectTags}>
           {project.tags.map((tag) => (

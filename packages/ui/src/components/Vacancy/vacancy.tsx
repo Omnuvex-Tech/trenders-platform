@@ -1,11 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../../styles/Vacancy/vacancy.module.css";
-
-export interface VacancyTag {
-    label: string;
-}
 
 export interface VacancyItem {
     id: number;
@@ -14,7 +10,7 @@ export interface VacancyItem {
     isNew?: boolean;
     newLabel?: string;
     title: string;
-    tags: VacancyTag[];
+    filterTagLabels: string[]; // vakansiyanın bağlı olduğu filter tag adları (admin seçimi)
     detailLabel?: string;
     detailHref?: string;
     category: string;
@@ -38,10 +34,28 @@ export function VacancyUI({
     const [activeFilter, setActiveFilter] = useState<string | null>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!dropdownOpen) return;
+        const handleClick = (e: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+                setDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClick);
+        return () => document.removeEventListener('mousedown', handleClick);
+    }, [dropdownOpen]);
+
+    // const filtered = vacancies.filter((v) => {
+    //     if (selectedOption) return v.category === selectedOption;
+    //     if (activeFilter) return v.category === activeFilter;
+    //     return true;
+    // });
 
     const filtered = vacancies.filter((v) => {
         if (selectedOption) return v.category === selectedOption;
-        if (activeFilter) return v.category === activeFilter;
+        if (activeFilter) return v.filterTagLabels.includes(activeFilter);
         return true;
     });
 
@@ -66,7 +80,7 @@ export function VacancyUI({
                             </button>
                         ))}
 
-                        <div className={styles.dropdownWrap}>
+                        <div className={styles.dropdownWrap} ref={dropdownRef}>
                             <button
                                 className={`${styles.dropdownBtn} ${dropdownOpen ? styles.dropdownBtnOpen : ""}`}
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -78,19 +92,21 @@ export function VacancyUI({
                             </button>
                             {dropdownOpen && (
                                 <div className={styles.dropdownList}>
-                                    {dropdownOptions.map((opt) => (
-                                        <button
-                                            key={opt}
-                                            className={`${styles.dropdownOption} ${selectedOption === opt ? styles.dropdownOptionActive : ""}`}
-                                            onClick={() => {
-                                                setSelectedOption(selectedOption === opt ? null : opt);
-                                                setActiveFilter(null);
-                                                setDropdownOpen(false);
-                                            }}
-                                        >
-                                            {opt}
-                                        </button>
-                                    ))}
+                                    <div className={styles.dropdownInner}>
+                                        {dropdownOptions.map((opt) => (
+                                            <button
+                                                key={opt}
+                                                className={`${styles.dropdownOption} ${selectedOption === opt ? styles.dropdownOptionActive : ""}`}
+                                                onClick={() => {
+                                                    setSelectedOption(selectedOption === opt ? null : opt);
+                                                    setActiveFilter(null);
+                                                    setDropdownOpen(false);
+                                                }}
+                                            >
+                                                {opt}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -101,21 +117,21 @@ export function VacancyUI({
                 <div className={styles.grid}>
                     {filtered.map((vacancy) => (
                         <div key={vacancy.id} className={styles.card}>
-                           {vacancy.isNew && vacancy.newLabel && (
+                            {vacancy.isNew && vacancy.newLabel && (
                                 <span className={styles.newBadge}>{vacancy.newLabel}</span>
                             )}
-                           <div className={styles.cardTop}>
+                            <div className={styles.cardTop}>
                                 <span className={styles.cardDate}>{vacancy.date}</span>
                                 {vacancy.closingDate && (
                                     <span className={styles.cardClosingDate}>
-                                       {vacancy.closingDate}
+                                        {vacancy.closingDate}
                                     </span>
                                 )}
                             </div>
-                            <h3 className={styles.cardTitle}>{vacancy.title}</h3>
+                           <h3 className={styles.cardTitle}>{vacancy.title}</h3>
                             <div className={styles.tagList}>
-                                {vacancy.tags.map((tag, i) => (
-                                    <span key={i} className={styles.tag}>{tag.label}</span>
+                                {vacancy.filterTagLabels.map((label, i) => (
+                                    <span key={i} className={styles.tag}>{label}</span>
                                 ))}
                             </div>
                             <div className={styles.cardBottom}>

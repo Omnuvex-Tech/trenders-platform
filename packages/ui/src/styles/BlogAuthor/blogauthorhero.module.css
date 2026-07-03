@@ -20,9 +20,9 @@
     flex-direction: column;
     gap: 13px;
     position: sticky;
-    top: 90px; 
+    top: 90px;
     width: 361px;
-    height: auto; 
+    height: auto;
     border-radius: 18px;
 }
 
@@ -43,8 +43,8 @@
     position: absolute;
     top: 8px;
     left: 8px;
-    width: 21px;
-    height: 21px;
+    width: 28px;
+    height: 28px;
     opacity: 1;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
@@ -134,7 +134,8 @@
 }
 
 .skill {
-    color: #212121;
+    color: rgba(76, 76, 76, 1);
+    ;
     font-family: 'Poppins';
     font-weight: 300;
     font-size: 10px;
@@ -195,7 +196,7 @@
 .postCategory {
     font-family: 'Poppins';
     font-weight: 300;
-    font-size: 10px;
+    font-size: 13px;
     line-height: 18px;
     color: rgba(76, 76, 76, 1);
 }

@@ -47,11 +47,19 @@ export function BlogGridUI({
                                     className={`${styles.image} ${post.gif ? styles.imageStatic : ""}`}
                                 />
                                 {post.gif && (
-                                    <img
-                                        src={post.gif}
-                                        alt=""
-                                        className={`${styles.image} ${styles.imageGif}`}
-                                    />
+                                    post.gif.toLowerCase().endsWith('.mp4') ? (
+                                        <video
+                                            src={post.gif}
+                                            className={`${styles.image} ${styles.imageGif}`} loop
+                                            muted
+                                            playsInline
+                                        />
+                                    ) : (
+                                        <img
+                                            src={post.gif}
+                                            alt=""
+                                            className={`${styles.image} ${styles.imageGif}`} />
+                                    )
                                 )}
                                 <span className={styles.category}>
                                     {post.category}

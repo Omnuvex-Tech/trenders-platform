@@ -13,11 +13,31 @@ import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
 import type { Translation } from "@repo/types/types";
 
 type LocalizedString = Record<string, string>;
+type LocalizedImages = Record<string, string[]>;
+
+const LANG_PRIORITY = ["az", "en", "ru"];
 
 function t(obj: LocalizedString | any, locale: string, fallback = ""): string {
     if (!obj) return fallback;
     if (typeof obj === "string") return obj;
     return obj[locale] || obj["az"] || fallback;
+}
+
+function resolveLocalizedImages(images: LocalizedImages | string[] | any, locale: string): string[] {
+    if (Array.isArray(images)) return images; 
+    if (!images || typeof images !== "object") return [];
+    const own = images[locale];
+    if (Array.isArray(own) && own.length > 0) return own;
+    for (const l of LANG_PRIORITY) {
+        const arr = images[l];
+        if (Array.isArray(arr) && arr.length > 0) return arr;
+    }
+    return [];
+}
+
+function resolveLocalizedImage(image: LocalizedImages | string | any, locale: string): string {
+    if (typeof image === "string") return image; 
+    return resolveLocalizedImages(image, locale)[0] ?? "";
 }
 
 function toAbsUrl(path: string) {
@@ -27,7 +47,8 @@ function toAbsUrl(path: string) {
 }
 
 function toAbsUrls(images: string[]) {
-    return (images ?? []).map(toAbsUrl);
+    if (!Array.isArray(images)) return [];
+    return images.map(toAbsUrl);
 }
 
 function stripHtml(html: string): string {
@@ -50,21 +71,22 @@ async function getPortfolio(slug: string) {
 function renderSection(section: any, index: number, locale: string) {
     switch (section.type) {
         case 'hero': {
-            const images = toAbsUrls(section.images ?? []);
+            const images = toAbsUrls(resolveLocalizedImages(section.images, locale));
+            const imagesAlt = t(section.imagesAlt, locale);
             return (
                 <PortfolioDetailHeroUI
                     key={index}
                     heroImage={images[0] ?? ''}
-                    heroImageAlt={section.imagesAlt ?? ''}
+                    heroImageAlt={imagesAlt}
                     number={section.number ?? ''}
                     title={t(section.title, locale)}
                     description={t(section.description, locale)}
-                    imagesAlt={section.imagesAlt ?? ''}
+                    imagesAlt={imagesAlt}
                     galleryImages={images.slice(1).map((src) => ({
                         src,
-                        alt: section.imagesAlt ?? '',
+                        alt: imagesAlt,
                     }))}
-                    contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
+                    contactLabel={t(section.contactLabel, locale)}
                 />
             );
         }
@@ -91,37 +113,40 @@ function renderSection(section: any, index: number, locale: string) {
                     items={(section.items ?? []).map((item: any) => ({
                         number: item.number,
                         title: t(item.title, locale),
-                        images: toAbsUrls(item.images ?? []),
-                        imagesAlt: item.imagesAlt ?? '',
+                        images: toAbsUrls(resolveLocalizedImages(item.images, locale)),
+                        imagesAlt: t(item.imagesAlt, locale),
                     }))}
                 />
             );
         }
         case 'strategy': {
+            const strategyImages = toAbsUrls(resolveLocalizedImages(section.images, locale));
+            const imagesAlt = t(section.imagesAlt, locale);
             return (
                 <PortfolioDetailStrategyUI
                     key={index}
                     badge={t(section.badge, locale)}
                     title={t(section.title, locale)}
                     quote={t(section.quote, locale)}
-                    mainImage={toAbsUrl(section.mainImage ?? '')}
-                    quoteImage={toAbsUrl(section.quoteImage ?? '')}
-                    quoteImageAlt={section.quoteImageAlt ?? ''}
-                    smallImages={toAbsUrls(section.smallImages ?? ['', '']) as [string, string]}
-                    smallImagesAlt={section.smallImagesAlt ?? ''}
+                    mainImage={toAbsUrl(resolveLocalizedImage(section.mainImage, locale))}
+                    quoteImage={strategyImages[0] ?? ''}
+                    quoteImageAlt={imagesAlt}
+                    smallImages={[strategyImages[1] ?? '', strategyImages[2] ?? ''] as [string, string]}
+                    smallImagesAlt={imagesAlt}
                     descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
-                    contactLabel={t(section.contactLabel, locale) || "Bizimlə əlaqə"}
+                    contactLabel={t(section.contactLabel, locale)}
                 />
             );
         }
         case 'overlay': {
+            const overlayImages = toAbsUrls(resolveLocalizedImages(section.images, locale));
             return (
                 <PortfolioDetailOverlayUI
                     key={index}
                     badge={t(section.badge, locale)}
                     title={t(section.title, locale)}
-                    image={toAbsUrl(section.image ?? '')}
-                    imageAlt={section.imageAlt ?? ''}
+                    image={overlayImages[0] ?? ''}
+                    imageAlt={t(section.imagesAlt, locale)}
                     descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
                 />
             );
@@ -151,12 +176,13 @@ export async function generateMetadata({
         const contact = contactRes.ok ? await contactRes.json() : null;
 
         const contactTags: string[] = [];
-        if (Array.isArray(contact?.tags)) {
-            contact.tags.forEach((tag: any) => {
-                const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
-                if (val) contactTags.push(val);
-            });
-        }
+    if (Array.isArray(contact?.tags)) {
+      contact.tags.forEach((tag: any) => {
+        const raw = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+        const val = typeof raw === "string" ? raw.replace(/^#+/, "").trim() : raw;
+        if (val) contactTags.push(val);
+      });
+    }
 
         const manualKeywords = portfolio.seoKeywords?.[locale] || "";
         const allKeywords = [

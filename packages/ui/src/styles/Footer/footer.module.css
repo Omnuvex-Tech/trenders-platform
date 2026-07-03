@@ -142,19 +142,17 @@
 }
 
 .privacy {
-  font-family: 'Poppins';
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  color: rgba(146, 150, 152, 1);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: rgba(146, 150, 152, 1);
+    text-decoration: none;
+    cursor: default;
+    pointer-events: none;
 }
 
-.privacy:hover {
-  opacity: 0.7;
-}
 
 @media (max-width: 1100px) {
   .inner {

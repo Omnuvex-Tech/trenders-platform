@@ -26,7 +26,6 @@
   font-size: 15px;
   font-weight: 500;
   font-family: 'Manrope', sans-serif;
-  ;
   color: #276DE4;
   text-decoration: none;
   padding: 10px 22px;
@@ -60,7 +59,7 @@
     border-radius: 26px;
     overflow: hidden;
     width: 100%;
-    aspect-ratio: 9 / 14; 
+    aspect-ratio: 9 / 12; 
     cursor: pointer;
 }
 .projectCardImg {
@@ -188,21 +187,49 @@
   white-space: nowrap;
    overflow: hidden;
   text-overflow: ellipsis;
+  height: 40px;
 }
 
+.dropdownBtn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+/* dropdownList — scroll yox, yalnız clip */
 .dropdownList {
-  position: absolute;
-  top: 60%;
-  right: 0;
-  min-width: 160px;
-  z-index: 10;
-  padding-top: 21px;
-  background: #ffffffeb;
-  border: 1.5px solid rgba(19, 96, 228, 0.4);
-  border-top: none;
-  box-shadow: 0 8px 24px rgba(19, 96, 228, 0.08);
-  border-bottom-right-radius: 22px;
-  border-bottom-left-radius: 22px;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 160px;
+    z-index: 10;
+    background: #ffffffeb;
+    border: 1.5px solid rgba(19, 96, 228, 0.4);
+    box-shadow: 0 8px 24px rgba(19, 96, 228, 0.08);
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.dropdownInner {
+    max-height: 308px;
+    overflow-y: auto;
+    margin-right: -2px;    scrollbar-width: thin;
+    scrollbar-color: rgba(19, 96, 228, 0.35) transparent;
+}
+.dropdownInner::-webkit-scrollbar {
+    width: 4px;
+}
+
+.dropdownInner::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dropdownInner::-webkit-scrollbar-thumb {
+    background: rgba(19, 96, 228, 0.35);
+    border-radius: 4px;
+}
+
+.dropdownInner::-webkit-scrollbar-thumb:hover {
+    background: rgba(19, 96, 228, 0.6);
 }
 
 .dropdownBtn:hover,
@@ -331,7 +358,6 @@
 
   .projectsGrid {
     grid-template-columns: 1fr;
-    /* ← tək sütun */
     gap: 14px;
   }
 
@@ -349,7 +375,6 @@
     padding: 5px 12px;
   }
 
-  /* Dropdown */
   .dropdownBtn {
     font-size: 13px;
     padding: 7px 14px;

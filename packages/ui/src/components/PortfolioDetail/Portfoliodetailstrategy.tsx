@@ -19,7 +19,7 @@ export interface PortfolioDetailStrategyProps {
 export function PortfolioDetailStrategyUI({
   quote, badge, quoteImage, mainImage, smallImages, title, descriptions,
   quoteImageAlt, smallImagesAlt,
-  contactLabel = "Bizimlə əlaqə",
+  contactLabel,
   onContactClick,
 }: PortfolioDetailStrategyProps) {
   return (

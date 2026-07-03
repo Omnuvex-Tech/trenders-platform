@@ -2,7 +2,6 @@
     width: 100%;
 }
 
-
 .inner {
     max-width: 1440px;
     margin: 0 auto;
@@ -48,12 +47,14 @@
     font-size: 16px;
     line-height: 150%;
     text-align: justify;
+        word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .twoCol {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    grid-template-columns: 3fr 1fr;
+        gap: 48px;
     align-items: start;
 }
 .leftCol {
@@ -65,11 +66,15 @@
 .rightCol {
     position: sticky;
     top: 100px;
+    display: flex;
+    justify-content: flex-end;
 }
 
+
 .sideImg {
-    width: 100%;   
-    aspect-ratio: 3 / 5;
+    width: 100%;
+    max-width: 292px;
+    aspect-ratio: 292 / 480;
     border-radius: 30px;
     object-fit: cover;
     display: block;
@@ -103,7 +108,6 @@
     font-size: 13.31px;
     line-height: 17.12px;
 }
-
 
 
 @media (max-width: 1100px) {

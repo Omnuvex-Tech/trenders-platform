@@ -31,11 +31,6 @@
     line-height: 32px;
 }
 
-.backLink:hover {
-    opacity: 0.7;
-}
-
-
 .left {
     display: flex;
     flex-direction: column;

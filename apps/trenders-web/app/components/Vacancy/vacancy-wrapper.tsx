@@ -12,12 +12,17 @@ interface VacancyCategory {
   id: number;
   name: LocalizedString;
 }
+interface VacancyFilterTagAPI {
+  id: number;
+  label: LocalizedString;
+  isActive: boolean;
+}
 
 interface VacancyFromAPI {
   id: number;
   title: LocalizedString;
   slug: string;
-  tags: LocalizedString[];
+  filterTags: VacancyFilterTagAPI[];
   isNew: boolean;
   newLabel: LocalizedString | null;
   isVisible: boolean;
@@ -40,34 +45,37 @@ interface VacancyData {
   header: VacancyHeader | null;
   categories: VacancyCategory[];
   vacancies: VacancyFromAPI[];
+  filterTags: VacancyFilterTagAPI[];
 }
 
 async function getVacancyData(): Promise<VacancyData> {
   try {
-    const [headerRes, categoriesRes, vacanciesRes] = await Promise.all([
+    const [headerRes, categoriesRes, vacanciesRes, filterTagsRes] = await Promise.all([
       fetch(`${process.env.API_URL}/vacancy/header`, { cache: "no-store" }),
       fetch(`${process.env.API_URL}/vacancy/categories`, { cache: "no-store" }),
       fetch(`${process.env.API_URL}/vacancy`, { cache: "no-store" }),
+      fetch(`${process.env.API_URL}/vacancy/filter-tags`, { cache: "no-store" }),
     ]);
-    const [header, categories, vacancies] = await Promise.all([
+    const [header, categories, vacancies, filterTags] = await Promise.all([
       headerRes.ok ? headerRes.json() : null,
       categoriesRes.ok ? categoriesRes.json() : [],
       vacanciesRes.ok ? vacanciesRes.json() : [],
+      filterTagsRes.ok ? filterTagsRes.json() : [],
     ]);
-    return { header, categories, vacancies };
+    return { header, categories, vacancies, filterTags };
   } catch {
-    return { header: null, categories: [], vacancies: [] };
+    return { header: null, categories: [], vacancies: [], filterTags: [] };
   }
 }
+
 
 function formatDate(dateStr: string): string {
   return new Date(dateStr)
     .toLocaleDateString("en-US", { day: "2-digit", month: "long", year: "numeric" })
     .toUpperCase();
 }
-
 export async function VacancyWrapper({ locale = "az" }: { locale?: string }) {
-  const { header, categories, vacancies } = await getVacancyData();
+  const { header, categories, vacancies, filterTags } = await getVacancyData();
 
   const visibleVacancies = vacancies.filter((v) => v.isVisible);
   if (visibleVacancies.length === 0) return null;
@@ -85,19 +93,21 @@ export async function VacancyWrapper({ locale = "az" }: { locale?: string }) {
       newLabel: getL(v.newLabel, locale) || undefined,
       title: getL(v.title, locale),
       category: getL(v.category.name, locale),
-      tags: v.tags.slice(0, 5).map((tag) => ({
-        label: getL(tag, locale),
-      })),
+      filterTagLabels: (v.filterTags ?? []).map((ft) => getL(ft.label, locale)),
       detailHref: `/${locale}/Vacancy/${v.slug}`,
     };
   });
 
   const categoryNames = categories.map((c) => getL(c.name, locale));
+  const activeFilterTagNames = filterTags
+    .filter((t) => t.isActive)
+    .slice(0, 7)
+    .map((t) => getL(t.label, locale));
 
   return (
     <VacancyUI
       title={getL(header?.title, locale) || "Vakansiyalar"}
-      filterTags={categoryNames}
+      filterTags={activeFilterTagNames}
       dropdownLabel="Vakansiya seçin"
       dropdownOptions={categoryNames}
       vacancies={vacancyItems}

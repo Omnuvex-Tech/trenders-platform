@@ -22,10 +22,11 @@ export async function generateMetadata() {
     const data = await metaRes.json();
     const contact = contactRes.ok ? await contactRes.json() : null;
 
-    const contactTags: string[] = [];
+const contactTags: string[] = [];
     if (Array.isArray(contact?.tags)) {
       contact.tags.forEach((tag: any) => {
-        const val = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+        const raw = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+        const val = typeof raw === "string" ? raw.replace(/^#+/, "").trim() : raw;
         if (val) contactTags.push(val);
       });
     }

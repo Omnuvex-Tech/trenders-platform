@@ -27,13 +27,15 @@
     position: relative;
     z-index: 2;
     width: 62%;
-    margin-left: 0px
+    margin-left: 0px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
 }
 
 .overlay {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    padding: 65px 9px 32px;
+padding: 65px 48px 32px 9px;
     border-radius: 0 16px 16px 0;
     display: flex;
     flex-direction: column;
@@ -117,7 +119,7 @@ color: #c4c4c494;
 /* sonra */
 .heroWrap {
     width: 100%;
-    aspect-ratio: 7 / 4;
+    aspect-ratio: 7 / 3.7;
     border-radius: 42.27px;
     overflow: hidden;
     --overlap: 252px;

@@ -1,0 +1,72 @@
+.wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.trigger {
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    color: #1a1a1a;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -35px;
+    z-index: 99;
+    min-width: 100px;
+    border-radius: 16px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(90px) saturate(180%);
+    -webkit-backdrop-filter: blur(90px) saturate(180%);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    isolation: isolate;
+}
+
+.dropdownBorder {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1.43px;
+    background: linear-gradient(96.22deg, #FFFFFF -32.1%, #276DE4 56.47%, #FFFFFF 146.76%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.option {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1d2230;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.option:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.optionActive {
+    border-color: #c7d8fb;
+    background: rgba(231, 239, 255, 0.6);
+}

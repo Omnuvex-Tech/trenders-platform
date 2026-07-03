@@ -21,15 +21,18 @@ export function ServiceDetailOverlayUI({
         <section className={styles.section}>
             <div className={styles.inner}>
                 <div className={styles.container}>
-                    <img
-                        src={image}
-                        alt={imageAlt}
-                        className={styles.heroImg}
-                    />
+                    <div className={styles.heroImgWrap}>
+                        <img
+                            src={image}
+                            alt={imageAlt}
+                            className={styles.heroImg}
+                        />
+                    </div>
                     <div className={styles.content}>
                         <div className={styles.contentTop}>
                             <span className={styles.badge}>{badge}</span>
-                            <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />                        </div>
+                            <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
+                        </div>
                         <div className={styles.contentBottom}>
                             {descriptions.map((desc, i) => (
                                 <div key={i} className={styles.desc} dangerouslySetInnerHTML={{ __html: desc }} />

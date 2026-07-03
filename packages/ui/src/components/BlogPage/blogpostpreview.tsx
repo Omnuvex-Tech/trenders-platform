@@ -42,12 +42,25 @@ export function BlogDetailHeroUI({
                 <div className={styles.card}>
 
                     <Link href={href} className={styles.imageWrap}>
-<img src={image} alt={imageAlt} className={`${styles.image} ${gif ? styles.imageStatic : ""}`} />
-{gif && (
-    <img src={gif} alt="" className={`${styles.image} ${styles.imageGif}`} />
-)}                    </Link>
+                        <img src={image} alt={imageAlt} className={`${styles.image} ${gif ? styles.imageStatic : ""}`} />
+                        {gif && (
+                            gif.toLowerCase().endsWith('.mp4') ? (
+                                <video
+                                    src={gif}
+                                    className={`${styles.image} ${styles.imageGif}`} autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                />
+                            ) : (
+                                <img
+                                    src={gif}
+                                    alt=""
+                                    className={`${styles.image} ${styles.imageGif}`} />
+                            )
+                        )}
+                    </Link>
 
-                    {/* Sağ: məzmun */}
                     <div className={styles.content}>
                         <span className={styles.badge}>{badge}</span>
                         <Link href={href} className={styles.titleLink}>

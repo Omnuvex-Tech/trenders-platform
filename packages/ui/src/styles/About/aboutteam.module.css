@@ -295,11 +295,12 @@
   }
 
   .ctaBtn {
-    font-size: 14px;
-    width: auto;
-    height: 38px;
-    padding: 6px 14px;
-      align-self: flex-end; 
+        align-self: flex-end;
+        width: 123px;
+        height: 40px;
+        padding: 6px 14px;
+        font-size: 14px;
+        margin-left: 61%;
   }
 
   .grid {
@@ -355,17 +356,3 @@
     font-size: 9px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

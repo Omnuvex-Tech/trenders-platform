@@ -18,7 +18,7 @@ export interface PortfolioDetailHeroUIProps {
 export function PortfolioDetailHeroUI({
     heroImage, heroImageAlt = "", number, title, description,
     galleryImages, imagesAlt = "",
-    contactLabel = "Bizimlə əlaqə",
+    contactLabel,
     onContactClick,
 }: PortfolioDetailHeroUIProps) {
     return (
