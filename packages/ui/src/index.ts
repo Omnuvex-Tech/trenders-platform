@@ -95,7 +95,7 @@ export type { OurTeamUIProps, OurTeamMember } from "./components/OurTeam/ourteam
 
 
 export { VacancyUI } from "./components/Vacancy/vacancy";
-export type { VacancyUIProps, VacancyItem, VacancyTag } from "./components/Vacancy/vacancy";
+export type { VacancyUIProps, VacancyItem } from "./components/Vacancy/vacancy";
 
 
 export { VacancyDetailUI } from "./components/VacancyDetail/vacancydetail";

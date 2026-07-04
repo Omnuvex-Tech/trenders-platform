@@ -66,7 +66,7 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
-          el.classList.add(styles.projectCardVisible)
+         el.classList.add(styles.projectCardVisible!)
           observer.disconnect()
         }
       },

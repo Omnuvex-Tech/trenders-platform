@@ -63,7 +63,7 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
           <Link
-            href={allPostsHref}
+            href={allPostsHref || "#"}
             className={styles.allPostsBtn}
             target={allPostsNewTab ? "_blank" : "_self"}
           >
@@ -77,11 +77,11 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
           </Link>
         </div>
         <motion.div
-  className={styles.grid}
-  variants={gridVariants}
-  whileInView="visible"
-  viewport={{ once: true, margin: "-100px" }}
->
+          className={styles.grid}
+          variants={gridVariants}
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {posts.map(post => (
             <motion.div
               key={post.id}
@@ -93,7 +93,7 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
             >
               <div className={styles.imageWrap}>
                 <img src={post.image} alt={post.imageAlt || post.title} className={styles.image} />
-                
+
                 <span className={styles.category}>{post.category}</span>
               </div>
               <div className={styles.content}>

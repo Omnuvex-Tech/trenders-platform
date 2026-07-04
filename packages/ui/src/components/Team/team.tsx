@@ -19,8 +19,8 @@ export interface TeamUIProps {
     members: TeamMember[];
     featuredImage: string;
     goHref?: string;
-      goLabel?: string;   
-  goNewTab?: boolean;    
+    goLabel?: string;
+    goNewTab?: boolean;
 }
 
 export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTab = false }: TeamUIProps) {
@@ -90,7 +90,7 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                             </span>
                         ))}
                     </motion.h2>
-                    
+
                     <motion.div
                         variants={leftContentVariants}
                         initial="hidden"
@@ -98,11 +98,11 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                         viewport={{ once: true, amount: 0.2 }}
                         style={{ width: "100%" }}
                     >
-                        <Link
-  href={goHref}
+                       <Link
+  href={goHref || "#"}
   className={styles.goBtn}
   target={goNewTab ? "_blank" : "_self"}
->{goLabel} 
+>{goLabel}
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />
@@ -138,7 +138,7 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                                 }}
                             >
                                 <img src={member.image} alt={member.imageAlt || member.name} className={styles.memberImg} />
-                                
+
                                 <Link
                                     href={member.href || "#"}
                                     className={styles.plusBtn}

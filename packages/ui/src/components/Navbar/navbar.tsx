@@ -69,7 +69,7 @@ export function NavbarUI({
         results.forEach(item => {
             const a = document.createElement("a");
             a.href = item.url;
-            a.className = styles.searchSuggestionItem;
+            a.className = styles.searchSuggestionItem!;
             if (query.trim().length < 2) {
                 a.innerHTML = `<span class="${styles.searchSuggestionTitle}">${item.title}</span>`;
             } else {
@@ -85,20 +85,19 @@ export function NavbarUI({
     }, [defaultSuggestions]);
 
     const resetSearchUI = useCallback(() => {
-        // Details-i proqramatik olaraq bağla — open attribute-unu sil
         if (searchDetailsRef.current) {
             searchDetailsRef.current.open = false;
         }
-        popupRef.current?.classList.remove(styles.searchPopupOpen);
-        overlayRef.current?.classList.remove(styles.searchOverlayOpen);
+        popupRef.current?.classList.remove(styles.searchPopupOpen!);
+        overlayRef.current?.classList.remove(styles.searchOverlayOpen!);
         if (inputRef.current) inputRef.current.value = "";
         if (suggestionsRef.current) suggestionsRef.current.innerHTML = "";
         if (debounceRef.current) clearTimeout(debounceRef.current);
     }, []);
 
     const openSearch = useCallback(() => {
-        popupRef.current?.classList.add(styles.searchPopupOpen);
-        overlayRef.current?.classList.add(styles.searchOverlayOpen);
+        popupRef.current?.classList.remove(styles.searchPopupOpen!);
+        overlayRef.current?.classList.remove(styles.searchOverlayOpen!);
         renderSuggestions(defaultSuggestions, "");
         setTimeout(() => inputRef.current?.focus(), 50);
     }, [defaultSuggestions, renderSuggestions]);
@@ -107,8 +106,8 @@ export function NavbarUI({
         if (searchDetailsRef.current) {
             searchDetailsRef.current.open = false;
         }
-        popupRef.current?.classList.remove(styles.searchPopupOpen);
-        overlayRef.current?.classList.remove(styles.searchOverlayOpen);
+        popupRef.current?.classList.remove(styles.searchPopupOpen!);
+        overlayRef.current?.classList.remove(styles.searchOverlayOpen!);
         if (inputRef.current) inputRef.current.value = "";
         if (suggestionsRef.current) suggestionsRef.current.innerHTML = "";
         if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -205,7 +204,7 @@ export function NavbarUI({
                                 <details
                                     ref={searchDetailsRef}
                                     className={styles.searchDetails}
-                                    // onToggle yoxdur — useEffect içində native listener idarə edir
+                                // onToggle yoxdur — useEffect içində native listener idarə edir
                                 >
                                     <summary className={styles.searchBtn} aria-label="Axtar">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"

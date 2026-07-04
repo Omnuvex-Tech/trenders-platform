@@ -65,7 +65,7 @@ function useReveal() {
                 if (entries[0]?.isIntersecting) {
                     el.querySelectorAll<HTMLElement>("[data-reveal]").forEach((child, i) => {
                         child.style.transitionDelay = `${i * 0.07}s`;
-                        child.classList.add(styles.revealVisible);
+                       child.classList.add(styles.revealVisible!);
                     });
                     observer.disconnect();
                 }
