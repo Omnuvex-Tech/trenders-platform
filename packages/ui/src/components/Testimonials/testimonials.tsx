@@ -43,7 +43,6 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
   const opacity = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [0, 0.1, 1]);
   const scale = useTransform(scrollYProgress, [0, startTrigger, endTrigger], [0.96, 0.98, 1]);
 
-  // --- FOCAL MƏTN ANIMASIYASI VARIANTLARI (TS XƏTASIZ) ---
   const textContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -65,15 +64,13 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
       y: "0%",
       transition: {
         duration: 0.8,
-        ease: [0.16, 1, 0.3, 1] as const // ← "as const" TypeScript-i sakitləşdirir
+        ease: [0.16, 1, 0.3, 1] as const 
       }
     }
   };
 
-  // Mətni boşluqlara görə massivə bölürük
   const words = (description || "").split(" ");
 
-  // --- SLIDER MEXANİKMASI ---
   const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);
   const cardW = useCallback(() => {
     if (typeof window !== "undefined" && window.innerWidth <= 600) {
@@ -156,14 +153,14 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
               style={{ display: "flex", flexWrap: "wrap" }} 
             >
 
-              {words.map((word, index) => (
+           {words.map((word, index) => (
                 <span 
                   key={index} 
                   style={{ 
                     overflow: "hidden", 
                     display: "inline-block",
                     marginRight: "0.25em",
-                    lineHeight: "1.2"
+                    lineHeight: "inherit"
                   }}
                 >
                   <motion.span

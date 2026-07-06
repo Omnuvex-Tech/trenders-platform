@@ -40,12 +40,11 @@
 
 .description {
     color: rgba(98, 98, 98, 1);
-    line-height: 1.4;
+    line-height: 1.8;
     margin: 0;
     max-width: 390px;
-    font-family: Poppins;
+    font-family: 'Poppins';
     font-weight: 300;
-    font-style: Light;
     font-size: 14px;
 }
 
