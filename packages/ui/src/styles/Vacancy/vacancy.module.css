@@ -167,7 +167,8 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    row-gap: 48px;
+    column-gap: 24px;
 }
 
 .card {
@@ -301,7 +302,8 @@
     }
 
     .grid {
-        gap: 20px;
+        row-gap: 36px;
+        column-gap: 20px;
     }
 }
 
@@ -357,9 +359,10 @@
         padding: 7px 14px;
     }
 
-    .grid {
+  .grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        row-gap: 32px;
+        column-gap: 16px;
     }
 
     .cardTitle {
@@ -417,9 +420,10 @@
         font-size: 12px;
     }
 
-    .grid {
+   .grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        row-gap: 28px;
+        column-gap: 20px;
     }
 
     .card {

@@ -3,7 +3,7 @@
 
 import styles from "../../styles/Team/team.module.css";
 import { motion, Variants } from "framer-motion";
-import Link from "next/link"; // KRİTİK ƏLAVƏ
+import Link from "next/link";
 
 export interface TeamMember {
     id: number;
@@ -98,11 +98,11 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                         viewport={{ once: true, amount: 0.2 }}
                         style={{ width: "100%" }}
                     >
-                       <Link
-  href={goHref || "#"}
-  className={styles.goBtn}
-  target={goNewTab ? "_blank" : "_self"}
->{goLabel}
+                        <Link
+                            href={goHref || "#"}
+                            className={styles.goBtn}
+                            target={goNewTab ? "_blank" : "_self"}
+                        >{goLabel}
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />

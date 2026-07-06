@@ -119,9 +119,11 @@ function renderSection(section: any, index: number, locale: string) {
                 />
             );
         }
-        case 'strategy': {
-            const strategyImages = toAbsUrls(resolveLocalizedImages(section.images, locale));
-            const imagesAlt = t(section.imagesAlt, locale);
+       case 'strategy': {
+            const quoteImages = toAbsUrls(resolveLocalizedImages(section.quoteImages, locale));
+            const smallImages = toAbsUrls(resolveLocalizedImages(section.images, locale));
+            const quoteImagesAlt = t(section.quoteImagesAlt, locale);
+            const smallImagesAlt = t(section.imagesAlt, locale);
             return (
                 <PortfolioDetailStrategyUI
                     key={index}
@@ -129,10 +131,10 @@ function renderSection(section: any, index: number, locale: string) {
                     title={t(section.title, locale)}
                     quote={t(section.quote, locale)}
                     mainImage={toAbsUrl(resolveLocalizedImage(section.mainImage, locale))}
-                    quoteImage={strategyImages[0] ?? ''}
-                    quoteImageAlt={imagesAlt}
-                    smallImages={[strategyImages[1] ?? '', strategyImages[2] ?? ''] as [string, string]}
-                    smallImagesAlt={imagesAlt}
+                    quoteImage={quoteImages[0] ?? ''}
+                    quoteImageAlt={quoteImagesAlt}
+                    smallImages={[smallImages[0] ?? '', smallImages[1] ?? ''] as [string, string]}
+                    smallImagesAlt={smallImagesAlt}
                     descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
                     contactLabel={t(section.contactLabel, locale)}
                 />

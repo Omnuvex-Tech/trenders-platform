@@ -67,6 +67,8 @@
     line-height: 150%;
     color: rgba(36, 36, 36, 1);
     text-align: justify;
+            word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .skillTags {
