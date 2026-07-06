@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useRef, useEffect, useCallback } from "react";
@@ -96,8 +94,8 @@ export function NavbarUI({
     }, []);
 
     const openSearch = useCallback(() => {
-        popupRef.current?.classList.remove(styles.searchPopupOpen!);
-        overlayRef.current?.classList.remove(styles.searchOverlayOpen!);
+        popupRef.current?.classList.add(styles.searchPopupOpen!);
+        overlayRef.current?.classList.add(styles.searchOverlayOpen!);
         renderSuggestions(defaultSuggestions, "");
         setTimeout(() => inputRef.current?.focus(), 50);
     }, [defaultSuggestions, renderSuggestions]);
