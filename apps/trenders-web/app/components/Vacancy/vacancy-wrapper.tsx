@@ -43,6 +43,7 @@ interface VacancyHeader {
 
 interface VacancySettings {
   detailButtonLabel: LocalizedString;
+  dropdownLabel: LocalizedString;
 }
 
 interface VacancyData {
@@ -75,16 +76,17 @@ async function getVacancyData(): Promise<VacancyData> {
   }
 }
 
-
 function formatDate(dateStr: string): string {
   return new Date(dateStr)
     .toLocaleDateString("en-US", { day: "2-digit", month: "long", year: "numeric" })
     .toUpperCase();
 }
+
 export async function VacancyWrapper({ locale = "az" }: { locale?: string }) {
   const { header, categories, vacancies, filterTags, settings } = await getVacancyData();
 
   const detailLabel = getL(settings?.detailButtonLabel, locale) || "DAHA ƏTRAFLI";
+  const dropdownLabel = getL(settings?.dropdownLabel, locale) || "Vakansiya seçin";
 
   const visibleVacancies = vacancies.filter((v) => v.isVisible);
   if (visibleVacancies.length === 0) return null;
@@ -116,9 +118,9 @@ export async function VacancyWrapper({ locale = "az" }: { locale?: string }) {
 
   return (
     <VacancyUI
-      title={getL(header?.title, locale) || "Vakansiyalar"}
+      title={getL(header?.title, locale)}
       filterTags={activeFilterTagNames}
-      dropdownLabel="Vakansiya seçin"
+      dropdownLabel={dropdownLabel}
       dropdownOptions={categoryNames}
       vacancies={vacancyItems}
     />

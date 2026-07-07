@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -27,7 +25,6 @@ export interface VacancyUIProps {
     vacancies: VacancyItem[];
 }
 
-// Üst başlıq və filtrlərin axıcı gəlişi üçün konteyner
 const headerContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -38,7 +35,6 @@ const headerContainerVariants: Variants = {
     },
 };
 
-// Yazıların və kartların focal.inc üslubunda yayvari (spring) sürüşmə animasiyası
 const generalItemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -56,7 +52,7 @@ const generalItemVariants: Variants = {
 export function VacancyUI({
     title,
     filterTags,
-    dropdownLabel = "Vakansiya seçin",
+    dropdownLabel,
     dropdownOptions,
     vacancies,
 }: VacancyUIProps) {
@@ -85,9 +81,7 @@ export function VacancyUI({
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                
-                {/* 1. HİSSƏ: Başlıq və Filtrlər bloku. Ekrana girdiyi an kartları gözləmədən dərhal açılır */}
-                <motion.div 
+                                <motion.div 
                     className={styles.header}
                     variants={headerContainerVariants}
                     initial="hidden"
@@ -144,8 +138,6 @@ export function VacancyUI({
                         </div>
                     </motion.div>
                 </motion.div>
-
-                {/* 2. HİSSƏ: Vakansiyalar Qridi. Hər bir kart fərdi olaraq ekranda görünən anda tetiklenir */}
                 <div className={styles.grid}>
                     {filtered.map((vacancy) => (
                         <motion.div 
@@ -154,7 +146,7 @@ export function VacancyUI({
                             variants={generalItemVariants}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: true, margin: "-10%" }} // Hər fərdi kart ekran sahəsinə girdiyi an animasiya olunur
+                            viewport={{ once: true, margin: "-10%" }} 
                         >
                             {vacancy.isNew && vacancy.newLabel && (
                                 <span className={styles.newBadge}>{vacancy.newLabel}</span>

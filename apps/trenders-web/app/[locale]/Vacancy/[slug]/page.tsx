@@ -52,7 +52,7 @@ const contactTags: string[] = [];
     ].join(", ");
 
     return {
-      title: vacancy.seoTitle?.[locale] || vacancy.title?.[locale] || vacancy.title?.az || "Vakansiya",
+      title: vacancy.seoTitle?.[locale] || vacancy.title?.[locale] || vacancy.title?.az,
       description: vacancy.seoDescription?.[locale] || "",
       keywords: allKeywords || undefined,
     };

@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ].join(", ");
 
     return {
-      title: data?.seoTitle?.[locale] || "Vakansiya",
+      title: data?.seoTitle?.[locale],
       description: data?.seoDescription?.[locale] || "",
       keywords: allKeywords || undefined,
     };
