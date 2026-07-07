@@ -28,7 +28,7 @@ export function FaqUI({ items }: FaqUIProps) {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.12, 
+                staggerChildren: 0.12,
             }
         }
     };
@@ -55,18 +55,18 @@ export function FaqUI({ items }: FaqUIProps) {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.15 }}
                 > */}
-                <motion.div 
-  className={styles.accordion}
-  variants={containerVariants}
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.15 }}
->
+                <motion.div
+                    className={styles.accordion}
+                    variants={containerVariants}
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.15 }}
+                >
                     {items.map((item, index) => {
                         const isOpen = openId === item.id;
                         const num = String(index + 1).padStart(2, "0");
                         return (
-                            <motion.div 
-                                key={item.id} 
+                            <motion.div
+                                key={item.id}
                                 className={`${styles.item} ${isOpen ? styles.itemOpen : ""}`}
                                 variants={itemVariants}
                             >
@@ -77,7 +77,7 @@ export function FaqUI({ items }: FaqUIProps) {
                                 >
                                     <span className={styles.number}>{num}</span>
                                     <span className={styles.question}>{item.question}</span>
-                                                                        <motion.span 
+                                    <motion.span
                                         className={`${styles.iconBtn} ${isOpen ? styles.iconBtnOpen : ""}`}
                                         animate={{ rotate: isOpen ? 135 : 0 }}
                                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -91,29 +91,28 @@ export function FaqUI({ items }: FaqUIProps) {
                                 </button>
                                 <AnimatePresence initial={false}>
                                     {isOpen && (
-                                        <motion.div 
+                                        <motion.div
                                             className={`${styles.body} ${styles.bodyOpen}`}
                                             initial={{ height: 0, opacity: 0 }}
-                                            animate={{ 
-                                                height: "auto", 
+                                            animate={{
+                                                height: "auto",
                                                 opacity: 1,
                                                 transition: {
                                                     height: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
                                                     opacity: { duration: 0.3, delay: 0.1 }
                                                 }
                                             }}
-                                            exit={{ 
-                                                height: 0, 
+                                            exit={{
+                                                height: 0,
                                                 opacity: 0,
                                                 transition: {
                                                     height: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
                                                     opacity: { duration: 0.2 }
                                                 }
                                             }}
-                                            style={{ overflow: "hidden" }} 
+                                            style={{ overflow: "hidden" }}
                                         >
-                                            <p className={styles.answer}>{item.answer}</p>
-                                        </motion.div>
+                                            <div className={styles.answer} dangerouslySetInnerHTML={{ __html: item.answer }} />                                        </motion.div>
                                     )}
                                 </AnimatePresence>
                                 <div className={styles.divider} />

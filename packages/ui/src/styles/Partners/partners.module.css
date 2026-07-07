@@ -1,3 +1,4 @@
+
 .partnersSection {
   background-color: #ffffff;
   padding: 34px 0;
@@ -65,8 +66,6 @@
   max-width: 140px;
   height: 48px;
 }
-
-
 
 .partnersTrackWrapper {
   overflow: hidden;
@@ -154,30 +153,20 @@
   max-width: 100vw;
 }
 
-
 .partnersScrollWrapper {
   padding: 0 100px;
   box-sizing: border-box;
 }
 
-
-.partnersDescription a {
-  display: inline-flex;
-  align-items: center;
-}
-
-
 .partnersDescription a::after {
   content: '→';
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   color: #3e82f6;
   font-size: 1.1em;
   margin-left: 6px;
-  vertical-align: middle;
-  line-height: 1;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 
 .partnersDescription a:hover::after {
   transform: translateX(6px);
@@ -219,4 +208,17 @@
 
 .partnersRevealActive {
   animation: partnersFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+
+.partnerLogo.logoLarge {
+  width: 155px;
+  height: 155px;
+}
+
+.partnerLogo.logoLarge svg,
+.partnerLogo.logoLarge img {
+  max-width: 220px;
+  max-height: 175px;
+  object-fit: contain;
 }

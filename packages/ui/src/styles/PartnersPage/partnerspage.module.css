@@ -4,12 +4,12 @@
 }
 
 .inner {
-    max-width: 1440px;
+    grid-template-columns: 454px 1fr;
+    align-items: start;
+    max-width: 1485px;
     margin: 0 auto;
     padding: 0 100px;
     display: grid;
-    grid-template-columns: 410px 1fr; 
-    align-items: start;
 }
 
 .left {
@@ -33,7 +33,6 @@
     column-gap: 40px;
 }
 
-/* Hər partner item */
 .item {
     display: flex;
     flex-direction: column;
@@ -48,8 +47,8 @@
 }
 
 .logo {
-    max-height: 60px;
-    max-width: 180px;
+    max-height: 92px;
+    max-width: 210px;
     width: auto;
     object-fit: contain;
     filter: grayscale(100%);
@@ -126,4 +125,9 @@
     .logo {
         max-height: 48px;
     }
+}
+
+
+.logoLarge {
+    max-height: 175px;
 }

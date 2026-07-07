@@ -1,6 +1,6 @@
 "use client";
-
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "../../lib/utils";
 import styles from "../../styles/Navbar/navbar.module.css";
 import Link from "next/link";
@@ -111,17 +111,30 @@ export function NavbarUI({
         if (debounceRef.current) clearTimeout(debounceRef.current);
     }, []);
 
-    const closeDrawer = useCallback(() => {
+   const closeDrawer = useCallback(() => {
         if (drawerDetailsRef.current) {
             drawerDetailsRef.current.open = false;
         }
     }, []);
 
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        const details = drawerDetailsRef.current;
+        if (!details) return;
+        const handleToggle = () => setDrawerOpen(details.open);
+        details.addEventListener("toggle", handleToggle);
+        return () => details.removeEventListener("toggle", handleToggle);
+    }, []);
+
     useEffect(() => {
         const details = searchDetailsRef.current;
         if (!details) return;
-
-        // Native toggle listener — React synthetic event-dən asılılıq yoxdur
         const handleToggle = () => {
             if (details.open) {
                 openSearch();
@@ -131,9 +144,6 @@ export function NavbarUI({
         };
 
         details.addEventListener("toggle", handleToggle);
-
-        // bfcache restore: xarici saytdan Back ilə qayıtma ssenarisi
-        // e.persisted === true yalnız bfcache-dən restore zamanı olur
         const handlePageShow = (e: PageTransitionEvent) => {
             if (!e.persisted) return;
             resetSearchUI();
@@ -143,9 +153,6 @@ export function NavbarUI({
         };
 
         window.addEventListener("pageshow", handlePageShow);
-
-        // Komponent mount olduqda da sıfırla —
-        // SPA navigation-da navbar unmount olmur amma bu müdafiə qatıdır
         resetSearchUI();
 
         return () => {
@@ -202,7 +209,6 @@ export function NavbarUI({
                                 <details
                                     ref={searchDetailsRef}
                                     className={styles.searchDetails}
-                                // onToggle yoxdur — useEffect içində native listener idarə edir
                                 >
                                     <summary className={styles.searchBtn} aria-label="Axtar">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -217,42 +223,50 @@ export function NavbarUI({
                             {showLang && langSlot}
                         </div>
 
-                        <details ref={drawerDetailsRef} className={styles.drawerDetails}>
+                     <details ref={drawerDetailsRef} className={styles.drawerDetails}>
                             <summary className={styles.hamburgerSummary} aria-label="Menyunu aç">
                                 <span className={styles.bar} />
                                 <span className={styles.bar} />
                                 <span className={styles.bar} />
                             </summary>
-
-                            <div className={styles.mobileDrawerBackdrop} onClick={closeDrawer} />
-                            <div className={styles.mobileDrawerPanel}>
-                                <ul className={styles.mobileNavLinks}>
-                                    {links.map(link => (
-                                        <li key={link.label}>
-                                            <Link
-                                                href={link.href}
-                                                target={link.openInNewTab ? "_blank" : undefined}
-                                                rel={link.openInNewTab ? "noopener noreferrer" : undefined}
-                                                onClick={closeDrawer}
-                                            >
-                                                {link.label}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className={styles.mobileDrawerFooter}>
-                                    {showSearch && (
-                                        <button className={styles.mobileSearchBtn} onClick={() => {
-                                            closeDrawer();
-                                            openSearch();
-                                        }}>
-                                            Axtar
-                                        </button>
-                                    )}
-                                    {showLang && langSlot}
-                                </div>
-                            </div>
                         </details>
+
+                        {mounted && createPortal(
+                            <>
+                                <div
+                                    className={`${styles.drawerBackdrop} ${drawerOpen ? styles.drawerBackdropOpen : ""}`}
+                                    onClick={closeDrawer}
+                                />
+                                <div className={`${styles.drawerPanel} ${drawerOpen ? styles.drawerPanelOpen : ""}`}>
+                                    <ul className={styles.mobileNavLinks}>
+                                        {links.map(link => (
+                                            <li key={link.label}>
+                                                <Link
+                                                    href={link.href}
+                                                    target={link.openInNewTab ? "_blank" : undefined}
+                                                    rel={link.openInNewTab ? "noopener noreferrer" : undefined}
+                                                    onClick={closeDrawer}
+                                                >
+                                                    {link.label}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                   <div className={styles.mobileDrawerFooter}>
+                                        {showSearch && (
+                                            <button className={styles.mobileSearchBtn} onClick={() => {
+                                                closeDrawer();
+                                                openSearch();
+                                            }}>
+                                                Axtar
+                                            </button>
+                                        )}
+                                        {showLang && <div className="mobileLangSlot">{langSlot}</div>}
+                                    </div>
+                                </div>
+                            </>,
+                            document.body
+                        )}
                     </div>
                 </div>
             </nav>

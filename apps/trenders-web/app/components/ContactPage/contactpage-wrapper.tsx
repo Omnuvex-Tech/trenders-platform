@@ -15,6 +15,19 @@ function t(obj: Record<string, string> | null | undefined, locale: string, fallb
     return obj[locale] || obj["az"] || obj["en"] || fallback;
 }
 
+function decodeHtmlEntities(str: string): string {
+    return str
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&apos;/g, "'")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
 async function getContactData() {
     try {
         const res = await fetch(`${API}/contact`, { cache: "no-store" });
@@ -36,8 +49,9 @@ async function getServiceOptions(locale: string): Promise<string[]> {
             .map((s: any) => {
                 const raw = s.title ?? s.name ?? "";
                 const titleStr = typeof raw === "object" ? (raw[locale] || raw["az"] || raw["en"] || "") : raw;
-                return titleStr.replace(/<[^>]*>/g, "").trim();
-            });
+                return decodeHtmlEntities(titleStr.replace(/<[^>]*>/g, ""));
+            })
+            .filter(Boolean);
     } catch {
         return [];
     }
@@ -78,43 +92,44 @@ export async function ContactPageWrapper({ locale = "az" }: { locale?: string })
 
     return (
         <ContactPageUI
-            title={t(data?.title, locale, "Contact us")}
-            description={t(data?.description, locale, "")}
+            title={t(data?.title, locale)}
+            description={t(data?.description, locale)}
             image={image}
             imageAlt={t(data?.imageAlt, locale, "")}
             info={{
-                emailLabel: t(data?.emailLabel, locale, "Email Address"),
+                emailLabel: t(data?.emailLabel, locale),
                 email: t(data?.emailValue, locale, ""),
-                phoneLabel: t(data?.phoneLabel, locale, "Phone"),
+                phoneLabel: t(data?.phoneLabel, locale),
                 phone: t(data?.phoneValue, locale, ""),
-                locationLabel: t(data?.locationLabel, locale, "Location"),
+                locationLabel: t(data?.locationLabel, locale),
                 location: t(data?.locationValue, locale, ""),
-                hoursLabel: t(data?.hoursLabel, locale, "Hours"),
+                hoursLabel: t(data?.hoursLabel, locale),
                 hours: t(data?.hoursValue, locale, ""),
-                followUsLabel: t(data?.followUsLabel, locale, "Follow Us"),
+                followUsLabel: t(data?.followUsLabel, locale),
                 socialLinks,
-               hashtags: (data?.tags ?? []).map((tag: any) =>
-  typeof tag === "object" ? (tag[locale] || tag.az || tag.en || "") : tag
-).filter(Boolean),
+                hashtags: (data?.tags ?? []).map((tag: any) =>
+                    typeof tag === "object" ? (tag[locale] || tag.az || tag.en || "") : tag
+                ).filter(Boolean),
             }}
             serviceOptions={serviceOptions}
             budgetOptions={budgetOptions}
             timelineOptions={timelineOptions}
             formLabels={{
-                name: t(data?.formNameLabel, locale, "Name"),
-                namePlaceholder: t(data?.formNamePlaceholder, locale, "Your name*"),
-                email: t(data?.formEmailLabel, locale, "Email"),
-                emailPlaceholder: t(data?.formEmailPlaceholder, locale, "Your email*"),
-                phone: t(data?.formPhoneLabel, locale, "Phone"),
-                phonePlaceholder: t(data?.formPhonePlaceholder, locale, "Your phone*"),
-                service: t(data?.formServiceLabel, locale, "Service"),
-                budget: t(data?.formBudgetLabel, locale, "Budget"),
-                budgetPlaceholder: t(data?.formBudgetPlaceholder, locale, "Estimated Budget"),
-                timeline: t(data?.formTimelineLabel, locale, "Project Timeline"),
-                timelinePlaceholder: t(data?.formTimelinePlaceholder, locale, "ASAP"),
-                message: t(data?.formMessageLabel, locale, "Message"),
-                messagePlaceholder: t(data?.formMessagePlaceholder, locale, "Your message"),
-                submit: t(data?.formSubmitLabel, locale, "Submit Inquiry"),
+                name: t(data?.formNameLabel, locale),
+                namePlaceholder: t(data?.formNamePlaceholder, locale),
+                email: t(data?.formEmailLabel, locale),
+                emailPlaceholder: t(data?.formEmailPlaceholder, locale),
+                phone: t(data?.formPhoneLabel, locale),
+                phonePlaceholder: t(data?.formPhonePlaceholder, locale),
+                service: t(data?.formServiceLabel, locale),
+                servicePlaceholder: t(data?.formServicePlaceholder, locale),
+                budget: t(data?.formBudgetLabel, locale),
+                budgetPlaceholder: t(data?.formBudgetPlaceholder, locale),
+                timeline: t(data?.formTimelineLabel, locale),
+                timelinePlaceholder: t(data?.formTimelinePlaceholder, locale),
+                message: t(data?.formMessageLabel, locale),
+                messagePlaceholder: t(data?.formMessagePlaceholder, locale),
+                submit: t(data?.formSubmitLabel, locale),
             }}
             mapComponent={<MapComponent lat={40.35156} lng={49.83206} />}
             onSubmit={submitContactForm}

@@ -41,6 +41,7 @@ export interface ContactPageUIProps {
         phone: string;
         phonePlaceholder: string;
         service: string;
+        servicePlaceholder: string; 
         budget: string;
         budgetPlaceholder: string;
         timeline: string;
@@ -345,9 +346,9 @@ export function ContactPageUI({
                                     name="service"
                                     dropdownKey="service"
                                     options={serviceOptions}
-                                    placeholder="SERVICES"
+                                    placeholder={formLabels.servicePlaceholder} 
                                     value={form.service}
-                                />
+                                />                           
                             </div>
                         </motion.div>
 

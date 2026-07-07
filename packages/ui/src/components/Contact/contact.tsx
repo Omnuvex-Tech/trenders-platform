@@ -40,6 +40,7 @@ export interface ContactUIProps {
         phone: string;
         phonePlaceholder: string;
         service: string;
+        servicePlaceholder: string; 
         budget: string;
         budgetPlaceholder: string;
         timeline: string;
@@ -142,6 +143,9 @@ function CustomSelect({
         </div>
     );
 }
+
+
+
 
 export function ContactUI({
     title, description, info, serviceOptions, budgetOptions, timelineOptions,
@@ -283,10 +287,10 @@ export function ContactUI({
                             </div>
                             <div className={styles.field}>
                                 <label className={styles.label}>{formLabels.service}</label>
-                                <CustomSelect name="service" options={serviceOptions}
-                                    placeholder="SERVICES" value={form.service}
-                                    openDropdown={openDropdown} setOpenDropdown={setOpenDropdown}
-                                    setForm={setForm} />
+                               <CustomSelect name="service" options={serviceOptions}
+    placeholder={formLabels.servicePlaceholder} value={form.service}
+    openDropdown={openDropdown} setOpenDropdown={setOpenDropdown}
+    setForm={setForm} />
                             </div>
                         </div>
 

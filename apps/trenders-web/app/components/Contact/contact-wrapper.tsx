@@ -14,6 +14,19 @@ function t(obj: Record<string, string> | null | undefined, locale: string, fallb
     return obj[locale] || obj["az"] || obj["en"] || fallback;
 }
 
+function decodeHtmlEntities(str: string): string {
+    return str
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&apos;/g, "'")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
 async function getContactData() {
     try {
         const res = await fetch(`${API}/contact`, { cache: "no-store" });
@@ -35,8 +48,9 @@ async function getServiceOptions(locale: string): Promise<string[]> {
             .map((s: any) => {
                 const raw = s.title ?? s.name ?? "";
                 const titleStr = typeof raw === "object" ? (raw[locale] || raw["az"] || raw["en"] || "") : raw;
-                return titleStr.replace(/<[^>]*>/g, "").trim();
-            });
+                return decodeHtmlEntities(titleStr.replace(/<[^>]*>/g, ""));
+            })
+            .filter(Boolean);
     } catch {
         return [];
     }
@@ -89,8 +103,8 @@ export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
                 followUsLabel: t(data?.followUsLabel, locale, "Follow Us"),
                 socialLinks,
                 hashtags: (data?.tags ?? []).map((tag: any) =>
-  typeof tag === "object" ? (tag[locale] || tag.az || "") : tag
-).filter(Boolean),
+                    typeof tag === "object" ? (tag[locale] || tag.az || "") : tag
+                ).filter(Boolean),
             }}
             serviceOptions={serviceOptions}
             budgetOptions={budgetOptions}
@@ -103,6 +117,7 @@ export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
                 phone: t(data?.formPhoneLabel, locale, "Phone"),
                 phonePlaceholder: t(data?.formPhonePlaceholder, locale, "Your phone*"),
                 service: t(data?.formServiceLabel, locale, "Service"),
+                servicePlaceholder: t(data?.formServicePlaceholder, locale, "Select a service"),
                 budget: t(data?.formBudgetLabel, locale, "Budget"),
                 budgetPlaceholder: t(data?.formBudgetPlaceholder, locale, "Estimated Budget"),
                 timeline: t(data?.formTimelineLabel, locale, "Project Timeline"),
