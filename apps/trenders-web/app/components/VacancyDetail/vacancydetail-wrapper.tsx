@@ -122,12 +122,11 @@ export async function VacancyDetailWrapper({
     });
   }
 
-  const skills = vacancy.skills?.map((sk) => getL(sk, locale)).filter(Boolean);
-  if (skills?.length > 0) {
+  if (tags.length > 0) {
     sections.push({
       title: getL(s?.skillsLabel, locale) || "Skills",
       type: "skills",
-      skills,
+      skills: tags,
     });
   }
 
@@ -154,7 +153,6 @@ export async function VacancyDetailWrapper({
       backHref={`/${locale}/Vacancy`}
       pageTitle={getL(s?.backLabel, locale)}
       jobTitle={getL(vacancy.title, locale)}
-      tags={tags}
       vacancyId={vacancy.id}
       vacancyTitle={getL(vacancy.title, locale)}
       sections={sections}
