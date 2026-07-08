@@ -206,11 +206,11 @@
 
 
 .statsGrid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 8px 24px;
-    margin-top: 11px;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 8px 24px;
+  margin-top: 11px;
+  align-items: start;
 }
 
 .statItem {
@@ -242,16 +242,15 @@
   text-transform: uppercase;
   letter-spacing: 0.02em;
   line-height: 1;
-  font-family: 'Manrope';
-  font-weight: 500;
-    font-size: 10.43px;  line-height: 100%;
+  font-size: 10.43px;
+  line-height: 100%;
   letter-spacing: 4%;
   text-transform: uppercase;
 
 }
 
 .statValue {
-  color:#4E4E4E;
+  color: #4E4E4E;
   padding-left: 20px;
   font-family: 'Manrope';
   font-weight: 700;
@@ -277,35 +276,43 @@
 
 
 @media (min-width: 1600px) {
-.inner {
+  .inner {
     max-width: 100%;
     margin: 0 auto;
     padding: 0 100px;
-}
+  }
 
-.heroWrap {
+  .heroWrap {
     width: 100%;
     aspect-ratio: 16 / 7;
     height: auto;
     border-radius: 42.27px;
     overflow: hidden;
-}
+  }
 
-.paragraph{font-size: 22px;}
-.badge{font-size: 24px;}
-.statLabel{font-size: 14.43px;}
+  .paragraph {
+    font-size: 22px;
+  }
+
+  .badge {
+    font-size: 24px;
+  }
+
+  .statLabel {
+    font-size: 14.43px;
+  }
 }
 
 
 
 .reveal {
-    opacity: 0;
-    margin-top: 20px;
-    transition: opacity 0.7s ease,
-                margin-top 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  margin-top: 20px;
+  transition: opacity 0.7s ease,
+    margin-top 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.revealVisible {
-    opacity: 1;
-    margin-top: 0;
+  opacity: 1;
+  margin-top: 0;
 }
