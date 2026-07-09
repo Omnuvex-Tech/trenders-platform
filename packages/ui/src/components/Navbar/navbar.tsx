@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useEffect, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
+import { usePathname } from "next/navigation";
 import { cn } from "../../lib/utils";
 import styles from "../../styles/Navbar/navbar.module.css";
 import Link from "next/link";
@@ -44,6 +45,29 @@ export function NavbarUI({
     locale,
     suggestions: defaultSuggestions,
 }: NavbarUIProps) {
+  const pathname = usePathname();
+    const pathWithoutLocale = (() => {
+        if (!pathname) return "/";
+        const segments = pathname.split("/");
+        const rest = segments.slice(2).join("/");
+        return rest ? `/${rest}` : "/";
+    })();
+    const getHrefPath = (href: string) => {
+        try {
+            const url = new URL(href, "http://dummy-base.local");
+            return url.pathname;
+        } catch {
+            return href;
+        }
+    };
+    const isActiveLink = (href: string) => {
+        const hrefPath = getHrefPath(href);
+        const normalizedHref = hrefPath === "/" ? "/" : hrefPath.replace(/\/$/, "");
+        const normalizedPath = pathWithoutLocale === "/" ? "/" : pathWithoutLocale.replace(/\/$/, "");
+        return normalizedPath.toLowerCase() === normalizedHref.toLowerCase()
+            || normalizedPath.toLowerCase().startsWith(`${normalizedHref.toLowerCase()}/`);
+    };
+
     const searchDetailsRef = useRef<HTMLDetailsElement>(null);
     const drawerDetailsRef = useRef<HTMLDetailsElement>(null);
     const popupRef = useRef<HTMLDivElement>(null);
@@ -111,7 +135,7 @@ export function NavbarUI({
         if (debounceRef.current) clearTimeout(debounceRef.current);
     }, []);
 
-   const closeDrawer = useCallback(() => {
+    const closeDrawer = useCallback(() => {
         if (drawerDetailsRef.current) {
             drawerDetailsRef.current.open = false;
         }
@@ -197,6 +221,7 @@ export function NavbarUI({
                                         href={link.href}
                                         target={link.openInNewTab ? "_blank" : undefined}
                                         rel={link.openInNewTab ? "noopener noreferrer" : undefined}
+                                        className={isActiveLink(link.href) ? styles.navLinkActive : undefined}
                                     >
                                         {link.label}
                                     </Link>
@@ -223,7 +248,7 @@ export function NavbarUI({
                             {showLang && langSlot}
                         </div>
 
-                     <details ref={drawerDetailsRef} className={styles.drawerDetails}>
+                        <details ref={drawerDetailsRef} className={styles.drawerDetails}>
                             <summary className={styles.hamburgerSummary} aria-label="Menyunu aç">
                                 <span className={styles.bar} />
                                 <span className={styles.bar} />
@@ -252,7 +277,7 @@ export function NavbarUI({
                                             </li>
                                         ))}
                                     </ul>
-                                   <div className={styles.mobileDrawerFooter}>
+                                    <div className={styles.mobileDrawerFooter}>
                                         {showSearch && (
                                             <button className={styles.mobileSearchBtn} onClick={() => {
                                                 closeDrawer();
