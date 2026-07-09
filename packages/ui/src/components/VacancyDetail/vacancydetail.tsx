@@ -148,7 +148,6 @@ export function VacancyDetailUI({
         <section className={styles.section}>
             <div className={styles.inner}>
 
-                {/* 1. GERİ QAYITMA LİNKİ (Səhifə açılan kimi müstəqil animasiya olunur) */}
                 <motion.div
                     className={styles.backRow}
                     variants={revealVariants}
@@ -165,8 +164,6 @@ export function VacancyDetailUI({
                 </motion.div>
 
                 <div className={styles.contentRow}>
-
-                    {/* 2. SOL TƏRƏF: Vakansiya Başlığı və Detalları */}
                     <div className={styles.left}>
                         <motion.h1
                             className={styles.jobTitle}
@@ -190,7 +187,6 @@ export function VacancyDetailUI({
                             </motion.div>
                         )}
 
-                        {/* Hər bir mətn bloku skrol edilib görünən anda müstəqil canlanır */}
                         {sections.map((section, i) => (
                             <motion.div
                                 key={i}
@@ -228,7 +224,6 @@ export function VacancyDetailUI({
                         ))}
                     </div>
 
-                    {/* 3. SAĞ TƏRƏF: Form + Map + Kontakt (Ayrıca bir kaskad konteyneri) */}
                     <motion.aside
                         className={styles.right}
                         variants={containerVariants}
@@ -236,7 +231,6 @@ export function VacancyDetailUI({
                         whileInView="visible"
                         viewport={{ once: true, margin: "-5%" }}
                     >
-                        {/* Form Kartı */}
                         <motion.div variants={revealVariants}>
                             <h2 className={styles.applyTitle}>{applyTitle}</h2>
                             <div className={styles.formCard}>
@@ -315,13 +309,9 @@ export function VacancyDetailUI({
                                 </form>
                             </div>
                         </motion.div>
-
-                        {/* Xəritə Kartı (Formun ardınca gəlir) */}
                         <motion.div variants={revealVariants} className={styles.mapCard}>
                             <div className={styles.mapWrap}>{mapComponent}</div>
                         </motion.div>
-
-                        {/* Əlaqə məlumatları bloku */}
                         <motion.div variants={revealVariants} className={styles.contactInfo}>
                             <div className={styles.contactItem}>
                                 <span className={styles.contactLabel}>{contact.emailLabel || "Email Adres"}</span>

@@ -159,7 +159,6 @@
     pointer-events: none;
 }
 
-/* Məzmun */
 .content {
     display: flex;
     flex-direction: column;

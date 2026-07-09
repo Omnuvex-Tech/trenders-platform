@@ -41,7 +41,6 @@ export function FooterUI({
     return (
         <footer className={styles.footer}>
             <div className={styles.inner}>
-                {/* LEFT */}
                 <div className={styles.left}>
                     <img src={logoSrc} alt={logoAlt ?? ""} className={styles.logo} />
 
@@ -70,8 +69,6 @@ export function FooterUI({
                         ))}
                     </div>
                 </div>
-
-                {/* RIGHT */}
                 <div className={styles.right}>
                     <div className={styles.navLinks}>
                         {navLinks.map((link) => (

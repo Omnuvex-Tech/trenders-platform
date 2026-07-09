@@ -16,7 +16,6 @@
     padding: 0 100px;
 }
 
-/* Grid */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 397px);
@@ -107,7 +106,6 @@
     pointer-events: none;
 }
 
-/* Məzmun */
 .content {
     display: flex;
     flex-direction: column;

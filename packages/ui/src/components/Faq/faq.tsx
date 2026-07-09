@@ -1,10 +1,8 @@
-
-
 "use client";
 
 import { useState } from "react";
 import styles from "../../styles/Faq/faq.module.css";
-import { motion, Variants, AnimatePresence } from "framer-motion"; // ← AnimatePresence əlavə olundu
+import { motion, Variants, AnimatePresence } from "framer-motion";
 
 export interface FaqItem {
     id: number;
@@ -48,17 +46,11 @@ export function FaqUI({ items }: FaqUIProps) {
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                {/* <motion.div 
-                    className={styles.accordion}
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.15 }}
-                > */}
                 <motion.div
                     className={styles.accordion}
                     variants={containerVariants}
-                    whileInView="visible"
+                    initial="hidden"      
+                    whileInView="visible"  
                     viewport={{ once: true, amount: 0.15 }}
                 >
                     {items.map((item, index) => {
@@ -112,7 +104,8 @@ export function FaqUI({ items }: FaqUIProps) {
                                             }}
                                             style={{ overflow: "hidden" }}
                                         >
-                                            <div className={styles.answer} dangerouslySetInnerHTML={{ __html: item.answer }} />                                        </motion.div>
+                                            <div className={styles.answer} dangerouslySetInnerHTML={{ __html: item.answer }} />
+                                        </motion.div>
                                     )}
                                 </AnimatePresence>
                                 <div className={styles.divider} />

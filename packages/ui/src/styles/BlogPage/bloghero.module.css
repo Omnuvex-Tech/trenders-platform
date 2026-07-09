@@ -531,7 +531,6 @@
     .sidePost {
         display: grid;
         grid-template-columns: 0.4fr 1fr;
-        /* 190px 1fr → */
         gap: 16px;
         align-items: flex-start;
         text-decoration: none;

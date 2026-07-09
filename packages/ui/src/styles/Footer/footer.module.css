@@ -194,7 +194,6 @@
     gap: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* ← navLinks sol, contactCol sağ */
   }
 
   .navLinks {
@@ -288,7 +287,6 @@
 
   .right {
     grid-template-columns: 1fr 1fr;
-    /* ← 1fr deyil, həmişə 2 sütun */
     gap: 0 12px;
   }
 

@@ -201,8 +201,6 @@ export function ContactUI({
         <section className={styles.section} id="contact">
             <div className={styles.contactDivider} />
             <div className={styles.inner} ref={sectionRef}>
-
-                {/* ── SOL ── */}
                 <div className={styles.left}>
                     <h2 className={styles.title}>
                         {words.map((word, i) => (
@@ -259,7 +257,6 @@ export function ContactUI({
                     </div>
                 </div>
 
-                {/* ── SAĞ ── */}
                 <div className={styles.right}>
                     <form className={styles.form} onSubmit={handleSubmit}>
 

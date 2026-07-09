@@ -1,91 +1,3 @@
-// "use client";
-
-// import styles from "../../styles/BlogDetail/blogdetailcontent.module.css";
-
-// export interface BlogDetailSection {
-//     title: string;
-//     paragraphs: string[];
-// }
-
-// export interface BlogDetailContentUIProps {
-//     heroImage: string;
-//     heroImageAlt?: string;
-//     overlapTitle: string;
-//     introParagraphs: string[];
-//     sections: BlogDetailSection[];
-//     bottomImages: {
-//         left: string;
-//         leftAlt?: string;
-//         right: string;
-//         rightAlt?: string;
-//     };
-// }
-
-// export function BlogDetailContentUI({
-//     heroImage,
-//     heroImageAlt = "",
-//     overlapTitle,
-//     introParagraphs,
-//     sections,
-//     bottomImages,
-// }: BlogDetailContentUIProps) {
-//     return (
-//         <section className={styles.section}>
-//             <div className={styles.inner}>
-
-//                 <div className={styles.heroWrap}>
-//                     <img
-//                         src={heroImage}
-//                         alt={heroImageAlt}
-//                         className={styles.heroImg}
-//                     />
-//                 </div>
-
-//                 <div className={styles.overlapBlock}>
-//                     <div className={styles.overlapTitle} dangerouslySetInnerHTML={{ __html: overlapTitle }} />
-//                 </div>
-
-//                 <div className={styles.introBlock}>
-//                     {introParagraphs.map((p, i) => (
-//                         <div key={i} className={styles.paragraph} dangerouslySetInnerHTML={{ __html: p }} />
-//                     ))}
-//                 </div>
-
-//                 <div className={styles.sections}>
-//                     {sections.map((section, i) => (
-//                         <div key={i} className={styles.sectionBlock}>
-//                             <div className={styles.sectionTitle} dangerouslySetInnerHTML={{ __html: section.title }} />
-//                             <div className={styles.sectionParagraphs}>
-//                                 {section.paragraphs.map((p, j) => (
-//                                     <div key={j} className={styles.paragraph} dangerouslySetInnerHTML={{ __html: p }} />
-//                                 ))}
-//                             </div>
-//                         </div>
-//                     ))}
-//                 </div>
-
-//                 <div className={styles.bottomImages}>
-//                     <img
-//                         src={bottomImages.left}
-//                         alt={bottomImages.leftAlt || ""}
-//                         className={styles.bottomImgLeft}
-//                     />
-//                     <img
-//                         src={bottomImages.right}
-//                         alt={bottomImages.rightAlt || ""}
-//                         className={styles.bottomImgRight}
-//                     />
-//                 </div>
-
-//             </div>
-//         </section>
-//     );
-// }
-
-
-
-
-
 "use client";
 
 import { motion, Variants } from "framer-motion";
@@ -110,7 +22,6 @@ export interface BlogDetailContentUIProps {
     };
 }
 
-// Yuxarıdakı əsas şəkil üçün böyümə animasiyası
 const heroAnimation: Variants = {
     hidden: { opacity: 0, scale: 0.96 },
     visible: {
@@ -124,7 +35,6 @@ const heroAnimation: Variants = {
     }
 };
 
-// Ümumi mətn bloklarının aşağıdan yuxarı rəvan gəlməsi üçün
 const fadeUpVariant: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -138,7 +48,6 @@ const fadeUpVariant: Variants = {
     }
 };
 
-// Alt şəkillərin fərdi animasiyası (Soldan və sağdan daxil olma)
 const imageLeftAnimation: Variants = {
     hidden: { opacity: 0, x: -25 },
     visible: {
@@ -168,8 +77,6 @@ export function BlogDetailContentUI({
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-
-                {/* Əsas Şəkil */}
                 <motion.div 
                     variants={heroAnimation}
                     initial="hidden"
@@ -183,8 +90,6 @@ export function BlogDetailContentUI({
                         className={styles.heroImg}
                     />
                 </motion.div>
-
-                {/* Overlap Başlıq Bloku */}
                 <motion.div 
                     variants={fadeUpVariant}
                     initial="hidden"
@@ -194,8 +99,6 @@ export function BlogDetailContentUI({
                 >
                     <div className={styles.overlapTitle} dangerouslySetInnerHTML={{ __html: overlapTitle }} />
                 </motion.div>
-
-                {/* Giriş Paraqrafları */}
                 <div className={styles.introBlock}>
                     {introParagraphs.map((p, i) => (
                         <motion.div 
@@ -209,8 +112,6 @@ export function BlogDetailContentUI({
                         />
                     ))}
                 </div>
-
-                {/* Alt Bölmələr (Hər başlıq və mətni qrup halında gəlir) */}
                 <div className={styles.sections}>
                     {sections.map((section, i) => (
                         <motion.div 
@@ -230,8 +131,6 @@ export function BlogDetailContentUI({
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Alt Yan-Yana Şəkillər */}
                 <div className={styles.bottomImages}>
                     <motion.img
                         variants={imageLeftAnimation}

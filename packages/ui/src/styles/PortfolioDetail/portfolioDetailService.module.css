@@ -8,8 +8,6 @@
   padding: 0 100px;
 }
 
-/* ── Top ── */
-
 .top {
   display: flex;
   align-items: flex-start;
@@ -72,8 +70,6 @@ text-transform: uppercase;
   margin: 0;
 }
 
-/* ── Grid ── */
-
 .grid {
   display: flex;
   flex-direction: column;
@@ -127,8 +123,6 @@ text-transform: uppercase;
   margin: 0;
 }
 
-/* ── Responsive ── */
-
 @media (max-width: 1280px) {
   .inner      { padding: 0 64px; }
   .bigNumber  { font-size: 160px; }
@@ -175,7 +169,6 @@ text-transform: uppercase;
   .desc    { font-size: 15px; }
   .badge   { font-size: 14px; padding: 5px 0px; }
  
-  /* Grid: 1 sütun, hər şey üst-üstə */
   .row {
     grid-template-columns: 1fr;
     gap: 12px;

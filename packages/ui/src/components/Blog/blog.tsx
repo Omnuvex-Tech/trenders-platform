@@ -3,7 +3,7 @@
 import styles from "../../styles/Blog/blog.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion, Variants } from "framer-motion"; // ← Framer Motion əlavə olundu
+import { motion, Variants } from "framer-motion";
 
 export interface BlogPost {
   id: number;
@@ -56,6 +56,7 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
       }
     }
   };
+
   return (
     <section className={styles.section}>
       <div className={styles.blogDivider}></div>
@@ -79,6 +80,7 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
         <motion.div
           className={styles.grid}
           variants={gridVariants}
+          initial="hidden" 
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
@@ -93,7 +95,6 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
             >
               <div className={styles.imageWrap}>
                 <img src={post.image} alt={post.imageAlt || post.title} className={styles.image} />
-
                 <span className={styles.category}>{post.category}</span>
               </div>
               <div className={styles.content}>

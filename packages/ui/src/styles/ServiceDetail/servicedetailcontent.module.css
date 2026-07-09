@@ -169,7 +169,7 @@
 
 .quoteImgWrap {
     width: 821px;
-    aspect-ratio: 7 / 4;  /* height: 475px → sil */
+    aspect-ratio: 7 / 4;  
     margin-left: auto;
     border-radius: 42px;
     overflow: hidden;
@@ -178,7 +178,7 @@
 .imageWrap {
     width: 100%;
     max-width: 1240px;
-    aspect-ratio: 8 / 3;  /* height: 475px → sil */
+    aspect-ratio: 8 / 3; 
     border-radius: 42.27px;
     overflow: hidden;
 }

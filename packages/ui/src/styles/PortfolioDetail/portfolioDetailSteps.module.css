@@ -29,8 +29,6 @@
     line-height: inherit;
 }
 
-/* ── Staircase grid ── */
-
 .staircase {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -82,7 +80,6 @@
     margin: 0;
 }
 
-/* ── Responsive ── */
 
 @media (max-width: 1280px) {
     .inner       { padding: 0 64px; }
@@ -96,7 +93,6 @@
     .stepLabel   { font-size: 16px; }
 }
 
-/* 768px: 2 sütun, staircase yox, kartlar bərabər */
 @media (max-width: 768px) {
     .inner       { padding: 0 32px; }
     .description { font-size: 22px; margin-bottom: 40px; }
@@ -104,20 +100,16 @@
     .staircase {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    /* staircase margin-top-u sıfırla */
     .card {
         margin-top: 0 !important;
         min-height: 130px;
     }
 
-    /* divider xətləri gizlət */
     .divider { display: none; }
     .stepNumber { font-size: 22px; line-height: 1.4; }
     .stepLabel  { font-size: 15px; }
 }
 
-/* 480px: 1 sütun */
 @media (max-width: 480px) {
     .inner       { padding: 0 20px; }
     .description { font-size: 18px; margin-bottom: 22px; }

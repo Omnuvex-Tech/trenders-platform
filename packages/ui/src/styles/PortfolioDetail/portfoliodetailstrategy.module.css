@@ -198,8 +198,6 @@
     border-color: transparent;
 }
 
-/* ── Responsive ── */
-
 @media (max-width: 1280px) {
     .inner {
         padding: 60px 64px;

@@ -1,4 +1,3 @@
-// about-story.wrapper.tsx
 import { AboutStoryUI } from "@repo/ui";
 
 type LocalizedString = Record<string, string>;

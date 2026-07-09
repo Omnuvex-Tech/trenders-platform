@@ -4,7 +4,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import styles from '../../styles/Testimonials/testimonials.module.css'
 import { flushSync } from "react-dom";
-import { motion, useScroll, useTransform, Variants } from "framer-motion"; // ← Variants import olundu
+import { motion, useScroll, useTransform, Variants } from "framer-motion"; 
 
 export interface Testimonial {
   id: number;
@@ -28,8 +28,6 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
   const [sliding, setSliding] = useState(false);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const initialized = useRef(false);
-
-  // --- ÜMUMİ BÖLMƏ ÜÇÜN SCROLL AYARLARI ---
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -172,7 +170,6 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
                 </span>
               ))}
             </motion.p>
-            {/* ────────────────────────────────────── */}
 
             <div className={styles.arrows}>
               <button className={styles.arrowBtn} onClick={() => slide("left")} aria-label="Əvvəlki">

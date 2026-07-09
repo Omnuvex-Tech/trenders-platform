@@ -66,7 +66,6 @@ export function HeroUI({
                     className={styles.heroSliderContainer}
                     style={{
                         animationDuration: `${duration}s`,
-                        // CSS var ile total width ver
                         ["--total-width" as any]: `${totalWidth}px`,
                     }}
                 >

@@ -214,7 +214,6 @@ export function ContactPageUI({
     return (
         <section className={styles.section} id="contact">
             <div className={styles.inner}>
-                {/* Sol */}
                 <motion.div
                     className={styles.left}
                     variants={leftContainerVariants}
@@ -307,8 +306,6 @@ export function ContactPageUI({
                         ))}
                     </div>
                 </motion.div>
-
-                {/* Sağ — Form + Map */}
                 <div className={styles.right}>
                     <motion.form
                         className={styles.form}

@@ -18,7 +18,6 @@
   align-items: flex-start;
 }
 
-/* Sol tərəf */
 .left {
   flex-shrink: 0;
   width: 320px;
@@ -148,7 +147,6 @@
   display: block;
 }
 
-/* + ikonu */
 .plusBtn {
   position: absolute;
   top: 16px;
@@ -423,7 +421,6 @@
 
   .card {
     width: calc(50% - 8px);
-    /* 2 kart yan-yana */
     height: 320px;
     flex-shrink: 0;
   }

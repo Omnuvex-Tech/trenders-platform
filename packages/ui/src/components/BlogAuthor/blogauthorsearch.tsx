@@ -100,7 +100,6 @@ export function BlogAuthorListUI({
         setCurrentIndex(next);
     }, []);
 
-    // Filter dəyişəndə index sıfırla
     useEffect(() => {
         const queryChanged = prevQuery.current !== query;
         const categoryChanged = prevCategory.current !== activeCategory;
@@ -112,7 +111,6 @@ export function BlogAuthorListUI({
         }
     }, [query, activeCategory, updateIndex]);
 
-    // DOM ölçümü
     useEffect(() => {
         if (!showCarousel) return;
 
@@ -136,7 +134,6 @@ export function BlogAuthorListUI({
         };
     }, [showCarousel, filtered.length]);
 
-    // Wheel handler
     useEffect(() => {
         const el = containerRef.current;
         if (!el) return;
@@ -172,7 +169,6 @@ export function BlogAuthorListUI({
         return () => el.removeEventListener("wheel", onWheel);
     }, [updateIndex]);
 
-    // Touch handler
     useEffect(() => {
         const el = containerRef.current;
         if (!el) return;

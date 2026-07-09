@@ -49,10 +49,6 @@ export function BlogDetailPreviewUI({
                             alt={imageAlt}
                             className={styles.image}
                         />
-                        {/* <div className={styles.imageOverlay}>
-                            <span className={styles.overlayBadge}>{overlayBadge}</span>
-                            <div className={styles.overlayTitle} dangerouslySetInnerHTML={{ __html: overlayTitle }} />
-                        </div> */}
                     </a>
 
                     <div className={styles.content}>

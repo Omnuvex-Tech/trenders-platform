@@ -226,23 +226,6 @@
     color: rgba(61, 61, 61, 1);
 }
 
-/* .readBtn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
-    color: #fff;
-    text-decoration: none;
-    margin-top: 4px;
-    width: 126px;
-    height: 34px;
-    border-radius: 36px;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-} */
-
 
 .readBtn {
     display: inline-flex;
@@ -313,7 +296,6 @@
     }
 }
 
-/* ─── 1100px ──────────────────────────────────────── */
 @media (max-width: 1100px) {
     .inner {
         padding: 0 48px;
@@ -342,7 +324,6 @@
     }
 }
 
-/* ─── 900px — mobil başlayır ──────────────────────── */
 @media (max-width: 900px) {
     .inner {
         padding: 0 32px;
@@ -353,7 +334,6 @@
         gap: 28px;
     }
 
-    /* Author card: şəkil sol, ad+skills sağ, bio altda tam genişlikdə */
     .authorCard {
         position: static;
         width: 100%;
@@ -391,7 +371,6 @@
         margin-top: 14px;
     }
 
-    /* Posts */
     .postsTitle {
         padding-left: 0;
         font-size: 24px;
@@ -402,8 +381,6 @@
         width: 200px;
         height: 150px;
     }
-
-    /* Button sağa */
     .readBtn {
         align-self: flex-end;
         margin-left: auto;
@@ -412,7 +389,6 @@
     }
 }
 
-/* ─── 600px ───────────────────────────────────────── */
 @media (max-width: 600px) {
     .inner {
         padding: 0 20px;
@@ -424,13 +400,11 @@
         gap: 16px;
     }
 
-    /* Author card grid eyni qalır, avatar kiçilir */
     .authorCard {
         grid-template-columns: auto 1fr;
         column-gap: 18px;
     }
 
-    /* Post card tam genişlik */
     .postItem {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -478,7 +452,6 @@
     }
 }
 
-/* ─── 400px ───────────────────────────────────────── */
 @media (max-width: 400px) {
     .inner {
         padding: 0 14px;

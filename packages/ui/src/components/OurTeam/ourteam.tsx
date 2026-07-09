@@ -24,7 +24,6 @@ export interface OurTeamUIProps {
     moreButtonText: string;
 }
 
-// Təsvir blokunun animasiyası
 const descriptionAnimation: Variants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -39,7 +38,6 @@ const descriptionAnimation: Variants = {
     }
 };
 
-// XƏTANI HƏLL EDƏN HİSSƏ: Tip xətası verməməsi üçün Variants tipini və funksiya strukturunu düzəltdik
 const cardVariants: Variants = {
     hidden: () => ({ 
         opacity: 0, 
@@ -75,7 +73,6 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
         <section className={styles.section}>
             <div className={styles.inner}>
                 
-                {/* Header bloku */}
                 <div className={styles.header}>
                     <motion.h1 
                         className={styles.title} 
@@ -86,7 +83,6 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                         transition={{ duration: 0.5 }}
                     />
                     
-                    {/* Təsvir hissəsi */}
                     <motion.div 
                         className={styles.description}
                         dangerouslySetInnerHTML={{ __html: descriptionHtml }}
@@ -97,7 +93,6 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                     />
                 </div>
 
-                {/* Komanda Qridi */}
                 <div className={styles.grid}>
                     <AnimatePresence mode="popLayout">
                         {displayed.map((member, index) => (
@@ -110,9 +105,7 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                                 whileInView="visible"
                                 viewport={{ once: true, margin: "-5%" }}
                                 layout
-                                
-                                // Smooth hover effekti
-                                whileHover={{
+                                                                whileHover={{
                                     y: -6,
                                     zIndex: 10,
                                     transition: {
@@ -128,9 +121,7 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                                     alt={member.imageAlt || member.name}
                                     className={styles.cardImg}
                                 />
-                                
-                                {/* Dairəvi Plus Düyməsi */}
-                                <a 
+                                                                <a 
                                     href={member.href || "#"} 
                                     className={styles.plusBtn}
                                     aria-label={`${member.name} haqqında ətraflı`}
@@ -166,8 +157,6 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                         ))}
                     </AnimatePresence>
                 </div>
-
-                {/* "Daha çox" Düyməsi */}
                 {visibleCount < members.length && (
                     <motion.div 
                         className={portfolioStyles.moreBtnWrapper}

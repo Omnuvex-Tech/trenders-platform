@@ -45,8 +45,7 @@ const LanguageSwitcher = ({
                 <span>{activeLang.code}</span>
             </button>
 
-            {/* {isOpen && (
-                <div className={styles.dropdown}> */}
+
                 {isOpen && (
                 <div className={cn(styles.dropdown, variant === "mobile" && styles.dropdownMobile)}>
                     <div className={styles.dropdownBorder} />

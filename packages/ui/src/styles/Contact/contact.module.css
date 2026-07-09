@@ -23,7 +23,6 @@
     box-sizing: border-box;
 }
 
-/* Sol tərəf */
 .left {
     flex-shrink: 0;
     width: 480px;
@@ -219,7 +218,6 @@ a.infoValue:hover {
     border-bottom-color: #276DE4;
 }
 
-/* Select */
 .selectWrap {
     position: relative;
 }
@@ -255,7 +253,6 @@ a.infoValue:hover {
     color: #999;
 }
 
-/* Textarea */
 .textarea {
     border: none;
     border-bottom: 1px solid rgba(109, 109, 109, 1);
