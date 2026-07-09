@@ -113,17 +113,17 @@ export function ServiceDetailOverlayUI({
                             className={styles.heroImg}
                         />
                     </motion.div>
-                    <div className={styles.content}>
-                        <motion.div variants={itemVariants} className={styles.contentTop}>
+                   <motion.div variants={itemVariants} className={styles.content}>
+                        <div className={styles.contentTop}>
                             <span className={styles.badge}>{badge}</span>
                             <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
-                        </motion.div>
-                        <motion.div variants={itemVariants} className={styles.contentBottom}>
+                        </div>
+                        <div className={styles.contentBottom}>
                             {descriptions.map((desc, i) => (
                                 <div key={i} className={styles.desc} dangerouslySetInnerHTML={{ __html: desc }} />
                             ))}
-                        </motion.div>
-                    </div>
+                        </div>
+                    </motion.div>
                 </div>
             </motion.div>
         </section>

@@ -214,7 +214,7 @@
 .items {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 225px));
-    gap: 12px 78px;
+gap: 12px 27px;
 }
 
 .item {
@@ -396,10 +396,17 @@
 }
 
 @media (max-width: 900px) {
+    .serviceRowReverse .textContent {
+        padding-left: 0;
+    }
+
+    .serviceRowReverse .bottomContent {
+        padding-left: 0;
+    }
+
     .section {
         padding: 56px 0;
     }
-
     .detailBtnDesktop {
         display: none;
     }
@@ -471,10 +478,17 @@
 }
 
 @media (max-width: 600px) {
+    .serviceRowReverse .textContent {
+        padding-left: 0;
+    }
+
+    .serviceRowReverse .bottomContent {
+        padding-left: 0;
+    }
+
     .section {
         padding: 40px 0;
     }
-
     .detailBtnDesktop {
         display: none;
     }

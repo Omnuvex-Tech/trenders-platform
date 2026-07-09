@@ -159,7 +159,8 @@
     text-decoration: none;
     cursor: pointer;
     margin-top: 4px;
-    width: 144px;
+    /* width: 144px; */
+    width: fit-content;
     height: 42px;
     opacity: 1;
     border-radius: 63px;
@@ -208,7 +209,6 @@
     width: 100%;
     aspect-ratio: 16 / 7;
     overflow: hidden;
-    margin-top: 69px;
 }
 
 .galleryTopItem {

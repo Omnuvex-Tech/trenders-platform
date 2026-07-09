@@ -362,6 +362,18 @@
 }
 
 @media (max-width: 900px) {
+  .plusBtn {
+    width: 38px;
+    height: 38px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .plusBtn svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .teamDivider {
     margin-left: 32px;
     margin-right: 32px;
@@ -418,6 +430,19 @@
 }
 
 @media (max-width: 600px) {
+  .plusBtn {
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    right: 8px;
+    border-width: 1px;
+  }
+
+  .plusBtn svg {
+    width: 13px;
+    height: 13px;
+  }
+
   .cards {
     width: 100%;
     overflow: visible;
@@ -444,10 +469,21 @@
 }
 
 @media (max-width: 400px) {
+  .plusBtn {
+    width: 26px;
+    height: 26px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .plusBtn svg {
+    width: 11px;
+    height: 11px;
+  }
+
   .inner {
     padding: 0 14px;
   }
-
   .teamDivider {
     margin-left: 14px;
     margin-right: 14px;

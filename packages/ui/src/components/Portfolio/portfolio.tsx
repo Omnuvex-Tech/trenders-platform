@@ -2,6 +2,7 @@
 
 // import Link from 'next/link'
 // import { useState, useMemo, useEffect, useRef } from 'react'
+// import { motion, Variants } from 'framer-motion'
 // import styles from "../../styles/Portfolio/portfolio.module.css";
 
 // export interface PortfolioItem {
@@ -15,15 +16,29 @@
 // }
 
 // export interface PortfolioUIProps {
-//   sectionTitle: string
-//   moreBtnLabel?: string
-//   moreBtnHref?: string
-//   projects: PortfolioItem[]
-//   showControls?: boolean
-//   dropdownLabel?: string
-//   dropdownOptions?: string[]
-//   loadMoreLabel?: string
+//   sectionTitle: string;
+//   moreBtnLabel?: string;
+//   moreBtnHref?: string;
+//   projects: PortfolioItem[];
+//   showControls?: boolean;
+//   dropdownLabel?: string; 
+//   dropdownOptions?: string[];
+//   loadMoreLabel?: string;
 // }
+
+// const cardVariants: Variants = {
+//   hidden: { opacity: 0, y: 30 },
+//   visible: {
+//     opacity: 1,
+//     y: 0,
+//     transition: {
+//       type: "spring",
+//       stiffness: 60,
+//       damping: 15,
+//       duration: 0.5
+//     }
+//   }
+// };
 
 // export function PortfolioUI({
 //   sectionTitle,
@@ -31,8 +46,8 @@
 //   moreBtnHref,
 //   projects,
 //   showControls = false,
-//   dropdownLabel = "Filter",
-//   dropdownOptions = [],
+//   dropdownLabel = "Filter", 
+//   dropdownOptions = [],   
 //   loadMoreLabel = "Daha çox Portfolio",
 // }: PortfolioUIProps) {
 
@@ -130,49 +145,57 @@
 //       </div>
 
 //       <div className={styles.projectsGrid}>
-//         {displayed.map((project, i) => (
-//           <Link
-//             key={`${project.id}-${i}`}
-//             href={project.slug ? `/portfolio/${project.slug}` : '#'}
+//         {displayed.map((project) => (
+//           <motion.div
+//             key={project.id} 
+//             variants={cardVariants}
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true, margin: "-5%" }} 
 //             className={`${styles.projectCard} ${project.gif ? styles.projectCardWithGif : ""}`}
 //           >
-//             <img
-//               src={project.image}
-//               alt={project.imageAlt || ""}
-//               className={`${styles.projectCardImg} ${styles.imageStatic}`}
-//             />
-
-//             {project.gif && (
-//               project.gif.toLowerCase().endsWith('.mp4') ? (
-//                 <video
-//                   src={project.gif}
-//                   className={`${styles.projectCardImg} ${styles.imageGif}`}
-//                   autoPlay
-//                   loop
-//                   muted
-//                   playsInline
-//                 />
-//               ) : (
-//                 <img
-//                   src={project.gif}
-//                   alt=""
-//                   className={`${styles.projectCardImg} ${styles.imageGif}`}
-//                 />
-//               )
-//             )}
-//             <div className={styles.projectCardOverlay} />
-//             <div className={styles.projectCardContent}>
-//               <div className={styles.projectTags}>
-//                 {project.tags.map((tag) => (
-//                   <span key={tag} className={styles.projectTag}>{tag}</span>
-//                 ))}
-//               </div>
-//               <div
-//                 className={styles.projectCardTitle}
-//                 dangerouslySetInnerHTML={{ __html: project.title }}
+//             <Link
+//               href={project.slug ? `/portfolio/${project.slug}` : '#'}
+//               style={{ display: 'block', width: '100%', height: '100%' }}
+//             >
+//               <img
+//                 src={project.image}
+//                 alt={project.imageAlt || ""}
+//                 className={`${styles.projectCardImg} ${styles.imageStatic}`}
 //               />
-//             </div>
-//           </Link>
+
+//               {project.gif && (
+//                 project.gif.toLowerCase().endsWith('.mp4') ? (
+//                   <video
+//                     src={project.gif}
+//                     className={`${styles.projectCardImg} ${styles.imageGif}`}
+//                     autoPlay
+//                     loop
+//                     muted
+//                     playsInline
+//                   />
+//                 ) : (
+//                   <img
+//                     src={project.gif}
+//                     alt=""
+//                     className={`${styles.projectCardImg} ${styles.imageGif}`}
+//                   />
+//                 )
+//               )}
+//               <div className={styles.projectCardOverlay} />
+//               <div className={styles.projectCardContent}>
+//                 <div className={styles.projectTags}>
+//                   {project.tags.map((tag) => (
+//                     <span key={tag} className={styles.projectTag}>{tag}</span>
+//                   ))}
+//                 </div>
+//                 <div
+//                   className={styles.projectCardTitle}
+//                   dangerouslySetInnerHTML={{ __html: project.title }}
+//                 />
+//               </div>
+//             </Link>
+//           </motion.div>
 //         ))}
 //       </div>
 
@@ -210,6 +233,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState, useMemo, useEffect, useRef } from 'react'
 import { motion, Variants } from 'framer-motion'
 import styles from "../../styles/Portfolio/portfolio.module.css";
@@ -230,12 +254,11 @@ export interface PortfolioUIProps {
   moreBtnHref?: string;
   projects: PortfolioItem[];
   showControls?: boolean;
-  dropdownLabel?: string; // Tiplər yalnız interfeys daxilində yazılır
+  dropdownLabel?: string; 
   dropdownOptions?: string[];
   loadMoreLabel?: string;
 }
 
-// Focal.inc tərzində aşağıdan yuxarı zərif gəlmə animasiyası
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -256,8 +279,8 @@ export function PortfolioUI({
   moreBtnHref,
   projects,
   showControls = false,
-  dropdownLabel = "Filter", // Default dəyər burada düzgün şəkildə mənimsədildi
-  dropdownOptions = [],     // Default boş massiv xətaların qarşısını alır
+  dropdownLabel = "Filter", 
+  dropdownOptions = [],   
   loadMoreLabel = "Daha çox Portfolio",
 }: PortfolioUIProps) {
 
@@ -266,6 +289,15 @@ export function PortfolioUI({
   const [visibleCount, setVisibleCount] = useState(6)
   const [isMounted, setIsMounted] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const pathname = usePathname()
+  const locale = pathname?.split('/')[1] || 'az'
+  const ALL_LABELS: Record<string, string> = {
+    az: 'Bütün layihələr',
+    en: 'All projects',
+    ru: 'Все проекты',
+  }
+  const allLabel = ALL_LABELS[locale] || ALL_LABELS.az
 
   useEffect(() => {
     setIsMounted(true)
@@ -321,6 +353,16 @@ export function PortfolioUI({
               {dropdownOpen && (
                 <div className={styles.dropdownList}>
                   <div className={styles.dropdownInner}>
+                    <button
+                      className={`${styles.dropdownOption} ${selectedOption === null ? styles.dropdownOptionActive : ""}`}
+                      onClick={() => {
+                        setSelectedOption(null)
+                        setDropdownOpen(false)
+                        setVisibleCount(6)
+                      }}
+                    >
+                      {allLabel}
+                    </button>
                     {dropdownOptions.map((opt) => (
                       <button
                         key={opt}

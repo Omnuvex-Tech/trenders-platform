@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, Variants } from "framer-motion";
 import styles from "../../styles/Vacancy/vacancy.module.css";
 
@@ -61,6 +62,15 @@ export function VacancyUI({
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const pathname = usePathname();
+    const locale = pathname?.split('/')[1] || 'az';
+    const ALL_LABELS: Record<string, string> = {
+        az: 'Bütün vakansiyalar',
+        en: 'All vacancies',
+        ru: 'Все вакансии',
+    };
+    const allLabel = ALL_LABELS[locale] || ALL_LABELS.az;
+
     useEffect(() => {
         if (!dropdownOpen) return;
         const handleClick = (e: MouseEvent) => {
@@ -119,6 +129,16 @@ export function VacancyUI({
                             {dropdownOpen && (
                                 <div className={styles.dropdownList}>
                                     <div className={styles.dropdownInner}>
+                                        <button
+                                            className={`${styles.dropdownOption} ${selectedOption === null ? styles.dropdownOptionActive : ""}`}
+                                            onClick={() => {
+                                                setSelectedOption(null);
+                                                setActiveFilter(null);
+                                                setDropdownOpen(false);
+                                            }}
+                                        >
+                                            {allLabel}
+                                        </button>
                                         {dropdownOptions.map((opt) => (
                                             <button
                                                 key={opt}

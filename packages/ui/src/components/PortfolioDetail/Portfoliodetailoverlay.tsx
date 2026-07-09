@@ -135,18 +135,16 @@ export function PortfolioDetailOverlayUI({
                         variants={imageVariants}
                     />
 
-                    <div className={styles.content}>
-                        {/* Üst mətn bloku (Badge və Başlıq) */}
-                        <motion.div className={styles.contentTop} variants={contentVariants}>
+                    <motion.div className={styles.content} variants={contentVariants}>
+                        <div className={styles.contentTop}>
                             <span className={styles.badge}>{badge}</span>
                             <div
                                 className={styles.title}
                                 dangerouslySetInnerHTML={{ __html: title }}
                             />
-                        </motion.div>
+                        </div>
 
-                        {/* Alt mətn bloku (Təsvirlər) */}
-                        <motion.div className={styles.contentBottom} variants={contentVariants}>
+                        <div className={styles.contentBottom}>
                             {descriptions.map((desc, i) =>
                                 typeof desc === "string" ? (
                                     <div
@@ -158,8 +156,8 @@ export function PortfolioDetailOverlayUI({
                                     <div key={i} className={styles.desc}>{desc}</div>
                                 )
                             )}
-                        </motion.div>
-                    </div>
+                        </div>
+                    </motion.div>
                 </motion.div>
             </div>
         </section>
