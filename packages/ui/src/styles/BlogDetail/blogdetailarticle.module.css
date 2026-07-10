@@ -227,3 +227,25 @@
     padding: 4px 0;
     font-style: normal;
 }
+
+
+
+.paragraph :global(ul) {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 4px 0;
+}
+
+.paragraph :global(ol) {
+    list-style: decimal;
+    padding-left: 20px;
+    margin: 4px 0;
+}
+
+.paragraph :global(li) {
+    margin-bottom: 4px;
+}
+
+.paragraph :global(li)::marker {
+    color: rgb(0, 0, 0);
+}

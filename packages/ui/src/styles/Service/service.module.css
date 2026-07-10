@@ -226,7 +226,9 @@ gap: 12px 27px;
     font-weight: 600;
     font-size: 15.22px;
     width: 100%;
-    min-width: 0;  
+    min-width: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;  
 }
 
 .item svg {
