@@ -241,14 +241,6 @@ export function VacancyDetailUI({
                                             className={styles.fieldInput}
                                             value={name} onChange={e => setName(e.target.value)} required />
                                     </div>
-
-                                    <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>{messageLabel}</label>
-                                        <input type="text" placeholder={messagePlaceholder}
-                                            className={styles.fieldInput}
-                                            value={message} onChange={e => setMessage(e.target.value)} />
-                                    </div>
-
                                     <div className={styles.fieldGroup}>
                                         <label className={styles.fieldLabel}>{phoneLabel}</label>
                                         <input type="tel" placeholder={phonePlaceholder}
@@ -286,6 +278,12 @@ export function VacancyDetailUI({
                                         </div>
                                     </div>
 
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.fieldLabel}>{messageLabel}</label>
+                                        <input type="text" placeholder={messagePlaceholder}
+                                            className={styles.fieldInput}
+                                            value={message} onChange={e => setMessage(e.target.value)} />
+                                    </div>
                                     {submitted && (
                                         <p style={{ color: "#16a34a", fontSize: 13, fontWeight: 500, margin: "4px 0" }}>
                                             ✓ Müraciətiniz göndərildi!
