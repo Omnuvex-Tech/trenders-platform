@@ -251,14 +251,12 @@ export function VacancyDetailUI({
                                                 setPhone(val);
                                             }} required />
                                     </div>
-
                                     <div className={styles.fieldGroup}>
                                         <label className={styles.fieldLabel}>{emailLabel}</label>
                                         <input type="email" placeholder={emailPlaceholder}
                                             className={styles.fieldInput}
                                             value={email} onChange={e => setEmail(e.target.value)} required />
                                     </div>
-
                                     <div className={styles.fieldGroup}>
                                         <label className={styles.fieldLabel}>{cvLabel}</label>
                                         <div className={styles.fileRow} onClick={() => fileRef.current?.click()}>
@@ -277,7 +275,6 @@ export function VacancyDetailUI({
                                                 onChange={e => setCv(e.target.files?.[0] || null)} />
                                         </div>
                                     </div>
-
                                     <div className={styles.fieldGroup}>
                                         <label className={styles.fieldLabel}>{messageLabel}</label>
                                         <input type="text" placeholder={messagePlaceholder}

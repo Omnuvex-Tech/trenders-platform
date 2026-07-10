@@ -108,8 +108,7 @@
 .quoteText {
     font-family: 'Poppins';
     font-weight: 300;
-    font-size: 42px;
-    line-height: 126%;
+font-size: 36px;    line-height: 126%;
     text-align: right;
     color: rgba(150, 150, 150, 1);
     flex: 1;

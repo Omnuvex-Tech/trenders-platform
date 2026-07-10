@@ -118,7 +118,7 @@
 
 .quoteMark {
     color: #46464633;
-    font-family: Poppins;
+    font-family: 'Poppins';
     font-size: 383.6px;
     font-weight: 300;
     font-style: italic;
@@ -129,14 +129,14 @@
 .quoteLight {
     font-family: "Poppins";
     font-weight: 300;
-    font-size: 42px;
+        font-size: 36px;
     color: rgba(150, 150, 150, 1);
     position: relative;
     z-index: 2;
 }
 
 .quoteLight strong {
-    font-family: Poppins;
+    font-family: 'Poppins';
     font-weight: 500;
     font-size: 42px;
     color: rgba(94, 94, 94, 1);
