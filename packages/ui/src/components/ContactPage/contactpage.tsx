@@ -276,13 +276,12 @@ export function ContactPageUI({
                         <span className={styles.followLabel}>{info.followUsLabel}</span>
                         <div className={styles.socials}>
                             {info.socialLinks.map(link => (
-                                <motion.a
+                                <a
                                     key={link.id}
                                     href={link.href}
                                     className={styles.socialBtn}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    whileHover={{ y: -4, scale: 1.05, transition: { duration: 0.2 } }}
                                 >
                                     {link.icon && (
                                         <img
@@ -293,7 +292,7 @@ export function ContactPageUI({
                                             style={{ objectFit: "contain" }}
                                         />
                                     )}
-                                </motion.a>
+                                </a>
                             ))}
                         </div>
                     </motion.div>

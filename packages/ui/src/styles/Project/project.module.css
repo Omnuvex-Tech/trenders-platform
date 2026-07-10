@@ -89,6 +89,7 @@
   height: 592px;
   cursor: pointer;
 }
+
 .projectCard:hover .projectCardImg {
   transform: scale(1.04);
 }
@@ -148,7 +149,7 @@
 
 .projectTag {
   position: relative;
-  font-size: 15px;
+  font-size: 11px;
   font-weight: 300;
   font-family: 'Poppins', sans-serif;
   color: #ffffff;
@@ -276,24 +277,38 @@
   .projectsMoreBtn {
     font-size: 37px;
   }
-  .projectCardTitle{font-size: 89px;}
-  .projectTag{padding: 19px 43px; font-size: 55px;}
-  .projectTags{gap: 35px;}
-  .projectCardContent{ padding: 74px;}
+
+  .projectCardTitle {
+    font-size: 89px;
+  }
+
+  .projectTag {
+    padding: 19px 43px;
+    font-size: 55px;
+  }
+
+  .projectTags {
+    gap: 35px;
+  }
+
+  .projectCardContent {
+    padding: 74px;
+  }
 }
 
 
 
 
 @keyframes cardFadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(45px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .projectsGrid .projectCard {
@@ -303,13 +318,14 @@
 .projectsGridVisible .projectCard {
   animation: cardFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
 .projectCard:hover .projectCardImg {
-    transform: scale(1.04);
+  transform: scale(1.04);
 }
 
 .projectCard:hover {
-    transform: translateY(-6px);
-    transition: transform 0.3s ease;
+  transform: translateY(-6px);
+  transition: transform 0.3s ease;
 }
 
 .projectCardVisible {
