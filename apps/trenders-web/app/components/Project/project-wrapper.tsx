@@ -12,6 +12,21 @@ function t(obj: LocalizedString | any, locale: string, fallback = ""): string {
   return obj[locale] || obj["az"] || fallback;
 }
 
+function decodeHtmlEntities(text: string) {
+    return (text ?? "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&apos;/g, "'");
+}
+
+function stripHtml(html: string) {
+    return decodeHtmlEntities((html ?? "").replace(/<[^>]*>/g, "")).trim();
+}
+
 async function getHomepageProjects(locale: string): Promise<ProjectItem[]> {
   try {
     const res = await fetch(`${API}/portfolio/homepage`, {
@@ -23,10 +38,10 @@ async function getHomepageProjects(locale: string): Promise<ProjectItem[]> {
       id: p.id,
       image: p.coverImage?.startsWith('http') ? p.coverImage : `${API}${p.coverImage}`,
       gif: p.gif ? (p.gif.startsWith('http') ? p.gif : `${API}${p.gif}`) : undefined,
-      tags: p.tags ?? [],
+      tags: (p.services ?? []).map((ps: any) => stripHtml(t(ps.service?.title, locale))).filter(Boolean),
       title: t(p.title, locale),
       slug: p.slug,
-      href: `/portfolio/${p.slug}`,
+      href: `/${locale}/portfolio/${p.slug}`,
     }))
   } catch (e) {
     console.error('[ProjectsWrapper] fetch error:', e)

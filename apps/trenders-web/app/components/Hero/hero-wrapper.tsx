@@ -38,12 +38,12 @@ interface HeroWrapperProps {
 export async function HeroWrapper({ locale = "az" }: HeroWrapperProps) {
   const [services, hero] = await Promise.all([getServices(), getHeroSettings()]);
 
-  const baseCards = services.map((s: any) => ({
+ const baseCards = services.map((s: any) => ({
     label: getLoc(s.title, locale),
-    image: toAbsUrl(s.image ?? ""),
+    image: toAbsUrl(s.homeCoverImage || s.image || ""),
     slug: s.slug,
   }));
-
+  
   return (
     <HeroClient
       locale={locale}

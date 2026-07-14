@@ -51,7 +51,7 @@ export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
     const readLabel = t(settings?.readArticleLabel, locale, "Məqaləni oxu");
     const postsTitle = t(settings?.recentBlogsTitle, locale, "Son bloqlar");
 
-    const posts = (blogs as any[]).slice(0, 3).map((b: any) => ({
+   const posts = (blogs as any[]).map((b: any) => ({
         id: b.id,
         image: toAbsUrl(t(b.coverImage, locale)),
         imageAlt: t(b.coverImageAlt, locale) || t(b.title, locale),

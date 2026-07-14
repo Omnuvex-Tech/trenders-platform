@@ -34,8 +34,9 @@ export interface VacancyDetailUIProps {
     vacancyTitle?: string;
     sections: VacancyDetailSection[];
     applyTitle?: string;
-    contact: VacancyDetailContact;
+contact: VacancyDetailContact;
     mapComponent?: React.ReactNode;
+    mapLink?: string;
     onSubmit?: (data: FormData) => Promise<void>;
     nameLabel?: string;
     namePlaceholder?: string;
@@ -85,6 +86,7 @@ export function VacancyDetailUI({
     applyTitle = "APPLY NOW",
     contact,
     mapComponent,
+    mapLink,
     onSubmit,
     nameLabel = "Name",
     namePlaceholder = "Your name*",
@@ -304,8 +306,20 @@ export function VacancyDetailUI({
                                 </form>
                             </div>
                         </motion.div>
-                        <motion.div variants={revealVariants} className={styles.mapCard}>
-                            <div className={styles.mapWrap}>{mapComponent}</div>
+                       <motion.div variants={revealVariants} className={styles.mapCard}>
+                            <div className={styles.mapWrap}>
+                                {mapComponent}
+                                {mapLink && (
+                                    <a
+                                        href={mapLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.mapButton}
+                                    >
+                                        View on map
+                                    </a>
+                                )}
+                            </div>
                         </motion.div>
                         <motion.div variants={revealVariants} className={styles.contactInfo}>
                             <div className={styles.contactItem}>

@@ -74,9 +74,9 @@ export function BlogAuthorHeroUI({ author, postsTitle, posts }: BlogAuthorHeroUI
                             </div>
                         </div>
                     </aside>
-                    <div className={styles.postsWrap}>
+                   <div className={styles.postsWrap}>
                         <h2 className={styles.postsTitle}>{postsTitle}</h2>
-                        <div className={styles.postsList}>
+                        <div className={`${styles.postsList} ${posts.length > 3 ? styles.postsListScroll : ""}`}>
                             {posts.map((post) => (
                                 <div key={post.id} className={styles.postItem}>
                                     <img src={post.image} alt={post.imageAlt || post.title} className={styles.postImg} />

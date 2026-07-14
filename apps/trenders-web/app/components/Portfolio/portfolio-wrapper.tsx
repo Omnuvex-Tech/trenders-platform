@@ -1,5 +1,5 @@
 import { PortfolioUI } from '@repo/ui';
-import type { PortfolioItem } from '@repo/ui';
+import type { PortfolioItem, PortfolioCategory } from '@repo/ui';
 
 type LocalizedString = Record<string, string>;
 
@@ -9,8 +9,19 @@ function t(obj: LocalizedString | any, locale: string, fallback = ""): string {
     return obj[locale] || obj["az"] || fallback;
 }
 
+function decodeHtmlEntities(text: string) {
+    return (text ?? "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&apos;/g, "'");
+}
+
 function stripHtml(html: string) {
-    return (html ?? "").replace(/<[^>]*>/g, "").trim();
+    return decodeHtmlEntities((html ?? "").replace(/<[^>]*>/g, "")).trim();
 }
 
 function toAbsUrl(path: string) {
@@ -22,19 +33,26 @@ function toAbsUrl(path: string) {
 async function getPortfolios(locale: string): Promise<PortfolioItem[]> {
     try {
         const res = await fetch(`${process.env.API_URL}/portfolio/public`, {
-            cache: 'no-store',
+            next: { revalidate: 10 },
         });
         if (!res.ok) return [];
         const data = await res.json();
-        return data.map((p: any) => ({
-            id: p.id,
-            image: toAbsUrl(p.coverImage),
-            gif: p.gif ? toAbsUrl(p.gif) : undefined,
-            imageAlt: t(p.coverImageAlt, locale) || stripHtml(t(p.title, locale)),
-            tags: p.tags,
-            title: t(p.title, locale),
-            slug: p.slug,
-        }));
+        return data.map((p: any) => {
+            const categories: PortfolioCategory[] = (p.services ?? []).map((ps: any) => ({
+                title: stripHtml(t(ps.service?.title, locale)),
+                coverImage: toAbsUrl(ps.coverImage),
+                imageAlt: t(ps.coverImageAlt, locale) || stripHtml(t(p.title, locale)),
+            }));
+            return {
+                id: p.id,
+                image: toAbsUrl(p.coverImage),
+                gif: p.gif ? toAbsUrl(p.gif) : undefined,
+                imageAlt: t(p.coverImageAlt, locale) || stripHtml(t(p.title, locale)),
+                categories,
+                title: t(p.title, locale),
+                slug: p.slug,
+            };
+        });
     } catch {
         return [];
     }
@@ -49,7 +67,7 @@ interface PortfolioSettings {
 async function getPortfolioSettings(locale: string): Promise<PortfolioSettings> {
     try {
         const res = await fetch(`${process.env.API_URL}/portfolio/settings`, {
-            cache: 'no-store',
+            next: { revalidate: 10 },
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
@@ -72,7 +90,9 @@ export async function PortfolioWrapper({ locale = "az" }: { locale?: string }) {
         getPortfolios(locale),
         getPortfolioSettings(locale),
     ]);
-    const allTags = Array.from(new Set(projects.flatMap(p => p.tags)));
+    const allCategories = Array.from(
+        new Set(projects.flatMap(p => p.categories.map(c => c.title)))
+    ).filter(Boolean);
 
     return (
         <PortfolioUI
@@ -80,7 +100,7 @@ export async function PortfolioWrapper({ locale = "az" }: { locale?: string }) {
             projects={projects}
             showControls={true}
             dropdownLabel={settings.dropdownLabel}
-            dropdownOptions={allTags}
+            dropdownOptions={allCategories}
             loadMoreLabel={settings.moreButtonLabel}
         />
     );

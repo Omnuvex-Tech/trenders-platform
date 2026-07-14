@@ -104,7 +104,7 @@ export function PortfolioDetailStrategyUI({
               <img src={smallImages[1]} alt={smallImagesAlt || ""} className={styles.smallImg} />
             </motion.div>
           </div>
-                    <div className={styles.textCol}>
+                   <div className={styles.textCol} data-badge={badge}>
             {badge && <motion.span variants={elementVariants} className={styles.badge}>{badge}</motion.span>}
             <motion.div
               variants={elementVariants}

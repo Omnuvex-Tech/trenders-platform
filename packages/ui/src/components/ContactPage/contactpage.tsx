@@ -50,7 +50,8 @@ export interface ContactPageUIProps {
         messagePlaceholder: string;
         submit: string;
     };
-    mapComponent?: React.ReactNode;
+   mapComponent?: React.ReactNode;
+    mapLink?: string;
     termsHref?: string;
     privacyHref?: string;
     onSubmit?: (data: Record<string, string>) => Promise<void>;
@@ -67,6 +68,7 @@ export function ContactPageUI({
     timelineOptions,
     formLabels,
     mapComponent,
+    mapLink,
     termsHref = "#",
     privacyHref = "#",
     onSubmit,
@@ -409,10 +411,20 @@ export function ContactPageUI({
                         </motion.p>
                     </motion.form>
 
-                    {mapComponent && (
+                   {mapComponent && (
                         <div className={styles.mapCard}>
                             <div className={styles.mapWrap}>
                                 {mapComponent}
+                                {mapLink && (
+                                    <a
+                                        href={mapLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.mapButton}
+                                    >
+                                        View on map
+                                    </a>
+                                )}
                             </div>
                         </div>
                     )}

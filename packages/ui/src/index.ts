@@ -35,7 +35,7 @@ export { ServicesUI } from "./components/Service/service";
 export type { ServicesUIProps, Service, ServiceItem } from "./components/Service/service";
 
 export { PortfolioUI } from './components/Portfolio'
-export type { PortfolioUIProps, PortfolioItem } from './components/Portfolio'
+export type { PortfolioUIProps, PortfolioItem, PortfolioCategory } from './components/Portfolio'
 export { PortfolioDetailHeroUI } from "./components/PortfolioDetail/Portfoliodetailhero";
 export type { PortfolioDetailHeroUIProps } from "./components/PortfolioDetail/Portfoliodetailhero";
 export { PortfolioDetailStepsUI } from "./components/PortfolioDetail/Portfoliodetailsteps";

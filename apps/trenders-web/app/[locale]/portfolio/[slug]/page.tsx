@@ -11,6 +11,8 @@ import { api } from "@/lib/api";
 import { config } from "@/config";
 import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
 import type { Translation } from "@repo/types/types";
+import { Suspense } from "react";
+import { PortfolioCategoryScroller } from "./portfolio-category-scroller";
 
 type LocalizedString = Record<string, string>;
 type LocalizedImages = Record<string, string[]>;
@@ -24,7 +26,7 @@ function t(obj: LocalizedString | any, locale: string, fallback = ""): string {
 }
 
 function resolveLocalizedImages(images: LocalizedImages | string[] | any, locale: string): string[] {
-    if (Array.isArray(images)) return images; 
+    if (Array.isArray(images)) return images;
     if (!images || typeof images !== "object") return [];
     const own = images[locale];
     if (Array.isArray(own) && own.length > 0) return own;
@@ -36,7 +38,7 @@ function resolveLocalizedImages(images: LocalizedImages | string[] | any, locale
 }
 
 function resolveLocalizedImage(image: LocalizedImages | string | any, locale: string): string {
-    if (typeof image === "string") return image; 
+    if (typeof image === "string") return image;
     return resolveLocalizedImages(image, locale)[0] ?? "";
 }
 
@@ -51,10 +53,20 @@ function toAbsUrls(images: string[]) {
     return images.map(toAbsUrl);
 }
 
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").trim();
+function decodeHtmlEntities(text: string) {
+    return (text ?? "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&apos;/g, "'");
 }
 
+function stripHtml(html: string): string {
+    return decodeHtmlEntities((html ?? "").replace(/<[^>]*>/g, "")).trim();
+}
 
 async function getPortfolio(slug: string) {
     try {
@@ -103,31 +115,34 @@ function renderSection(section: any, index: number, locale: string) {
             );
         }
         case 'service': {
+            const badgeText = stripHtml(t(section.badge, locale));
             return (
-                <PortfolioDetailServiceUI
-                    key={index}
-                    badge={t(section.badge, locale)}
-                    bigNumber={section.bigNumber ?? ''}
-                    title={t(section.title, locale)}
-                    descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
-                    items={(section.items ?? []).map((item: any) => ({
-                        number: item.number,
-                        title: t(item.title, locale),
-                        images: toAbsUrls(resolveLocalizedImages(item.images, locale)),
-                        imagesAlt: t(item.imagesAlt, locale),
-                    }))}
-                />
+                <div key={index} data-badge={badgeText}>
+                    <PortfolioDetailServiceUI
+                        badge={badgeText}
+                        bigNumber={section.bigNumber ?? ''}
+                        title={t(section.title, locale)}
+                        descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
+                        items={(section.items ?? []).map((item: any) => ({
+                            number: item.number,
+                            title: t(item.title, locale),
+                            images: toAbsUrls(resolveLocalizedImages(item.images, locale)),
+                            imagesAlt: t(item.imagesAlt, locale),
+                        }))}
+                    />
+                </div>
             );
         }
-       case 'strategy': {
+        case 'strategy': {
             const quoteImages = toAbsUrls(resolveLocalizedImages(section.quoteImages, locale));
             const smallImages = toAbsUrls(resolveLocalizedImages(section.images, locale));
             const quoteImagesAlt = t(section.quoteImagesAlt, locale);
             const smallImagesAlt = t(section.imagesAlt, locale);
+            const badgeText = stripHtml(t(section.badge, locale));
             return (
                 <PortfolioDetailStrategyUI
                     key={index}
-                    badge={t(section.badge, locale)}
+                    badge={badgeText}
                     title={t(section.title, locale)}
                     quote={t(section.quote, locale)}
                     mainImage={toAbsUrl(resolveLocalizedImage(section.mainImage, locale))}
@@ -142,15 +157,17 @@ function renderSection(section: any, index: number, locale: string) {
         }
         case 'overlay': {
             const overlayImages = toAbsUrls(resolveLocalizedImages(section.images, locale));
+            const badgeText = stripHtml(t(section.badge, locale));
             return (
-                <PortfolioDetailOverlayUI
-                    key={index}
-                    badge={t(section.badge, locale)}
-                    title={t(section.title, locale)}
-                    image={overlayImages[0] ?? ''}
-                    imageAlt={t(section.imagesAlt, locale)}
-                    descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
-                />
+                <div key={index} data-badge={badgeText}>
+                    <PortfolioDetailOverlayUI
+                        badge={badgeText}
+                        title={t(section.title, locale)}
+                        image={overlayImages[0] ?? ''}
+                        imageAlt={t(section.imagesAlt, locale)}
+                        descriptions={(section.descriptions ?? []).map((d: any) => t(d, locale))}
+                    />
+                </div>
             );
         }
         default:
@@ -178,13 +195,13 @@ export async function generateMetadata({
         const contact = contactRes.ok ? await contactRes.json() : null;
 
         const contactTags: string[] = [];
-    if (Array.isArray(contact?.tags)) {
-      contact.tags.forEach((tag: any) => {
-        const raw = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
-        const val = typeof raw === "string" ? raw.replace(/^#+/, "").trim() : raw;
-        if (val) contactTags.push(val);
-      });
-    }
+        if (Array.isArray(contact?.tags)) {
+            contact.tags.forEach((tag: any) => {
+                const raw = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
+                const val = typeof raw === "string" ? raw.replace(/^#+/, "").trim() : raw;
+                if (val) contactTags.push(val);
+            });
+        }
 
         const manualKeywords = portfolio.seoKeywords?.[locale] || "";
         const allKeywords = [
@@ -233,6 +250,9 @@ export default async function PortfolioDetailPage({
                 languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
+            <Suspense fallback={null}>
+                <PortfolioCategoryScroller />
+            </Suspense>
             {(portfolio.sections ?? [])
                 .filter((section: any) => section.isVisible !== false)
                 .map((section: any, i: number) =>

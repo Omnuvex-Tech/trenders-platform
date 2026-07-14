@@ -22,7 +22,7 @@ async function getHomeTeamMembers(locale: string): Promise<TeamMember[]> {
     const res = await fetch(`${API}/blog/authors/about-team`, { cache: "no-store" });
     if (!res.ok) return [];
     const authors = await res.json();
-    return (authors as any[]).slice(0, 3).map((a) => ({
+    return (authors as any[]).slice(0, 4).map((a) => ({
       id: a.id,
       name: t(a.name, locale),
       role: t(a.role, locale),
@@ -53,11 +53,11 @@ export async function TeamWrapper({ locale = "az" }: { locale?: string }) {
 
   return (
     <TeamUI
-      title={t(home?.teamTitle, locale, "İlham Verən Komanda")}
+      title={t(home?.teamTitle, locale)}
       members={members}
-      featuredImage={toAbsUrl(home?.teamImage || "") || "/images/team2.jpg"}
-      goHref={home?.teamBtnLink || "/team"}
-      goLabel={t(home?.teamBtnText, locale, "Keçid edin")}
+      featuredImage={toAbsUrl(home?.teamImage || "")}
+      goHref={home?.teamBtnLink }
+      goLabel={t(home?.teamBtnText, locale)}
       goNewTab={home?.teamBtnNewTab ?? false}
     />
   );

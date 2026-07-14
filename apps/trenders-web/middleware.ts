@@ -23,10 +23,10 @@ export function middleware(request: NextRequest) {
 
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
   const locale = resolveLocale(cookieLocale);
+const redirectUrl = new URL(`/${locale}${pathname}`, request.url);
+  redirectUrl.search = request.nextUrl.search;
 
-  return NextResponse.redirect(
-    new URL(`/${locale}${pathname}`, request.url)
-  );
+  return NextResponse.redirect(redirectUrl);
 }
 
 export const config = {

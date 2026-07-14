@@ -6,12 +6,18 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { motion, Variants } from 'framer-motion'
 import styles from "../../styles/Portfolio/portfolio.module.css";
 
+export interface PortfolioCategory {
+  title: string;
+  coverImage: string;
+  imageAlt?: string;
+}
+
 export interface PortfolioItem {
   id: number;
   image: string;
   gif?: string;
   imageAlt?: string;
-  tags: string[];
+  categories: PortfolioCategory[];
   title: string;
   slug?: string;
 }
@@ -82,15 +88,30 @@ export function PortfolioUI({
     return () => document.removeEventListener('mousedown', handleClick)
   }, [dropdownOpen])
 
-  const filteredProjects = useMemo(() => {
+const filteredProjects = useMemo(() => {
     if (selectedOption) {
       return projects.filter(p =>
-        p.tags.some(t => t === selectedOption)
+        p.categories.some(c => c.title === selectedOption)
       )
     }
     return projects
   }, [projects, selectedOption])
 
+  const getCardImage = (project: PortfolioItem) => {
+    if (selectedOption) {
+      const match = project.categories.find(c => c.title === selectedOption)
+      if (match?.coverImage) return match.coverImage
+    }
+    return project.image
+  }
+
+  const getCardAlt = (project: PortfolioItem) => {
+    if (selectedOption) {
+      const match = project.categories.find(c => c.title === selectedOption)
+      if (match?.imageAlt) return match.imageAlt
+    }
+    return project.imageAlt || ""
+  }
   const displayed = useMemo(() => {
     return filteredProjects.slice(0, visibleCount)
   }, [filteredProjects, visibleCount])
@@ -164,8 +185,13 @@ export function PortfolioUI({
         )}
       </div>
 
-      <div className={styles.projectsGrid}>
-        {displayed.map((project) => (
+     <div className={styles.projectsGrid}>
+        {displayed.map((project) => {
+          const href = project.slug
+            ? `/${locale}/portfolio/${project.slug}${selectedOption ? `?category=${encodeURIComponent(selectedOption)}` : ''}`
+            : '#';
+          console.log("card:", project.title, "selectedOption:", selectedOption, "href:", href);
+          return (
           <motion.div
             key={project.id} 
             variants={cardVariants}
@@ -174,13 +200,13 @@ export function PortfolioUI({
             viewport={{ once: true, margin: "-5%" }} 
             className={`${styles.projectCard} ${project.gif ? styles.projectCardWithGif : ""}`}
           >
-            <Link
-              href={project.slug ? `/portfolio/${project.slug}` : '#'}
+           <Link
+              href={href}
               style={{ display: 'block', width: '100%', height: '100%' }}
             >
-              <img
-                src={project.image}
-                alt={project.imageAlt || ""}
+             <img
+                src={getCardImage(project)}
+                alt={getCardAlt(project)}
                 className={`${styles.projectCardImg} ${styles.imageStatic}`}
               />
 
@@ -204,9 +230,9 @@ export function PortfolioUI({
               )}
               <div className={styles.projectCardOverlay} />
               <div className={styles.projectCardContent}>
-                <div className={styles.projectTags}>
-                  {project.tags.map((tag) => (
-                    <span key={tag} className={styles.projectTag}>{tag}</span>
+            <div className={styles.projectTags}>
+                  {project.categories.map((cat) => (
+                    <span key={cat.title} className={styles.projectTag}>{cat.title}</span>
                   ))}
                 </div>
                 <div
@@ -214,9 +240,10 @@ export function PortfolioUI({
                   dangerouslySetInnerHTML={{ __html: project.title }}
                 />
               </div>
-            </Link>
+           </Link>
           </motion.div>
-        ))}
+          );
+        })}
       </div>
 
       {isMounted && filteredProjects.length > visibleCount && (

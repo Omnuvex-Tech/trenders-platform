@@ -228,13 +228,36 @@
     height: 240px;
     overflow: hidden;
     border-radius: 14px;
+    position: relative;
+}
+
+.mapButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 36px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 2;
+}
+
+.mapButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .mapWrap :global(.leaflet-container) {
     filter: hue-rotate(180deg) saturate(0.4) brightness(1.3);
     border-radius: 14px 14px 0 0;
 }
-
 
 .mapIframe {
     width: 100%;

@@ -76,10 +76,29 @@
   color: rgba(255, 255, 255, 1);
   text-decoration: none;
   transition: opacity 0.2s ease;
+  position: relative;
+  width: fit-content;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 1);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navLink:hover {
-  opacity: 0.7;
+  opacity: 1;
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
 }
 
 .contactCol {
