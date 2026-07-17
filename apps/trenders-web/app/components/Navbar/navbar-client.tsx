@@ -5,9 +5,10 @@ import { NavbarUI } from "@repo/ui";
 
 interface SearchResult {
   title: string;
+  titleHtml: string;
   url: string;
   breadcrumb: string;
-  excerpt: string;
+  excerptHtml: string;
 }
 
 interface NavbarClientProps {

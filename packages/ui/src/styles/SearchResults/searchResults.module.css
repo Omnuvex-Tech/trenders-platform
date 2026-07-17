@@ -1,0 +1,95 @@
+.section {
+    width: 100%;
+    padding: 60px 0;
+}
+
+.inner {
+    max-width: 1295px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.foundCount {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 15px;
+    color: rgba(130, 130, 130, 1);
+    margin-bottom: 20px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultItem {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+}
+
+.resultItem:first-child {
+    padding-top: 0;
+}
+
+.resultBreadcrumb {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 15px;
+    color: rgba(90, 90, 90, 1);
+}
+
+.resultTitle {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 23px;
+    color: rgba(26, 86, 219, 1);
+    line-height: 1.4;
+}
+
+.resultTitle:hover {
+    color: rgba(26, 86, 219, 1);
+}
+
+.resultTitle strong {
+    font-weight: 700;
+}
+
+.resultExcerpt {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.55;
+    color: rgba(60, 60, 60, 1);
+}
+
+.resultExcerpt strong {
+    font-weight: 700;
+    color: rgba(20, 20, 20, 1);
+}
+
+.noResults {
+    font-family: 'Poppins';
+    font-size: 15px;
+    color: rgba(100, 100, 100, 1);
+    padding: 24px 0;
+}
+
+@media (max-width: 600px) {
+    .inner {
+        padding: 0 16px;
+    }
+
+    .resultTitle {
+        font-size: 16px;
+    }
+
+    .resultExcerpt {
+        font-size: 13px;
+    }
+}

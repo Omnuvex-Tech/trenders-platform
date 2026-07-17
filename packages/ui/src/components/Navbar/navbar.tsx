@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "../../lib/utils";
 import styles from "../../styles/Navbar/navbar.module.css";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export interface NavLink {
     label: string;
@@ -14,9 +15,10 @@ export interface NavLink {
 
 export interface SearchResult {
     title: string;
+    titleHtml: string;
     url: string;
     breadcrumb: string;
-    excerpt: string;
+    excerptHtml: string;
 }
 
 export interface NavbarUIProps {
@@ -45,7 +47,7 @@ export function NavbarUI({
     locale,
     suggestions: defaultSuggestions,
 }: NavbarUIProps) {
-  const pathname = usePathname();
+    const pathname = usePathname();
     const pathWithoutLocale = (() => {
         if (!pathname) return "/";
         const segments = pathname.split("/");
@@ -76,14 +78,23 @@ export function NavbarUI({
     const suggestionsRef = useRef<HTMLDivElement>(null);
     const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    const NAV_LABELS: Record<string, { noResults: string; showAll: string }> = {
+        az: { noResults: "Nəticə tapılmadı", showAll: "üçün bütün nəticələri göstər" },
+        en: { noResults: "No results found", showAll: "Show all results for" },
+        ru: { noResults: "Результаты не найдены", showAll: "Показать все результаты для" },
+    };
+    const navLabels: { noResults: string; showAll: string } = NAV_LABELS[locale] ?? NAV_LABELS.az!;
+
     const renderSuggestions = useCallback((results: SearchResult[], query: string) => {
         const el = suggestionsRef.current;
         if (!el) return;
         el.innerHTML = "";
 
+        const trimmedQuery = query.trim();
+
         if (results.length === 0) {
-            if (query.trim().length >= 2) {
-                el.innerHTML = `<div class="${styles.searchNoResult}">Nəticə tapılmadı</div>`;
+            if (trimmedQuery.length >= 2) {
+                el.innerHTML = `<div class="${styles.searchNoResult}">${navLabels.noResults}</div>`;
             }
             return;
         }
@@ -92,19 +103,30 @@ export function NavbarUI({
             const a = document.createElement("a");
             a.href = item.url;
             a.className = styles.searchSuggestionItem!;
-            if (query.trim().length < 2) {
-                a.innerHTML = `<span class="${styles.searchSuggestionTitle}">${item.title}</span>`;
+            if (trimmedQuery.length < 2) {
+                a.innerHTML = `<span class="${styles.searchSuggestionTitle}">${item.titleHtml}</span>`;
             } else {
                 a.innerHTML = `
                     <span class="${styles.searchSuggestionUrl}">${item.breadcrumb}</span>
-                    <span class="${styles.searchSuggestionTitle}">${item.title}</span>
-                    ${item.excerpt ? `<span class="${styles.searchSuggestionExcerpt}">${item.excerpt}</span>` : ""}
+                    <span class="${styles.searchSuggestionTitle}">${item.titleHtml}</span>
+                    ${item.excerptHtml ? `<span class="${styles.searchSuggestionExcerpt}">${item.excerptHtml}</span>` : ""}
                 `;
             }
             a.addEventListener("click", closeSearch);
             el.appendChild(a);
         });
-    }, [defaultSuggestions]);
+
+        if (trimmedQuery.length >= 2) {
+            const showAll = document.createElement("a");
+            showAll.href = `/${locale}/search?q=${encodeURIComponent(trimmedQuery)}`;
+            showAll.className = styles.searchShowAll!;
+            showAll.textContent = locale === "en"
+                ? `${navLabels.showAll} "${trimmedQuery}"`
+                : `"${trimmedQuery}" ${navLabels.showAll}`;
+            showAll.addEventListener("click", closeSearch);
+            el.appendChild(showAll);
+        }
+    }, [defaultSuggestions, locale, navLabels]);
 
     const resetSearchUI = useCallback(() => {
         if (searchDetailsRef.current) {
@@ -196,9 +218,9 @@ export function NavbarUI({
         }
 
         debounceRef.current = setTimeout(() => {
-            fetch(`/api/search?q=${encodeURIComponent(query)}&locale=${locale}`)
+            fetch(`/api/search?q=${encodeURIComponent(query)}&locale=${locale}&limit=4`)
                 .then(r => r.json())
-                .then((data: SearchResult[]) => renderSuggestions(data, query))
+                .then((data: { total: number; results: SearchResult[] }) => renderSuggestions(data.results ?? [], query))
                 .catch(() => {
                     if (suggestionsRef.current) {
                         suggestionsRef.current.innerHTML = `<div class="${styles.searchNoResult}">Nəticə tapılmadı</div>`;
@@ -211,7 +233,14 @@ export function NavbarUI({
         <>
             <nav className={styles.navbar}>
                 <div className={styles.navbarInner}>
-                    <div className={styles.navbarLogo}>{logo}</div>
+                    <motion.div
+                        className={styles.navbarLogo}
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 3.9, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        {logo}
+                    </motion.div>
 
                     <div className={styles.navbarRight}>
                         <ul className={styles.navbarLinks}>

@@ -31,12 +31,16 @@ async function getServiceSuggestions(locale: string) {
         const res = await fetch(`${process.env.API_URL}/services/public`, { cache: "no-store" });
         if (!res.ok) return [];
         const services = await res.json();
-        return (Array.isArray(services) ? services : []).map((s: any) => ({
-            title: t(s.title, locale).replace(/<[^>]*>/g, "").trim(),
-            url: `/service/${s.slug ?? s.id}`,
-            breadcrumb: "Xidmətlər",
-            excerpt: "",
-        }));
+        return (Array.isArray(services) ? services : []).map((s: any) => {
+            const title = t(s.title, locale).replace(/<[^>]*>/g, "").trim();
+            return {
+                title,
+                titleHtml: title,
+                url: `/service/${s.slug ?? s.id}`,
+                breadcrumb: "Xidmətlər",
+                excerptHtml: "",
+            };
+        });
     } catch { return []; }
 }
 

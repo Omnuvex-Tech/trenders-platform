@@ -108,7 +108,8 @@ export type { PartnersPageUIProps, PartnerPageItem } from "./components/Partners
 export { ContactPageUI } from "./components/ContactPage/contactpage";
 export type { ContactPageUIProps, ContactPageInfo } from "./components/ContactPage/contactpage";
 
-
+export { SearchResultsUI } from "./components/SearchResults/searchResultsUI";
+export type { SearchResultsUIProps, SearchResultItem } from "./components/SearchResults/searchResultsUI";
 
 
 
