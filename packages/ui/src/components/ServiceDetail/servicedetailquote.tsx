@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -15,26 +14,19 @@ export interface ServiceDetailQuoteUIProps {
     quoteText: string;
 }
 
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15, 
-        },
-    },
-};
+const ultraSmoothEase = [0.25, 1, 0.2, 1] as const;
 
-const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+const blockVariants: Variants = {
+    hidden: { 
+        opacity: 0, 
+        y: 45 
+    },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            type: "spring",
-            stiffness: 60,
-            damping: 15,
-            duration: 0.6,
+            duration: 1.6,
+            ease: ultraSmoothEase,
         },
     },
 };
@@ -50,39 +42,46 @@ export function ServiceDetailQuoteUI({
 }: ServiceDetailQuoteUIProps) {
     return (
         <section className={styles.section}>
-            <motion.div 
-                className={styles.inner}
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-10%" }}
-            >
-                <div className={styles.row}>
-                    <motion.span variants={itemVariants} className={styles.number}>
+            <div className={styles.inner}>
+                
+                <motion.div 
+                    className={styles.row}
+                    variants={blockVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.15 }}
+                    style={{ willChange: "transform, opacity" }}
+                >
+                    <span className={styles.number}>
                         {number}
-                    </motion.span>
+                    </span>
                     
                     <div className={styles.content}>
-                        <motion.span variants={itemVariants} className={styles.badge}>
+                        <span className={styles.badge}>
                             {badge}
-                        </motion.span>
-                                                <motion.div 
-                            variants={itemVariants} 
+                        </span>
+                        <div 
                             className={styles.title} 
                             dangerouslySetInnerHTML={{ __html: title }} 
                         />
-                                                {descriptions.map((desc, i) => (
-                            <motion.div 
+                        {descriptions.map((desc, i) => (
+                            <div 
                                 key={i} 
-                                variants={itemVariants} 
                                 className={styles.desc} 
                                 dangerouslySetInnerHTML={{ __html: desc }} 
                             />
                         ))}
                     </div>
-                </div>
+                </motion.div>
 
-                <motion.div variants={itemVariants} className={styles.quoteBlock}>
+                <motion.div 
+                    className={styles.quoteBlock}
+                    variants={blockVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    style={{ willChange: "transform, opacity" }}
+                >
                     <div className={styles.imgWrap}>
                         <img
                             src={quoteImage}
@@ -97,7 +96,7 @@ export function ServiceDetailQuoteUI({
                     </div>
                 </motion.div>
 
-            </motion.div>
+            </div>
         </section>
     );
 }

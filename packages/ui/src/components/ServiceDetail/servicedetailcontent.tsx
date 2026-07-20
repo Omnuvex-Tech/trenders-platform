@@ -1,7 +1,5 @@
-
 "use client";
 
-import React from "react";
 import { motion, Variants } from "framer-motion";
 import styles from "../../styles/ServiceDetail/servicedetailcontent.module.css";
 
@@ -22,26 +20,21 @@ export interface ServiceDetailContentUIProps {
     items: ServiceDetailContentItem[];
 }
 
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-        },
-    },
-};
+// Ultra rəvan və hiss olunan yavaşlıqda hərəkət üçün bezier əyrisi
+const ultraSmoothEase = [0.25, 1, 0.2, 1] as const;
 
-const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+// Müddəti 1.6s etdik ki, animasiya dərhal bitməsin, yavaşca süzülsün
+const blockVariants: Variants = {
+    hidden: { 
+        opacity: 0, 
+        y: 45 
+    },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            type: "spring",
-            stiffness: 60,
-            damping: 15,
-            duration: 0.6,
+            duration: 1.6,
+            ease: ultraSmoothEase,
         },
     },
 };
@@ -58,59 +51,64 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
         <section className={styles.section}>
             <div className={styles.inner}>
                 {items.map((item, i) => (
-                    <motion.div
-                        key={i}
-                        className={styles.block}
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-10%" }}
-                    >
-                        <div className={styles.row}>
-                            <motion.span variants={itemVariants} className={styles.number}>
+                    <div key={i} className={styles.block}>
+                        
+                        {/* ROW HİSSƏSİ */}
+                        <motion.div 
+                            className={styles.row}
+                            variants={blockVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.15 }}
+                            style={{ willChange: "transform, opacity" }}
+                        >
+                            <span className={styles.number}>
                                 {item.number}
-                            </motion.span>
+                            </span>
 
                             <div className={styles.content}>
-                                <motion.span variants={itemVariants} className={styles.badge}>
+                                <span className={styles.badge}>
                                     {item.badge}
-                                </motion.span>
+                                </span>
 
-                                <motion.div
-                                    variants={itemVariants}
+                                <div
                                     className={styles.title}
                                     dangerouslySetInnerHTML={{ __html: item.title }}
                                 />
 
                                 {item.descriptions.map((desc, j) => (
-                                    <motion.div
+                                    <div
                                         key={j}
-                                        variants={itemVariants}
                                         className={styles.desc}
                                         dangerouslySetInnerHTML={{ __html: desc }}
                                     />
                                 ))}
 
                                 {item.contactLabel && (
-                                    <motion.button
-                                        variants={itemVariants}
+                                    <button
                                         className={styles.contactBtn}
                                         onClick={handleScrollToContact}
-                                        whileHover={{ scale: 1.03 }}
-                                        whileTap={{ scale: 0.98 }}
                                     >
                                         {item.contactLabel}
-                                    </motion.button>
+                                    </button>
                                 )}
                             </div>
-                        </div>
+                        </motion.div>
 
+                        {/* SİTAT VƏ ŞƏKİL BÜTÖV BLOK HALINDA */}
                         {item.quote && (
-                            <motion.div variants={itemVariants} className={styles.quoteSection}>
+                            <motion.div 
+                                className={styles.quoteSection}
+                                variants={blockVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                style={{ willChange: "transform, opacity" }}
+                            >
                                 <div className={styles.quoteText}>
                                     <div className={styles.quoteInner}>
                                         <span className={styles.quoteMark}>"</span>
-                                        <div
+                                        <div 
                                             className={styles.quoteLight}
                                             dangerouslySetInnerHTML={{ __html: item.quote }}
                                         />
@@ -122,16 +120,29 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
                             </motion.div>
                         )}
 
+                        {/* SUBTEXT HİSSƏSİ */}
                         {item.subText && (
                             <motion.div
-                                variants={itemVariants}
                                 className={styles.subText}
+                                variants={blockVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.2 }}
+                                style={{ willChange: "transform, opacity" }}
                                 dangerouslySetInnerHTML={{ __html: item.subText }}
                             />
                         )}
 
+                        {/* ƏN AŞAĞIDAKI BÖYÜK ŞƏKİL */}
                         {item.image && (
-                            <motion.div variants={itemVariants} className={styles.imageWrap}>
+                            <motion.div 
+                                className={styles.imageWrap}
+                                variants={blockVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, amount: 0.15 }}
+                                style={{ willChange: "transform, opacity" }}
+                            >
                                 <img
                                     src={item.image}
                                     alt={item.imageAlt || ""}
@@ -139,7 +150,7 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
                                 />
                             </motion.div>
                         )}
-                    </motion.div>
+                    </div>
                 ))}
             </div>
         </section>

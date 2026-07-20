@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React from "react";
@@ -14,26 +12,19 @@ export interface ServiceDetailOverlayUIProps {
     descriptions: string[];
 }
 
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15, 
-        },
-    },
-};
+const ultraSmoothEase = [0.25, 1, 0.2, 1] as const;
 
-const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+const blockVariants: Variants = {
+    hidden: { 
+        opacity: 0, 
+        y: 45 
+    },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            type: "spring",
-            stiffness: 60,
-            damping: 15,
-            duration: 0.6,
+            duration: 1.6,
+            ease: ultraSmoothEase,
         },
     },
 };
@@ -47,22 +38,32 @@ export function ServiceDetailOverlayUI({
 }: ServiceDetailOverlayUIProps) {
     return (
         <section className={styles.section}>
-            <motion.div 
-                className={styles.inner}
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-10%" }}
-            >
+            <div className={styles.inner}>
                 <div className={styles.container}>
-                    <motion.div variants={itemVariants} className={styles.heroImgWrap}>
+                    
+                    <motion.div 
+                        className={styles.heroImgWrap}
+                        variants={blockVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.15 }}
+                        style={{ willChange: "transform, opacity" }}
+                    >
                         <img
                             src={image}
                             alt={imageAlt}
                             className={styles.heroImg}
                         />
                     </motion.div>
-                   <motion.div variants={itemVariants} className={styles.content}>
+
+                    <motion.div 
+                        className={styles.content}
+                        variants={blockVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.15 }}
+                        style={{ willChange: "transform, opacity" }}
+                    >
                         <div className={styles.contentTop}>
                             <span className={styles.badge}>{badge}</span>
                             <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
@@ -73,8 +74,9 @@ export function ServiceDetailOverlayUI({
                             ))}
                         </div>
                     </motion.div>
+
                 </div>
-            </motion.div>
+            </div>
         </section>
     );
 }
