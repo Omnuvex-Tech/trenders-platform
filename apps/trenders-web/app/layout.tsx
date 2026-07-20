@@ -7,11 +7,33 @@ import { FooterWrapper } from "./components/Footer/footer-wrapper";
 
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: config.project.projectName,
-  description: config.project.projectDescription,
-  keywords: [...config.project.keywords],
-};
+const API = process.env.NEXT_PUBLIC_API_URL;
+
+function lv(field: Record<string, string> | null | undefined, lang = "az"): string | undefined {
+  return field?.[lang] ?? undefined;
+}
+
+async function getPageMeta(pageKey: string) {
+  try {
+    const res = await fetch(`${API}/page-meta/${pageKey}`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const pageMeta = await getPageMeta("home");
+
+  return {
+    title: lv(pageMeta?.seoTitle) ?? config.project.projectName,
+    description: lv(pageMeta?.seoDescription) ?? config.project.projectDescription,
+    keywords: lv(pageMeta?.seoKeywords)?.split(",").map((k: string) => k.trim()) ?? [...config.project.keywords],
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
