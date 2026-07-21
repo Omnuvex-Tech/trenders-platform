@@ -20,10 +20,8 @@ export interface ServiceDetailContentUIProps {
     items: ServiceDetailContentItem[];
 }
 
-// Ultra rəvan və hiss olunan yavaşlıqda hərəkət üçün bezier əyrisi
 const ultraSmoothEase = [0.25, 1, 0.2, 1] as const;
 
-// Müddəti 1.6s etdik ki, animasiya dərhal bitməsin, yavaşca süzülsün
 const blockVariants: Variants = {
     hidden: { 
         opacity: 0, 
@@ -52,9 +50,7 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
             <div className={styles.inner}>
                 {items.map((item, i) => (
                     <div key={i} className={styles.block}>
-                        
-                        {/* ROW HİSSƏSİ */}
-                        <motion.div 
+                                                <motion.div 
                             className={styles.row}
                             variants={blockVariants}
                             initial="hidden"
@@ -94,8 +90,6 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
                                 )}
                             </div>
                         </motion.div>
-
-                        {/* SİTAT VƏ ŞƏKİL BÜTÖV BLOK HALINDA */}
                         {item.quote && (
                             <motion.div 
                                 className={styles.quoteSection}
@@ -119,8 +113,6 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
                                 </div>
                             </motion.div>
                         )}
-
-                        {/* SUBTEXT HİSSƏSİ */}
                         {item.subText && (
                             <motion.div
                                 className={styles.subText}
@@ -132,8 +124,6 @@ export function ServiceDetailContentUI({ items }: ServiceDetailContentUIProps) {
                                 dangerouslySetInnerHTML={{ __html: item.subText }}
                             />
                         )}
-
-                        {/* ƏN AŞAĞIDAKI BÖYÜK ŞƏKİL */}
                         {item.image && (
                             <motion.div 
                                 className={styles.imageWrap}

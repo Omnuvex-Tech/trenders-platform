@@ -4,7 +4,6 @@ import { NotifyProvider, NotifyContainer } from "@repo/ui";
 import { QueryProvider } from "@/app/providers";
 import { config } from "@/config";
 import { FooterWrapper } from "./components/Footer/footer-wrapper";
-
 import "./globals.css";
 
 const API = process.env.NEXT_PUBLIC_API_URL;
@@ -27,7 +26,6 @@ async function getPageMeta(pageKey: string) {
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageMeta = await getPageMeta("home");
-
   return {
     title: lv(pageMeta?.seoTitle) ?? config.project.projectName,
     description: lv(pageMeta?.seoDescription) ?? config.project.projectDescription,
@@ -54,8 +52,7 @@ export default function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
           crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
+          referrerPolicy="no-referrer"/>
       </head>
      <body>
   <QueryProvider>
@@ -66,7 +63,6 @@ export default function RootLayout({
     </NotifyProvider>
   </QueryProvider>
 </body>
-
     </html>
   );
 }

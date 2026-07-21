@@ -20,8 +20,7 @@ export default async function HomePage() {
             <NavbarWrapper
                 locale={"az"}
                 languages={STATIC_LANGUAGES}
-                initialTranslations={translationResponse.data ?? []}
-            />
+                initialTranslations={translationResponse.data ?? []} />
             <HeroWrapper locale="az" />
             <ProjectsWrapper locale="az" />
             <PartnersWrapper locale="az" />

@@ -23,7 +23,6 @@ export interface ServiceDetailHeroUIProps {
 
 const smoothEase = [0.25, 1, 0.2, 1] as const;
 
-// İlk hero şəkli üçün tənzimlənmiş yüngül və sürətli animasiya
 const heroImageVariants: Variants = {
     hidden: { 
         opacity: 0, 
