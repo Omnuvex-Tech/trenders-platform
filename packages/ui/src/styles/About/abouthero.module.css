@@ -76,7 +76,39 @@
   color: rgba(30, 30, 30, 1);
 }
 
-/* ===================== HERO / CONTENT BREAKPOINTS ===================== */
+
+.statsBar {
+  width: 100%;
+  aspect-ratio: 1568 / 726;
+  border-radius: 0;
+  border: none;
+  overflow: hidden;
+  background-image: url('/images/aboutusstatic.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(3px, 0.8vw, 6px);
+  padding: clamp(10px, 3vw, 28px) clamp(8px, 2.4vw, 24px);
+  border: none;
+  border-radius: 0;
+  min-width: 0;
+}
+
+.statItem:nth-child(odd) {
+  justify-content: flex-start;
+}
+
+.statItem:nth-child(even) {
+  justify-content: flex-end;
+}
 
 @media (max-width: 1280px) {
   .inner {
@@ -206,41 +238,6 @@
     font-size: 13px;
   }
 }
-
-
-.statsBar {
-  width: 100%;
-  aspect-ratio: 1568 / 726;
-  border-radius: 0;
-  border: none;
-  overflow: hidden;
-  background-image: url('/images/aboutusstatic.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.statItem {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(3px, 0.8vw, 6px);
-  padding: clamp(10px, 3vw, 28px) clamp(8px, 2.4vw, 24px);
-  border: none;
-  border-radius: 0;
-  min-width: 0;
-}
-
-.statItem:nth-child(odd) {
-  justify-content: flex-start;
-}
-
-.statItem:nth-child(even) {
-  justify-content: flex-end;
-}
-
 
 @media (min-width: 1025px) {
   .statItem:nth-child(1) {
