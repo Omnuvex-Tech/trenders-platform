@@ -248,7 +248,7 @@
   }
 
   .statItem:nth-child(2) {
-    padding: 28px 7px 22px 44px;
+    padding: 28px 7px 22px 36px;
   }
 
   .statItem:nth-child(3) {
@@ -256,7 +256,7 @@
   }
 
   .statItem:nth-child(4) {
-    padding: 19px 32px;
+    padding: 19px 34px;
   }
 
   .statItem:nth-child(3) .statLabel {
