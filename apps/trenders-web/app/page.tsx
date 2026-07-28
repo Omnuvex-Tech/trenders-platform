@@ -14,7 +14,6 @@ import { FaqWrapper } from "./components/Faq/faq-wrapper"
 
 export default async function HomePage() {
     const translationResponse = await api.get<Translation[]>(config.endpoints.translations.list, { "locale": "az" });
-
     return (
         <div className="flex min-h-svh w-full flex-col items-start justify-start">
             <NavbarWrapper
