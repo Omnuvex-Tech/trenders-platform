@@ -188,12 +188,11 @@
  .heroSliderContainer {
      display: flex;
      gap: 24px;
-     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
      height: 100%;
      width: max-content;
  }
 
- .heroCardItem {
+.heroCardItem {
      width: 342px;
      height: 468px;
      border-radius: 28px;
@@ -202,6 +201,7 @@
      flex-shrink: 0;
      box-sizing: border-box;
      background-color: #f0f0f0;
+     cursor: pointer;
  }
 
  .heroImg {
@@ -277,12 +277,25 @@
      position: absolute;
      bottom: 28px;
      left: 28px;
+     right: 88px;
      color: #ffffff;
      font-size: 24px;
      font-weight: 700;
      font-family: 'Poppins', sans-serif;
      z-index: 10;
+     overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;
  }
+
+ .cardLabel * {
+     margin: 0;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+
+
 
  .actionButton:hover .actionArrow {
      color: #ffffff;
@@ -350,6 +363,7 @@
 
      .cardLabel {
          font-size: 42px;
+         right: 250px;
      }
 
      .actionButton {
@@ -366,11 +380,6 @@
          height: 100%;
      }
  }
-
-
-
-
-
 
  @keyframes heroFadeUp {
      from {
@@ -398,28 +407,4 @@
 
  .heroReveal3 {
      animation-delay: 0.3s;
- }
-
-
- @keyframes heroScroll {
-     0% {
-         transform: translateX(0);
-     }
-
-     100% {
-         transform: translateX(calc(var(--total-width) * -1 - 24px));
-     }
- }
-
- .heroSliderContainer {
-     display: flex;
-     gap: 24px;
-     height: 100%;
-     width: max-content;
-     animation: heroScroll linear infinite;
-     animation-duration: inherit;
- }
-
- .heroSliderContainer:hover {
-     animation-play-state: paused;
  }

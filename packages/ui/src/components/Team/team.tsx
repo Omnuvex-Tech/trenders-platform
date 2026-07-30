@@ -95,7 +95,7 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.2 }}
-                        style={{ width: "100%" }}
+                        className={styles.leftBottom}
                     >
                         <Link
                             href={goHref || "#"}
@@ -137,6 +137,12 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                                 }}
                             >
                                 <img src={member.image} alt={member.imageAlt || member.name} className={styles.memberImg} />
+
+                                <Link
+                                    href={member.href || "#"}
+                                    className={styles.cardLink}
+                                    aria-label={`${member.name} haqqında ətraflı`}
+                                />
 
                                 <Link
                                     href={member.href || "#"}

@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import { useState, useMemo } from "react";
@@ -39,10 +36,10 @@ const descriptionAnimation: Variants = {
 };
 
 const cardVariants: Variants = {
-    hidden: () => ({ 
-        opacity: 0, 
+    hidden: () => ({
+        opacity: 0,
         y: 35,
-        scale: 0.96 
+        scale: 0.96
     }),
     visible: (index: number) => ({
         opacity: 1,
@@ -72,18 +69,18 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                
+
                 <div className={styles.header}>
-                    <motion.h1 
-                        className={styles.title} 
+                    <motion.h1
+                        className={styles.title}
                         dangerouslySetInnerHTML={{ __html: title }}
                         initial={{ opacity: 0, y: -15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
                     />
-                    
-                    <motion.div 
+
+                    <motion.div
                         className={styles.description}
                         dangerouslySetInnerHTML={{ __html: descriptionHtml }}
                         variants={descriptionAnimation}
@@ -96,16 +93,17 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                 <div className={styles.grid}>
                     <AnimatePresence mode="popLayout">
                         {displayed.map((member, index) => (
-                            <motion.div 
-                                key={member.id} 
+                            <motion.a
+                                key={member.id}
+                                href={member.href || "#"}
                                 className={styles.card}
-                                custom={index} 
+                                custom={index}
                                 variants={cardVariants}
                                 initial="hidden"
                                 whileInView="visible"
                                 viewport={{ once: true, margin: "-5%" }}
                                 layout
-                                                                whileHover={{
+                                whileHover={{
                                     y: -6,
                                     zIndex: 10,
                                     transition: {
@@ -121,10 +119,9 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                                     alt={member.imageAlt || member.name}
                                     className={styles.cardImg}
                                 />
-                                                                <a 
-                                    href={member.href || "#"} 
+                                <span
                                     className={styles.plusBtn}
-                                    aria-label={`${member.name} haqqında ətraflı`}
+                                    aria-hidden="true"
                                     style={{
                                         display: "flex",
                                         alignItems: "center",
@@ -132,33 +129,33 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                                         flexShrink: 0
                                     }}
                                 >
-                                    <svg 
-                                        width="14" 
-                                        height="14" 
-                                        viewBox="0 0 14 14" 
-                                        fill="none" 
+                                    <svg
+                                        width="14"
+                                        height="14"
+                                        viewBox="0 0 14 14"
+                                        fill="none"
                                         style={{ display: "block", width: "14px", height: "14px" }}
                                     >
-                                        <path 
-                                            d="M7 1V13M1 7H13" 
-                                            stroke="white" 
-                                            strokeWidth="2" 
-                                            strokeLinecap="round" 
+                                        <path
+                                            d="M7 1V13M1 7H13"
+                                            stroke="white"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
                                             strokeLinejoin="round"
                                         />
                                     </svg>
-                                </a>
+                                </span>
 
                                 <div className={styles.cardInfo}>
                                     <span className={styles.memberName}>{member.name}</span>
                                     <span className={styles.memberRole}>{member.role}</span>
                                 </div>
-                            </motion.div>
+                            </motion.a>
                         ))}
                     </AnimatePresence>
                 </div>
                 {visibleCount < members.length && (
-                    <motion.div 
+                    <motion.div
                         className={portfolioStyles.moreBtnWrapper}
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}

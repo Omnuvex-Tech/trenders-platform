@@ -15,7 +15,7 @@
   margin: 0 auto;
   padding: 0 100px;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .left {
@@ -24,6 +24,14 @@
   display: flex;
   flex-direction: column;
   gap: 22px;
+}
+
+.leftBottom {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .title {
@@ -98,7 +106,7 @@
   height: 213px;
   border-radius: 26px;
   overflow: hidden;
-  top: 29px;
+  margin-top: auto;
 }
 
 .featuredImg {
@@ -118,8 +126,8 @@
 .cards {
   flex: 1;
   display: flex;
-  overflow: hidden;
   align-items: flex-start;
+  overflow: visible;
 }
 
 .cardsTrack {
@@ -127,17 +135,28 @@
   gap: 20px;
   flex-shrink: 0;
   will-change: transform;
+  width: 100%;
 }
 
 .card {
   position: relative;
-  width: 292px;
+  flex: 1;
+  min-width: 0;
   height: 444px;
   border-radius: 24px;
   overflow: hidden;
-  flex-shrink: 0;
+  flex-shrink: 1;
   transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     opacity 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card:nth-child(4) {
+  display: none;
+}
+
+.cardLink {
+  position: absolute;
+  inset: 0;
 }
 
 .memberImg {
@@ -178,6 +197,7 @@
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
   display: flex;
   flex-direction: column;
+  pointer-events: none;
 }
 
 .memberName {
@@ -208,36 +228,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.cards {
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  overflow: visible;
-}
-
-.cardsTrack {
-  display: flex;
-  gap: 20px;
-  flex-shrink: 0;
-  will-change: transform;
-  width: 100%;
-}
-
-.card {
-  flex: 1;
-  min-width: 0;
-  height: 444px;
-  border-radius: 24px;
-  overflow: hidden;
-  flex-shrink: 1;
-  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    opacity 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.card:nth-child(4) {
-  display: none;
 }
 
 @keyframes slideOutLeft {
@@ -303,7 +293,6 @@
 .slideInLeft {
   animation: slideInLeft 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
-
 
 
 
@@ -414,6 +403,7 @@
   .inner {
     padding: 0 32px;
     flex-direction: column;
+    align-items: flex-start;
     gap: 28px;
   }
 
@@ -533,39 +523,6 @@
   }
   .memberRole{font-size: 7;}
 }
-
-
-
-@media (min-width: 2900px) {
-  .inner {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 100px;
-  }
-
-  .card {
-    width: auto;
-    flex: 1;
-    aspect-ratio: 2 / 3;
-    height: auto;
-    position: relative;
-  }
-  .cardsTrack{gap: 98px;}
-
-  .memberImg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .left{width: 645px;}
-  .title{font-size: 81px;}                          .featuredWrap{width: 530px; height: 401px;}
-  .goBtn{font-size: 44px; gap: 18px; padding: 21px 23px;}
-  .memberName{font-size: 120px;}                    .memberRole{font-size: 68px;}
-  .plusBtn{width: 146px; height: 146px; margin-right: 47px; margin-top: 33px;}
-  .plusBtn svg {width: 60px; height: 60px;}
-}
-
 
 @media (min-width: 1600px) and (max-width: 2899px) {
   .inner {

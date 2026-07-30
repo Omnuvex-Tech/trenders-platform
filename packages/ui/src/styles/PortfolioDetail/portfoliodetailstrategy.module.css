@@ -165,7 +165,7 @@
     text-decoration: none;
     cursor: pointer;
     margin-top: 4px;
-    width: 144px;
+    width: fit-content;
     height: 42px;
     border-radius: 63px;
     border-width: 1px;
@@ -421,5 +421,7 @@
         margin-top: 108px;
     }
 
-    .offset{    width: calc(76% - 100px);}
+    .offset {
+        width: calc(76% - 100px);
+    }
 }

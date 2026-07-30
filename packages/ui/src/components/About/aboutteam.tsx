@@ -161,9 +161,10 @@ export function AboutTeamUI({
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.15 }}
                 >
-                    {members.map((member) => (
-                        <motion.div
+                   {members.map((member) => (
+                        <motion.a
                             key={member.id}
+                            href={member.href || "#"}
                             className={styles.card}
                             variants={cardVariants}
                             whileHover={{
@@ -177,21 +178,20 @@ export function AboutTeamUI({
                                 alt={member.imageAlt || member.name}
                                 className={styles.cardImg}
                             />
-                            <a
-                                href={member.href || "#"}
+                            <span
                                 className={styles.plusBtn}
-                                aria-label={`${member.name} haqqında ətraflı`}
+                                aria-hidden="true"
                             >
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <line x1="7" y1="1" x2="7" y2="13" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
                                     <line x1="1" y1="7" x2="13" y2="7" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
                                 </svg>
-                            </a>
+                            </span>
                             <div className={styles.cardInfo}>
                                 <span className={styles.memberName}>{member.name}</span>
                                 <span className={styles.memberRole}>{member.role}</span>
                             </div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                 </motion.div>
             </div>
