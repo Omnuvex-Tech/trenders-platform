@@ -41,6 +41,7 @@ export async function HeroWrapper({ locale = "az" }: HeroWrapperProps) {
  const baseCards = services.map((s: any) => ({
     label: getLoc(s.title, locale),
     image: toAbsUrl(s.homeCoverImage || s.image || ""),
+    hoverMedia: toAbsUrl(s.homeGif || ""),
     slug: s.slug,
   }));
   

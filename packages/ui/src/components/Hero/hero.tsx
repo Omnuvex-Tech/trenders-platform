@@ -6,6 +6,7 @@ import styles from "../../styles/Hero/hero.module.css";
 export interface HeroCard {
     label: string;
     image: string;
+    hoverMedia?: string;
 }
 
 export interface HeroUIProps {
@@ -20,7 +21,11 @@ export interface HeroUIProps {
     onSecondaryClick?: () => void;
 }
 
-const DRAG_THRESHOLD = 6; // px — bundan az hərəkət "klik" sayılır, çox olarsa "drag"
+const DRAG_THRESHOLD = 6; 
+
+function isVideoUrl(url?: string) {
+    return !!url && url.toLowerCase().endsWith(".mp4");
+}
 
 export function HeroUI({
     title, infoText, primaryBtnText, secondaryBtnText,
@@ -39,14 +44,14 @@ export function HeroUI({
 
     const trackRef = useRef<HTMLDivElement>(null);
     const offsetRef = useRef(0);
-    const pointerDownRef = useRef(false); // pointer basılıdır (hələ drag olmaya bilər)
-    const capturedRef = useRef(false); // pointer capture həqiqətən verilib
+    const pointerDownRef = useRef(false); 
+    const capturedRef = useRef(false); 
     const hasDraggedRef = useRef(false);
     const dragStartRef = useRef({ x: 0, offset: 0, pointerId: 0 });
     const rafRef = useRef<number | null>(null);
     const lastTimeRef = useRef<number | null>(null);
-    const [isDragging, setIsDragging] = useState(false);
-
+ const [isDragging, setIsDragging] = useState(false);
+    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
     const applyTransform = useCallback(() => {
         const track = trackRef.current;
         if (track) track.style.transform = `translateX(${offsetRef.current}px)`;
@@ -82,7 +87,6 @@ export function HeroUI({
         capturedRef.current = false;
         hasDraggedRef.current = false;
         dragStartRef.current = { x: e.clientX, offset: offsetRef.current, pointerId: e.pointerId };
-        // Diqqət: burada setPointerCapture ÇAĞIRILMIR — yalnız real drag başlayanda.
     }, []);
 
     const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
@@ -90,8 +94,7 @@ export function HeroUI({
         const delta = e.clientX - dragStartRef.current.x;
 
         if (!capturedRef.current) {
-            if (Math.abs(delta) <= DRAG_THRESHOLD) return; // hələ klikdi, drag sayma
-            // threshold aşıldı — indi real drag başlayır
+            if (Math.abs(delta) <= DRAG_THRESHOLD) return;
             capturedRef.current = true;
             hasDraggedRef.current = true;
             trackRef.current?.setPointerCapture(dragStartRef.current.pointerId);
@@ -108,7 +111,7 @@ export function HeroUI({
 
         if (capturedRef.current) {
             capturedRef.current = false;
-            try { trackRef.current?.releasePointerCapture(dragStartRef.current.pointerId); } catch { /* already released */ }
+            try { trackRef.current?.releasePointerCapture(dragStartRef.current.pointerId); } catch {}
 
             let normalized = offsetRef.current % loopWidth;
             if (normalized > 0) normalized -= loopWidth;
@@ -119,7 +122,7 @@ export function HeroUI({
     }, [loopWidth, applyTransform]);
 
     const handleCardClick = useCallback((label: string) => {
-        if (hasDraggedRef.current) return; // drag idi, klik sayma
+        if (hasDraggedRef.current) return; 
         onDetailClick(label);
     }, [onDetailClick]);
 
@@ -159,11 +162,13 @@ export function HeroUI({
                     onPointerUp={endDrag}
                     onPointerCancel={endDrag}
                 >
-                    {[...displayCards, ...displayCards].map((card, idx) => (
+                  {[...displayCards, ...displayCards].map((card, idx) => (
                         <div
                             key={idx}
                             className={styles.heroCardItem}
                             onClick={() => handleCardClick(card.label)}
+                            onMouseEnter={() => setHoveredIdx(idx)}
+                            onMouseLeave={() => setHoveredIdx((prev) => (prev === idx ? null : prev))}
                         >
                             <img
                                 src={card.image}
@@ -171,6 +176,28 @@ export function HeroUI({
                                 className={styles.heroImg}
                                 draggable={false}
                             />
+                            
+                           {card.hoverMedia && (
+                                isVideoUrl(card.hoverMedia) ? (
+                                    <video
+                                        src={card.hoverMedia}
+                                        className={`${styles.heroHoverMedia} ${hoveredIdx === idx ? styles.heroHoverMediaVisible : ""}`}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                    />
+                                ) : (
+                                    <img
+                                        src={card.hoverMedia}
+                                        alt=""
+                                        className={`${styles.heroHoverMedia} ${hoveredIdx === idx ? styles.heroHoverMediaVisible : ""}`}
+                                        draggable={false}
+                                    />
+                                )
+                            )}
+
+                            
                             <div className={styles.cardLabel}
                                 dangerouslySetInnerHTML={{ __html: card.label }} />
                             <div className={styles.cardActionContainer}>
