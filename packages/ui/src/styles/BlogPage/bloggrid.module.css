@@ -276,30 +276,3 @@
   border-color: transparent;
 }
 
-
-
-@media (min-width: 1600px) {
-   .inner {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 100px;
-}
-
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .card {
-        width: 100%;
-    }
-
-    .blogDivider {
-        margin-left: 100px;
-        margin-right: 100px;
-        max-width: 1920px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0 100px;
-        box-sizing: border-box;
-    }
-}

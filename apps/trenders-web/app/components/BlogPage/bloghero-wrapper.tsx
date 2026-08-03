@@ -54,11 +54,8 @@ async function getBlogSectionData() {
 export async function BlogSectionWrapper() {
     const cookieStore = await cookies();
     const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
-
     const { featured, side, settings } = await getBlogSectionData();
-
     if (!featured) return null;
-
     const quoteImage = t(settings.quoteImage, locale);
 
     return (

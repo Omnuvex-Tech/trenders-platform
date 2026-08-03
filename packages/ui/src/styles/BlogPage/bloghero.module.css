@@ -512,32 +512,3 @@
         width: 90px;
     }
 }
-
-@media (min-width: 1600px) {
-    .inner {
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 0 100px;
-    }
-
-    .sideImg {
-        width: 100%;
-        aspect-ratio: 6 / 5;
-        border-radius: 18px;
-        object-fit: cover;
-        display: block;
-    }
-
-    .sidePost {
-        display: grid;
-        grid-template-columns: 0.4fr 1fr;
-        gap: 16px;
-        align-items: flex-start;
-        text-decoration: none;
-        transition: opacity 0.2s ease;
-    }
-
-    .grid {
-        gap: 85px;
-    }
-}

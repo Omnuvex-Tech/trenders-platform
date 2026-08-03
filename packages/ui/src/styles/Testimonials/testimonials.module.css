@@ -505,18 +505,6 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
   }
 }
 
-@media (min-width: 1440px) {
-  .card {
-    width: calc((100vw - 200px - 414px - 48px) / 2);
-  }
-}
-
-@media (min-width: 1800px) {
-  .card {
-    width: calc(31.3333vw - 228.667px);
-  }
-}
-
 @media (max-width: 400px) {
     .inner {
         padding: 0 14px;
@@ -545,24 +533,4 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
     .company {
         font-size: 14px;
     }
-}
-
-@media (min-width: 2900px) {
-  .inner {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 100px;
-  }
-  .title{font-size: 81px;}
-  .left{width: 760px;}
-  .description{max-width: 681px;line-height: 2.4; font-size: 29px;}
-  .arrowBtn{width: 80px; height: 80px;}
-  .company{font-size:65px}
-  .quoteIcon{font-size: 246px;}
-  .quote{font-size: 75px;}   .author{margin-top: 52px;}
-  .avatar{width: 150px; height: 150px;}   .name{font-size: 48px;}   .role{font-size: 45px;}
-  .cardsTrack{gap: 41px;}
-  .card{padding-right: 100px;
-    padding-left: 100px;}
-    .section{padding: 80px 0 120px;}
 }

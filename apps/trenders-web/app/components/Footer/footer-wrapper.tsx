@@ -45,6 +45,7 @@ export async function FooterWrapper() {
             socialLinks={rawSocialLinks}
             locationLabel={data?.locationLabel ?? {}}
             locationValue={data?.locationValue ?? {}}
+            locationMapUrl={data?.locationMapUrl ?? null}
             phoneLabel={data?.phoneLabel ?? {}}
             phoneValue={data?.phoneValue ?? {}}
             emailLabel={data?.emailLabel ?? {}}

@@ -13,6 +13,7 @@ export interface FooterContactItem {
     label: string;
     value: string;
     href?: string;
+    target?: "_blank" | "_self";
 }
 
 export interface FooterUIProps {
@@ -88,7 +89,12 @@ export function FooterUI({
                                 <p className={styles.contactLabel}>{item.label}</p>
 
                                 {item.href ? (
-                                    <a href={item.href} className={styles.contactValue}>
+                                    <a
+                                        href={item.href}
+                                        className={styles.contactValue}
+                                        target={item.target}
+                                        rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                                    >
                                         {item.value}
                                     </a>
                                 ) : (

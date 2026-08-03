@@ -308,20 +308,6 @@ gap: 12px 27px;
     display: none;
 }
 
-@media (min-width: 1600px) {
-  .inner {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 100px;
-}
-
-.badge{font-size: 22px;}
-.imageDesc{font-size: 25px;}
-.title{font-size: 40.89px;    margin-left: 24px;}                         .number{font-size: 132.79px;}
-.description{font-size: 20px;}                      
-.item{font-size: 21.22px;}                               .portfolioBtn{font-size: 24px;}   
-.detailBtnDesktop{font-size: 22px;}  
-}
 
 @media (max-width: 1280px) {
     .inner {

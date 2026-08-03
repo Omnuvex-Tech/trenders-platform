@@ -183,13 +183,6 @@
   }
 }
 
-@media (min-width: 2500px) {
-    .partnersTitle{font-size: 81px;}
-    .partnersDescription{font-size: 65px;}
-    .partnersDescription strong {font-size: 65px;}
-    .partnerLogo{width: 297px; height: 488px;}
-  }
-
 
   @keyframes partnersFadeUp {
   from {

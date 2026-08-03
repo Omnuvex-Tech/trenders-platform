@@ -96,7 +96,6 @@ export function BlogSectionUI({
     sidePosts,
     quote,
 }: BlogSectionUIProps) {
-
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
@@ -105,15 +104,13 @@ export function BlogSectionUI({
                     variants={headerAnimation}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
-                >
+                    viewport={{ once: true }}>
                     <h2 className={styles.title}>{title}</h2>
                     <a
                         href={portfolioHref}
                         className={styles.portfolioLink}
                         target={portfolioNewTab ? "_blank" : "_self"}
-                        rel={portfolioNewTab ? "noopener noreferrer" : undefined}
-                    >
+                        rel={portfolioNewTab ? "noopener noreferrer" : undefined}>
                         {portfolioLabel}
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6" />
@@ -130,16 +127,12 @@ export function BlogSectionUI({
                         whileInView="visible"
                         viewport={{ once: true, margin: "-5%" }}
                         whileHover="hover"
-                        exit="hidden"
-                    >
+                        exit="hidden">
                         <motion.span variants={hoverVariant} style={{ display: "none" }} />
-
                         <img
                             src={featuredPost.image}
                             alt={featuredPost.imageAlt || featuredPost.title}
-                            className={`${styles.featuredImg} ${featuredPost.gif ? styles.imageStatic : ""}`}
-                        />
-
+                            className={`${styles.featuredImg} ${featuredPost.gif ? styles.imageStatic : ""}`} />
                         {featuredPost.gif && (
                             featuredPost.gif.toLowerCase().endsWith('.mp4') ? (
                                 <video
@@ -147,8 +140,7 @@ export function BlogSectionUI({
                                     className={`${styles.featuredImg} ${styles.imageGif}`} autoPlay
                                     loop
                                     muted
-                                    playsInline
-                                />
+                                    playsInline/>
                             ) : (
                                 <img
                                     src={featuredPost.gif}
@@ -173,15 +165,12 @@ export function BlogSectionUI({
                                 whileInView="visible"
                                 viewport={{ once: true, margin: "-5%" }}
                                 style={{ display: "flex" }}
-                                whileHover="hover"
-                            >
+                                whileHover="hover">
                                 <motion.span variants={hoverVariant} style={{ display: "none" }} />
-
                                 <img
                                     src={post.image}
                                     alt={post.imageAlt || post.title}
-                                    className={styles.sideImg}
-                                />
+                                    className={styles.sideImg}/>
                                 <div className={styles.sideContent}>
                                     <div className={styles.sideTitle} dangerouslySetInnerHTML={{ __html: post.title }} />
                                     <div className={styles.sideDesc} dangerouslySetInnerHTML={{ __html: post.description }} />
@@ -197,21 +186,18 @@ export function BlogSectionUI({
                         variants={quoteAnimation}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, margin: "-5%" }}
-                    >
+                        viewport={{ once: true, margin: "-5%" }}>
                         {quote.image && (
                             <img
                                 src={quote.image}
                                 alt={quote.imageAlt || ""}
-                                className={styles.quoteImg}
-                            />
+                                className={styles.quoteImg}/>
                         )}
                         <div className={styles.quoteContent}>
                             <span className={styles.quoteIcon}>"</span>
                             <div
                                 className={styles.quoteText}
-                                dangerouslySetInnerHTML={{ __html: quote.text }}
-                            />
+                                dangerouslySetInnerHTML={{ __html: quote.text }}/>
                         </div>
                     </motion.div>
                 )}
