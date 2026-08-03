@@ -505,6 +505,18 @@ linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%);
   }
 }
 
+@media (min-width: 1440px) {
+  .card {
+    width: calc((100vw - 200px - 414px - 48px) / 2);
+  }
+}
+
+@media (min-width: 1800px) {
+  .card {
+    width: calc(31.3333vw - 228.667px);
+  }
+}
+
 @media (max-width: 400px) {
     .inner {
         padding: 0 14px;
