@@ -50,7 +50,7 @@ export function HeroUI({
     const dragStartRef = useRef({ x: 0, offset: 0, pointerId: 0 });
     const rafRef = useRef<number | null>(null);
     const lastTimeRef = useRef<number | null>(null);
- const [isDragging, setIsDragging] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
     const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
     const applyTransform = useCallback(() => {
         const track = trackRef.current;
@@ -131,12 +131,10 @@ export function HeroUI({
             <div className={styles.heroLeft}>
                 <div
                     className={`${styles.heroTitle} ${styles.heroReveal} ${styles.heroReveal1}`}
-                    dangerouslySetInnerHTML={{ __html: title }}
-                />
+                    dangerouslySetInnerHTML={{ __html: title }}/>
                 <div
                     className={`${styles.heroInfo} ${styles.heroReveal} ${styles.heroReveal2}`}
-                    dangerouslySetInnerHTML={{ __html: infoText }}
-                />
+                    dangerouslySetInnerHTML={{ __html: infoText }} />
                 <div className={`${styles.heroButtonGroup} ${styles.heroReveal} ${styles.heroReveal3}`}>
                     <button className={styles.btnPrimary} onClick={onPrimaryClick}>
                         {primaryBtnText}
@@ -168,15 +166,13 @@ export function HeroUI({
                             className={styles.heroCardItem}
                             onClick={() => handleCardClick(card.label)}
                             onMouseEnter={() => setHoveredIdx(idx)}
-                            onMouseLeave={() => setHoveredIdx((prev) => (prev === idx ? null : prev))}
-                        >
+                            onMouseLeave={() => setHoveredIdx((prev) => (prev === idx ? null : prev))}>
                             <img
                                 src={card.image}
                                 alt={card.label}
                                 className={styles.heroImg}
-                                draggable={false}
-                            />
-                            
+                                draggable={false} />
+                           
                            {card.hoverMedia && (
                                 isVideoUrl(card.hoverMedia) ? (
                                     <video
@@ -185,19 +181,15 @@ export function HeroUI({
                                         autoPlay
                                         loop
                                         muted
-                                        playsInline
-                                    />
+                                        playsInline />
                                 ) : (
                                     <img
                                         src={card.hoverMedia}
                                         alt=""
                                         className={`${styles.heroHoverMedia} ${hoveredIdx === idx ? styles.heroHoverMediaVisible : ""}`}
-                                        draggable={false}
-                                    />
+                                        draggable={false} />
                                 )
-                            )}
-
-                            
+                            )}                           
                             <div className={styles.cardLabel}
                                 dangerouslySetInnerHTML={{ __html: card.label }} />
                             <div className={styles.cardActionContainer}>
@@ -205,8 +197,7 @@ export function HeroUI({
                                     className={styles.actionButton}
                                     onPointerDown={(e) => e.stopPropagation()}
                                     onClick={(e) => { e.stopPropagation(); onDetailClick(card.label); }}
-                                    aria-label={`${card.label} detallarına bax`}
-                                >
+                                    aria-label={`${card.label} detallarına bax`}>
                                     <svg width="18" height="18" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" strokeWidth="3"
                                         strokeLinecap="round" strokeLinejoin="round"
