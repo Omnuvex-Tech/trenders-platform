@@ -194,7 +194,9 @@
 
     min-height: 0;  
     text-overflow: ellipsis;
-
+flex: 0 1 auto;       
+    max-height: calc(1.6em * 3); 
+    line-clamp: 3;              
 }
 
 .author {
