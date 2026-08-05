@@ -82,7 +82,7 @@ border-radius: 6px;
     color: rgba(59, 59, 59, 1);
     font-family: 'Poppins';
     font-weight: 300;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .infoValue {
@@ -107,9 +107,9 @@ a.infoValue:hover {
 }
 
 .followLabel {
-    font-family: Poppins;
+    font-family: 'Poppins';
     font-weight: 300;
-    font-size: 12px;
+    font-size: 14px;
     color: rgba(59, 59, 59, 1);
 }
 
@@ -186,7 +186,7 @@ a.infoValue:hover {
 .label {
     font-family: 'Poppins';
     font-weight: 600;
-    font-size: 12px;
+    font-size: 14px;
     color: rgba(49, 49, 49, 1);
 }
 
