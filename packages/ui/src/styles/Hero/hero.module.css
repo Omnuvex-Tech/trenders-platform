@@ -182,7 +182,7 @@
      background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0) 31%);
      z-index: 15;
      pointer-events: none;
- } 
+ }
 
  .heroSliderContainer {
      display: flex;
@@ -209,7 +209,6 @@
      object-fit: cover;
      pointer-events: none;
  }
-
 
  .heroHoverMedia {
      position: absolute;
@@ -310,8 +309,6 @@
      text-overflow: ellipsis;
  }
 
-
-
  .actionButton:hover .actionArrow {
      color: #ffffff;
      transform: rotate(-5deg) translate(2px, -2px);
@@ -339,7 +336,7 @@
 
      .heroSliderTrack {
          width: 100%;
-         height: 400px;
+         height: 480px;
      }
  }
 

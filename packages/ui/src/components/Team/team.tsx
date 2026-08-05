@@ -16,13 +16,13 @@ export interface TeamMember {
 export interface TeamUIProps {
     title: string;
     members: TeamMember[];
-    featuredImage: string;
+    description?: string;
     goHref?: string;
     goLabel?: string;
     goNewTab?: boolean;
 }
 
-export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTab = false }: TeamUIProps) {
+export function TeamUI({ title, members, description, goHref, goLabel, goNewTab = false }: TeamUIProps) {
     const titleContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -90,13 +90,15 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                         ))}
                     </motion.h2>
 
-                    <motion.div
+         <motion.div
                         variants={leftContentVariants}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.2 }}
                         className={styles.leftBottom}
                     >
+                        {description && <p className={styles.description}>{description}</p>}
+
                         <Link
                             href={goHref || "#"}
                             className={styles.goBtn}
@@ -108,11 +110,6 @@ export function TeamUI({ title, members, featuredImage, goHref, goLabel, goNewTa
                                 <polyline points="12 5 19 12 12 19" />
                             </svg>
                         </Link>
-
-                        <div className={styles.featuredWrap}>
-                            <img src={featuredImage} alt="team" className={styles.featuredImg} />
-                            <div className={styles.featuredOverlay} />
-                        </div>
                     </motion.div>
                 </div>
 

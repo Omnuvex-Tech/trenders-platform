@@ -55,7 +55,7 @@ export async function TeamWrapper({ locale = "az" }: { locale?: string }) {
     <TeamUI
       title={t(home?.teamTitle, locale)}
       members={members}
-      featuredImage={toAbsUrl(home?.teamImage || "")}
+description={t(home?.teamText, locale)}
       goHref={home?.teamBtnLink }
       goLabel={t(home?.teamBtnText, locale)}
       goNewTab={home?.teamBtnNewTab ?? false}
