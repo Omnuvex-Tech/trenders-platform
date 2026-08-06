@@ -38,6 +38,20 @@ export interface NavbarUIProps {
     locale: string;
 }
 
+// Moved outside the component: this object was previously re-created on
+// every render, which meant `navLabels` below was a new reference each
+// time. That broke the useCallback/useEffect dependency chain
+// (navLabels -> renderSuggestions -> openSearch -> the search useEffect),
+// causing the search-toggle effect to remount on every render and call
+// resetSearchUI() right after openSearch() ran — closing the popup
+// immediately after it opened. Keeping this at module scope gives it a
+// stable reference across renders and fixes that.
+const NAV_LABELS: Record<string, { noResults: string; showAll: string }> = {
+    az: { noResults: "Nəticə tapılmadı", showAll: "üçün bütün nəticələri göstər" },
+    en: { noResults: "No results found", showAll: "Show all results for" },
+    ru: { noResults: "Результаты не найдены", showAll: "Показать все результаты для" },
+};
+
 export function NavbarUI({
     logo,
     links,
@@ -78,11 +92,6 @@ export function NavbarUI({
     const suggestionsRef = useRef<HTMLDivElement>(null);
     const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const NAV_LABELS: Record<string, { noResults: string; showAll: string }> = {
-        az: { noResults: "Nəticə tapılmadı", showAll: "üçün bütün nəticələri göstər" },
-        en: { noResults: "No results found", showAll: "Show all results for" },
-        ru: { noResults: "Результаты не найдены", showAll: "Показать все результаты для" },
-    };
     const navLabels: { noResults: string; showAll: string } = NAV_LABELS[locale] ?? NAV_LABELS.az!;
 
     const renderSuggestions = useCallback((results: SearchResult[], query: string) => {
@@ -157,14 +166,19 @@ export function NavbarUI({
         if (debounceRef.current) clearTimeout(debounceRef.current);
     }, []);
 
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
     const closeDrawer = useCallback(() => {
         if (drawerDetailsRef.current) {
             drawerDetailsRef.current.open = false;
         }
+        // Don't rely solely on the native "toggle" event to sync state —
+        // setting .open programmatically doesn't reliably fire "toggle"
+        // synchronously on every browser, which left drawerOpen stuck at
+        // true (drawer stayed visually open, covering the search popup).
+        setDrawerOpen(false);
     }, []);
-
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
