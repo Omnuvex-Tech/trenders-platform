@@ -338,6 +338,15 @@
          width: 100%;
          height: 480px;
      }
+
+     .heroTitle {
+         font-size: 30px;
+         line-height: 48px;
+     }
+
+     .heroLeft {
+         gap: 16px
+     }
  }
 
  @keyframes heroFadeUp {
