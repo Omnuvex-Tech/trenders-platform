@@ -99,26 +99,28 @@
 
 
  .sideCard {
-     border: 1px solid rgba(0, 0, 0, 0.1);
-     padding: 26px 23px 28px;
-     display: flex;
-     flex-direction: column;
-     gap: 24px;
-     width: 100%;
-     height: auto;
-     border-radius: 19px;
- }
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 26px 23px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    height: auto;
+    border-radius: 19px;
+    box-sizing: border-box;
+}
 
- .searchWrap {
-     display: flex;
-     align-items: center;
-     border-radius: 50px;
-     padding: 10px 16px;
-     gap: 8px;
-     position: relative;
-     width: 100%;
-     border: 1px solid #0148c259;
- }
+.searchWrap {
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    padding: 10px 16px;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+    border: 1px solid #0148c259;
+    box-sizing: border-box;
+}
 
  .searchInput {
      flex: 1;
@@ -129,6 +131,7 @@
      font-size: 14px;
      color: rgba(60, 60, 60, 1);
      background: transparent;
+     min-width: 0;
  }
 
  .searchInput::placeholder {
