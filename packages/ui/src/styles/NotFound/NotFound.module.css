@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 30px 20px;
+ padding: 30px 20px 39px;
   gap: 16px;
   font-family: var(--font-poppins, "Poppins", sans-serif);
 }
