@@ -56,9 +56,24 @@ export interface BlogListUIProps {
 const VISIBLE = 4;
 
 function stripHtml(html: string) {
-    return html.replace(/<[^>]*>/g, "").toLowerCase();
+    return html.replace(/<[^>]*>/g, "");
 }
 
+const AZ_FOLD_MAP: Record<string, string> = {
+    ş: "s",
+    ç: "c",
+    ğ: "g",
+    ö: "o",
+    ü: "u",
+    ə: "e",
+    ı: "i",
+};
+
+function normalizeSearch(str: string) {
+    return str
+        .toLocaleLowerCase("az")
+        .replace(/[şçğöüəı]/g, (ch) => AZ_FOLD_MAP[ch] ?? ch);
+}
 function truncateText(html: string, maxLength = 42) {
     const text = html.replace(/<[^>]*>/g, "");
 
@@ -143,13 +158,13 @@ export function BlogListUI({
         if (!isFiltering) return posts.slice(0, VISIBLE);
         let result = searchPool;
         if (activeCategory) result = result.filter((p) => p.categorySlug === activeCategory);
-        if (query.trim().length >= 3) {
-            const q = query.toLowerCase();
+       if (query.trim().length >= 3) {
+            const q = normalizeSearch(query.trim());
             result = result.filter((p) =>
-                stripHtml(p.title).includes(q) ||
-                p.badge.toLowerCase().includes(q) ||
-                p.author.name.toLowerCase().includes(q) ||
-                (p.categoryLabel ?? "").toLowerCase().includes(q)
+                normalizeSearch(stripHtml(p.title)).includes(q) ||
+                normalizeSearch(p.badge).includes(q) ||
+                normalizeSearch(p.author.name).includes(q) ||
+                normalizeSearch(p.categoryLabel ?? "").includes(q)
             );
         }
         return result;
