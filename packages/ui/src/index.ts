@@ -122,5 +122,7 @@ export type { ContactPageUIProps, ContactPageInfo } from "./components/ContactPa
 export { SearchResultsUI } from "./components/SearchResults/searchResultsUI";
 export type { SearchResultsUIProps, SearchResultItem } from "./components/SearchResults/searchResultsUI";
 
+export { NotFoundUI } from "./components/NotFound/NotFound"
+export type { NotFoundUIProps } from "./components/NotFound/NotFound"
 
 export { cn } from "./lib/utils";
