@@ -273,8 +273,12 @@ a.infoValue:hover {
 }
 
 .submitBtn {
-    width: 191px;
-    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 38px;
+    padding: 10px 32px;
     opacity: 1;
     border-radius: 36px;
     background: linear-gradient(134.09deg, #5795FF -1.29%, #104CB3 109.15%),
@@ -403,7 +407,14 @@ a.infoValue:hover {
     .description {
         font-size: 18px;
     }
+
+.officeImageWrap {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 2.3 / 1;
+    }
 }
+
 
 @media (max-width: 900px) {
     .inner {
@@ -673,7 +684,6 @@ a.infoValue:hover {
     .hashtag{font-size: 24.75px;}
     .label{font-size: 24px;}
     .input{font-size: 20px;}
-    .submitBtn{ width: 202px; height: 58px; font-size: 28px;}
     .terms{ font-size: 19px;}
 
 }
