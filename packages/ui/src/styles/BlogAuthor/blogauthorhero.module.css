@@ -12,19 +12,20 @@
     gap: 0;
 }
 
-
 .authorCard {
     border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 28px 24px 32px;
     display: flex;
     flex-direction: column;
     gap: 13px;
-    position: sticky;
+position: sticky;
     top: 90px;
-    width: 361px;
+    width: 100%;
+    max-width: 391px;
     height: auto;
     border-radius: 18px;
 }
+
 
 .avatarWrap {
     position: relative;
@@ -312,8 +313,12 @@
         grid-template-columns: 320px 1fr;
     }
 
-    .postsTitle {
+.postsTitle {
         font-size: 26px;
+    }
+
+    .postItem {
+        grid-template-columns: 220px 1fr;
     }
 
     .postImg {
@@ -341,12 +346,16 @@
         height: 140px;
     }
 
-    .postTitle {
+.postTitle {
         font-size: 15px;
     }
 
     .postExcerpt {
         font-size: 13px;
+    }
+
+    .postItem {
+        grid-template-columns: 190px 1fr;
     }
 }
 
@@ -401,6 +410,10 @@
         padding-left: 0;
         font-size: 24px;
         margin-bottom: 12px;
+    }
+
+  .postItem {
+        grid-template-columns: 210px 1fr;
     }
 
     .postImg {

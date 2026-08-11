@@ -63,9 +63,9 @@
 
 
     font-family: 'Poppins';
-font-weight: 300;
-font-size: 14px;
-line-height: 18px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
 
 }
 
@@ -119,6 +119,7 @@ line-height: 18px;
     position: sticky;
     top: 90px;
     min-width: 0;
+    width: 100%;
 }
 
 .sideCard {
@@ -130,7 +131,7 @@ line-height: 18px;
     width: 100%;
     max-width: 396px;
     box-sizing: border-box;
-    height: auto;  
+    height: auto;
     border-radius: 19px;
 }
 
@@ -142,8 +143,10 @@ line-height: 18px;
     gap: 8px;
     position: relative;
     width: 100%;
+    box-sizing: border-box;
     border: 1px solid #0148c259;
 }
+
 .searchInput {
     flex: 1;
     border: none;
@@ -189,7 +192,7 @@ line-height: 18px;
     color: rgba(98, 98, 98, 1);
 }
 
- .categoryTags {
+.categoryTags {
     display: flex;
     flex-wrap: wrap;
     gap: 13px;
@@ -243,10 +246,19 @@ line-height: 18px;
 
 
 @media (max-width: 1100px) {
+    .section {
+        padding: 34px 0;
+    }
+
     .inner {
         padding: 0 48px;
         grid-template-columns: 1fr 320px;
         gap: 32px;
+    }
+
+    .postItem {
+        grid-template-columns: 220px 1fr;
+        gap: 16px;
     }
 
     .postImg {
@@ -254,6 +266,7 @@ line-height: 18px;
         height: 160px;
     }
 }
+
 @media (max-width: 900px) {
     .inner {
         padding: 0 32px;
@@ -264,24 +277,28 @@ line-height: 18px;
 
     .sidebar {
         position: static;
-        order: -1;    
+        order: -1;
     }
 
-    .postList {
-        order: 1;       
-                gap: 25px;  
+    .sideCard {
+        max-width: none;
+    }
+
+    .postItem {
+        grid-template-columns: 185px 1fr;
+        gap: 16px;
     }
 
     .postImg {
         width: 180px;
         height: 140px;
     }
-    .postBadge{padding: 0px 0px;}
 }
+
 @media (max-width: 600px) {
     .inner {
         padding: 0 20px 48px;
-                gap: 20px;
+        gap: 20px;
     }
 
     .postItem {
@@ -300,7 +317,10 @@ line-height: 18px;
     .postItem:last-child {
         padding-bottom: 14px;
     }
-    .postBadge{padding: 0px 0px;}
+
+    .postBadge {
+        padding: 0px 0px;
+    }
 
     .postImg {
         width: 100%;
@@ -325,21 +345,33 @@ line-height: 18px;
         font-size: 13px;
         padding: 5px 12px;
     }
-.sideCard { height: auto; }  
+
+    .sideCard {
+        height: auto;
+    }
 }
+
 @media (max-width: 400px) {
     .inner {
         padding: 0 14px;
     }
+
     .postImg {
         height: 160px;
     }
-    .postBadge{padding: 0px 0px;}
+
+    .postBadge {
+        padding: 0px 0px;
+    }
 
     .postTitle {
         font-size: 15px;
     }
-.sideCard { height: auto; } 
+
+    .sideCard {
+        height: auto;
+    }
+
     .postItem {
         padding: 12px;
         border-radius: 14px;

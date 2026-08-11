@@ -408,6 +408,7 @@ a.infoValue:hover {
 @media (max-width: 900px) {
     .inner {
         flex-direction: column;
+        align-items: stretch;
         padding: 0 32px;
     }
 
@@ -416,8 +417,8 @@ a.infoValue:hover {
     }
 
     .row {
-        grid-template-columns: 1fr;
-        gap: 24px;
+        grid-template-columns: 1fr 1fr;
+        gap: 44px;
     }
 
 .officeImageWrap {
@@ -430,7 +431,6 @@ a.infoValue:hover {
         height: 240px;
     }
 }
-
 @media (max-width: 600px) {
     .section {
         padding: 0px 0px 40px;
