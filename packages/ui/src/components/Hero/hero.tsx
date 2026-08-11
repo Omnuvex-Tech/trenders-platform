@@ -56,13 +56,14 @@ export function HeroUI({
         const track = trackRef.current;
         if (track) track.style.transform = `translateX(${offsetRef.current}px)`;
     }, []);
-
+    
     useEffect(() => {
         lastTimeRef.current = null;
 
-        const tick = (time: number) => {
+      const tick = (time: number) => {
             if (lastTimeRef.current === null) lastTimeRef.current = time;
-            const dt = (time - lastTimeRef.current) / 1000;
+            let dt = (time - lastTimeRef.current) / 1000;
+            dt = Math.min(dt, 0.05); 
             lastTimeRef.current = time;
 
             if (!capturedRef.current) {
@@ -112,7 +113,6 @@ export function HeroUI({
         if (capturedRef.current) {
             capturedRef.current = false;
             try { trackRef.current?.releasePointerCapture(dragStartRef.current.pointerId); } catch {}
-
             let normalized = offsetRef.current % loopWidth;
             if (normalized > 0) normalized -= loopWidth;
             offsetRef.current = normalized;
@@ -173,15 +173,16 @@ export function HeroUI({
                                 className={styles.heroImg}
                                 draggable={false} />
                            
-                           {card.hoverMedia && (
+                         {card.hoverMedia && (
                                 isVideoUrl(card.hoverMedia) ? (
                                     <video
-                                        src={card.hoverMedia}
+                                        src={hoveredIdx === idx ? card.hoverMedia : undefined}
                                         className={`${styles.heroHoverMedia} ${hoveredIdx === idx ? styles.heroHoverMediaVisible : ""}`}
                                         autoPlay
                                         loop
                                         muted
-                                        playsInline />
+                                        playsInline
+                                        preload="none" />
                                 ) : (
                                     <img
                                         src={card.hoverMedia}
@@ -189,7 +190,7 @@ export function HeroUI({
                                         className={`${styles.heroHoverMedia} ${hoveredIdx === idx ? styles.heroHoverMediaVisible : ""}`}
                                         draggable={false} />
                                 )
-                            )}                           
+                            )}                         
                             <div className={styles.cardLabel}
                                 dangerouslySetInnerHTML={{ __html: card.label }} />
                             <div className={styles.cardActionContainer}>
