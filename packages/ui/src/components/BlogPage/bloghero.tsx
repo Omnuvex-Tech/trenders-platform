@@ -105,14 +105,13 @@ export function BlogSectionUI({
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}>
-                    <h2 className={styles.title}>{title}</h2>
-                    <a
+                    <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />                  
+                     <a
                         href={portfolioHref}
                         className={styles.portfolioLink}
-                        target={portfolioNewTab ? "_blank" : "_self"}
+                       target={portfolioNewTab ? "_blank" : "_self"}
                         rel={portfolioNewTab ? "noopener noreferrer" : undefined}>
-                        {portfolioLabel}
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+<div dangerouslySetInnerHTML={{ __html: portfolioLabel }} />                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6" />
                         </svg>
                     </a>
@@ -140,7 +139,7 @@ export function BlogSectionUI({
                                     className={`${styles.featuredImg} ${styles.imageGif}`} autoPlay
                                     loop
                                     muted
-                                    playsInline/>
+                                    playsInline />
                             ) : (
                                 <img
                                     src={featuredPost.gif}
@@ -170,7 +169,7 @@ export function BlogSectionUI({
                                 <img
                                     src={post.image}
                                     alt={post.imageAlt || post.title}
-                                    className={styles.sideImg}/>
+                                    className={styles.sideImg} />
                                 <div className={styles.sideContent}>
                                     <div className={styles.sideTitle} dangerouslySetInnerHTML={{ __html: post.title }} />
                                     <div className={styles.sideDesc} dangerouslySetInnerHTML={{ __html: post.description }} />
@@ -191,13 +190,13 @@ export function BlogSectionUI({
                             <img
                                 src={quote.image}
                                 alt={quote.imageAlt || ""}
-                                className={styles.quoteImg}/>
+                                className={styles.quoteImg} />
                         )}
                         <div className={styles.quoteContent}>
                             <span className={styles.quoteIcon}>"</span>
                             <div
                                 className={styles.quoteText}
-                                dangerouslySetInnerHTML={{ __html: quote.text }}/>
+                                dangerouslySetInnerHTML={{ __html: quote.text }} />
                         </div>
                     </motion.div>
                 )}

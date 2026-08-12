@@ -98,10 +98,11 @@ export function VacancyUI({
                     whileInView="visible"
                     viewport={{ once: true, margin: "-5%" }}
                 >
-                    <motion.h2 variants={generalItemVariants} className={styles.title}>
-                        {title}
-                    </motion.h2>
-                    
+                 <motion.div
+    variants={generalItemVariants}
+    className={styles.title}
+    dangerouslySetInnerHTML={{ __html: title }}
+/>
                     <motion.div variants={generalItemVariants} className={styles.filters}>
                         {filterTags.map((tag) => (
                             <button
@@ -179,8 +180,7 @@ export function VacancyUI({
                                     </span>
                                 )}
                             </div>
-                            <h3 className={styles.cardTitle}>{vacancy.title}</h3>
-                            <div className={styles.tagList}>
+<div className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: vacancy.title }} />                            <div className={styles.tagList}>
                                 {vacancy.filterTagLabels.map((label, i) => (
                                     <span key={i} className={styles.tag}>{label}</span>
                                 ))}

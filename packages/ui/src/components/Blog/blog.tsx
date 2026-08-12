@@ -62,14 +62,12 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
       <div className={styles.blogDivider}></div>
       <div className={styles.inner}>
         <div className={styles.header}>
-          <h2 className={styles.title}>{title}</h2>
-          <Link
+          <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />          <Link
             href={allPostsHref || "#"}
             className={styles.allPostsBtn}
             target={allPostsNewTab ? "_blank" : "_self"}
           >
-            <span style={{ position: 'relative', zIndex: 2 }}>{allPostsLabel}</span>
-            <svg
+            <div style={{ position: 'relative', zIndex: 2 }} dangerouslySetInnerHTML={{ __html: allPostsLabel }} />            <svg
               style={{ position: 'relative', zIndex: 2 }}
               width="16" height="16" viewBox="0 0 36 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="0" y1="8" x2="28" y2="8" stroke="currentColor" strokeWidth="1.5" />
@@ -80,7 +78,7 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
         <motion.div
           className={styles.grid}
           variants={gridVariants}
-          initial="hidden" 
+          initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >

@@ -73,37 +73,29 @@ export function TeamUI({ title, members, description, goHref, goLabel, goNewTab 
             <div className={styles.inner}>
 
                 <div className={styles.left}>
-                    <motion.h2
+                    <motion.div
                         className={styles.title}
                         variants={titleContainerVariants}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.2 }}
-                        style={{ display: "flex", flexWrap: "wrap", gap: "0.25em" }}
-                    >
-                        {words.map((word, index) => (
-                            <span key={index} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }}>
-                                <motion.span variants={titleWordVariants} style={{ display: "inline-block" }}>
-                                    {word}
-                                </motion.span>
-                            </span>
-                        ))}
-                    </motion.h2>
+                        dangerouslySetInnerHTML={{ __html: title }}
+                    />
 
-         <motion.div
+                    <motion.div
                         variants={leftContentVariants}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.2 }}
                         className={styles.leftBottom}
                     >
-                        {description && <p className={styles.description}>{description}</p>}
-
+                        {description && <div className={styles.description} dangerouslySetInnerHTML={{ __html: description }} />}
                         <Link
                             href={goHref || "#"}
                             className={styles.goBtn}
                             target={goNewTab ? "_blank" : "_self"}
-                        >{goLabel}
+                        >
+                            <div dangerouslySetInnerHTML={{ __html: goLabel || "" }} />
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />

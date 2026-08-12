@@ -123,7 +123,10 @@ const filteredProjects = useMemo(() => {
   return (
     <section className={styles.projects}>
       <div className={styles.projectsHeader}>
-        <h2 className={styles.projectsTitle}>{sectionTitle}</h2>
+        <div 
+  className={styles.projectsTitle} 
+  dangerouslySetInnerHTML={{ __html: sectionTitle }} 
+/>
 
         {showControls ? (
           <div className={styles.controls}>

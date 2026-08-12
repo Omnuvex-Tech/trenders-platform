@@ -34,7 +34,7 @@ export interface VacancyDetailUIProps {
     vacancyTitle?: string;
     sections: VacancyDetailSection[];
     applyTitle?: string;
-contact: VacancyDetailContact;
+    contact: VacancyDetailContact;
     mapComponent?: React.ReactNode;
     mapLink?: string;
     onSubmit?: (data: FormData) => Promise<void>;
@@ -167,14 +167,13 @@ export function VacancyDetailUI({
 
                 <div className={styles.contentRow}>
                     <div className={styles.left}>
-                        <motion.h1
+                        <motion.div
                             className={styles.jobTitle}
                             variants={revealVariants}
                             initial="hidden"
                             animate="visible"
-                        >
-                            {jobTitle}
-                        </motion.h1>
+                            dangerouslySetInnerHTML={{ __html: jobTitle }}
+                        />
 
                         {tags.length > 0 && (
                             <motion.div
@@ -198,10 +197,10 @@ export function VacancyDetailUI({
                                 whileInView="visible"
                                 viewport={{ once: true, margin: "-8%" }}
                             >
-                                <h3 className={styles.sectionTitle}>{section.title}</h3>
+                                <div className={styles.sectionTitle} dangerouslySetInnerHTML={{ __html: section.title }} />
 
                                 {section.type === "text" && section.content && (
-                                    <p className={styles.sectionText}>{section.content}</p>
+                                    <div className={styles.sectionText} dangerouslySetInnerHTML={{ __html: section.content }} />
                                 )}
 
                                 {section.type === "skills" && section.skills && (
@@ -212,13 +211,12 @@ export function VacancyDetailUI({
                                     </div>
                                 )}
 
-                                {section.type === "bullets" && section.bullets && (
+                               {section.type === "bullets" && section.bullets && (
                                     <ul className={styles.bulletList} style={{ listStyle: "none", padding: 0 }}>
                                         {section.bullets.map((bullet, j) => (
-                                            <li key={j} className={styles.bulletItem}
-                                                style={{ paddingLeft: "1.2em", textIndent: "-1.2em" }}>
-                                                {bullet}
-                                            </li>
+                                           <li key={j} className={`${styles.bulletItem} ${styles.bulletItemInline}`}
+                                                style={{ paddingLeft: "1.2em", textIndent: "-1.2em" }}
+                                                dangerouslySetInnerHTML={{ __html: bullet }} />
                                         ))}
                                     </ul>
                                 )}
@@ -306,7 +304,7 @@ export function VacancyDetailUI({
                                 </form>
                             </div>
                         </motion.div>
-                       <motion.div variants={revealVariants} className={styles.mapCard}>
+                        <motion.div variants={revealVariants} className={styles.mapCard}>
                             <div className={styles.mapWrap}>
                                 {mapComponent}
                                 {mapLink && (

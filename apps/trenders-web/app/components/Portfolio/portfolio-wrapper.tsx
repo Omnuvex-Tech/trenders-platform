@@ -71,11 +71,11 @@ async function getPortfolioSettings(locale: string): Promise<PortfolioSettings> 
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
-        return {
-            sectionTitle: stripHtml(t(data?.sectionTitle, locale, "Portfolio")),
-            dropdownLabel: stripHtml(t(data?.dropdownLabel, locale, "Xidmətləri seçin")),
-            moreButtonLabel: stripHtml(t(data?.moreButtonLabel, locale, "Daha çox Portfolio")),
-        };
+      return {
+    sectionTitle: t(data?.sectionTitle, locale),
+    dropdownLabel: stripHtml(t(data?.dropdownLabel, locale)),
+    moreButtonLabel: stripHtml(t(data?.moreButtonLabel, locale)),
+};
     } catch {
         return {
             sectionTitle: "Portfolio",

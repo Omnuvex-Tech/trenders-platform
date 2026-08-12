@@ -31,14 +31,13 @@ export function ProjectsUI({
   return (
     <section className={styles.projects}>
       <div className={styles.projectsHeader}>
-        <h2 className={styles.projectsTitle}>{sectionTitle}</h2>
+<div className={styles.projectsTitle} dangerouslySetInnerHTML={{ __html: sectionTitle }} />        
         <Link
           href={moreBtnHref}
           className={styles.projectsMoreBtn}
           target={moreBtnNewTab ? "_blank" : "_self"}
         >
-          {moreBtnLabel}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+<div dangerouslySetInnerHTML={{ __html: moreBtnLabel }} />          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="1.8"
             strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12" />

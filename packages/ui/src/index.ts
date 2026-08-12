@@ -125,4 +125,9 @@ export type { SearchResultsUIProps, SearchResultItem } from "./components/Search
 export { NotFoundUI } from "./components/NotFound/NotFound"
 export type { NotFoundUIProps } from "./components/NotFound/NotFound"
 
+
+export { PrivacyPolicyUI } from './components/PrivacyPolicy/privacyPolicy'
+export type { PrivacyPolicyUIProps, PrivacyPolicySection } from './components/PrivacyPolicy/privacyPolicy'
+
+
 export { cn } from "./lib/utils";

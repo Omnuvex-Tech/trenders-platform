@@ -56,6 +56,7 @@ async function getServiceOptions(locale: string): Promise<string[]> {
     }
 }
 
+
 export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
     const [data, serviceOptions] = await Promise.all([
         getContactData(),
@@ -126,6 +127,8 @@ export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
                 messagePlaceholder: t(data?.formMessagePlaceholder, locale, "Your message"),
                 submit: t(data?.formSubmitLabel, locale, "Submit Inquiry"),
             }}
+          privacyHref={`/${locale}/PrivacyPolicy`}
+            termsHref={`/${locale}/PrivacyPolicy`}
             onSubmit={submitContactForm}
         />
     );

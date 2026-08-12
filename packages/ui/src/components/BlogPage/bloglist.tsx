@@ -399,9 +399,9 @@ export function BlogListUI({
                 >
                     <div className={styles.sideCard}>
                         <div className={styles.searchWrap}>
-                            <input
+                           <input
                                 type="text"
-                                placeholder={searchPlaceholder}
+                                placeholder={stripHtml(searchPlaceholder)}
                                 className={styles.searchInput}
                                 value={query}
                                 onChange={(e) => {
@@ -417,8 +417,8 @@ export function BlogListUI({
                             </button>
                         </div>
 
-                        <div className={styles.categories}>
-                            <h4 className={styles.categoriesTitle}>{categoriesTitle}</h4>
+                       <div className={styles.categories}>
+                            <div className={styles.categoriesTitle} dangerouslySetInnerHTML={{ __html: categoriesTitle }} />
                             <div className={styles.categoryTags}>
                                 {categories.map((cat) => {
                                     const slug = cat.slug ?? cat.href?.split("=")[1] ?? cat.label.toLowerCase();
@@ -439,8 +439,7 @@ export function BlogListUI({
 
                     {featuredBlog && (
                         <div className={styles.featuredWrap}>
-                            <h4 className={styles.featuredTitle}>{featuredBlogTitle}</h4>
-                            <motion.a 
+<div className={styles.featuredTitle} dangerouslySetInnerHTML={{ __html: featuredBlogTitle }} />                            <motion.a 
                                 href={featuredBlog.href || "#"} 
                                 className={styles.featuredPost}
                                 whileHover="hover"

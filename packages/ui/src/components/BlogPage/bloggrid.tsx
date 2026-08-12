@@ -194,12 +194,12 @@ export function BlogGridUI({
 
                 {posts.length > visibleCount && (
                     <div className={styles.moreBtnWrapper}>
-                        <button
+                       <button
                             type="button"
                             onClick={handleShowMore}
                             className={styles.projectsMoreBtn}
                         >
-                            {moreButtonText}
+                            <div dangerouslySetInnerHTML={{ __html: moreButtonText }} />
                             <svg
                                 width="16"
                                 height="16"

@@ -565,3 +565,9 @@
     padding: 0 100px;
 }
 }
+
+
+.bulletItemInline p {
+    display: inline;
+    margin: 0;
+}
