@@ -106,7 +106,7 @@ export async function VacancyWrapper({ locale = "az" }: { locale?: string }) {
       category: getL(v.category.name, locale),
       filterTagLabels: (v.filterTags ?? []).slice(0, 5).map((ft) => getL(ft.label, locale)),
       detailLabel,
-      detailHref: `/${locale}/Vacancy/${v.slug}`,
+      detailHref: `/${locale}/vacancy/${v.slug}`,
     };
   });
 

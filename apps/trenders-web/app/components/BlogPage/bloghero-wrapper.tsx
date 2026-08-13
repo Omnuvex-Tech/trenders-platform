@@ -33,7 +33,7 @@ function mapBlogItem(b: any, locale: string): BlogItem {
         title: t(b.title, locale),
         description: t(b.excerpt, locale),
         date: b.publishedAt ? formatDate(b.publishedAt) : "",
-        href: `/Blog/${b.slug}`,
+        href: `/blog/${b.slug}`,
     };
 }
 

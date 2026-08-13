@@ -59,7 +59,7 @@ export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
         date: b.publishedAt ? formatDate(b.publishedAt) : "",
         title: t(b.title, locale).replace(/<[^>]*>/g, ""),
         excerpt: t(b.excerpt, locale).replace(/<[^>]*>/g, ""),
-        readHref: `/Blog/${b.slug}`,
+        readHref: `/blog/${b.slug}`,
         readLabel,
     }));
 

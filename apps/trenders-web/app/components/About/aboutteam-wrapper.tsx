@@ -49,15 +49,15 @@ export async function AboutTeamWrapper({ locale }: { locale?: string }) {
         imageAlt: t(a.avatarAlt, resolvedLocale) || t(a.name, resolvedLocale),
         name: t(a.name, resolvedLocale),
         role: t(a.role, resolvedLocale),
-        href: a.slug ? `/BlogAuthor/${a.slug}` : "#",
+        href: a.slug ? `/blogauthor/${a.slug}` : "#",
     }));
 
     return (
         <AboutTeamUI
-            title={t(s?.teamTitle, resolvedLocale, "İLHAM VERƏN KOMANDA")}
+            title={t(s?.teamTitle, resolvedLocale)}
             description={t(s?.teamDescription, resolvedLocale)}
-            ctaLabel={t(s?.teamCtaLabel, resolvedLocale, "Keçid edin →")}
-            ctaHref={s?.teamCtaHref ?? "/OurTeam"}
+            ctaLabel={t(s?.teamCtaLabel, resolvedLocale)}
+            ctaHref={s?.teamCtaHref ?? "/ourteam"}
             members={members}
         />
     );

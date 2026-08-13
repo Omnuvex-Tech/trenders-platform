@@ -150,7 +150,7 @@ export async function VacancyDetailWrapper({
 
   return (
     <VacancyDetailUI
-      backHref={`/${locale}/Vacancy`}
+      backHref={`/${locale}/vacancy`}
       pageTitle={getL(s?.backLabel, locale)}
       jobTitle={getL(vacancy.title, locale)}
       vacancyId={vacancy.id}

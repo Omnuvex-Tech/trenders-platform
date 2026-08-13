@@ -43,7 +43,7 @@ export async function BlogPostPreviewWrapper() {
 
     return (
         <BlogDetailHeroUI
-            href={`/Blog/${blog.slug}`}
+            href={`/blog/${blog.slug}`}
             image={toAbsUrl(coverImage)}
             gif={blog.gif ? toAbsUrl(blog.gif) : undefined}
             imageAlt={t(blog.coverImageAlt, locale)}
@@ -55,7 +55,7 @@ export async function BlogPostPreviewWrapper() {
             author={{
                 name: t(blog.author?.name, locale),
                 avatar: toAbsUrl(blog.author?.avatar ?? ""),
-                href: blog.author?.slug ? `/BlogAuthor/${blog.author.slug}` : undefined,
+                href: blog.author?.slug ? `/blogauthor/${blog.author.slug}` : undefined,
             }}
             date={blog.publishedAt ? formatDate(blog.publishedAt) : ""}
         />

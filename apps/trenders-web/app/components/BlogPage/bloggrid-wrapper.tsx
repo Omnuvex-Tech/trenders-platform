@@ -64,9 +64,9 @@ export async function BlogGridWrapper() {
                 authorImage: toAbsUrl(b.author?.avatar ?? ""),
                 authorImageAlt: t(b.author?.avatarAlt, locale) || t(b.author?.name, locale),
                 authorName: t(b.author?.name, locale),
-                authorHref: b.author?.slug ? `/BlogAuthor/${b.author.slug}` : undefined,
+                authorHref: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
                 date: b.publishedAt ? formatDate(b.publishedAt) : "",
-                href: `/Blog/${b.slug}`,
+                href: `/blog/${b.slug}`,
             };
         });
 

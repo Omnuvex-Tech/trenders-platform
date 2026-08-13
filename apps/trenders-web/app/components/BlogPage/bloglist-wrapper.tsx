@@ -63,10 +63,10 @@ export async function BlogListWrapper() {
                 name: t(b.author?.name, locale),
                 avatar: toAbsUrl(b.author?.avatar ?? ""),
                 avatarAlt: t(b.author?.avatarAlt, locale) || t(b.author?.name, locale),
-                href: b.author?.slug ? `/BlogAuthor/${b.author.slug}` : undefined,
+                href: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
             },
             date: b.publishedAt ? formatDate(b.publishedAt) : "",
-            href: `/Blog/${b.slug}`,
+            href: `/blog/${b.slug}`,
             gif: b.gif ? toAbsUrl(b.gif) : undefined,
         };
     };
@@ -85,7 +85,7 @@ export async function BlogListWrapper() {
         id: c.id,
         label: t(c.label, locale),
         slug: c.slug,
-        href: `/Blog?category=${c.slug}`,
+        href: `/blog?category=${c.slug}`,
     }));
 
     const pickOfWeek = blogs.find((b: any) => b.isVisible && b.isPickOfWeek);
@@ -96,7 +96,7 @@ export async function BlogListWrapper() {
             badge: t(pickOfWeek.badge, locale),
             title: t(pickOfWeek.title, locale),
             date: pickOfWeek.publishedAt ? formatDate(pickOfWeek.publishedAt) : "",
-            href: `/Blog/${pickOfWeek.slug}`,
+            href: `/blog/${pickOfWeek.slug}`,
             gif: pickOfWeek.gif ? toAbsUrl(pickOfWeek.gif) : undefined,
         }
         : undefined;

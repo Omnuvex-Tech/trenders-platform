@@ -41,7 +41,7 @@ async function getOurTeamMembers(): Promise<OurTeamMember[]> {
             imageAlt: a.avatarAlt ?? a.name ?? "",
             name: a.name ?? "",
             role: a.role ?? "",
-            href: a.slug ? `/BlogAuthor/${a.slug}` : "#",
+            href: a.slug ? `/blogauthor/${a.slug}` : "#",
         }));
     } catch {
         return [];
@@ -59,9 +59,9 @@ export async function OurTeamWrapper({ locale }: { locale?: string }) {
 
     if (members.length === 0) return null;
 
-    const titleHtml = t(settings?.title, resolvedLocale, "Komandamız");
+    const titleHtml = t(settings?.title, resolvedLocale);
     const descriptionHtml = t(settings?.description, resolvedLocale, "");
-    const moreButtonText = t(settings?.moreBtn, resolvedLocale, "Daha çox");
+    const moreButtonText = t(settings?.moreBtn, resolvedLocale);
 
     const resolvedMembers: OurTeamMember[] = members.map((m: any) => ({
         ...m,

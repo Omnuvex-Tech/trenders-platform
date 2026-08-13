@@ -4,7 +4,7 @@ import type { MetadataRoute } from "next"
 const BASE_URL = "https://trenders.team"
 const LOCALES = ["az", "en", "ru"] as const
 
-const STATIC_PATHS = ["", "/About", "/service", "/portfolio", "/Vacancy", "/Blog", "/Contact", "/Partners", "/OurTeam"]
+const STATIC_PATHS = ["", "/about", "/service", "/portfolio", "/vacancy", "/blog", "/contact", "/partners", "/ourteam"]
 
 async function fetchList(path: string): Promise<any[]> {
   try {
@@ -59,7 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...vacancies
       .filter((v) => v.isVisible)
       .map((v) => ({
-        url: `${BASE_URL}/${locale}/Vacancy/${v.slug}`,
+        url: `${BASE_URL}/${locale}/vacancy/${v.slug}`,
         lastModified: toDate(v.updatedAt),
         changeFrequency: "weekly" as const,
         priority: 0.5,
@@ -67,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogs
       .filter((b) => b.isVisible)
       .map((b) => ({
-        url: `${BASE_URL}/${locale}/Blog/${b.slug}`,
+        url: `${BASE_URL}/${locale}/blog/${b.slug}`,
         lastModified: toDate(b.updatedAt),
         changeFrequency: "monthly" as const,
         priority: 0.6,
@@ -75,7 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...authors
       .filter((a) => a.isVisible && a.slug)
       .map((a) => ({
-        url: `${BASE_URL}/${locale}/BlogAuthor/${a.slug}`,
+        url: `${BASE_URL}/${locale}/blogauthor/${a.slug}`,
         lastModified: toDate(a.updatedAt),
         changeFrequency: "monthly" as const,
         priority: 0.4,

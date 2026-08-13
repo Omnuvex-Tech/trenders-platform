@@ -69,10 +69,10 @@ export async function BlogAuthorListWrapper() {
             name: t(b.author?.name, locale),
             avatar: toAbsUrl(b.author?.avatar ?? ""),
             avatarAlt: t(b.author?.avatarAlt, locale),
-            href: b.author?.slug ? `/BlogAuthor/${b.author.slug}` : undefined,
+            href: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
         },
         date: b.publishedAt ? formatDate(b.publishedAt) : "",
-        href: `/Blog/${b.slug}`,
+        href: `/blog/${b.slug}`,
     });
 
     const posts: BlogListItems[] = safeBlogs

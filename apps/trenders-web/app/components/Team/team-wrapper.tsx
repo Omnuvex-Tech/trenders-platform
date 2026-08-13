@@ -28,7 +28,7 @@ async function getHomeTeamMembers(locale: string): Promise<TeamMember[]> {
       role: t(a.role, locale),
       image: toAbsUrl(a.avatar ?? ""),
       imageAlt: t(a.avatarAlt, locale) || t(a.name, locale),
-      href: a.slug ? `/${locale}/BlogAuthor/${a.slug}` : "#",
+      href: a.slug ? `/${locale}/blogauthor/${a.slug}` : "#",
     }));
   } catch {
     return [];

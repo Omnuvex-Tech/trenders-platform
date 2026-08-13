@@ -83,7 +83,7 @@ function renderSection(section: any, index: number, blog: any, locale: string) {
                         name: t(blog.author?.name, locale),
                         role: t(blog.author?.role, locale),
                         avatar: toAbsUrl(blog.author?.avatar ?? ''),
-                        href: blog.author?.slug ? `/BlogAuthor/${blog.author.slug}` : undefined,
+                        href: blog.author?.slug ? `/blogauthor/${blog.author.slug}` : undefined,
                     }}
                 />
             );

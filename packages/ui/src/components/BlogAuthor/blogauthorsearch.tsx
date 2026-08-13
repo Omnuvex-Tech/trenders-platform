@@ -308,7 +308,7 @@ export function BlogAuthorListUI({
                         <div className={styles.searchWrap}>
                             <input
                                 type="text"
-                                placeholder={searchPlaceholder}
+                                placeholder={stripHtml(searchPlaceholder)}
                                 className={styles.searchInput}
                                 value={query}
                                 onChange={(e) => {
@@ -325,7 +325,10 @@ export function BlogAuthorListUI({
                         </div>
 
                         <div className={styles.categories}>
-                            <h4 className={styles.categoriesTitle}>{categoriesTitle}</h4>
+                            <div
+                                className={styles.categoriesTitle}
+                                dangerouslySetInnerHTML={{ __html: categoriesTitle }}
+                            />
                             <div className={styles.categoryTags}>
                                 {categories.map((cat) => {
                                     const slug = cat.slug ?? cat.href?.split("=")[1] ?? cat.label.toLowerCase();

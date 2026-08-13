@@ -42,13 +42,13 @@ export async function BlogAuthorPreviewWrapper() {
     const { blog, settings } = await getAuthorPreviewData();
     if (!blog) return null;
 
-    const sectionTitle = t(settings?.otherBlogsTitle, locale, "Digər bloqlar");
+    const sectionTitle = t(settings?.otherBlogsTitle, locale);
 
     const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
 
     return (
         <BlogDetailPreviewUI
-            href={`/Blog/${blog.slug}`}
+            href={`/blog/${blog.slug}`}
             sectionTitle={sectionTitle}
             image={toAbsUrl(t(blog.coverImage, locale))}
             imageAlt={t(blog.coverImageAlt, locale)}
@@ -60,7 +60,7 @@ export async function BlogAuthorPreviewWrapper() {
             author={{
                 name: t(blog.author?.name, locale),
                 avatar: toAbsUrl(blog.author?.avatar ?? ""),
-                href: blog.author?.slug ? `/BlogAuthor/${blog.author.slug}` : undefined,
+                href: blog.author?.slug ? `/blogauthor/${blog.author.slug}` : undefined,
             }}
             date={blog.publishedAt ? formatDate(blog.publishedAt) : ""}
         />

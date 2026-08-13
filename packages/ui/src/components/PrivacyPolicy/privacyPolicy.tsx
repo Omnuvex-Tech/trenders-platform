@@ -1,45 +1,34 @@
 import styles from "../../styles/PrivacyPolicy/privacyPolicy.module.css";
 
 export interface PrivacyPolicySection {
-  heading: string;
-  body: string[];
+  id: number | string;
+  title: string;
+  description: string;
 }
 
 export interface PrivacyPolicyUIProps {
   title: string;
-//   updatedLabel: string;
-//   updatedDate: string;
-  intro: string;
+  description: string;
   sections: PrivacyPolicySection[];
 }
 
-export function PrivacyPolicyUI({
-  title,
-//   updatedLabel,
-//   updatedDate,
-  intro,
-  sections,
-}: PrivacyPolicyUIProps) {
+export function PrivacyPolicyUI({ title, description, sections }: PrivacyPolicyUIProps) {
   return (
     <section className={styles.privacy}>
       <div className={styles.header}>
-        <h1 className={styles.title}>{title}</h1>
-        {/* <p className={styles.updated}>
-          {updatedLabel}: {updatedDate}
-        </p> */}
+        <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
       </div>
 
-      <p className={styles.intro}>{intro}</p>
+      <div className={styles.intro} dangerouslySetInnerHTML={{ __html: description }} />
 
       <div className={styles.sections}>
-        {sections.map((section) => (
-          <div key={section.heading} className={styles.section}>
-            <h2 className={styles.sectionHeading}>{section.heading}</h2>
-            {section.body.map((paragraph, i) => (
-              <p key={i} className={styles.sectionText}>
-                {paragraph}
-              </p>
-            ))}
+        {sections.map((section, index) => (
+          <div key={section.id} className={styles.section}>
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionNumber}>{index + 1}.</span>
+              <div dangerouslySetInnerHTML={{ __html: section.title }} />
+            </div>
+            <div className={styles.sectionText} dangerouslySetInnerHTML={{ __html: section.description }} />
           </div>
         ))}
       </div>
