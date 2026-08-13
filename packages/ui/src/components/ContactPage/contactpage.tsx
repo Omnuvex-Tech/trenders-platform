@@ -41,7 +41,7 @@ export interface ContactPageUIProps {
         phone: string;
         phonePlaceholder: string;
         service: string;
-        servicePlaceholder: string; 
+        servicePlaceholder: string;
         budget: string;
         budgetPlaceholder: string;
         timeline: string;
@@ -50,12 +50,18 @@ export interface ContactPageUIProps {
         messagePlaceholder: string;
         submit: string;
     };
-   mapComponent?: React.ReactNode;
+    mapComponent?: React.ReactNode;
     mapLink?: string;
     termsHref?: string;
     privacyHref?: string;
     onSubmit?: (data: Record<string, string>) => Promise<void>;
 }
+
+// Rich text (editordan gələn HTML) üçün helper
+const html = (value: string) => ({ __html: value });
+
+// Native input/textarea placeholder atributu HTML render edə bilmədiyi üçün tag-ları təmizləyirik
+const stripTags = (value: string) => value.replace(/<[^>]*>/g, "").trim();
 
 export function ContactPageUI({
     title,
@@ -121,11 +127,6 @@ export function ContactPageUI({
         visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
     };
 
-    const titleWordVariants: Variants = {
-        hidden: { y: "100%" },
-        visible: { y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
-    };
-
     const leftContainerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
@@ -176,9 +177,10 @@ export function ContactPageUI({
                     className={`${styles.customSelectTrigger} ${isOpen ? styles.customSelectTriggerOpen : ""}`}
                     onClick={() => setOpenDropdown(isOpen ? null : dropdownKey)}
                 >
-                    <span className={value ? styles.customSelectValue : styles.customSelectPlaceholder}>
-                        {value || placeholder}
-                    </span>
+                    <div
+                        className={value ? styles.customSelectValue : styles.customSelectPlaceholder}
+                        dangerouslySetInnerHTML={html(value || placeholder)}
+                    />
                     <svg
                         className={`${styles.customSelectArrow} ${isOpen ? styles.customSelectArrowOpen : ""}`}
                         width="16" height="16" viewBox="0 0 24 24"
@@ -200,9 +202,8 @@ export function ContactPageUI({
                                         setForm(prev => ({ ...prev, [name]: o }));
                                         setOpenDropdown(null);
                                     }}
-                                >
-                                    {o}
-                                </div>
+                                    dangerouslySetInnerHTML={html(o)}
+                                />
                             ))}
                         </div>
                     </div>
@@ -210,8 +211,6 @@ export function ContactPageUI({
             </div>
         );
     };
-
-    const words = title.split(" ");
 
     return (
         <section className={styles.section} id="contact">
@@ -223,23 +222,17 @@ export function ContactPageUI({
                     whileInView="visible"
                     viewport={{ once: false, amount: 0.15 }}
                 >
-                    <motion.h2
+                    <motion.div
                         className={styles.title}
                         variants={titleContainerVariants}
-                        style={{ display: "flex", flexWrap: "wrap", gap: "0.25em" }}
-                    >
-                        {words.map((word, index) => (
-                            <span key={index} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }}>
-                                <motion.span variants={titleWordVariants} style={{ display: "inline-block" }}>
-                                    {word}
-                                </motion.span>
-                            </span>
-                        ))}
-                    </motion.h2>
+                        dangerouslySetInnerHTML={html(title)}
+                    />
 
-                    <motion.p className={styles.description} variants={fadeUpVariants}>
-                        {description}
-                    </motion.p>
+                    <motion.div
+                        className={styles.description}
+                        variants={fadeUpVariants}
+                        dangerouslySetInnerHTML={html(description)}
+                    />
 
                     {image && (
                         <motion.div className={styles.officeImageWrap} variants={fadeUpVariants}>
@@ -253,29 +246,27 @@ export function ContactPageUI({
 
                     <div className={styles.infoGrid}>
                         <motion.div className={styles.infoItem} variants={fadeUpVariants}>
-                            <span className={styles.infoLabel}>{info.emailLabel}</span>
-                            <a href={`mailto:${info.email}`} className={styles.infoValue}>
-                                {info.email} →
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.emailLabel)} />
+                            <a href={`mailto:${info.email}`} className={styles.infoValue} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                <div dangerouslySetInnerHTML={html(info.email)} /> →
                             </a>
                         </motion.div>
                         <motion.div className={styles.infoItem} variants={fadeUpVariants}>
-                            <span className={styles.infoLabel}>{info.phoneLabel}</span>
-                            <a href={`tel:${info.phone}`} className={styles.infoValue}>
-                                {info.phone} →
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.phoneLabel)} />
+                            <a href={`tel:${info.phone}`} className={styles.infoValue} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                <div dangerouslySetInnerHTML={html(info.phone)} /> →
                             </a>
                         </motion.div>
                         <motion.div className={styles.infoItem} variants={fadeUpVariants}>
-                            <span className={styles.infoLabel}>{info.locationLabel}</span>
-                            <span className={styles.infoValue}>{info.location}</span>
-                        </motion.div>
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.locationLabel)} />
+                            <div className={styles.infoValue} dangerouslySetInnerHTML={html(info.location)} />                        </motion.div>
                         <motion.div className={styles.infoItem} variants={fadeUpVariants}>
-                            <span className={styles.infoLabel}>{info.hoursLabel}</span>
-                            <span className={styles.infoValue}>{info.hours}</span>
-                        </motion.div>
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.hoursLabel)} />
+                            <div className={styles.infoValue} dangerouslySetInnerHTML={html(info.hours)} />                        </motion.div>
                     </div>
 
                     <motion.div className={styles.socialsWrap} variants={fadeUpVariants}>
-                        <span className={styles.followLabel}>{info.followUsLabel}</span>
+                        <div className={styles.followLabel} dangerouslySetInnerHTML={html(info.followUsLabel)} />
                         <div className={styles.socials}>
                             {info.socialLinks.map(link => (
                                 <a
@@ -301,9 +292,7 @@ export function ContactPageUI({
 
                     <div className={styles.hashtags}>
                         {info.hashtags.map((tag, i) => (
-                            <motion.span key={i} className={styles.hashtag} variants={fadeUpVariants}>
-                                {tag}
-                            </motion.span>
+                            <motion.div key={i} className={styles.hashtag} variants={fadeUpVariants} dangerouslySetInnerHTML={html(tag)} />
                         ))}
                     </div>
                 </motion.div>
@@ -318,41 +307,41 @@ export function ContactPageUI({
                     >
                         <motion.div className={styles.row} variants={fadeUpVariants}>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.name}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.name)} />
                                 <input className={styles.input} type="text" name="name"
-                                    placeholder={formLabels.namePlaceholder}
+                                    placeholder={stripTags(formLabels.namePlaceholder)}
                                     value={form.name} onChange={handleChange} required />
                             </div>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.email}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.email)} />
                                 <input className={styles.input} type="email" name="email"
-                                    placeholder={formLabels.emailPlaceholder}
+                                    placeholder={stripTags(formLabels.emailPlaceholder)}
                                     value={form.email} onChange={handleChange} required />
                             </div>
                         </motion.div>
 
                         <motion.div className={styles.row} variants={fadeUpVariants}>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.phone}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.phone)} />
                                 <input className={styles.input} type="tel" name="phone"
-                                    placeholder={formLabels.phonePlaceholder}
+                                    placeholder={stripTags(formLabels.phonePlaceholder)}
                                     value={form.phone} onChange={handlePhoneChange} />
                             </div>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.service}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.service)} />
                                 <CustomSelect
                                     name="service"
                                     dropdownKey="service"
                                     options={serviceOptions}
-                                    placeholder={formLabels.servicePlaceholder} 
+                                    placeholder={formLabels.servicePlaceholder}
                                     value={form.service}
-                                />                           
+                                />
                             </div>
                         </motion.div>
 
                         <motion.div className={styles.row} variants={fadeUpVariants}>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.budget}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.budget)} />
                                 <CustomSelect
                                     name="budget"
                                     dropdownKey="budget"
@@ -362,7 +351,7 @@ export function ContactPageUI({
                                 />
                             </div>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.timeline}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.timeline)} />
                                 <CustomSelect
                                     name="timeline"
                                     dropdownKey="timeline"
@@ -374,9 +363,9 @@ export function ContactPageUI({
                         </motion.div>
 
                         <motion.div className={styles.field} variants={fadeUpVariants}>
-                            <label className={styles.label}>{formLabels.message}</label>
+                            <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.message)} />
                             <textarea className={styles.textarea} name="message"
-                                placeholder={formLabels.messagePlaceholder}
+                                placeholder={stripTags(formLabels.messagePlaceholder)}
                                 value={form.message} onChange={handleChange} rows={5} />
                         </motion.div>
 
@@ -401,7 +390,11 @@ export function ContactPageUI({
                             whileTap={{ scale: 0.99 }}
                             disabled={submitting}
                         >
-                            {submitting ? "Göndərilir..." : formLabels.submit}
+                            {submitting ? (
+                                "Göndərilir..."
+                            ) : (
+                                <div dangerouslySetInnerHTML={html(formLabels.submit)} />
+                            )}
                         </motion.button>
 
                         <motion.p className={styles.terms} variants={fadeUpVariants}>
@@ -411,7 +404,7 @@ export function ContactPageUI({
                         </motion.p>
                     </motion.form>
 
-                   {mapComponent && (
+                    {mapComponent && (
                         <div className={styles.mapCard}>
                             <div className={styles.mapWrap}>
                                 {mapComponent}

@@ -51,6 +51,11 @@ export interface VacancyDetailUIProps {
     submitLabel?: string;
 }
 
+function stripHtml(html?: string) {
+    if (!html) return "";
+    return html.replace(/<[^>]*>/g, "").trim();
+}
+
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -161,8 +166,7 @@ export function VacancyDetailUI({
                             <line x1="19" y1="12" x2="5" y2="12" />
                             <polyline points="12 19 5 12 12 5" />
                         </svg>
-                        <span>{pageTitle}</span>
-                    </a>
+<div dangerouslySetInnerHTML={{ __html: pageTitle || "" }} />                    </a>
                 </motion.div>
 
                 <div className={styles.contentRow}>
@@ -211,10 +215,10 @@ export function VacancyDetailUI({
                                     </div>
                                 )}
 
-                               {section.type === "bullets" && section.bullets && (
+                                {section.type === "bullets" && section.bullets && (
                                     <ul className={styles.bulletList} style={{ listStyle: "none", padding: 0 }}>
                                         {section.bullets.map((bullet, j) => (
-                                           <li key={j} className={`${styles.bulletItem} ${styles.bulletItemInline}`}
+                                            <li key={j} className={`${styles.bulletItem} ${styles.bulletItemInline}`}
                                                 style={{ paddingLeft: "1.2em", textIndent: "-1.2em" }}
                                                 dangerouslySetInnerHTML={{ __html: bullet }} />
                                         ))}
@@ -232,18 +236,17 @@ export function VacancyDetailUI({
                         viewport={{ once: true, margin: "-5%" }}
                     >
                         <motion.div variants={revealVariants}>
-                            <h2 className={styles.applyTitle}>{applyTitle}</h2>
-                            <div className={styles.formCard}>
+<div className={styles.applyTitle} dangerouslySetInnerHTML={{ __html: applyTitle }} />                            <div className={styles.formCard}>
                                 <form className={styles.form} onSubmit={handleSubmit}>
                                     <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>{nameLabel}</label>
-                                        <input type="text" placeholder={namePlaceholder}
+                                      <div className={styles.fieldLabel} dangerouslySetInnerHTML={{ __html: nameLabel }} />
+                                        <input type="text" placeholder={stripHtml(namePlaceholder)}
                                             className={styles.fieldInput}
                                             value={name} onChange={e => setName(e.target.value)} required />
                                     </div>
                                     <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>{phoneLabel}</label>
-                                        <input type="tel" placeholder={phonePlaceholder}
+                                     <div className={styles.fieldLabel} dangerouslySetInnerHTML={{ __html: phoneLabel }} />
+                                        <input type="tel" placeholder={stripHtml(phonePlaceholder)}
                                             className={styles.fieldInput}
                                             value={phone}
                                             onChange={e => {
@@ -252,16 +255,16 @@ export function VacancyDetailUI({
                                             }} required />
                                     </div>
                                     <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>{emailLabel}</label>
-                                        <input type="email" placeholder={emailPlaceholder}
+                                     <div className={styles.fieldLabel} dangerouslySetInnerHTML={{ __html: emailLabel }} />
+                                        <input type="email" placeholder={stripHtml(emailPlaceholder)}
                                             className={styles.fieldInput}
                                             value={email} onChange={e => setEmail(e.target.value)} required />
                                     </div>
                                     <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>{cvLabel}</label>
+                                     <div className={styles.fieldLabel} dangerouslySetInnerHTML={{ __html: cvLabel }} />
                                         <div className={styles.fileRow} onClick={() => fileRef.current?.click()}>
                                             <span className={styles.filePlaceholder}>
-                                                {cv ? cv.name : cvPlaceholder}
+                                                {cv ? cv.name : stripHtml(cvPlaceholder)}
                                             </span>
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -276,8 +279,8 @@ export function VacancyDetailUI({
                                         </div>
                                     </div>
                                     <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>{messageLabel}</label>
-                                        <input type="text" placeholder={messagePlaceholder}
+                                       <div className={styles.fieldLabel} dangerouslySetInnerHTML={{ __html: messageLabel }} />
+                                        <input type="text" placeholder={stripHtml(messagePlaceholder)}
                                             className={styles.fieldInput}
                                             value={message} onChange={e => setMessage(e.target.value)} />
                                     </div>
@@ -291,8 +294,10 @@ export function VacancyDetailUI({
                                     )}
 
                                     <div className={styles.submitRow}>
-                                        <button type="submit" className={styles.submitBtn} disabled={submitting}>
-                                            {submitting ? "Göndərilir..." : submitLabel}
+                                       <button type="submit" className={styles.submitBtn} disabled={submitting}>
+                                            {submitting
+                                                ? "Göndərilir..."
+                                                : <div dangerouslySetInnerHTML={{ __html: submitLabel }} />}
                                             {!submitting && (
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -320,21 +325,21 @@ export function VacancyDetailUI({
                             </div>
                         </motion.div>
                         <motion.div variants={revealVariants} className={styles.contactInfo}>
-                            <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>{contact.emailLabel || "Email Adres"}</span>
+                           <div className={styles.contactItem}>
+                                <div className={styles.contactLabel} dangerouslySetInnerHTML={{ __html: contact.emailLabel || "Email Adres" }} />
                                 <a href={contact.emailHref || `mailto:${contact.email}`} className={styles.contactValue}>
                                     {contact.email}
                                 </a>
                             </div>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>{contact.phoneLabel || "Phone"}</span>
+                                <div className={styles.contactLabel} dangerouslySetInnerHTML={{ __html: contact.phoneLabel || "Phone" }} />
                                 <a href={contact.phoneHref || `tel:${contact.phone}`} className={styles.contactValue}>
                                     {contact.phone}
                                 </a>
                             </div>
                             <div className={styles.contactItem}>
-                                <span className={styles.contactLabel}>{contact.locationLabel || "Location"}</span>
-                                <span className={styles.contactValuePlain}>{contact.location}</span>
+                                <div className={styles.contactLabel} dangerouslySetInnerHTML={{ __html: contact.locationLabel || "Location" }} />
+                                <div className={styles.contactValuePlain} dangerouslySetInnerHTML={{ __html: contact.location }} />
                             </div>
                         </motion.div>
                     </motion.aside>

@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -40,7 +38,7 @@ export interface ContactUIProps {
         phone: string;
         phonePlaceholder: string;
         service: string;
-        servicePlaceholder: string; 
+        servicePlaceholder: string;
         budget: string;
         budgetPlaceholder: string;
         timeline: string;
@@ -56,6 +54,12 @@ export interface ContactUIProps {
 
 type DropdownKey = "service" | "budget" | "timeline";
 
+// Rich text (editordan gələn HTML) üçün helper
+const html = (value: string) => ({ __html: value });
+
+// Native input/textarea placeholder atributu HTML render edə bilmədiyi üçün tag-ları təmizləyirik
+const stripTags = (value: string) => value.replace(/<[^>]*>/g, "").trim();
+
 function useReveal() {
     const ref = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -66,7 +70,7 @@ function useReveal() {
                 if (entries[0]?.isIntersecting) {
                     el.querySelectorAll<HTMLElement>("[data-reveal]").forEach((child, i) => {
                         child.style.transitionDelay = `${i * 0.07}s`;
-                       child.classList.add(styles.revealVisible!);
+                        child.classList.add(styles.revealVisible!);
                     });
                     observer.disconnect();
                 }
@@ -110,9 +114,10 @@ function CustomSelect({
                 className={`${styles.customSelectTrigger} ${isOpen ? styles.customSelectTriggerOpen : ""}`}
                 onClick={() => setOpenDropdown(isOpen ? null : name)}
             >
-                <span className={value ? styles.customSelectValue : styles.customSelectPlaceholder}>
-                    {value || placeholder}
-                </span>
+                <div
+                    className={value ? styles.customSelectValue : styles.customSelectPlaceholder}
+                    dangerouslySetInnerHTML={html(value || placeholder)}
+                />
                 <svg
                     className={`${styles.customSelectArrow} ${isOpen ? styles.customSelectArrowOpen : ""}`}
                     width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -133,9 +138,8 @@ function CustomSelect({
                                     setForm((prev: any) => ({ ...prev, [name]: o }));
                                     setOpenDropdown(null);
                                 }}
-                            >
-                                {o}
-                            </div>
+                                dangerouslySetInnerHTML={html(o)}
+                            />
                         ))}
                     </div>
                 </div>
@@ -195,48 +199,48 @@ export function ContactUI({
         }
     };
 
-    const words = title.split(" ");
-
     return (
         <section className={styles.section} id="contact">
             <div className={styles.contactDivider} />
             <div className={styles.inner} ref={sectionRef}>
                 <div className={styles.left}>
-                    <h2 className={styles.title}>
-                        {words.map((word, i) => (
-                            <span key={i} className={styles.revealWord}>
-                                <span data-reveal className={styles.revealInner}>
-                                    {word}&nbsp;
-                                </span>
-                            </span>
-                        ))}
-                    </h2>
+                    <div
+                        data-reveal
+                        className={`${styles.title} ${styles.reveal}`}
+                        dangerouslySetInnerHTML={html(title)}
+                    />
 
-                    <p data-reveal className={`${styles.description} ${styles.reveal}`}>
-                        {description}
-                    </p>
+                    <div
+                        data-reveal
+                        className={`${styles.description} ${styles.reveal}`}
+                        dangerouslySetInnerHTML={html(description)}
+                    />
 
                     <div className={styles.infoGrid}>
                         <div data-reveal className={`${styles.infoItem} ${styles.reveal}`}>
-                            <span className={styles.infoLabel}>{info.emailLabel}</span>
-                            <a href={`mailto:${info.email}`} className={styles.infoValue}>{info.email} →</a>
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.emailLabel)} />
+                            <a href={`mailto:${info.email}`} className={styles.infoValue} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                <div dangerouslySetInnerHTML={html(info.email)} /> →
+                            </a>
                         </div>
                         <div data-reveal className={`${styles.infoItem} ${styles.reveal}`}>
-                            <span className={styles.infoLabel}>{info.phoneLabel}</span>
-                            <a href={`tel:${info.phone}`} className={styles.infoValue}>{info.phone} →</a>
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.phoneLabel)} />
+                            <a href={`tel:${info.phone}`} className={styles.infoValue} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                <div dangerouslySetInnerHTML={html(info.phone)} /> →
+                            </a>
                         </div>
                         <div data-reveal className={`${styles.infoItem} ${styles.reveal}`}>
-                            <span className={styles.infoLabel}>{info.locationLabel}</span>
-                            <span className={styles.infoValue}>{info.location}</span>
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.locationLabel)} />
+                            <div className={styles.infoValue} dangerouslySetInnerHTML={html(info.location)} />
                         </div>
                         <div data-reveal className={`${styles.infoItem} ${styles.reveal}`}>
-                            <span className={styles.infoLabel}>{info.hoursLabel}</span>
-                            <span className={styles.infoValue}>{info.hours}</span>
+                            <div className={styles.infoLabel} dangerouslySetInnerHTML={html(info.hoursLabel)} />
+                            <div className={styles.infoValue} dangerouslySetInnerHTML={html(info.hours)} />
                         </div>
                     </div>
 
                     <div data-reveal className={`${styles.socialsWrap} ${styles.reveal}`}>
-                        <span className={styles.followLabel}>{info.followUsLabel}</span>
+                        <div className={styles.followLabel} dangerouslySetInnerHTML={html(info.followUsLabel)} />
                         <div className={styles.socials}>
                             {info.socialLinks.map(link => (
                                 <a key={link.id} href={link.href} className={styles.socialBtn}
@@ -252,7 +256,7 @@ export function ContactUI({
 
                     <div data-reveal className={`${styles.hashtags} ${styles.reveal}`}>
                         {info.hashtags.map((tag, i) => (
-                            <span key={i} className={styles.hashtag}>{tag}</span>
+                            <div key={i} className={styles.hashtag} dangerouslySetInnerHTML={html(tag)} />
                         ))}
                     </div>
                 </div>
@@ -262,45 +266,45 @@ export function ContactUI({
 
                         <div data-reveal className={`${styles.row} ${styles.reveal}`}>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.name}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.name)} />
                                 <input className={styles.input} type="text" name="name"
-                                    placeholder={formLabels.namePlaceholder}
+                                    placeholder={stripTags(formLabels.namePlaceholder)}
                                     value={form.name} onChange={handleChange} required />
                             </div>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.email}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.email)} />
                                 <input className={styles.input} type="email" name="email"
-                                    placeholder={formLabels.emailPlaceholder}
+                                    placeholder={stripTags(formLabels.emailPlaceholder)}
                                     value={form.email} onChange={handleChange} required />
                             </div>
                         </div>
 
                         <div data-reveal className={`${styles.row} ${styles.reveal}`}>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.phone}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.phone)} />
                                 <input className={styles.input} type="tel" name="phone"
-                                    placeholder={formLabels.phonePlaceholder}
+                                    placeholder={stripTags(formLabels.phonePlaceholder)}
                                     value={form.phone} onChange={handlePhoneChange} required />
                             </div>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.service}</label>
-                               <CustomSelect name="service" options={serviceOptions}
-    placeholder={formLabels.servicePlaceholder} value={form.service}
-    openDropdown={openDropdown} setOpenDropdown={setOpenDropdown}
-    setForm={setForm} />
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.service)} />
+                                <CustomSelect name="service" options={serviceOptions}
+                                    placeholder={formLabels.servicePlaceholder} value={form.service}
+                                    openDropdown={openDropdown} setOpenDropdown={setOpenDropdown}
+                                    setForm={setForm} />
                             </div>
                         </div>
 
                         <div data-reveal className={`${styles.row} ${styles.reveal}`}>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.budget}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.budget)} />
                                 <CustomSelect name="budget" options={budgetOptions}
                                     placeholder={formLabels.budgetPlaceholder} value={form.budget}
                                     openDropdown={openDropdown} setOpenDropdown={setOpenDropdown}
                                     setForm={setForm} />
                             </div>
                             <div className={styles.field}>
-                                <label className={styles.label}>{formLabels.timeline}</label>
+                                <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.timeline)} />
                                 <CustomSelect name="timeline" options={timelineOptions}
                                     placeholder={formLabels.timelinePlaceholder} value={form.timeline}
                                     openDropdown={openDropdown} setOpenDropdown={setOpenDropdown}
@@ -309,9 +313,9 @@ export function ContactUI({
                         </div>
 
                         <div data-reveal className={`${styles.field} ${styles.reveal}`}>
-                            <label className={styles.label}>{formLabels.message}</label>
+                            <div className={styles.label} dangerouslySetInnerHTML={html(formLabels.message)} />
                             <textarea className={styles.textarea} name="message"
-                                placeholder={formLabels.messagePlaceholder}
+                                placeholder={stripTags(formLabels.messagePlaceholder)}
                                 value={form.message} onChange={handleChange} rows={5} required />
                         </div>
 
@@ -326,7 +330,11 @@ export function ContactUI({
 
                         <div data-reveal className={styles.reveal}>
                             <button type="submit" className={styles.submitBtn} disabled={submitting}>
-                                {submitting ? "Göndərilir..." : formLabels.submit}
+                                {submitting ? (
+                                    "Göndərilir..."
+                                ) : (
+                                    <div dangerouslySetInnerHTML={html(formLabels.submit)} />
+                                )}
                             </button>
                         </div>
 
