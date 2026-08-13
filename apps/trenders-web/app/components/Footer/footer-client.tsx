@@ -99,8 +99,9 @@ export function FooterClient({
             navLinks={mappedNavLinks}
             socialLinks={socialLinks}
             contactItems={contactItems}
-            copyrightText={t(copyrightText, locale, `© ${new Date().getFullYear()} Trenders`)}
+           copyrightText={t(copyrightText, locale, `© ${new Date().getFullYear()} Trenders`)}
             privacyLabel={t(privacyText, locale)}
+            privacyHref={`/${locale}/privacypolicy`}
         />
     );
 }
