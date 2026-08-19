@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo } from "react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import styles from "../../styles/OurTeam/ourteam.module.css";
 import portfolioStyles from "../../styles/Portfolio/portfolio.module.css";
-
-const SCROLL_STATE_KEY = "ourteam-scroll-state";
 
 export interface OurTeamMember {
     id: number;
@@ -62,24 +60,7 @@ function stripHtml(html: string) {
 }
 
 export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: OurTeamUIProps) {
-    const [visibleCount, setVisibleCount] = useState<number>(() => {
-        if (typeof window === "undefined") return 8;
-        try {
-            const navEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
-            const isBackForward = navEntries[0]?.type === "back_forward";
-            if (!isBackForward) {
-                sessionStorage.removeItem(SCROLL_STATE_KEY);
-                return 8;
-            }
-            const saved = sessionStorage.getItem(SCROLL_STATE_KEY);
-            if (saved) {
-                const parsed = JSON.parse(saved) as { visibleCount?: number; scrollY?: number };
-                return parsed.visibleCount || 8;
-            }
-        } catch {}
-        return 8;
-    });
-    const restoredScroll = useRef(false);
+    const [visibleCount, setVisibleCount] = useState(8);
 
     const displayed = useMemo(() => {
         return members.slice(0, visibleCount);
@@ -87,33 +68,6 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
 
     const handleShowMore = () => {
         setVisibleCount(prev => Math.min(prev + 4, members.length));
-    };
-
-    useEffect(() => {
-        if (restoredScroll.current) return;
-        restoredScroll.current = true;
-        try {
-            const saved = sessionStorage.getItem(SCROLL_STATE_KEY);
-            if (saved) {
-                const { scrollY } = JSON.parse(saved);
-                if (scrollY) {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            window.scrollTo(0, scrollY);
-                        });
-                    });
-                }
-            }
-        } catch {}
-    }, [displayed.length]);
-
-    const saveScrollState = () => {
-        try {
-            sessionStorage.setItem(SCROLL_STATE_KEY, JSON.stringify({
-                visibleCount,
-                scrollY: window.scrollY,
-            }));
-        } catch {}
     };
 
     return (
@@ -142,11 +96,10 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
 
                 <div className={styles.grid}>
                     <AnimatePresence mode="popLayout">
-                                          {displayed.map((member, index) => (
+                        {displayed.map((member, index) => (
                             <motion.a
                                 key={member.id}
                                 href={member.href || "#"}
-                                onClick={saveScrollState}
                                 className={styles.card}
                                 custom={index}
                                 variants={cardVariants}
