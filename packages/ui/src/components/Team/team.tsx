@@ -64,8 +64,11 @@ export function TeamUI({ title, members, description, goHref, goLabel, goNewTab 
             transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const }
         }
     };
-
     const words = title.split(" ");
+
+    function stripHtml(html: string) {
+        return html.replace(/<[^>]*>/g, "");
+    }
 
     return (
         <section className={styles.section}>
@@ -125,18 +128,18 @@ export function TeamUI({ title, members, description, goHref, goLabel, goNewTab 
                                     transition: { duration: 0.25, ease: "easeOut" }
                                 }}
                             >
-                                <img src={member.image} alt={member.imageAlt || member.name} className={styles.memberImg} />
+                                                          <img src={member.image} alt={member.imageAlt || stripHtml(member.name)} className={styles.memberImg} />
 
                                 <Link
                                     href={member.href || "#"}
                                     className={styles.cardLink}
-                                    aria-label={`${member.name} haqqında ətraflı`}
+                                    aria-label={`${stripHtml(member.name)} haqqında ətraflı`}
                                 />
 
                                 <Link
                                     href={member.href || "#"}
                                     className={styles.plusBtn}
-                                    aria-label={`${member.name} haqqında ətraflı`}
+                                    aria-label={`${stripHtml(member.name)} haqqında ətraflı`}
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -145,8 +148,8 @@ export function TeamUI({ title, members, description, goHref, goLabel, goNewTab 
                                     </svg>
                                 </Link>
                                 <div className={styles.memberInfo}>
-                                    <p className={styles.memberName}>{member.name}</p>
-                                    <p className={styles.memberRole}>{member.role}</p>
+                                    <div className={styles.memberName} dangerouslySetInnerHTML={{ __html: member.name }} />
+                                    <div className={styles.memberRole} dangerouslySetInnerHTML={{ __html: member.role }} />
                                 </div>
                             </motion.div>
                         ))}

@@ -132,11 +132,11 @@ export function BlogDetailHeroUI({
                         <div className={styles.description} dangerouslySetInnerHTML={{ __html: description }} />
                         
                         <div className={styles.meta} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                            {author.href ? (
+                                                 {author.href ? (
                                 <Link href={author.href} className={styles.authorLink} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                     <img src={author.avatar} alt={author.name} className={styles.avatar} />
                                     <div className={styles.authorInfo}>
-                                        <span className={styles.authorName}>{author.name}</span>
+                                        <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name }} />
                                         <span className={styles.date}>{date}</span>
                                     </div>
                                 </Link>
@@ -144,7 +144,7 @@ export function BlogDetailHeroUI({
                                 <>
                                     <img src={author.avatar} alt={author.name} className={styles.avatar} />
                                     <div className={styles.authorInfo}>
-                                        <span className={styles.authorName}>{author.name}</span>
+                                        <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name }} />
                                         <span className={styles.date}>{date}</span>
                                     </div>
                                 </>

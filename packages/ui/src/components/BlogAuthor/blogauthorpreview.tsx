@@ -69,8 +69,8 @@ export function BlogDetailPreviewUI({
                                     alt={author.name}
                                     className={styles.avatar}
                                 />
-                                <div className={styles.authorInfo}>
-                                    <span className={styles.authorName}>{author.name}</span>
+                                                         <div className={styles.authorInfo}>
+                                    <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name }} />
                                     <span className={styles.date}>{date}</span>
                                 </div>
                             </a>

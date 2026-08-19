@@ -42,12 +42,11 @@ export function AboutStoryUI({ blocks }: AboutStoryUIProps) {
             <div className={styles.inner} ref={innerRef}>
                 {blocks.map((block, i) => (
                     <div key={i} className={styles.block}>
-                        <h2
+                                             <div
                             data-reveal
                             className={`${styles.title} ${styles.reveal}`}
-                        >
-                            {block.title}
-                        </h2>
+                            dangerouslySetInnerHTML={{ __html: block.title }}
+                        />
                         <div className={styles.paragraphs}>
                             {block.paragraphs.map((p, j) => (
                                 <div

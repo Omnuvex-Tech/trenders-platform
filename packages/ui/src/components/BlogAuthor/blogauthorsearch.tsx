@@ -97,9 +97,9 @@ export function BlogAuthorListUI({
        if (query.trim().length >= 3) {
             const q = normalizeSearch(query.trim());
             result = result.filter((p) =>
-                normalizeSearch(stripHtml(p.title)).includes(q) ||
+                            normalizeSearch(stripHtml(p.title)).includes(q) ||
                 normalizeSearch(p.badge).includes(q) ||
-                normalizeSearch(p.author.name).includes(q) ||
+                normalizeSearch(stripHtml(p.author.name)).includes(q) ||
                 normalizeSearch(p.categoryLabel ?? "").includes(q)
             );
         }
@@ -290,8 +290,8 @@ export function BlogAuthorListUI({
                                                     alt={post.author.avatarAlt || post.author.name}
                                                     className={styles.authorAvatar}
                                                 />
-                                                <div className={styles.authorInfo}>
-                                                    <span className={styles.authorName}>{post.author.name}</span>
+                                                                                             <div className={styles.authorInfo}>
+                                                    <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: post.author.name }} />
                                                     <span className={styles.postDate}>{post.date}</span>
                                                 </div>
                                             </Link>

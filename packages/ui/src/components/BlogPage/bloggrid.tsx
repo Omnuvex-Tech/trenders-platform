@@ -144,15 +144,13 @@ export function BlogGridUI({
                                                 alt={post.authorImageAlt || post.authorName}
                                                 className={styles.authorImg}
                                             />
-                                            <div
+                                                                              <div
                                                 style={{
                                                     display: "flex",
                                                     flexDirection: "column",
                                                 }}
                                             >
-                                                <p className={styles.authorName}>
-                                                    {post.authorName}
-                                                </p>
+                                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: post.authorName }} />
                                                 <p className={styles.date}>
                                                     {post.date}
                                                 </p>
@@ -177,9 +175,7 @@ export function BlogGridUI({
                                                     flexDirection: "column",
                                                 }}
                                             >
-                                                <p className={styles.authorName}>
-                                                    {post.authorName}
-                                                </p>
+                                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: post.authorName }} />
                                                 <p className={styles.date}>
                                                     {post.date}
                                                 </p>

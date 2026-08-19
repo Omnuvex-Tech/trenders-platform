@@ -55,6 +55,10 @@ const cardVariants: Variants = {
     })
 };
 
+function stripHtml(html: string) {
+    return html.replace(/<[^>]*>/g, "");
+}
+
 export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: OurTeamUIProps) {
     const [visibleCount, setVisibleCount] = useState(8);
 
@@ -116,7 +120,7 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                             >
                                 <img
                                     src={member.image}
-                                    alt={member.imageAlt || member.name}
+                                    alt={member.imageAlt || stripHtml(member.name)}
                                     className={styles.cardImg}
                                 />
                                 <span
@@ -147,8 +151,8 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                                 </span>
 
                                 <div className={styles.cardInfo}>
-                                    <span className={styles.memberName}>{member.name}</span>
-                                    <span className={styles.memberRole}>{member.role}</span>
+                                    <div className={styles.memberName} dangerouslySetInnerHTML={{ __html: member.name }} />
+                                    <div className={styles.memberRole} dangerouslySetInnerHTML={{ __html: member.role }} />
                                 </div>
                             </motion.a>
                         ))}

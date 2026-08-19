@@ -126,18 +126,16 @@ export function AboutHeroUI({
 
                 <div className={styles.content}>
                     <div className={styles.left}>
-                        <span
+                        <div
                             data-reveal
                             className={`${styles.badge} ${styles.reveal}`}
-                        >
-                            {badge}
-                        </span>
-                        <h1
+                            dangerouslySetInnerHTML={{ __html: badge }}
+                        />
+                        <div
                             data-reveal
                             className={`${styles.title} ${styles.reveal}`}
-                        >
-                            {title}
-                        </h1>
+                            dangerouslySetInnerHTML={{ __html: title }}
+                        />
 
                         {paragraphs.map((p, i) => (
                             <div
@@ -168,7 +166,7 @@ export function AboutHeroUI({
                                                     ? <img src={stat.icon} alt="" className={styles.statIcon} />
                                                     : <span className={styles.statIcon}>{stat.icon}</span>
                                             )}
-                                            <span className={styles.statLabel}>{stat.label}</span>
+                                            <span className={styles.statLabel} dangerouslySetInnerHTML={{ __html: stat.label }} />
                                         </div>
                                     </div>
                                 ))}

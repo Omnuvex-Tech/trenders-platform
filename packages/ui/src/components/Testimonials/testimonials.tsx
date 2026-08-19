@@ -4,7 +4,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import styles from '../../styles/Testimonials/testimonials.module.css'
 import { flushSync } from "react-dom";
-import { motion, useScroll, useTransform, Variants } from "framer-motion"; 
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 
 export interface Testimonial {
   id: number;
@@ -53,16 +53,16 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
   };
 
   const wordVariants: Variants = {
-    hidden: { 
-      opacity: 0, 
-      y: "100%" 
+    hidden: {
+      opacity: 0,
+      y: "100%"
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: "0%",
       transition: {
         duration: 0.8,
-        ease: [0.16, 1, 0.3, 1] as const 
+        ease: [0.16, 1, 0.3, 1] as const
       }
     }
   };
@@ -120,7 +120,7 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
     track.addEventListener("transitionend", onEnd);
   }, [sliding, current, cardW, getIdx, getCards]);
 
-  const slideRef = useRef<(dir: "left" | "right") => void>(() => {});
+  const slideRef = useRef<(dir: "left" | "right") => void>(() => { });
 
   useEffect(() => {
     slideRef.current = slide;
@@ -140,36 +140,16 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
       <motion.div style={{ y, opacity, scale }} className="w-full">
         <div className={styles.inner}>
           <div className={styles.left}>
-            <h2 className={styles.title}>{title}</h2>
-            
-            <motion.p 
-              className={styles.description}
-              variants={textContainerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              style={{ display: "flex", flexWrap: "wrap" }} 
-            >
+            <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
 
-           {words.map((word, index) => (
-                <span 
-                  key={index} 
-                  style={{ 
-                    overflow: "hidden", 
-                    display: "inline-block",
-                    marginRight: "0.25em",
-                    lineHeight: "inherit"
-                  }}
-                >
-                  <motion.span
-                    variants={wordVariants}
-                    style={{ display: "inline-block" }}
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </motion.p>
+            <motion.div
+              className={styles.description}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
 
             <div className={styles.arrows}>
               <button className={styles.arrowBtn} onClick={() => slide("left")} aria-label="Əvvəlki">

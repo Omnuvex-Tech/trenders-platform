@@ -87,34 +87,23 @@ export function AboutTeamUI({
             transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }
         }
     };
-
-    const descriptionWords = description.split(" ");
-    const words = typeof title === "string" ? title.split(" ") : null;
+    function stripHtml(html: string) {
+        return html.replace(/<[^>]*>/g, "");
+    }
 
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
                 <div className={styles.left}>
-                    {words ? (
-                        <motion.h2
+                    {typeof title === "string" ? (
+                        <motion.div
                             className={styles.title}
-                            variants={titleContainerVariants}
-                            initial="hidden"
-                            whileInView="visible"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
-                            style={{ display: "flex", flexWrap: "wrap", gap: "0.25em" }}
-                        >
-                            {words.map((word, index) => (
-                                <span
-                                    key={index}
-                                    style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }}
-                                >
-                                    <motion.span variants={titleWordVariants} style={{ display: "inline-block" }}>
-                                        {word}
-                                    </motion.span>
-                                </span>
-                            ))}
-                        </motion.h2>
+                            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                            dangerouslySetInnerHTML={{ __html: title }}
+                        />
                     ) : (
                         <motion.h2
                             className={styles.title}
@@ -133,27 +122,13 @@ export function AboutTeamUI({
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.2 }}
                     >
-                        <motion.p
+                        <div
                             className={styles.description}
-                            variants={descriptionContainerVariants}
-                            style={{ flexWrap: "wrap" }}
-                        >
-                            {descriptionWords.map((word, index) => (
-                                <motion.span
-                                    key={index}
-                                    variants={descriptionWordVariants}
-                                    style={{ display: "inline-block" }}
-                                >
-                                    {word}{index < descriptionWords.length - 1 ? "\u00A0" : ""}
-                                </motion.span>
-                            ))}
-                        </motion.p>
-                        <a href={ctaHref} className={styles.ctaBtn}>
-                            {ctaLabel}
-                        </a>
+                            dangerouslySetInnerHTML={{ __html: description }}
+                        />
+                        <a href={ctaHref} className={styles.ctaBtn} dangerouslySetInnerHTML={{ __html: ctaLabel }} />
                     </motion.div>
                 </div>
-
                 <motion.div
                     className={styles.grid}
                     variants={trackVariants}
@@ -161,7 +136,7 @@ export function AboutTeamUI({
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.15 }}
                 >
-                   {members.map((member) => (
+                    {members.map((member) => (
                         <motion.a
                             key={member.id}
                             href={member.href || "#"}
@@ -175,7 +150,7 @@ export function AboutTeamUI({
                         >
                             <img
                                 src={member.image}
-                                alt={member.imageAlt || member.name}
+                                alt={member.imageAlt || stripHtml(member.name)}
                                 className={styles.cardImg}
                             />
                             <span
@@ -188,8 +163,8 @@ export function AboutTeamUI({
                                 </svg>
                             </span>
                             <div className={styles.cardInfo}>
-                                <span className={styles.memberName}>{member.name}</span>
-                                <span className={styles.memberRole}>{member.role}</span>
+                                <div className={styles.memberName} dangerouslySetInnerHTML={{ __html: member.name }} />
+                                <div className={styles.memberRole} dangerouslySetInnerHTML={{ __html: member.role }} />
                             </div>
                         </motion.a>
                     ))}

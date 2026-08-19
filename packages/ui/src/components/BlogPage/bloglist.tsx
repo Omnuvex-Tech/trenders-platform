@@ -158,12 +158,12 @@ export function BlogListUI({
         if (!isFiltering) return posts.slice(0, VISIBLE);
         let result = searchPool;
         if (activeCategory) result = result.filter((p) => p.categorySlug === activeCategory);
-       if (query.trim().length >= 3) {
+        if (query.trim().length >= 3) {
             const q = normalizeSearch(query.trim());
             result = result.filter((p) =>
                 normalizeSearch(stripHtml(p.title)).includes(q) ||
                 normalizeSearch(p.badge).includes(q) ||
-                normalizeSearch(p.author.name).includes(q) ||
+                normalizeSearch(stripHtml(p.author.name)).includes(q) ||
                 normalizeSearch(p.categoryLabel ?? "").includes(q)
             );
         }
@@ -299,7 +299,7 @@ export function BlogListUI({
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                                <div
+                <div
                     ref={containerRef}
                     className={styles.postList}
                     style={
@@ -377,9 +377,9 @@ export function BlogListUI({
                                             )}
                                             <div className={styles.authorInfo}>
                                                 {post.author.href ? (
-                                                    <a href={post.author.href} className={styles.authorName}>{post.author.name}</a>
+                                                    <a href={post.author.href} className={styles.authorName} dangerouslySetInnerHTML={{ __html: post.author.name }} />
                                                 ) : (
-                                                    <span className={styles.authorName}>{post.author.name}</span>
+                                                    <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: post.author.name }} />
                                                 )}
                                                 <span className={styles.postDate}>{post.date}</span>
                                             </div>
@@ -390,7 +390,7 @@ export function BlogListUI({
                         )}
                     </div>
                 </div>
-                <motion.aside 
+                <motion.aside
                     className={styles.sidebar}
                     variants={sidebarAnimation}
                     initial="hidden"
@@ -399,7 +399,7 @@ export function BlogListUI({
                 >
                     <div className={styles.sideCard}>
                         <div className={styles.searchWrap}>
-                           <input
+                            <input
                                 type="text"
                                 placeholder={stripHtml(searchPlaceholder)}
                                 className={styles.searchInput}
@@ -417,7 +417,7 @@ export function BlogListUI({
                             </button>
                         </div>
 
-                       <div className={styles.categories}>
+                        <div className={styles.categories}>
                             <div className={styles.categoriesTitle} dangerouslySetInnerHTML={{ __html: categoriesTitle }} />
                             <div className={styles.categoryTags}>
                                 {categories.map((cat) => {
@@ -439,13 +439,13 @@ export function BlogListUI({
 
                     {featuredBlog && (
                         <div className={styles.featuredWrap}>
-<div className={styles.featuredTitle} dangerouslySetInnerHTML={{ __html: featuredBlogTitle }} />                            <motion.a 
-                                href={featuredBlog.href || "#"} 
+                            <div className={styles.featuredTitle} dangerouslySetInnerHTML={{ __html: featuredBlogTitle }} />                            <motion.a
+                                href={featuredBlog.href || "#"}
                                 className={styles.featuredPost}
                                 whileHover="hover"
                             >
                                 <motion.span variants={hoverVariant} style={{ display: "none" }} />
-                                
+
                                 <div className={styles.featuredImgWrap}>
                                     <img
                                         src={featuredBlog.image}

@@ -59,22 +59,22 @@ export function BlogAuthorHeroUI({ author, postsTitle, posts }: BlogAuthorHeroUI
                             )}
                         </div>
                         <div className={styles.authorInfo}>
-                            <h2 className={styles.authorName}>{author.name}</h2>
-                            <p className={styles.authorRole}>{author.role}</p>
+                            <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name.replace(/<br\s*\/?>/gi, " ") }} />
+                            <div className={styles.authorRole} dangerouslySetInnerHTML={{ __html: author.role }} />
                         </div>
-                        <p className={styles.authorBio}>{author.bio}</p>
+                        <div className={styles.authorBio} dangerouslySetInnerHTML={{ __html: author.bio }} />
                         <div className={styles.skillsBlock}>
                             {author.skillsTitle && (
-                                <span className={styles.skillsTitle}>{author.skillsTitle}</span>
+                                <div className={styles.skillsTitle} dangerouslySetInnerHTML={{ __html: author.skillsTitle }} />
                             )}
                             <div className={styles.skillsList}>
                                 {author.skills.map((skill, i) => (
-                                    <span key={i} className={styles.skill}>{skill.label}</span>
+                                    <div key={i} className={styles.skill} dangerouslySetInnerHTML={{ __html: skill.label }} />
                                 ))}
                             </div>
                         </div>
                     </aside>
-                   <div className={styles.postsWrap}>
+                    <div className={styles.postsWrap}>
                         <h2 className={styles.postsTitle}>{postsTitle}</h2>
                         <div className={`${styles.postsList} ${posts.length > 3 ? styles.postsListScroll : ""}`}>
                             {posts.map((post) => (

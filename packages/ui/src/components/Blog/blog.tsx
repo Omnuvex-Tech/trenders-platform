@@ -96,8 +96,8 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
                 <span className={styles.category}>{post.category}</span>
               </div>
               <div className={styles.content}>
-                <h3 className={styles.postTitle}>{post.title}</h3>
-                <p className={styles.excerpt}>{post.excerpt}</p>
+                <div className={styles.postTitle} dangerouslySetInnerHTML={{ __html: post.title }} />
+                <div className={styles.excerpt} dangerouslySetInnerHTML={{ __html: post.excerpt }} />
 
                 <div className={styles.author}>
                   {post.authorHref ? (
@@ -112,8 +112,8 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
                         alt={post.authorImageAlt || post.authorName}
                         className={styles.authorImg}
                       />
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <p className={styles.authorName}>{post.authorName}</p>
+                                         <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: post.authorName }} />
                         <p className={styles.date}>{post.date}</p>
                       </div>
                     </Link>
@@ -125,7 +125,7 @@ export function BlogUI({ title, allPostsLabel, allPostsHref, allPostsNewTab = fa
                         className={styles.authorImg}
                       />
                       <div style={{ display: "flex", flexDirection: "column" }}>
-                        <p className={styles.authorName}>{post.authorName}</p>
+                        <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: post.authorName }} />
                         <p className={styles.date}>{post.date}</p>
                       </div>
                     </div>
