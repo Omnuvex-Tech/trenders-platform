@@ -62,9 +62,15 @@ function stripHtml(html: string) {
 }
 
 export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: OurTeamUIProps) {
-       const [visibleCount, setVisibleCount] = useState<number>(() => {
+    const [visibleCount, setVisibleCount] = useState<number>(() => {
         if (typeof window === "undefined") return 8;
         try {
+            const navEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[];
+            const isBackForward = navEntries[0]?.type === "back_forward";
+            if (!isBackForward) {
+                sessionStorage.removeItem(SCROLL_STATE_KEY);
+                return 8;
+            }
             const saved = sessionStorage.getItem(SCROLL_STATE_KEY);
             if (saved) {
                 const parsed = JSON.parse(saved) as { visibleCount?: number; scrollY?: number };

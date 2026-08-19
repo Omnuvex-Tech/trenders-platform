@@ -67,7 +67,9 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
     }
   };
 
-  const words = (description || "").split(" ");
+  function stripHtml(html: string) {
+    return html.replace(/<[^>]*>/g, "");
+  }
 
   const getIdx = useCallback((i: number) => ((i % total) + total) % total, [total]);
   const cardW = useCallback(() => {
@@ -180,18 +182,18 @@ export function TestimonialsUI({ title, description, testimonials }: Testimonial
                 }
               }}
             >
-              {cards.map((t, pos) => {
+                         {cards.map((t, pos) => {
                 if (!t) return null;
                 return (
                   <div key={`${t.id}-${pos}`} className={styles.card}>
-                    <p className={styles.company}>{t.company}</p>
+                    <div className={styles.company} dangerouslySetInnerHTML={{ __html: t.company }} />
                     <div className={styles.quoteIcon}>"</div>
-                    <p className={styles.quote}>{t.quote}</p>
+                    <div className={styles.quote} dangerouslySetInnerHTML={{ __html: t.quote }} />
                     <div className={styles.author}>
-                      <img src={t.image} alt={t.altText || t.name} className={styles.avatar} />
+                      <img src={t.image} alt={t.altText || stripHtml(t.name)} className={styles.avatar} />
                       <div>
-                        <p className={styles.name}>{t.name}</p>
-                        <p className={styles.role}>{t.role}</p>
+                        <div className={styles.name} dangerouslySetInnerHTML={{ __html: t.name }} />
+                        <div className={styles.role} dangerouslySetInnerHTML={{ __html: t.role }} />
                       </div>
                     </div>
                   </div>
