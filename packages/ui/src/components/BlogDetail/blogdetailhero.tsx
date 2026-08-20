@@ -53,6 +53,10 @@ const itemAnimation: Variants = {
     }
 };
 
+function stripHtml(html: string) {
+    return html.replace(/<[^>]*>/g, "");
+}
+
 export function BlogDetailPageHeroUI({
     heroImage,
     heroImageAlt = "",
@@ -76,28 +80,28 @@ export function BlogDetailPageHeroUI({
                         alt={heroImageAlt}
                         className={styles.heroImg}
                     />
-                    {author.href ? (
+                                      {author.href ? (
                         <Link href={author.href} className={styles.authorCard}>
                             <img
                                 src={author.avatar}
-                                alt={author.name}
+                                alt={stripHtml(author.name)}
                                 className={styles.authorAvatar}
                             />
                             <div className={styles.authorInfo}>
-                                <span className={styles.authorName}>{author.name}</span>
-                                <span className={styles.authorRole}>{author.role}</span>
+                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name }} />
+                                <div className={styles.authorRole} dangerouslySetInnerHTML={{ __html: author.role }} />
                             </div>
                         </Link>
                     ) : (
                         <div className={styles.authorCard}>
                             <img
                                 src={author.avatar}
-                                alt={author.name}
+                                alt={stripHtml(author.name)}
                                 className={styles.authorAvatar}
                             />
                             <div className={styles.authorInfo}>
-                                <span className={styles.authorName}>{author.name}</span>
-                                <span className={styles.authorRole}>{author.role}</span>
+                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name }} />
+                                <div className={styles.authorRole} dangerouslySetInnerHTML={{ __html: author.role }} />
                             </div>
                         </div>
                     )}
