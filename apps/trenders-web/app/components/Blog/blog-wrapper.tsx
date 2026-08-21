@@ -18,12 +18,18 @@ function toAbsUrl(path: string) {
   return `${API}${path}`;
 }
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("az-AZ", {
+const DATE_LOCALE_MAP: Record<string, string> = {
+  az: "az-Latn-AZ",
+  en: "en-US",
+  ru: "ru-RU",
+};
+
+function formatDate(dateStr: string, locale: string) {
+  const dateLocale = DATE_LOCALE_MAP[locale] || "en-US";
+  return new Date(dateStr).toLocaleDateString(dateLocale, {
     month: "long", day: "numeric", year: "numeric",
   });
 }
-
 async function getHomeBlogs(): Promise<any[]> {
   try {
     const res = await fetch(`${API}/blog/home`, { cache: "no-store" });
@@ -66,13 +72,13 @@ export async function BlogWrapper({ locale }: { locale?: string }) {
     authorImageAlt: t(b.author?.avatarAlt, resolvedLocale) || t(b.author?.name, resolvedLocale),
     authorName: t(b.author?.name, resolvedLocale),
     authorHref: b.author?.slug ? `/${resolvedLocale}/blogauthor/${b.author.slug}` : undefined,
-    date: b.publishedAt ? formatDate(b.publishedAt) : "",
+    date: b.publishedAt ? formatDate(b.publishedAt, resolvedLocale) : "",
     href: `/${resolvedLocale}/blog/${b.slug}`,
   }));
 
   return (
     <BlogUI
-      title={t(home?.blogsTitle, resolvedLocale )}
+      title={t(home?.blogsTitle, resolvedLocale)}
       allPostsLabel={t(home?.blogsBtnText, resolvedLocale)}
       allPostsHref={home?.blogsBtnLink || `/${resolvedLocale}/blog`}
       allPostsNewTab={home?.blogsBtnNewTab ?? false}

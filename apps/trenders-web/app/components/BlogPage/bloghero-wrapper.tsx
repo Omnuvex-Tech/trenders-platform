@@ -16,10 +16,17 @@ function toAbsUrl(path: string) {
     return `${process.env.API_URL}${path}`;
 }
 
-function formatDate(dateStr: string) {
-    return new Date(dateStr)
-        .toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
-        .toUpperCase();
+const DATE_LOCALE_MAP: Record<string, string> = {
+    az: "az-Latn-AZ",
+    en: "en-US",
+    ru: "ru-RU",
+};
+
+function formatDate(dateStr: string, locale: string) {
+    const dateLocale = DATE_LOCALE_MAP[locale] || "en-US";
+    const formatted = new Date(dateStr)
+        .toLocaleDateString(dateLocale, { month: "long", day: "numeric", year: "numeric" });
+    return locale === "en" ? formatted.toUpperCase() : formatted;
 }
 
 function mapBlogItem(b: any, locale: string): BlogItem {
@@ -32,7 +39,7 @@ function mapBlogItem(b: any, locale: string): BlogItem {
         badge: t(b.badge, locale),
         title: t(b.title, locale),
         description: t(b.excerpt, locale),
-        date: b.publishedAt ? formatDate(b.publishedAt) : "",
+        date: b.publishedAt ? formatDate(b.publishedAt, locale) : "",
         href: `/blog/${b.slug}`,
     };
 }

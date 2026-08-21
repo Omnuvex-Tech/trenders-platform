@@ -16,8 +16,15 @@ function toAbsUrl(path: string) {
     return `${process.env.API_URL}${path}`;
 }
 
-function formatDate(dateStr: string) {
-    return new Date(dateStr).toLocaleDateString("en-US", {
+const DATE_LOCALE_MAP: Record<string, string> = {
+    az: "az-Latn-AZ",
+    en: "en-US",
+    ru: "ru-RU",
+};
+
+function formatDate(dateStr: string, locale: string) {
+    const dateLocale = DATE_LOCALE_MAP[locale] || "en-US";
+    return new Date(dateStr).toLocaleDateString(dateLocale, {
         month: "long", day: "numeric", year: "numeric",
     });
 }
@@ -65,7 +72,7 @@ export async function BlogGridWrapper() {
                 authorImageAlt: t(b.author?.avatarAlt, locale) || t(b.author?.name, locale),
                 authorName: t(b.author?.name, locale),
                 authorHref: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
-                date: b.publishedAt ? formatDate(b.publishedAt) : "",
+                date: b.publishedAt ? formatDate(b.publishedAt, locale) : "",
                 href: `/blog/${b.slug}`,
             };
         });
