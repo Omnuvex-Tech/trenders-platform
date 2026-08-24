@@ -70,7 +70,11 @@ export async function BlogGridWrapper() {
                 excerpt: t(b.excerpt, locale),
                 authorImage: toAbsUrl(b.author?.avatar ?? ""),
                 authorImageAlt: t(b.author?.avatarAlt, locale) || t(b.author?.name, locale),
-                authorName: t(b.author?.name, locale),
+                authorName: t(b.author?.name, locale)
+                    .replace(/<br\s*\/?>/gi, " ")
+                    .replace(/\r\n|\r|\n/g, " ")
+                    .replace(/\s+/g, " ")
+                    .trim(),
                 authorHref: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
                 date: b.publishedAt ? formatDate(b.publishedAt, locale) : "",
                 href: `/blog/${b.slug}`,

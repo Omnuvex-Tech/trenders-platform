@@ -70,7 +70,11 @@ export async function BlogWrapper({ locale }: { locale?: string }) {
     excerpt: t(b.excerpt, resolvedLocale).replace(/<[^>]*>/g, ""),
     authorImage: toAbsUrl(b.author?.avatar ?? ""),
     authorImageAlt: t(b.author?.avatarAlt, resolvedLocale) || t(b.author?.name, resolvedLocale),
-    authorName: t(b.author?.name, resolvedLocale),
+       authorName: t(b.author?.name, resolvedLocale)
+      .replace(/<br\s*\/?>/gi, " ")
+      .replace(/\r\n|\r|\n/g, " ")
+      .replace(/\s+/g, " ")
+      .trim(),
     authorHref: b.author?.slug ? `/${resolvedLocale}/blogauthor/${b.author.slug}` : undefined,
     date: b.publishedAt ? formatDate(b.publishedAt, resolvedLocale) : "",
     href: `/${resolvedLocale}/blog/${b.slug}`,

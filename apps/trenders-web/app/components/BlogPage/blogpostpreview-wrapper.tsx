@@ -60,7 +60,11 @@ export async function BlogPostPreviewWrapper() {
             title={t(blog.title, locale)}
             description={t(blog.excerpt, locale)}
             author={{
-                name: t(blog.author?.name, locale),
+                name: t(blog.author?.name, locale)
+                    .replace(/<br\s*\/?>/gi, " ")
+                    .replace(/\r\n|\r|\n/g, " ")
+                    .replace(/\s+/g, " ")
+                    .trim(),
                 avatar: toAbsUrl(blog.author?.avatar ?? ""),
                 href: blog.author?.slug ? `/blogauthor/${blog.author.slug}` : undefined,
             }}

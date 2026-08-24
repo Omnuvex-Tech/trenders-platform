@@ -66,7 +66,11 @@ export async function BlogAuthorListWrapper() {
         categorySlug: b.category?.slug ?? "",
         categoryLabel: t(b.category?.label, locale),
         author: {
-            name: t(b.author?.name, locale),
+            name: t(b.author?.name, locale)
+                .replace(/<br\s*\/?>/gi, " ")
+                .replace(/\r\n|\r|\n/g, " ")
+                .replace(/\s+/g, " ")
+                .trim(),
             avatar: toAbsUrl(b.author?.avatar ?? ""),
             avatarAlt: t(b.author?.avatarAlt, locale),
             href: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
