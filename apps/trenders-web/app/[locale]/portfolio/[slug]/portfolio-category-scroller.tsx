@@ -28,7 +28,7 @@ export function PortfolioCategoryScroller() {
             for (const el of Array.from(elements)) {
                 const badge = el.getAttribute("data-badge") || "";
                 if (normalize(badge) === target) {
-                    const navbarOffset = 100; // navbarın hündürlüyünə görə tənzimlə
+                    const navbarOffset = 100;
                     const top = el.getBoundingClientRect().top + window.scrollY - navbarOffset;
                     window.scrollTo({ top, behavior: "smooth" });
                     break;

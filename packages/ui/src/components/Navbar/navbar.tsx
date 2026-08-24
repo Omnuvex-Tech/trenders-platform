@@ -38,14 +38,6 @@ export interface NavbarUIProps {
     locale: string;
 }
 
-// Moved outside the component: this object was previously re-created on
-// every render, which meant `navLabels` below was a new reference each
-// time. That broke the useCallback/useEffect dependency chain
-// (navLabels -> renderSuggestions -> openSearch -> the search useEffect),
-// causing the search-toggle effect to remount on every render and call
-// resetSearchUI() right after openSearch() ran — closing the popup
-// immediately after it opened. Keeping this at module scope gives it a
-// stable reference across renders and fixes that.
 const NAV_LABELS: Record<string, { noResults: string; showAll: string }> = {
     az: { noResults: "Nəticə tapılmadı", showAll: "üçün bütün nəticələri göstər" },
     en: { noResults: "No results found", showAll: "Show all results for" },
@@ -173,10 +165,7 @@ export function NavbarUI({
         if (drawerDetailsRef.current) {
             drawerDetailsRef.current.open = false;
         }
-        // Don't rely solely on the native "toggle" event to sync state —
-        // setting .open programmatically doesn't reliably fire "toggle"
-        // synchronously on every browser, which left drawerOpen stuck at
-        // true (drawer stayed visually open, covering the search popup).
+
         setDrawerOpen(false);
     }, []);
 

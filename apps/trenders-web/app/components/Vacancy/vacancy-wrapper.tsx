@@ -76,9 +76,16 @@ async function getVacancyData(): Promise<VacancyData> {
   }
 }
 
-function formatDate(dateStr: string): string {
+const DATE_LOCALES: Record<string, string> = {
+  az: "az-Latn-AZ",
+  en: "en-US",
+  ru: "ru-RU",
+};
+
+function formatDate(dateStr: string, locale: string): string {
+  const intlLocale = DATE_LOCALES[locale] || DATE_LOCALES.az;
   return new Date(dateStr)
-    .toLocaleDateString("en-US", { day: "2-digit", month: "long", year: "numeric" })
+    .toLocaleDateString(intlLocale, { day: "2-digit", month: "long", year: "numeric" })
     .toUpperCase();
 }
 
@@ -92,8 +99,8 @@ export async function VacancyWrapper({ locale = "az" }: { locale?: string }) {
   if (visibleVacancies.length === 0) return null;
 
   const vacancyItems: VacancyItem[] = visibleVacancies.map((v) => {
-    const startStr = v.isStartDateVisible && v.startDate ? formatDate(v.startDate) : undefined;
-    const closingStr = v.isDateVisible && v.closingDate ? formatDate(v.closingDate) : undefined;
+    const startStr = v.isStartDateVisible && v.startDate ? formatDate(v.startDate, locale) : undefined;
+    const closingStr = v.isDateVisible && v.closingDate ? formatDate(v.closingDate, locale) : undefined;
     const dateStr = startStr && closingStr
       ? `${startStr} — ${closingStr}`
       : startStr || closingStr || "";

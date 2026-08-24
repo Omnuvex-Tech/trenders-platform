@@ -12,7 +12,7 @@ export interface VacancyItem {
     isNew?: boolean;
     newLabel?: string;
     title: string;
-    filterTagLabels: string[]; 
+    filterTagLabels: string[];
     detailLabel?: string;
     detailHref?: string;
     category: string;
@@ -91,18 +91,18 @@ export function VacancyUI({
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
-                                <motion.div 
+                <motion.div
                     className={styles.header}
                     variants={headerContainerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-5%" }}
                 >
-                 <motion.div
-    variants={generalItemVariants}
-    className={styles.title}
-    dangerouslySetInnerHTML={{ __html: title }}
-/>
+                    <motion.div
+                        variants={generalItemVariants}
+                        className={styles.title}
+                        dangerouslySetInnerHTML={{ __html: title }}
+                    />
                     <motion.div variants={generalItemVariants} className={styles.filters}>
                         {filterTags.map((tag) => (
                             <button
@@ -122,8 +122,8 @@ export function VacancyUI({
                                 className={`${styles.dropdownBtn} ${dropdownOpen ? styles.dropdownBtnOpen : ""}`}
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                             >
-                                {selectedOption || dropdownLabel}
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <div dangerouslySetInnerHTML={{ __html: selectedOption || dropdownLabel || "" }} />
+                                <svg width="14" height="f14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <polyline points="6 9 12 15 18 9" />
                                 </svg>
                             </button>
@@ -161,13 +161,13 @@ export function VacancyUI({
                 </motion.div>
                 <div className={styles.grid}>
                     {filtered.map((vacancy) => (
-                        <motion.div 
-                            key={vacancy.id} 
+                        <motion.div
+                            key={vacancy.id}
                             className={styles.card}
                             variants={generalItemVariants}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: true, margin: "-10%" }} 
+                            viewport={{ once: true, margin: "-10%" }}
                         >
                             {vacancy.isNew && vacancy.newLabel && (
                                 <span className={styles.newBadge}>{vacancy.newLabel}</span>
@@ -180,14 +180,14 @@ export function VacancyUI({
                                     </span>
                                 )}
                             </div>
-<div className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: vacancy.title }} />                            <div className={styles.tagList}>
+                            <div className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: vacancy.title }} />                            <div className={styles.tagList}>
                                 {vacancy.filterTagLabels.map((label, i) => (
                                     <span key={i} className={styles.tag}>{label}</span>
                                 ))}
                             </div>
                             <div className={styles.cardBottom}>
                                 <a href={vacancy.detailHref || "#"} className={styles.detailLink}>
-                                    {vacancy.detailLabel}
+                                    <div dangerouslySetInnerHTML={{ __html: vacancy.detailLabel || "" }} />
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <polyline points="9 18 15 12 9 6" />
                                     </svg>
