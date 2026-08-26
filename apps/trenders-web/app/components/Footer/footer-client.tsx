@@ -2,6 +2,7 @@
 
 import { useLocaleStore } from "@/store/locale.store";
 import { FooterUI } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -56,10 +57,10 @@ export function FooterClient({
 }: FooterClientProps) {
     const { locale } = useLocaleStore();
 
-    const mappedNavLinks = navLinks.map((l: any) => ({
+      const mappedNavLinks = navLinks.map((l: any) => ({
         id: l.id,
         label: t(l.label, locale),
-        href: l.href,
+        href: localizeHref(l.href, locale),
     }));
    const { url: mapUrl, newTab: mapNewTab } = parseLocationMapUrl(locationMapUrl);
     const locLocationValue = t(locationValue, locale);
@@ -101,7 +102,7 @@ export function FooterClient({
             contactItems={contactItems}
            copyrightText={t(copyrightText, locale, `© ${new Date().getFullYear()} Trenders`)}
             privacyLabel={t(privacyText, locale)}
-            privacyHref={`/${locale}/privacypolicy`}
+                       privacyHref={localizeHref("/privacypolicy", locale)}
         />
     );
 }

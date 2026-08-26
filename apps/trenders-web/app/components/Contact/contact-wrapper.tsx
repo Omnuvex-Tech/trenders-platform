@@ -1,5 +1,6 @@
 import { ContactUI } from "@repo/ui";
 import { submitContactForm } from "@/app/actions/contact";
+import { localizeHref } from "@/lib/localize-href";
 
 const API = process.env.API_URL;
 
@@ -55,7 +56,6 @@ async function getServiceOptions(locale: string): Promise<string[]> {
         return [];
     }
 }
-
 
 export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
     const [data, serviceOptions] = await Promise.all([
@@ -127,8 +127,8 @@ export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
                 messagePlaceholder: t(data?.formMessagePlaceholder, locale, "Your message"),
                 submit: t(data?.formSubmitLabel, locale, "Submit Inquiry"),
             }}
-          privacyHref={`/${locale}/privacypolicy`}
-            termsHref={`/${locale}/privacypolicy`}
+            privacyHref={localizeHref("/privacypolicy", locale)}
+            termsHref={localizeHref("/privacypolicy", locale)}
             onSubmit={submitContactForm}
         />
     );
