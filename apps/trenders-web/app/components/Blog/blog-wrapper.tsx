@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import { BlogUI } from "@repo/ui";
 import type { BlogPost } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 const API = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+const DEFAULT_LOCALE = "az";
 
 type LocalizedString = Record<string, string>;
 
@@ -75,16 +77,16 @@ export async function BlogWrapper({ locale }: { locale?: string }) {
       .replace(/\r\n|\r|\n/g, " ")
       .replace(/\s+/g, " ")
       .trim(),
-    authorHref: b.author?.slug ? `/${resolvedLocale}/blogauthor/${b.author.slug}` : undefined,
+    authorHref: b.author?.slug ? localizeHref(`/blogauthor/${b.author.slug}`, resolvedLocale) : undefined,
     date: b.publishedAt ? formatDate(b.publishedAt, resolvedLocale) : "",
-    href: `/${resolvedLocale}/blog/${b.slug}`,
+    href: localizeHref(`/blog/${b.slug}`, resolvedLocale),
   }));
 
   return (
     <BlogUI
       title={t(home?.blogsTitle, resolvedLocale)}
       allPostsLabel={t(home?.blogsBtnText, resolvedLocale)}
-      allPostsHref={home?.blogsBtnLink || `/${resolvedLocale}/blog`}
+       allPostsHref={home?.blogsBtnLink || localizeHref("/blog", resolvedLocale)}
       allPostsNewTab={home?.blogsBtnNewTab ?? false}
       posts={posts}
     />

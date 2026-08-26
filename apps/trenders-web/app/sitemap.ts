@@ -1,10 +1,17 @@
-// apps/trenders-web/src/app/sitemap.ts
 import type { MetadataRoute } from "next"
 
 const BASE_URL = "https://trenders.team"
 const LOCALES = ["az", "en", "ru"] as const
+const DEFAULT_LOCALE = "az"
 
 const STATIC_PATHS = ["", "/about", "/service", "/portfolio", "/vacancy", "/blog", "/contact", "/partners", "/ourteam"]
+
+function localizedUrl(locale: string, path: string): string {
+  // Default dil (az) prefikssizdir: /about
+  // Digər dillər prefiks daşıyır: /en/about, /ru/about
+  const prefix = locale === DEFAULT_LOCALE ? "" : `/${locale}`
+  return `${BASE_URL}${prefix}${path}`
+}
 
 async function fetchList(path: string): Promise<any[]> {
   try {
@@ -24,7 +31,7 @@ function toDate(value: string | null | undefined): Date {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
     STATIC_PATHS.map((path) => ({
-      url: `${BASE_URL}/${locale}${path}`,
+      url: localizedUrl(locale, path),
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: path === "" ? 1 : 0.7,
@@ -43,7 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...portfolios
       .filter((p) => p.isVisible)
       .map((p) => ({
-        url: `${BASE_URL}/${locale}/portfolio/${p.slug}`,
+        url: localizedUrl(locale, `/portfolio/${p.slug}`),
         lastModified: toDate(p.updatedAt),
         changeFrequency: "monthly" as const,
         priority: 0.6,
@@ -51,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...services
       .filter((s) => s.isVisible)
       .map((s) => ({
-        url: `${BASE_URL}/${locale}/service/${s.slug}`,
+        url: localizedUrl(locale, `/service/${s.slug}`),
         lastModified: toDate(s.updatedAt),
         changeFrequency: "monthly" as const,
         priority: 0.6,
@@ -59,7 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...vacancies
       .filter((v) => v.isVisible)
       .map((v) => ({
-        url: `${BASE_URL}/${locale}/vacancy/${v.slug}`,
+        url: localizedUrl(locale, `/vacancy/${v.slug}`),
         lastModified: toDate(v.updatedAt),
         changeFrequency: "weekly" as const,
         priority: 0.5,
@@ -67,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogs
       .filter((b) => b.isVisible)
       .map((b) => ({
-        url: `${BASE_URL}/${locale}/blog/${b.slug}`,
+        url: localizedUrl(locale, `/blog/${b.slug}`),
         lastModified: toDate(b.updatedAt),
         changeFrequency: "monthly" as const,
         priority: 0.6,
@@ -75,7 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...authors
       .filter((a) => a.isVisible && a.slug)
       .map((a) => ({
-        url: `${BASE_URL}/${locale}/blogauthor/${a.slug}`,
+        url: localizedUrl(locale, `/blogauthor/${a.slug}`),
         lastModified: toDate(a.updatedAt),
         changeFrequency: "monthly" as const,
         priority: 0.4,

@@ -1,5 +1,6 @@
 import { ServicesUI } from "@repo/ui";
 import type { Service } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -51,10 +52,10 @@ export async function ServicesWrapper({ locale = "az" }: ServicesWrapperProps) {
         items: (s.features ?? []).map((f: any) => ({
             label: getLoc(f.label, locale),
         })),
-        portfolioHref: s.portfolioButtonLink || "#",
+             portfolioHref: s.portfolioButtonLink ? localizeHref(s.portfolioButtonLink, locale) : "#",
         portfolioNewTab: s.portfolioButtonNewTab ?? false,
         portfolioLabel: getLoc(s.portfolioButtonText, locale) || "Portfolio",
-        detailHref: s.detailButtonLink || `/${locale}/service/${s.slug}`,
+        detailHref: localizeHref(s.detailButtonLink || `/service/${s.slug}`, locale),
         detailNewTab: s.detailButtonNewTab ?? false,
         detailLabel: getLoc(s.detailButtonText, locale) || "DAHA ƏTRAFLI",
     }));

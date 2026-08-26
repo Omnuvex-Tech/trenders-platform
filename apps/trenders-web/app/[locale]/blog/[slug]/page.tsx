@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { notFound } from 'next/navigation';
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
+import { localizeHref } from "@/lib/localize-href";
 import {
     BlogDetailPageHeroUI,
     BlogDetailContentUI,
@@ -83,7 +84,7 @@ function renderSection(section: any, index: number, blog: any, locale: string) {
                         name: t(blog.author?.name, locale),
                         role: t(blog.author?.role, locale),
                         avatar: toAbsUrl(blog.author?.avatar ?? ''),
-                        href: blog.author?.slug ? `/blogauthor/${blog.author.slug}` : undefined,
+                      href: blog.author?.slug ? localizeHref(`/blogauthor/${blog.author.slug}`, locale) : undefined,
                     }}
                 />
             );

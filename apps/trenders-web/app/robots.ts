@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/*/search", "/*/search?*"],
+      disallow: ["/*/search", "/*/search?*", "/cdn-cgi/*"],
     },
     sitemap: "https://trenders.team/sitemap.xml",
   }

@@ -1,7 +1,10 @@
 import { VacancyDetailUI } from "@repo/ui";
 import type { VacancyDetailSection } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 import MapComponent from "@/app/components/VacancyDetail/mapcomponent";
 import { submitVacancyForm } from "@/app/actions/vacancy";
+
+
 
 type LocalizedString = Record<string, string>;
 
@@ -150,7 +153,7 @@ export async function VacancyDetailWrapper({
 
   return (
     <VacancyDetailUI
-      backHref={`/${locale}/vacancy`}
+      backHref={localizeHref("/vacancy", locale)}
       pageTitle={getL(s?.backLabel, locale)}
       jobTitle={getL(vacancy.title, locale)}
       vacancyId={vacancy.id}

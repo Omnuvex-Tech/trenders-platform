@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { HeroUI } from "@repo/ui";
 import type { HeroCard } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 interface HeroClientProps {
   locale: string;
@@ -38,7 +39,7 @@ export function HeroClient({
 
   const handleDetailClick = useCallback((label: string) => {
     const found = baseCards.find(c => c.label === label);
-    if (found?.slug) router.push(`/${locale}/service/${found.slug}`);
+    if (found?.slug) router.push(localizeHref(`/service/${found.slug}`, locale));
   }, [baseCards, locale, router]);
   
 const handlePrimaryClick = () => {

@@ -1,4 +1,5 @@
 import { HeroClient } from "./hero-client";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -52,10 +53,10 @@ export async function HeroWrapper({ locale = "az" }: HeroWrapperProps) {
       title={getLoc(hero?.title, locale)}
       description={getLoc(hero?.description, locale)}
       primaryBtnText={getLoc(hero?.primaryBtnText, locale)}
-      primaryBtnLink={hero?.primaryBtnLink}
+      primaryBtnLink={localizeHref(hero?.primaryBtnLink, locale)}
       primaryBtnNewTab={hero?.primaryBtnNewTab ?? false}
       secondaryBtnText={getLoc(hero?.secondaryBtnText, locale)}
-      secondaryBtnLink={hero?.secondaryBtnLink ?? "/service"}
+          secondaryBtnLink={localizeHref(hero?.secondaryBtnLink ?? "/service", locale)}
       secondaryBtnNewTab={hero?.secondaryBtnNewTab ?? false}
     />
   );

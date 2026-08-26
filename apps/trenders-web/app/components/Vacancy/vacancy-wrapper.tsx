@@ -1,5 +1,6 @@
 import { VacancyUI } from "@repo/ui";
 import type { VacancyItem } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -113,7 +114,7 @@ export async function VacancyWrapper({ locale = "az" }: { locale?: string }) {
       category: getL(v.category.name, locale),
       filterTagLabels: (v.filterTags ?? []).slice(0, 5).map((ft) => getL(ft.label, locale)),
       detailLabel,
-      detailHref: `/${locale}/vacancy/${v.slug}`,
+            detailHref: localizeHref(`/vacancy/${v.slug}`, locale),
     };
   });
 

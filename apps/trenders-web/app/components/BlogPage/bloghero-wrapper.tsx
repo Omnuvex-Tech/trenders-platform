@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { BlogSectionUI } from "@repo/ui";
 import type { BlogItem } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -40,7 +41,7 @@ function mapBlogItem(b: any, locale: string): BlogItem {
         title: t(b.title, locale),
         description: t(b.excerpt, locale),
         date: b.publishedAt ? formatDate(b.publishedAt, locale) : "",
-        href: `/blog/${b.slug}`,
+              href: localizeHref(`/blog/${b.slug}`, locale),
     };
 }
 
@@ -68,7 +69,7 @@ export async function BlogSectionWrapper() {
     return (
         <BlogSectionUI
             title={t(settings.pageTitle, locale)}
-            portfolioHref={settings.buttonLink || "/blog"}
+                     portfolioHref={localizeHref(settings.buttonLink || "/blog", locale)}
             portfolioLabel={t(settings.buttonText, locale, "Portfolio")}
             portfolioNewTab={settings.buttonNewTab ?? false}
             featuredPost={mapBlogItem(featured, locale)}

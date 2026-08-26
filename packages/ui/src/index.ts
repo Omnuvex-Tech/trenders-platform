@@ -131,3 +131,4 @@ export type { PrivacyPolicyUIProps, PrivacyPolicySection } from './components/Pr
 
 
 export { cn } from "./lib/utils";
+export { useLocaleFromPath, localePrefix } from "./lib/use-locale-from-path";

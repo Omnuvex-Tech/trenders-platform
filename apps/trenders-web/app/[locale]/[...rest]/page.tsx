@@ -34,7 +34,7 @@ export default async function CatchAllNotFound({ params }: { params: Promise<{ l
   }
 
   return (
-<div className="flex w-full flex-col items-center justify-start">
+    <div className="flex w-full flex-col items-center justify-start">
       <NavbarWrapper
         locale={locale}
         languages={STATIC_LANGUAGES}
@@ -44,7 +44,7 @@ export default async function CatchAllNotFound({ params }: { params: Promise<{ l
         title={copy.title}
         description={copy.description}
         buttonLabel={copy.button}
-        homeHref={`/${locale}`}
+        homeHref={locale === "az" ? "/" : `/${locale}`}
       />
     </div>
   )

@@ -49,7 +49,7 @@ export default async function RootNotFound() {
         title={copy.title}
         description={copy.description}
         buttonLabel={copy.button}
-        homeHref={`/${locale}`}
+         homeHref="/"
       />
     </div>
   )

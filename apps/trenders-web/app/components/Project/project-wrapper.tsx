@@ -1,6 +1,7 @@
 import { ProjectsUI } from '@repo/ui'
 import type { ProjectItem } from '@repo/ui'
 import { cookies } from 'next/headers'
+import { localizeHref } from "@/lib/localize-href"
 
 type LocalizedString = Record<string, string>
 
@@ -41,7 +42,7 @@ async function getHomepageProjects(locale: string): Promise<ProjectItem[]> {
       tags: (p.services ?? []).map((ps: any) => stripHtml(t(ps.service?.title, locale))).filter(Boolean),
       title: t(p.title, locale),
       slug: p.slug,
-      href: `/${locale}/portfolio/${p.slug}`,
+      href: localizeHref(`/portfolio/${p.slug}`, locale),
     }))
   } catch (e) {
     console.error('[ProjectsWrapper] fetch error:', e)
@@ -72,7 +73,7 @@ export async function ProjectsWrapper({ locale }: { locale?: string }) {
     <ProjectsUI
       sectionTitle={t(home?.projectsTitle, resolvedLocale, "Proyektlər")}
       moreBtnLabel={t(home?.projectsBtnText, resolvedLocale, "Bütün layihələrə bax")}
-      moreBtnHref={home?.projectsBtnLink || "/portfolio"}
+         moreBtnHref={localizeHref(home?.projectsBtnLink || "/portfolio", resolvedLocale)}
       moreBtnNewTab={home?.projectsBtnNewTab ?? false}
       projects={projects}
     />

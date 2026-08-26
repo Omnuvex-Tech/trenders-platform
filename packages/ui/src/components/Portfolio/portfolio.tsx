@@ -1,10 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useState, useMemo, useEffect, useRef } from 'react'
+import { useLocaleFromPath, localePrefix } from '../../lib/use-locale-from-path'
 import { motion, Variants } from 'framer-motion'
 import styles from "../../styles/Portfolio/portfolio.module.css";
+
 
 export interface PortfolioCategory {
   title: string;
@@ -64,8 +65,7 @@ export function PortfolioUI({
   const [isMounted, setIsMounted] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  const pathname = usePathname()
-  const locale = pathname?.split('/')[1] || 'az'
+  const locale = useLocaleFromPath()
   const ALL_LABELS: Record<string, string> = {
     az: 'Bütün layihələr',
     en: 'All projects',
@@ -190,10 +190,9 @@ const filteredProjects = useMemo(() => {
 
      <div className={styles.projectsGrid}>
         {displayed.map((project) => {
-          const href = project.slug
-            ? `/${locale}/portfolio/${project.slug}${selectedOption ? `?category=${encodeURIComponent(selectedOption)}` : ''}`
+                  const href = project.slug
+            ? `${localePrefix(locale)}/portfolio/${project.slug}${selectedOption ? `?category=${encodeURIComponent(selectedOption)}` : ''}`
             : '#';
-          console.log("card:", project.title, "selectedOption:", selectedOption, "href:", href);
           return (
           <motion.div
             key={project.id} 

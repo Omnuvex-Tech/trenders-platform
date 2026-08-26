@@ -1,5 +1,6 @@
 import { AboutTeamUI } from "@repo/ui";
 import type { AboutTeamMember } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -49,7 +50,7 @@ export async function AboutTeamWrapper({ locale }: { locale?: string }) {
         imageAlt: t(a.avatarAlt, resolvedLocale) || t(a.name, resolvedLocale),
         name: t(a.name, resolvedLocale),
         role: t(a.role, resolvedLocale),
-        href: a.slug ? `/blogauthor/${a.slug}` : "#",
+          href: a.slug ? localizeHref(`/blogauthor/${a.slug}`, resolvedLocale) : "#",
     }));
 
     return (
@@ -57,7 +58,7 @@ export async function AboutTeamWrapper({ locale }: { locale?: string }) {
             title={t(s?.teamTitle, resolvedLocale)}
             description={t(s?.teamDescription, resolvedLocale)}
             ctaLabel={t(s?.teamCtaLabel, resolvedLocale)}
-            ctaHref={s?.teamCtaHref ?? "/ourteam"}
+                    ctaHref={localizeHref(s?.teamCtaHref, resolvedLocale)}
             members={members}
         />
     );

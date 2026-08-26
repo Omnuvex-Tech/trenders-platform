@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { BlogGridUI } from "@repo/ui";
 import type { BlogGridItem } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -75,9 +76,9 @@ export async function BlogGridWrapper() {
                     .replace(/\r\n|\r|\n/g, " ")
                     .replace(/\s+/g, " ")
                     .trim(),
-                authorHref: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
+                               authorHref: b.author?.slug ? localizeHref(`/blogauthor/${b.author.slug}`, locale) : undefined,
                 date: b.publishedAt ? formatDate(b.publishedAt, locale) : "",
-                href: `/blog/${b.slug}`,
+                href: localizeHref(`/blog/${b.slug}`, locale),
             };
         });
 

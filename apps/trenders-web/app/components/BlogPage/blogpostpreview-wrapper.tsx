@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { BlogDetailHeroUI } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -49,8 +50,8 @@ export async function BlogPostPreviewWrapper() {
     const coverImage = t(blog.coverImage, locale);
 
     return (
-        <BlogDetailHeroUI
-            href={`/blog/${blog.slug}`}
+               <BlogDetailHeroUI
+            href={localizeHref(`/blog/${blog.slug}`, locale)}
             image={toAbsUrl(coverImage)}
             gif={blog.gif ? toAbsUrl(blog.gif) : undefined}
             imageAlt={t(blog.coverImageAlt, locale)}
@@ -66,7 +67,7 @@ export async function BlogPostPreviewWrapper() {
                     .replace(/\s+/g, " ")
                     .trim(),
                 avatar: toAbsUrl(blog.author?.avatar ?? ""),
-                href: blog.author?.slug ? `/blogauthor/${blog.author.slug}` : undefined,
+                              href: blog.author?.slug ? localizeHref(`/blogauthor/${blog.author.slug}`, locale) : undefined,
             }}
             date={blog.publishedAt ? formatDate(blog.publishedAt, locale) : ""}
         />

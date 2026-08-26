@@ -4,6 +4,7 @@ import { LanguageSwitcher } from "@/app/components/LanguageSwitcher/language-swi
 import type { Language, Translation } from "@repo/types/types";
 import Link from "next/link";
 import { NavbarClient } from "./navbar-client";
+import { localizeHref } from "@/lib/localize-href";
 
 type LocalizedString = Record<string, string>;
 
@@ -33,10 +34,18 @@ async function getServiceSuggestions(locale: string) {
         const services = await res.json();
         return (Array.isArray(services) ? services : []).map((s: any) => {
             const title = t(s.title, locale).replace(/<[^>]*>/g, "").trim();
-            return {
+            // return {
+            //     title,
+            //     titleHtml: title,
+            //     url: `/service/${s.slug ?? s.id}`,
+            //     breadcrumb: "Xidmətlər",
+            //     excerptHtml: "",
+            // };
+
+                        return {
                 title,
                 titleHtml: title,
-                url: `/service/${s.slug ?? s.id}`,
+                url: localizeHref(`/service/${s.slug ?? s.id}`, locale),
                 breadcrumb: "Xidmətlər",
                 excerptHtml: "",
             };
@@ -60,17 +69,25 @@ export async function NavbarWrapper({ locale, languages, initialTranslations }: 
         ? [...data.links]
             .filter((l: any) => l.isVisible)
             .sort((a: any, b: any) => a.order - b.order)
-            .map((l: any) => ({
+            // .map((l: any) => ({
+            //     label: t(l.label, locale),
+            //     href: l.href,
+            //     openInNewTab: l.openInNewTab,
+            // }))
+
+                        .map((l: any) => ({
                 label: t(l.label, locale),
-                href: l.href,
+                href: localizeHref(l.href, locale),
                 openInNewTab: l.openInNewTab,
             }))
         : [];
 
     const logoAlt = t(data?.logoImageAlt, locale, "Logo");
 
-    const logo = (
-        <Link href="/">
+    // const logo = (
+    //     <Link href="/">
+        const logo = (
+        <Link href={localizeHref("/", locale)}>
             {data?.logoImage ? (
                 <img
                     src={toAbsUrl(data.logoImage)}

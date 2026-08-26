@@ -1,6 +1,7 @@
 import { ContactPageUI } from "@repo/ui";
 import { submitContactForm } from "@/app/actions/contact";
 import MapComponent from "@/app/components/VacancyDetail/mapcomponent";
+import { localizeHref } from "@/lib/localize-href";
 
 const API = process.env.API_URL;
 
@@ -131,10 +132,10 @@ export async function ContactPageWrapper({ locale = "az" }: { locale?: string })
                 messagePlaceholder: t(data?.formMessagePlaceholder, locale),
                 submit: t(data?.formSubmitLabel, locale),
             }}
-           mapComponent={<MapComponent lat={40.351556} lng={49.832056} />}
-           mapLink="https://www.google.com/maps/place/TRENDERS/@40.3510338,49.832239,18.62z/data=!4m12!1m5!3m4!2zNDDCsDIxJzA1LjYiTiA0OcKwNDknNTUuNCJF!8m2!3d40.35156!4d49.83206!3m5!1s0xa4a8976b3b45e41:0xb00ab757d1fb334c!8m2!3d40.35089!4d49.8326318!16s%2Fg%2F11q9m6gs4m?entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D"
-          privacyHref={`/${locale}/privacypolicy`}
-            termsHref={`/${locale}/privacypolicy`}
+            mapComponent={<MapComponent lat={40.351556} lng={49.832056} />}
+            mapLink="https://www.google.com/maps/place/TRENDERS/@40.3510338,49.832239,18.62z/data=!4m12!1m5!3m4!2zNDDCsDIxJzA1LjYiTiA0OcKwNDknNTUuNCJF!8m2!3d40.35156!4d49.83206!3m5!1s0xa4a8976b3b45e41:0xb00ab757d1fb334c!8m2!3d40.35089!4d49.8326318!16s%2Fg%2F11q9m6gs4m?entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D"
+            privacyHref={localizeHref("/privacypolicy", locale)}
+            termsHref={localizeHref("/privacypolicy", locale)}
             onSubmit={submitContactForm}
         />
     );

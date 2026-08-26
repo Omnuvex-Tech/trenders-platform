@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { BlogListUI } from "@repo/ui";
+import { localizeHref } from "@/lib/localize-href";
 import type { BlogListItem, BlogCategory, FeaturedBlog } from "@repo/ui";
 
 type LocalizedString = Record<string, string>;
@@ -74,10 +75,10 @@ export async function BlogListWrapper() {
                     .trim(),
                 avatar: toAbsUrl(b.author?.avatar ?? ""),
                 avatarAlt: t(b.author?.avatarAlt, locale) || t(b.author?.name, locale),
-                href: b.author?.slug ? `/blogauthor/${b.author.slug}` : undefined,
+                          href: b.author?.slug ? localizeHref(`/blogauthor/${b.author.slug}`, locale) : undefined,
             },
             date: b.publishedAt ? formatDate(b.publishedAt, locale) : "",
-            href: `/blog/${b.slug}`,
+            href: localizeHref(`/blog/${b.slug}`, locale),
             gif: b.gif ? toAbsUrl(b.gif) : undefined,
         };
     };
@@ -96,7 +97,7 @@ export async function BlogListWrapper() {
         id: c.id,
         label: t(c.label, locale),
         slug: c.slug,
-        href: `/blog?category=${c.slug}`,
+          href: localizeHref(`/blog?category=${c.slug}`, locale),
     }));
 
     const pickOfWeek = blogs.find((b: any) => b.isVisible && b.isPickOfWeek);
@@ -107,7 +108,7 @@ export async function BlogListWrapper() {
             badge: t(pickOfWeek.badge, locale),
             title: t(pickOfWeek.title, locale),
             date: pickOfWeek.publishedAt ? formatDate(pickOfWeek.publishedAt, locale) : "",
-            href: `/blog/${pickOfWeek.slug}`,
+                      href: localizeHref(`/blog/${pickOfWeek.slug}`, locale),
             gif: pickOfWeek.gif ? toAbsUrl(pickOfWeek.gif) : undefined,
         }
         : undefined;

@@ -1,6 +1,6 @@
 import { TeamUI } from "@repo/ui";
 import type { TeamMember } from "@repo/ui";
-
+import { localizeHref } from "@/lib/localize-href";
 const API = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
 
 type LocalizedString = Record<string, string>;
@@ -28,7 +28,7 @@ async function getHomeTeamMembers(locale: string): Promise<TeamMember[]> {
       role: t(a.role, locale),
       image: toAbsUrl(a.avatar ?? ""),
       imageAlt: t(a.avatarAlt, locale) || t(a.name, locale),
-      href: a.slug ? `/${locale}/blogauthor/${a.slug}` : "#",
+         href: a.slug ? localizeHref(`/blogauthor/${a.slug}`, locale) : "#",
     }));
   } catch {
     return [];
@@ -56,7 +56,7 @@ export async function TeamWrapper({ locale = "az" }: { locale?: string }) {
       title={t(home?.teamTitle, locale)}
       members={members}
 description={t(home?.teamText, locale)}
-      goHref={home?.teamBtnLink }
+       goHref={localizeHref(home?.teamBtnLink, locale)}
       goLabel={t(home?.teamBtnText, locale)}
       goNewTab={home?.teamBtnNewTab ?? false}
     />
