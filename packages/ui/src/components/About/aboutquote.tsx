@@ -28,6 +28,10 @@ export function AboutQuoteUI({
         return html.replace(/<[^>]*>/g, "");
     }
 
+    function singleLine(html: string) {
+        return html.replace(/<br\s*\/?>/gi, " ").replace(/<\/p>\s*<p>/gi, " ");
+    }
+
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
@@ -63,7 +67,7 @@ export function AboutQuoteUI({
                     <div className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
                     <div className={styles.description} dangerouslySetInnerHTML={{ __html: description }} />
                     <div className={styles.authorBlock}>
-                        <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: authorName }} />
+                        <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: singleLine(authorName) }} />
                         <div className={styles.authorRole} dangerouslySetInnerHTML={{ __html: authorRole }} />
                     </div>
                 </motion.div>

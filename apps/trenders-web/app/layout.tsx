@@ -84,7 +84,7 @@ export default function RootLayout({
           </NotifyProvider>
         </QueryProvider>
 
-        {/* <Script id="vexvon-config" strategy="afterInteractive">
+        <Script id="vexvon-config" strategy="afterInteractive">
           {`
             window.VexvonConfig = {
               apiKey: "518165b7-31f9-4e6e-82ac-0e73911482fa",
@@ -113,7 +113,7 @@ export default function RootLayout({
         <Script
           src="https://sdk.vexvon.com/embed.js"
           strategy="afterInteractive"
-        /> */}
+        />
       </body>
     </html>
   );
