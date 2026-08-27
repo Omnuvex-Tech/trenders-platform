@@ -99,6 +99,8 @@ export { AboutStoryUI } from "./components/About/aboutstory";
 export type { AboutStoryUIProps, AboutStoryBlock } from "./components/About/aboutstory";
 export { AboutTeamUI } from "./components/About/aboutteam";
 export type { AboutTeamUIProps, AboutTeamMember } from "./components/About/aboutteam";
+export { AboutQuoteUI } from "./components/About/aboutquote";
+export type { AboutQuoteUIProps } from "./components/About/aboutquote";
 
 
 export { OurTeamUI } from "./components/OurTeam/ourteam";

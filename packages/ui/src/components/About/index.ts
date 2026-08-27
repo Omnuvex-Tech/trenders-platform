@@ -6,3 +6,6 @@ export type { AboutStoryUIProps, AboutStoryBlock } from "./aboutstory";
 
 export { AboutTeamUI } from "./aboutteam";
 export type { AboutTeamUIProps, AboutTeamMember } from "./aboutteam";
+
+export { AboutQuoteUI } from "./aboutquote";
+export type { AboutQuoteUIProps } from "./aboutquote";
