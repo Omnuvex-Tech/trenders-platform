@@ -84,7 +84,6 @@
   font-size: 29.05px;
   line-height: 118%;
   letter-spacing: -0.03em;
-  text-transform: capitalize;
   color: rgba(1, 72, 194, 1);
   margin: 0 0 16px 0;
 }
@@ -96,7 +95,6 @@
   line-height: 123%;
   letter-spacing: -0.05em;
   text-align: justify;
-  text-transform: capitalize;
   color: rgba(36, 36, 36, 1);
 }
 
@@ -113,7 +111,6 @@
   font-size: 20px;
   line-height: 118%;
   letter-spacing: -0.02em;
-  text-transform: capitalize;
   color: rgba(1, 72, 194, 1);
 }
 
@@ -123,7 +120,6 @@
   font-size: 20px;
   line-height: 118%;
   letter-spacing: -0.02em;
-  text-transform: capitalize;
   color: rgba(36, 36, 36, 1);
 }
 
