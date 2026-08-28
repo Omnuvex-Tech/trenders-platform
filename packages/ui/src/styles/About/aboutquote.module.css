@@ -98,6 +98,20 @@
   line-height: 150%;
 }
 
+.description p {
+  margin: 0 0 12px 0;
+}
+
+.description p:last-child {
+  margin-bottom: 0;
+}
+
+.description br {
+  content: "";
+  display: block;
+  margin-top: 6px;
+}
+
 .authorBlock {
   margin-top: auto;
   padding-top: 32px;
