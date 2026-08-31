@@ -126,7 +126,7 @@ export function BlogDetailPageHeroUI({
                         className={styles.title} 
                         dangerouslySetInnerHTML={{ __html: title }} 
                     />
-                    
+                
                     <div className={styles.paragraphs}>
                         {paragraphs.map((p, i) => (
                             <motion.div 
