@@ -57,6 +57,10 @@ function stripHtml(html: string) {
     return html.replace(/<[^>]*>/g, "");
 }
 
+function singleLine(html: string) {
+    return html.replace(/<br\s*\/?>/gi, " ").replace(/\n/g, " ");
+}
+
 export function BlogDetailPageHeroUI({
     heroImage,
     heroImageAlt = "",
@@ -88,7 +92,7 @@ export function BlogDetailPageHeroUI({
                                 className={styles.authorAvatar}
                             />
                             <div className={styles.authorInfo}>
-                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name }} />
+                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: singleLine(author.name) }} />
                                 <div className={styles.authorRole} dangerouslySetInnerHTML={{ __html: author.role }} />
                             </div>
                         </Link>
@@ -100,7 +104,7 @@ export function BlogDetailPageHeroUI({
                                 className={styles.authorAvatar}
                             />
                             <div className={styles.authorInfo}>
-                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: author.name }} />
+                                <div className={styles.authorName} dangerouslySetInnerHTML={{ __html: singleLine(author.name) }} />
                                 <div className={styles.authorRole} dangerouslySetInnerHTML={{ __html: author.role }} />
                             </div>
                         </div>
