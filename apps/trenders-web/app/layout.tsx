@@ -46,9 +46,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="az">
-          <head>
+      <head>
         <meta httpEquiv="Cache-Control" content="no-store" />
         <meta name="google-site-verification" content="NITvrWACiehGM52O-Fr2i9VlItAXtNiRI1j_c-yEgJM" />
+        <meta name="google-site-verification" content="n5L8ADf764WNsCrqpIhHsJB3pUR9YXCn2w74sCrIqbo" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
