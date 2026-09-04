@@ -127,8 +127,9 @@ export async function ContactWrapper({ locale = "az" }: { locale?: string }) {
                 messagePlaceholder: t(data?.formMessagePlaceholder, locale, "Your message"),
                 submit: t(data?.formSubmitLabel, locale, "Submit Inquiry"),
             }}
-            privacyHref={localizeHref("/privacypolicy", locale)}
+              privacyHref={localizeHref("/privacypolicy", locale)}
             termsHref={localizeHref("/privacypolicy", locale)}
+            thankYouHref={localizeHref("/thank-you", locale)}
             onSubmit={submitContactForm}
         />
     );

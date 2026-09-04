@@ -154,6 +154,7 @@ export async function VacancyDetailWrapper({
   return (
     <VacancyDetailUI
       backHref={localizeHref("/vacancy", locale)}
+      thankYouHref={localizeHref("/thank-you", locale)}
       pageTitle={getL(s?.backLabel, locale)}
       jobTitle={getL(vacancy.title, locale)}
       vacancyId={vacancy.id}

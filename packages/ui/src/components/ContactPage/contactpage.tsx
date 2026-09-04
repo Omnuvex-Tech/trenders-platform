@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import styles from "../../styles/ContactPage/contactpage.module.css";
 import { motion, Variants } from "framer-motion";
 
@@ -52,15 +53,13 @@ export interface ContactPageUIProps {
     };
     mapComponent?: React.ReactNode;
     mapLink?: string;
-    termsHref?: string;
+      termsHref?: string;
     privacyHref?: string;
+    thankYouHref?: string;
     onSubmit?: (data: Record<string, string>) => Promise<void>;
 }
-
-// Rich text (editordan gələn HTML) üçün helper
 const html = (value: string) => ({ __html: value });
 
-// Native input/textarea placeholder atributu HTML render edə bilmədiyi üçün tag-ları təmizləyirik
 const stripTags = (value: string) => value.replace(/<[^>]*>/g, "").trim();
 
 export function ContactPageUI({
@@ -73,10 +72,11 @@ export function ContactPageUI({
     budgetOptions,
     timelineOptions,
     formLabels,
-    mapComponent,
+      mapComponent,
     mapLink,
     termsHref = "#",
     privacyHref = "#",
+    thankYouHref = "/thank-you",
     onSubmit,
 }: ContactPageUIProps) {
     const [form, setForm] = useState({
@@ -87,6 +87,7 @@ export function ContactPageUI({
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
     const [openDropdown, setOpenDropdown] = useState<"service" | "budget" | "timeline" | null>(null);
+    const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -111,10 +112,9 @@ export function ContactPageUI({
 
         setSubmitting(true);
         setError("");
-        try {
+               try {
             await onSubmit(form);
-            setSubmitted(true);
-            setForm({ name: "", email: "", phone: "", service: "", budget: "", timeline: "", message: "" });
+            router.push(thankYouHref);
         } catch {
             setError("Göndərilmədi, yenidən cəhd edin.");
         } finally {

@@ -131,6 +131,8 @@ export type { NotFoundUIProps } from "./components/NotFound/NotFound"
 export { PrivacyPolicyUI } from './components/PrivacyPolicy/privacyPolicy'
 export type { PrivacyPolicyUIProps, PrivacyPolicySection } from './components/PrivacyPolicy/privacyPolicy'
 
+export { ThankYou } from "./components/ThankYou/ThankYou";
+export type { ThankYouProps } from "./components/ThankYou/ThankYou";
 
 export { cn } from "./lib/utils";
 export { useLocaleFromPath, localePrefix } from "./lib/use-locale-from-path";

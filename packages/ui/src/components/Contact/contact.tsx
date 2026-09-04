@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import styles from "../../styles/Contact/contact.module.css";
 
 export interface ContactSocialLink {
@@ -49,15 +50,14 @@ export interface ContactUIProps {
     };
     termsHref?: string;
     privacyHref?: string;
+    thankYouHref?: string;
     onSubmit?: (data: Record<string, string>) => Promise<void>;
 }
 
 type DropdownKey = "service" | "budget" | "timeline";
 
-// Rich text (editordan gələn HTML) üçün helper
 const html = (value: string) => ({ __html: value });
 
-// Native input/textarea placeholder atributu HTML render edə bilmədiyi üçün tag-ları təmizləyirik
 const stripTags = (value: string) => value.replace(/<[^>]*>/g, "").trim();
 
 function useReveal() {
@@ -153,15 +153,16 @@ function CustomSelect({
 
 export function ContactUI({
     title, description, info, serviceOptions, budgetOptions, timelineOptions,
-    formLabels, termsHref = "#", privacyHref = "#", onSubmit,
+    formLabels, termsHref = "#", privacyHref = "#", thankYouHref = "/thank-you", onSubmit,
 }: ContactUIProps) {
     const [form, setForm] = useState({
         name: "", email: "", phone: "", service: "", budget: "", timeline: "", message: "",
     });
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const [error, setError] = useState("");
+      const [error, setError] = useState("");
     const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
+    const router = useRouter();
 
     const sectionRef = useReveal();
 
@@ -188,10 +189,9 @@ export function ContactUI({
         }
         setSubmitting(true);
         setError("");
-        try {
+              try {
             await onSubmit(form);
-            setSubmitted(true);
-            setForm({ name: "", email: "", phone: "", service: "", budget: "", timeline: "", message: "" });
+            router.push(thankYouHref);
         } catch {
             setError("Göndərilmədi, yenidən cəhd edin.");
         } finally {

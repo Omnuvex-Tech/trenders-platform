@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, Variants } from "framer-motion";
 import styles from "../../styles/VacancyDetail/vacancydetail.module.css";
 
@@ -38,6 +39,7 @@ export interface VacancyDetailUIProps {
     mapComponent?: React.ReactNode;
     mapLink?: string;
     onSubmit?: (data: FormData) => Promise<void>;
+    thankYouHref?: string;
     nameLabel?: string;
     namePlaceholder?: string;
     messageLabel?: string;
@@ -93,6 +95,7 @@ export function VacancyDetailUI({
     mapComponent,
     mapLink,
     onSubmit,
+    thankYouHref = "/thank-you",
     nameLabel = "Name",
     namePlaceholder = "Your name*",
     messageLabel = "Message",
@@ -114,6 +117,7 @@ export function VacancyDetailUI({
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
     const fileRef = useRef<HTMLInputElement>(null);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -140,10 +144,8 @@ export function VacancyDetailUI({
             fd.append("cv", cv);
             if (vacancyId) fd.append("vacancyId", String(vacancyId));
             if (vacancyTitle) fd.append("vacancyTitle", vacancyTitle);
-            await onSubmit(fd);
-            setSubmitted(true);
-            setName(""); setMessage(""); setPhone(""); setEmail(""); setCv(null);
-            if (fileRef.current) fileRef.current.value = "";
+                       await onSubmit(fd);
+            router.push(thankYouHref);
         } catch {
             setError("Göndərilmədi, yenidən cəhd edin.");
         } finally {
