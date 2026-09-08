@@ -238,6 +238,12 @@ gap: 12px 27px;
     color: #1a1a1a;
 }
 
+.itemLabel {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
 .actions {
     display: flex;
     align-items: center;

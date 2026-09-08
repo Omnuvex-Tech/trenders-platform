@@ -189,8 +189,7 @@ export function ServicesUI({ title, services }: ServicesUIProps) {
                                                             strokeLinejoin="round"
                                                         />
                                                     </svg>
-                                                    <span>{item.label}</span>
-                                                </motion.div>
+                                                    <h3 className={styles.itemLabel}>{item.label}</h3>                                                </motion.div>
                                             ))}
                                         </motion.div>
 
