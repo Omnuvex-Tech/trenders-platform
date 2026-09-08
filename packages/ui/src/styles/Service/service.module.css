@@ -10,14 +10,16 @@
 }
 
 .pageTitle {
-    font-family: Poppins;
-    font-weight: 700;
-    font-style: Bold;
-    font-size: 44px;
-    color: rgba(56, 56, 56, 1);
-    margin: 0 0 30px;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
-
 .servicesList {
     display: flex;
     flex-direction: column;

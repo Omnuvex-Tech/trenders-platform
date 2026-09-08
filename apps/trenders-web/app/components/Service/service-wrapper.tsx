@@ -31,6 +31,12 @@ async function getServices(): Promise<any[]> {
     }
 }
 
+const PAGE_TITLE: Record<string, string> = {
+    az: "Xidmətlər",
+    en: "Services",
+    ru: "Услуги",
+};
+
 interface ServicesWrapperProps {
     locale?: string;
 }
@@ -60,5 +66,5 @@ export async function ServicesWrapper({ locale = "az" }: ServicesWrapperProps) {
         detailLabel: getLoc(s.detailButtonText, locale) || "DAHA ƏTRAFLI",
     }));
 
-    return <ServicesUI title="" services={services} />;
+    return <ServicesUI title={PAGE_TITLE[locale] ?? PAGE_TITLE.az ?? "Xidmətlər"} services={services} />;
 }
