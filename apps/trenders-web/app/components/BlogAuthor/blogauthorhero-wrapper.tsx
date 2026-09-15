@@ -53,7 +53,7 @@ export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
 
     const isCavidAxundov = authorSlug === "cavid-axundov";
 
-   const posts = (blogs as any[]).map((b: any) => ({
+    const posts = (blogs as any[]).map((b: any) => ({
         id: b.id,
         image: toAbsUrl(t(b.coverImage, locale)),
         imageAlt: t(b.coverImageAlt, locale) || t(b.title, locale),
@@ -74,7 +74,9 @@ export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
                 avatarAlt: t(author.avatarAlt, locale) || undefined,
                 linkedinHref: author.linkedinHref ?? undefined,
                 linkedinIcon: author.linkedinIcon ? toAbsUrl(author.linkedinIcon) : undefined,
-                websiteHref: isCavidAxundov ? "https://javidakhundov.com/" : undefined,
+                websiteHref: isCavidAxundov
+                    ? `https://javidakhundov.com${locale === "az" ? "/az" : locale === "ru" ? "/ru" : ""}`
+                    : undefined,
                 bio: t(author.bio, locale),
                 skillsTitle: t(author.skillsTitle, locale, "SKILLS"),
                 skills: (author.skills ?? []).map((s: any) => ({
