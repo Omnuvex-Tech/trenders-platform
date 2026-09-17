@@ -29,9 +29,12 @@ export interface PortfolioUIProps {
   moreBtnHref?: string;
   projects: PortfolioItem[];
   showControls?: boolean;
-  dropdownLabel?: string; 
+  dropdownLabel?: string;
   dropdownOptions?: string[];
   loadMoreLabel?: string;
+  currentPage?: number;
+  initialVisibleCount?: number;
+  hasMore?: boolean;
 }
 
 const cardVariants: Variants = {
@@ -54,14 +57,17 @@ export function PortfolioUI({
   moreBtnHref,
   projects,
   showControls = false,
-  dropdownLabel = "Filter", 
-  dropdownOptions = [],   
+  dropdownLabel = "Filter",
+  dropdownOptions = [],
   loadMoreLabel = "Daha çox Portfolio",
+  currentPage = 1,
+  initialVisibleCount = 6,
+  hasMore,
 }: PortfolioUIProps) {
 
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
-  const [visibleCount, setVisibleCount] = useState(6)
+  const [filterVisibleCount, setFilterVisibleCount] = useState(6)
   const [isMounted, setIsMounted] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -88,7 +94,9 @@ export function PortfolioUI({
     return () => document.removeEventListener('mousedown', handleClick)
   }, [dropdownOpen])
 
-const filteredProjects = useMemo(() => {
+  const isFiltering = selectedOption !== null;
+
+  const filteredProjects = useMemo(() => {
     if (selectedOption) {
       return projects.filter(p =>
         p.categories.some(c => c.title === selectedOption)
@@ -112,20 +120,27 @@ const filteredProjects = useMemo(() => {
     }
     return project.imageAlt || ""
   }
-  const displayed = useMemo(() => {
-    return filteredProjects.slice(0, visibleCount)
-  }, [filteredProjects, visibleCount])
 
-  const handleShowMore = () => {
-    setVisibleCount((prev) => Math.min(prev + 3, filteredProjects.length))
+  // Filtersiz: server-in hesabladığı sayı birbaşa göstər (real link ilə pagination).
+  // Filterli: köhnə client-side "show more" davranışı (SEO üçün vacib deyil).
+  const displayed = useMemo(() => {
+    if (isFiltering) return filteredProjects.slice(0, filterVisibleCount)
+    return projects.slice(0, initialVisibleCount)
+  }, [isFiltering, filteredProjects, filterVisibleCount, projects, initialVisibleCount])
+
+  const handleShowMoreFiltered = () => {
+    setFilterVisibleCount((prev) => Math.min(prev + 3, filteredProjects.length))
   }
+
+  const computedHasMore = hasMore ?? projects.length > initialVisibleCount;
+  const nextHref = `?page=${currentPage + 1}`;
 
   return (
     <section className={styles.projects}>
       <div className={styles.projectsHeader}>
-        <div 
-  className={styles.projectsTitle} 
-  dangerouslySetInnerHTML={{ __html: sectionTitle }} 
+        <div
+  className={styles.projectsTitle}
+  dangerouslySetInnerHTML={{ __html: sectionTitle }}
 />
 
         {showControls ? (
@@ -150,7 +165,7 @@ const filteredProjects = useMemo(() => {
                       onClick={() => {
                         setSelectedOption(null)
                         setDropdownOpen(false)
-                        setVisibleCount(6)
+                        setFilterVisibleCount(6)
                       }}
                     >
                       {allLabel}
@@ -162,7 +177,7 @@ const filteredProjects = useMemo(() => {
                         onClick={() => {
                           setSelectedOption(selectedOption === opt ? null : opt)
                           setDropdownOpen(false)
-                          setVisibleCount(6)
+                          setFilterVisibleCount(6)
                         }}
                       >
                         {opt}
@@ -195,11 +210,11 @@ const filteredProjects = useMemo(() => {
             : '#';
           return (
           <motion.div
-            key={project.id} 
+            key={project.id}
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-5%" }} 
+            viewport={{ once: true, margin: "-5%" }}
             className={`${styles.projectCard} ${project.gif ? styles.projectCardWithGif : ""}`}
           >
            <Link
@@ -248,11 +263,36 @@ const filteredProjects = useMemo(() => {
         })}
       </div>
 
-      {isMounted && filteredProjects.length > visibleCount && (
+      {!isFiltering && computedHasMore && (
+        <div className={styles.moreBtnWrapper}>
+          <Link
+            href={nextHref}
+            scroll={false}
+            className={styles.projectsMoreBtn}
+          >
+            {loadMoreLabel}
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
+        </div>
+      )}
+
+      {isFiltering && isMounted && filteredProjects.length > filterVisibleCount && (
         <div className={styles.moreBtnWrapper}>
           <button
             type="button"
-            onClick={handleShowMore}
+            onClick={handleShowMoreFiltered}
             className={styles.projectsMoreBtn}
           >
             {loadMoreLabel}

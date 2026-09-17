@@ -30,6 +30,13 @@ function toAbsUrl(path: string) {
     return `${process.env.API_URL}${path}`;
 }
 
+const PAGE_BASE = 6;
+const PAGE_INCREMENT = 3;
+
+function visibleCountForPage(page: number) {
+    return page <= 1 ? PAGE_BASE : PAGE_BASE + (page - 1) * PAGE_INCREMENT;
+}
+
 async function getPortfolios(locale: string): Promise<PortfolioItem[]> {
     try {
         const res = await fetch(`${process.env.API_URL}/portfolio/public`, {
@@ -71,11 +78,11 @@ async function getPortfolioSettings(locale: string): Promise<PortfolioSettings> 
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
-      return {
-    sectionTitle: t(data?.sectionTitle, locale),
-    dropdownLabel: stripHtml(t(data?.dropdownLabel, locale)),
-    moreButtonLabel: stripHtml(t(data?.moreButtonLabel, locale)),
-};
+        return {
+            sectionTitle: t(data?.sectionTitle, locale),
+            dropdownLabel: stripHtml(t(data?.dropdownLabel, locale)),
+            moreButtonLabel: stripHtml(t(data?.moreButtonLabel, locale)),
+        };
     } catch {
         return {
             sectionTitle: "Portfolio",
@@ -85,7 +92,13 @@ async function getPortfolioSettings(locale: string): Promise<PortfolioSettings> 
     }
 }
 
-export async function PortfolioWrapper({ locale = "az" }: { locale?: string }) {
+export async function PortfolioWrapper({
+    locale = "az",
+    page = 1,
+}: {
+    locale?: string;
+    page?: number;
+}) {
     const [projects, settings] = await Promise.all([
         getPortfolios(locale),
         getPortfolioSettings(locale),
@@ -93,6 +106,10 @@ export async function PortfolioWrapper({ locale = "az" }: { locale?: string }) {
     const allCategories = Array.from(
         new Set(projects.flatMap(p => p.categories.map(c => c.title)))
     ).filter(Boolean);
+
+    const currentPage = Math.max(1, page);
+    const initialVisibleCount = Math.min(visibleCountForPage(currentPage), projects.length);
+    const hasMore = projects.length > initialVisibleCount;
 
     return (
         <PortfolioUI
@@ -102,6 +119,9 @@ export async function PortfolioWrapper({ locale = "az" }: { locale?: string }) {
             dropdownLabel={settings.dropdownLabel}
             dropdownOptions={allCategories}
             loadMoreLabel={settings.moreButtonLabel}
+            currentPage={currentPage}
+            initialVisibleCount={initialVisibleCount}
+            hasMore={hasMore}
         />
     );
 }

@@ -30,6 +30,8 @@ function formatDate(dateStr: string, locale: string) {
     });
 }
 
+const POSTS_PER_PAGE = 3;
+
 async function getBlogGridData(): Promise<{ blogs: any[]; settings: any }> {
     try {
         const [blogsRes, settingsRes] = await Promise.all([
@@ -51,12 +53,12 @@ async function getBlogGridData(): Promise<{ blogs: any[]; settings: any }> {
     }
 }
 
-export async function BlogGridWrapper() {
+export async function BlogGridWrapper({ page = 1 }: { page?: number }) {
     const cookieStore = await cookies();
     const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
     const { blogs, settings } = await getBlogGridData();
-    const posts: BlogGridItem[] = blogs
+    const allPosts: BlogGridItem[] = blogs
         .filter((b) => b.isVisible && b.isGrid)
         .sort((a, b) => a.order - b.order)
         .map((b) => {
@@ -76,17 +78,27 @@ export async function BlogGridWrapper() {
                     .replace(/\r\n|\r|\n/g, " ")
                     .replace(/\s+/g, " ")
                     .trim(),
-                               authorHref: b.author?.slug ? localizeHref(`/blogauthor/${b.author.slug}`, locale) : undefined,
+                authorHref: b.author?.slug ? localizeHref(`/blogauthor/${b.author.slug}`, locale) : undefined,
                 date: b.publishedAt ? formatDate(b.publishedAt, locale) : "",
                 href: localizeHref(`/blog/${b.slug}`, locale),
             };
         });
 
-    if (posts.length === 0) return null;
+    if (allPosts.length === 0) return null;
+
+    const safePage = Math.max(1, page);
+    const visibleCount = safePage * POSTS_PER_PAGE;
+    const posts = allPosts.slice(0, visibleCount);
+    const hasMore = allPosts.length > visibleCount;
+    const nextHref = hasMore
+        ? `${localizeHref("/blog", locale)}?page=${safePage + 1}`
+        : undefined;
+
     return (
         <BlogGridUI
             posts={posts}
             moreButtonText={t(settings.moreBlogsButtonText, locale)}
+            nextHref={nextHref}
         />
     );
 }

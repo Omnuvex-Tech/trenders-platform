@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import styles from "../../styles/BlogPage/bloggrid.module.css";
@@ -24,6 +23,7 @@ export interface BlogGridItem {
 export interface BlogGridUIProps {
     posts: BlogGridItem[];
     moreButtonText: string;
+    nextHref?: string;
 }
 
 const gridAnimation: Variants = {
@@ -55,18 +55,13 @@ const hoverVariant: Variants = {
 export function BlogGridUI({
     posts,
     moreButtonText,
+    nextHref,
 }: BlogGridUIProps) {
-    const [visibleCount, setVisibleCount] = useState(3);
-
-    const handleShowMore = () => {
-        setVisibleCount((prev) => Math.min(prev + 3, posts.length));
-    };
-
     return (
         <section className={styles.section}>
             <div className={styles.inner}>
                 <div className={styles.grid}>
-                    {posts.slice(0, visibleCount).map((post, i) => (
+                    {posts.map((post, i) => (
                         <motion.div 
                             key={post.id} 
                             className={styles.card}
@@ -75,7 +70,7 @@ export function BlogGridUI({
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, margin: "-4%" }}
-                                                        whileHover="hover"
+                            whileHover="hover"
                         >
                             <motion.span variants={hoverVariant} style={{ display: "none" }} />
 
@@ -144,7 +139,7 @@ export function BlogGridUI({
                                                 alt={post.authorImageAlt || post.authorName}
                                                 className={styles.authorImg}
                                             />
-                                                                              <div
+                                            <div
                                                 style={{
                                                     display: "flex",
                                                     flexDirection: "column",
@@ -188,11 +183,11 @@ export function BlogGridUI({
                     ))}
                 </div>
 
-                {posts.length > visibleCount && (
+                {nextHref && (
                     <div className={styles.moreBtnWrapper}>
-                       <button
-                            type="button"
-                            onClick={handleShowMore}
+                        <Link
+                            href={nextHref}
+                            scroll={false}
                             className={styles.projectsMoreBtn}
                         >
                             <div dangerouslySetInnerHTML={{ __html: moreButtonText }} />
@@ -209,7 +204,7 @@ export function BlogGridUI({
                                 <line x1="5" y1="12" x2="19" y2="12" />
                                 <polyline points="12 5 19 12 12 19" />
                             </svg>
-                        </button>
+                        </Link>
                     </div>
                 )}
             </div>

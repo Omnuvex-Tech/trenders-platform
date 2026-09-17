@@ -54,9 +54,15 @@ async function getPageSchema(locale: string) {
   }
 }
 
-export default async function PortfolioPage() {
+export default async function PortfolioPage({
+    searchParams,
+}: {
+    searchParams: Promise<{ page?: string }>;
+}) {
     const cookieStore = await cookies();
     const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+    const { page: pageParam } = await searchParams;
+    const portfolioPage = Math.max(1, Number(pageParam) || 1);
 
     const [translationResponse, schema] = await Promise.all([
         api.get<Translation[]>(config.endpoints.translations.list, { locale }),
@@ -76,8 +82,7 @@ export default async function PortfolioPage() {
                 languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
-            <PortfolioWrapper locale={locale} />
-            <ContactWrapper locale={locale} />
+            <PortfolioWrapper locale={locale} page={portfolioPage} />            <ContactWrapper locale={locale} />
         </div>
     );
 }

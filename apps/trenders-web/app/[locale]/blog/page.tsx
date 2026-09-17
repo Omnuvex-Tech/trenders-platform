@@ -22,7 +22,7 @@ export async function generateMetadata() {
     const data = await metaRes.json();
     const contact = contactRes.ok ? await contactRes.json() : null;
 
-const contactTags: string[] = [];
+    const contactTags: string[] = [];
     if (Array.isArray(contact?.tags)) {
       contact.tags.forEach((tag: any) => {
         const raw = typeof tag === "object" ? (tag[locale] || tag.az || "") : tag;
@@ -57,33 +57,39 @@ async function getPageSchema(locale: string) {
   }
 }
 
-export default async function BlogPage() {
-    const cookieStore = await cookies();
-    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const cookieStore = await cookies();
+  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+  const { page: pageParam } = await searchParams;
+  const gridPage = Math.max(1, Number(pageParam) || 1);
 
-    const [translationResponse, schema] = await Promise.all([
-        api.get<Translation[]>(config.endpoints.translations.list, { locale }),
-        getPageSchema(locale),
-    ]);
+  const [translationResponse, schema] = await Promise.all([
+    api.get<Translation[]>(config.endpoints.translations.list, { locale }),
+    getPageSchema(locale),
+  ]);
 
-    return (
-        <div className="flex min-h-svh w-full flex-col items-start justify-start">
-            {schema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-                />
-            )}
-            <NavbarWrapper
-                locale={locale}
-                languages={STATIC_LANGUAGES}
-                initialTranslations={translationResponse.data ?? []}
-            />
-            <BlogSectionWrapper />
-            <BlogListWrapper />
-            <BlogPostPreviewWrapper />
-            <BlogGridWrapper />
-            <ContactWrapper locale={locale} />
-        </div>
-    );
+  return (
+    <div className="flex min-h-svh w-full flex-col items-start justify-start">
+      {schema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      )}
+      <NavbarWrapper
+        locale={locale}
+        languages={STATIC_LANGUAGES}
+        initialTranslations={translationResponse.data ?? []}
+      />
+      <BlogSectionWrapper />
+      <BlogListWrapper />
+      <BlogPostPreviewWrapper />
+      <BlogGridWrapper page={gridPage} />
+      <ContactWrapper locale={locale} />
+    </div>
+  );
 }
