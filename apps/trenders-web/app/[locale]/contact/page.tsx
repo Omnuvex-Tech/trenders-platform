@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { api } from "@/lib/api";
 import { config } from "@/config";
@@ -6,12 +5,12 @@ import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
 import type { Translation } from "@repo/types/types";
 import { ContactPageWrapper } from "@/app/components/ContactPage/contactpage-wrapper";
 
-export async function generateMetadata() {
-  const cookieStore = await cookies();
-  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = resolveLocale(localeParam);
   try {
     const [metaRes, contactRes] = await Promise.all([
-      fetch(`${process.env.API_URL}/page-meta/contact`, { cache: "no-store" }),
+      fetch(`${process.env.API_URL}/page-meta/contfact`, { cache: "no-store" }),
       fetch(`${process.env.API_URL}/contact`, { cache: "no-store" }),
     ]);
 
@@ -53,9 +52,9 @@ async function getPageSchema(locale: string) {
   }
 }
 
-export default async function ContactPage() {
-  const cookieStore = await cookies();
-  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = resolveLocale(localeParam);
 
   const [translationResponse, schema] = await Promise.all([
     api.get<Translation[]>(config.endpoints.translations.list, { locale }),

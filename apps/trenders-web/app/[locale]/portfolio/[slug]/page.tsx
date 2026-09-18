@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { notFound } from 'next/navigation';
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
@@ -178,11 +177,10 @@ function renderSection(section: any, index: number, locale: string) {
 export async function generateMetadata({
     params,
 }: {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string; locale: string }>;
 }) {
-    const { slug } = await params;
-    const cookieStore = await cookies();
-    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+    const { slug, locale: localeParam } = await params;
+    const locale = resolveLocale(localeParam);
 
     try {
         const [portfolio, contactRes] = await Promise.all([
@@ -221,12 +219,10 @@ export async function generateMetadata({
 export default async function PortfolioDetailPage({
     params,
 }: {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string; locale: string }>;
 }) {
-    const { slug } = await params;
-
-    const cookieStore = await cookies();
-    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+    const { slug, locale: localeParam } = await params;
+    const locale = resolveLocale(localeParam);
 
     const [portfolio, translationResponse] = await Promise.all([
         getPortfolio(slug),

@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogUI } from "@repo/ui";
 import type { BlogPost } from "@repo/ui";
 import { localizeHref } from "@/lib/localize-href";
@@ -52,9 +51,8 @@ async function getHomeSettings() {
   }
 }
 
-export async function BlogWrapper({ locale }: { locale?: string }) {
-  const cookieStore = await cookies();
-  const resolvedLocale = locale ?? cookieStore.get("NEXT_LOCALE")?.value ?? "az";
+export async function BlogWrapper({ locale }: { locale: string }) {
+  const resolvedLocale = locale;
 
   const [blogs, home] = await Promise.all([
     getHomeBlogs(),

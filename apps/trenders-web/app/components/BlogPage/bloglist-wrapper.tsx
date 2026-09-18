@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogListUI } from "@repo/ui";
 import { localizeHref } from "@/lib/localize-href";
 import type { BlogListItem, BlogCategory, FeaturedBlog } from "@repo/ui";
@@ -51,10 +50,12 @@ async function getBlogListData() {
         };
     }
 }
-export async function BlogListWrapper() {
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
+interface Props {
+    locale: string;
+}
+
+export async function BlogListWrapper({ locale }: Props) {
     const { blogs, cats, settings } = await getBlogListData();
 
     const mapPost = (b: any): BlogListItem => {

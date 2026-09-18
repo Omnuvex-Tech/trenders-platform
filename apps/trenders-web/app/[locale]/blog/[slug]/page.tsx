@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { notFound } from 'next/navigation';
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
@@ -166,11 +165,10 @@ function renderSection(section: any, index: number, blog: any, locale: string) {
 export async function generateMetadata({
     params,
 }: {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string; locale: string }>;
 }) {
-    const { slug } = await params;
-    const cookieStore = await cookies();
-    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+    const { slug, locale: localeParam } = await params;
+    const locale = resolveLocale(localeParam);
 
     try {
         const [blog, contactRes] = await Promise.all([
@@ -225,12 +223,10 @@ export async function generateMetadata({
 export default async function BlogDetailPage({
     params,
 }: {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string; locale: string }>;
 }) {
-    const { slug } = await params;
-
-    const cookieStore = await cookies();
-    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+    const { slug, locale: localeParam } = await params;
+    const locale = resolveLocale(localeParam);
 
     const [blog, translationResponse] = await Promise.all([
         getBlog(slug),

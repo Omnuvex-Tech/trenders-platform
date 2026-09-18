@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogGridUI } from "@repo/ui";
 import type { BlogGridItem } from "@repo/ui";
 import { localizeHref } from "@/lib/localize-href";
@@ -53,10 +52,7 @@ async function getBlogGridData(): Promise<{ blogs: any[]; settings: any }> {
     }
 }
 
-export async function BlogGridWrapper({ page = 1 }: { page?: number }) {
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
-
+export async function BlogGridWrapper({ page = 1, locale }: { page?: number; locale: string }) {
     const { blogs, settings } = await getBlogGridData();
     const allPosts: BlogGridItem[] = blogs
         .filter((b) => b.isVisible && b.isGrid)

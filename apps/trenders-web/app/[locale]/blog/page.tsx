@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { BlogSectionWrapper } from "@/app/components/BlogPage/bloghero-wrapper";
 import { BlogListWrapper } from "@/app/components/BlogPage/bloglist-wrapper";
@@ -10,9 +9,9 @@ import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
 import type { Translation } from "@repo/types/types";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 
-export async function generateMetadata() {
-  const cookieStore = await cookies();
-  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = resolveLocale(localeParam);
   try {
     const [metaRes, contactRes] = await Promise.all([
       fetch(`${process.env.API_URL}/page-meta/blog`, { cache: "no-store" }),
@@ -58,12 +57,14 @@ async function getPageSchema(locale: string) {
 }
 
 export default async function BlogPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ page?: string }>;
 }) {
-  const cookieStore = await cookies();
-  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+  const { locale: localeParam } = await params;
+  const locale = resolveLocale(localeParam);
   const { page: pageParam } = await searchParams;
   const gridPage = Math.max(1, Number(pageParam) || 1);
 
@@ -85,10 +86,10 @@ export default async function BlogPage({
         languages={STATIC_LANGUAGES}
         initialTranslations={translationResponse.data ?? []}
       />
-      <BlogSectionWrapper />
-      <BlogListWrapper />
-      <BlogPostPreviewWrapper />
-      <BlogGridWrapper page={gridPage} />
+         <BlogSectionWrapper locale={locale} />
+      <BlogListWrapper locale={locale} />
+      <BlogPostPreviewWrapper locale={locale} />
+      <BlogGridWrapper page={gridPage} locale={locale} />
       <ContactWrapper locale={locale} />
     </div>
   );

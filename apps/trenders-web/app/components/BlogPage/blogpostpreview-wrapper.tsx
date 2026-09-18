@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogDetailHeroUI } from "@repo/ui";
 import { localizeHref } from "@/lib/localize-href";
 
@@ -40,10 +39,11 @@ async function getPreviewBlog() {
     }
 }
 
-export async function BlogPostPreviewWrapper() {
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
+interface Props {
+    locale: string;
+}
 
+export async function BlogPostPreviewWrapper({ locale }: Props) {
     const blog = await getPreviewBlog();
     if (!blog) return null;
 

@@ -1,6 +1,5 @@
 import { ProjectsUI } from '@repo/ui'
 import type { ProjectItem } from '@repo/ui'
-import { cookies } from 'next/headers'
 import { localizeHref } from "@/lib/localize-href"
 
 type LocalizedString = Record<string, string>
@@ -60,9 +59,8 @@ async function getHomeSettings() {
   }
 }
 
-export async function ProjectsWrapper({ locale }: { locale?: string }) {
-  const cookieStore = await cookies()
-  const resolvedLocale = locale ?? cookieStore.get("NEXT_LOCALE")?.value ?? "az"
+export async function ProjectsWrapper({ locale }: { locale: string }) {
+  const resolvedLocale = locale
 
   const [projects, home] = await Promise.all([
     getHomepageProjects(resolvedLocale),

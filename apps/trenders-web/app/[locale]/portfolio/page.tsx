@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { api } from "@/lib/api";
 import { config } from "@/config";
@@ -7,9 +6,9 @@ import type { Translation } from "@repo/types/types";
 import { PortfolioWrapper } from "@/app/components/Portfolio/portfolio-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
 
-export async function generateMetadata() {
-  const cookieStore = await cookies();
-  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = resolveLocale(localeParam);
   try {
     const [metaRes, contactRes] = await Promise.all([
       fetch(`${process.env.API_URL}/page-meta/portfolio`, { cache: "no-store" }),
@@ -55,12 +54,14 @@ async function getPageSchema(locale: string) {
 }
 
 export default async function PortfolioPage({
+    params,
     searchParams,
 }: {
+    params: Promise<{ locale: string }>;
     searchParams: Promise<{ page?: string }>;
 }) {
-    const cookieStore = await cookies();
-    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+    const { locale: localeParam } = await params;
+    const locale = resolveLocale(localeParam);
     const { page: pageParam } = await searchParams;
     const portfolioPage = Math.max(1, Number(pageParam) || 1);
 

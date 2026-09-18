@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogAuthorHeroWrapper } from "@/app/components/BlogAuthor/blogauthorhero-wrapper";
 import { BlogAuthorPreviewWrapper } from "@/app/components/BlogAuthor/blogauthorpreview-wrapper";
 import { BlogAuthorListWrapper } from "@/app/components/BlogAuthor/blogauthorsearch-wrapper";
@@ -25,10 +24,9 @@ async function getAuthor(slug: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const cookieStore = await cookies();
-  const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string; locale: string }> }) {
+  const { slug, locale: localeParam } = await params;
+  const locale = resolveLocale(localeParam);
 
   try {
     const [author, contactRes] = await Promise.all([
@@ -70,11 +68,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: "Author" };
   }
 }
-export default async function BlogAuthorPage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
-
-    const cookieStore = await cookies();
-    const locale = resolveLocale(cookieStore.get("NEXT_LOCALE")?.value);
+export default async function BlogAuthorPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
+    const { slug, locale: localeParam } = await params;
+    const locale = resolveLocale(localeParam);
 
     const [author, translationResponse] = await Promise.all([
         getAuthor(slug),
@@ -96,9 +92,9 @@ export default async function BlogAuthorPage({ params }: { params: Promise<{ slu
                 languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
-            <BlogAuthorHeroWrapper authorSlug={slug} />
-            <BlogAuthorPreviewWrapper />
-            <BlogAuthorListWrapper />
+                    <BlogAuthorHeroWrapper authorSlug={slug} locale={locale} />
+            <BlogAuthorPreviewWrapper locale={locale} />
+            <BlogAuthorListWrapper locale={locale} />
             <ContactWrapper locale={locale} />
         </div>
     );

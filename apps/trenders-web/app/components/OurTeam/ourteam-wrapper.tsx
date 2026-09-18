@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { OurTeamUI } from "@repo/ui";
 import type { OurTeamMember } from "@repo/ui";
 
@@ -47,10 +46,8 @@ async function getOurTeamMembers(): Promise<OurTeamMember[]> {
         return [];
     }
 }
-
-export async function OurTeamWrapper({ locale }: { locale?: string }) {
-    const cookieStore = await cookies();
-    const resolvedLocale = locale ?? cookieStore.get("NEXT_LOCALE")?.value ?? "az";
+export async function OurTeamWrapper({ locale }: { locale: string }) {
+    const resolvedLocale = locale;
 
     const [settings, members] = await Promise.all([
         getOurTeamSettings(),

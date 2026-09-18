@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogSectionUI } from "@repo/ui";
 import type { BlogItem } from "@repo/ui";
 import { localizeHref } from "@/lib/localize-href";
@@ -59,9 +58,11 @@ async function getBlogSectionData() {
     }
 }
 
-export async function BlogSectionWrapper() {
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
+interface Props {
+    locale: string;
+}
+
+export async function BlogSectionWrapper({ locale }: Props) {
     const { featured, side, settings } = await getBlogSectionData();
     if (!featured) return null;
     const quoteImage = t(settings.quoteImage, locale);

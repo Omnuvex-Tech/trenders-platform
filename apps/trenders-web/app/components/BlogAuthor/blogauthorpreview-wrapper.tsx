@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogDetailPreviewUI } from "@repo/ui";
 
 type LocalizedString = Record<string, string>;
@@ -35,10 +34,12 @@ async function getAuthorPreviewData() {
         return { blog: null, settings: null };
     }
 }
-export async function BlogAuthorPreviewWrapper() {
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
 
+interface Props {
+    locale: string;
+}
+
+export async function BlogAuthorPreviewWrapper({ locale }: Props) {
     const { blog, settings } = await getAuthorPreviewData();
     if (!blog) return null;
 

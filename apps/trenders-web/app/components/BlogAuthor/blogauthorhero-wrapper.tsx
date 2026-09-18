@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BlogAuthorHeroUI } from "@repo/ui";
 
 const API = process.env.API_URL;
@@ -39,12 +38,10 @@ async function getAuthorData(authorSlug: string) {
 }
 interface Props {
     authorSlug: string;
+    locale: string;
 }
 
-export async function BlogAuthorHeroWrapper({ authorSlug }: Props) {
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("NEXT_LOCALE")?.value ?? "az";
-
+export async function BlogAuthorHeroWrapper({ authorSlug, locale }: Props) {
     const { author, blogs, settings } = await getAuthorData(authorSlug);
     if (!author) return null;
 
