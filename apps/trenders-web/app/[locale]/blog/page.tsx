@@ -8,10 +8,19 @@ import { config } from "@/config";
 import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
 import type { Translation } from "@repo/types/types";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
+import { localizeHref } from "@/lib/localize-href";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { locale: localeParam } = await params;
   const locale = resolveLocale(localeParam);
+  const { page: pageParam } = await searchParams;
+  const gridPage = Math.max(1, Number(pageParam) || 1);
   try {
     const [metaRes, contactRes] = await Promise.all([
       fetch(`${process.env.API_URL}/page-meta/blog`, { cache: "no-store" }),
@@ -36,10 +45,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       ...contactTags,
     ].join(", ");
 
+      const canonicalPath = localizeHref("/blog", locale);
     return {
       title: data?.seoTitle?.[locale] || "Blog",
       description: data?.seoDescription?.[locale] || "",
       keywords: allKeywords || undefined,
+      alternates: {
+        canonical: `https://trenders.team${canonicalPath}${gridPage > 1 ? `?page=${gridPage}` : ""}`,
+      },
     };
   } catch {
     return { title: "Blog" };

@@ -15,6 +15,13 @@ function toAbsUrl(path: string) {
     return `${process.env.API_URL}${path}`;
 }
 
+const PAGE_BASE = 8;
+const PAGE_INCREMENT = 4;
+
+function visibleCountForPage(page: number) {
+    return page <= 1 ? PAGE_BASE : PAGE_BASE + (page - 1) * PAGE_INCREMENT;
+}
+
 async function getOurTeamSettings() {
     try {
         const res = await fetch(`${process.env.API_URL}/blog/our-team-settings`, {
@@ -46,7 +53,8 @@ async function getOurTeamMembers(): Promise<OurTeamMember[]> {
         return [];
     }
 }
-export async function OurTeamWrapper({ locale }: { locale: string }) {
+
+export async function OurTeamWrapper({ locale, page = 1 }: { locale: string; page?: number }) {
     const resolvedLocale = locale;
 
     const [settings, members] = await Promise.all([
@@ -67,12 +75,19 @@ export async function OurTeamWrapper({ locale }: { locale: string }) {
         role: t(m.role, resolvedLocale),
     }));
 
+    const currentPage = Math.max(1, page);
+    const initialVisibleCount = Math.min(visibleCountForPage(currentPage), resolvedMembers.length);
+    const hasMore = resolvedMembers.length > initialVisibleCount;
+
     return (
         <OurTeamUI
             title={titleHtml}
             descriptionHtml={descriptionHtml}
             members={resolvedMembers}
             moreButtonText={moreButtonText}
+            initialVisibleCount={initialVisibleCount}
+            hasMore={hasMore}
+            currentPage={currentPage}
         />
     );
 }

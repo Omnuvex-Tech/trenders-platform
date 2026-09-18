@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import Link from "next/link";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import styles from "../../styles/OurTeam/ourteam.module.css";
 import portfolioStyles from "../../styles/Portfolio/portfolio.module.css";
@@ -19,6 +19,9 @@ export interface OurTeamUIProps {
     descriptionHtml: string;
     members: OurTeamMember[];
     moreButtonText: string;
+    initialVisibleCount?: number;
+    hasMore?: boolean;
+    currentPage?: number;
 }
 
 const descriptionAnimation: Variants = {
@@ -59,16 +62,18 @@ function stripHtml(html: string) {
     return html.replace(/<[^>]*>/g, "");
 }
 
-export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: OurTeamUIProps) {
-    const [visibleCount, setVisibleCount] = useState(8);
-
-    const displayed = useMemo(() => {
-        return members.slice(0, visibleCount);
-    }, [members, visibleCount]);
-
-    const handleShowMore = () => {
-        setVisibleCount(prev => Math.min(prev + 4, members.length));
-    };
+export function OurTeamUI({
+    title,
+    descriptionHtml,
+    members,
+    moreButtonText,
+    initialVisibleCount = 8,
+    hasMore,
+    currentPage = 1,
+}: OurTeamUIProps) {
+    const displayed = members.slice(0, initialVisibleCount);
+    const computedHasMore = hasMore ?? members.length > initialVisibleCount;
+    const nextHref = `?page=${currentPage + 1}`;
 
     return (
         <section className={styles.section}>
@@ -158,16 +163,16 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                         ))}
                     </AnimatePresence>
                 </div>
-                {visibleCount < members.length && (
+                {computedHasMore && (
                     <motion.div
                         className={portfolioStyles.moreBtnWrapper}
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <button
-                            type="button"
-                            onClick={handleShowMore}
+                        <Link
+                            href={nextHref}
+                            scroll={false}
                             className={portfolioStyles.projectsMoreBtn}
                         >
                             {moreButtonText}
@@ -177,7 +182,7 @@ export function OurTeamUI({ title, descriptionHtml, members, moreButtonText }: O
                                 <line x1="5" y1="12" x2="19" y2="12" />
                                 <polyline points="12 5 19 12 12 19" />
                             </svg>
-                        </button>
+                        </Link>
                     </motion.div>
                 )}
             </div>

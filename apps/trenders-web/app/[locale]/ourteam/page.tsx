@@ -6,9 +6,17 @@ import { STATIC_LANGUAGES, isSupportedLocale } from "@/config/locales";
 import { NavbarWrapper } from "@/app/components/Navbar/navbar-wrapper";
 import { OurTeamWrapper } from "@/app/components/OurTeam/ourteam-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
-
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+import { localizeHref } from "@/lib/localize-href";
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { locale } = await params;
+  const { page: pageParam } = await searchParams;
+  const teamPage = Math.max(1, Number(pageParam) || 1);
   try {
     const [metaRes, contactRes] = await Promise.all([
       fetch(`${process.env.API_URL}/page-meta/team`, { cache: "no-store" }),
@@ -33,10 +41,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       ...contactTags,
     ].join(", ");
 
+      const canonicalPath = localizeHref("/team", locale);
     return {
       title: data?.seoTitle?.[locale] || "Komanda",
       description: data?.seoDescription?.[locale] || "",
       keywords: allKeywords || undefined,
+      alternates: {
+        canonical: `https://trenders.team${canonicalPath}${teamPage > 1 ? `?page=${teamPage}` : ""}`,
+      },
     };
   } catch {
     return { title: "Komanda" };
@@ -53,12 +65,21 @@ async function getPageSchema(locale: string) {
   }
 }
 
-export default async function OurTeamPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function OurTeamPage({
+    params,
+    searchParams,
+}: {
+    params: Promise<{ locale: string }>;
+    searchParams: Promise<{ page?: string }>;
+}) {
     const { locale } = await params;
 
     if (!isSupportedLocale(locale)) {
         notFound();
     }
+
+    const { page: pageParam } = await searchParams;
+    const teamPage = Math.max(1, Number(pageParam) || 1);
 
     const [translationResponse, schema] = await Promise.all([
         api.get<Translation[]>(config.endpoints.translations.list, { locale }),
@@ -78,8 +99,7 @@ export default async function OurTeamPage({ params }: { params: Promise<{ locale
                 languages={STATIC_LANGUAGES}
                 initialTranslations={translationResponse.data ?? []}
             />
-            <OurTeamWrapper locale={locale} />
-            <ContactWrapper locale={locale} />
+            <OurTeamWrapper locale={locale} page={teamPage} />            <ContactWrapper locale={locale} />
         </div>
     );
 }

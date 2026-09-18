@@ -5,10 +5,19 @@ import { STATIC_LANGUAGES, resolveLocale } from "@/config/locales";
 import type { Translation } from "@repo/types/types";
 import { PortfolioWrapper } from "@/app/components/Portfolio/portfolio-wrapper";
 import { ContactWrapper } from "@/app/components/Contact/contact-wrapper";
+import { localizeHref } from "@/lib/localize-href";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { locale: localeParam } = await params;
   const locale = resolveLocale(localeParam);
+  const { page: pageParam } = await searchParams;
+  const portfolioPage = Math.max(1, Number(pageParam) || 1);
   try {
     const [metaRes, contactRes] = await Promise.all([
       fetch(`${process.env.API_URL}/page-meta/portfolio`, { cache: "no-store" }),
@@ -33,10 +42,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       ...contactTags,
     ].join(", ");
 
+      const canonicalPath = localizeHref("/portfolio", locale);
     return {
       title: data?.seoTitle?.[locale] || "Portfolio",
       description: data?.seoDescription?.[locale] || "",
       keywords: allKeywords || undefined,
+      alternates: {
+        canonical: `https://trenders.team${canonicalPath}${portfolioPage > 1 ? `?page=${portfolioPage}` : ""}`,
+      },
     };
   } catch {
     return { title: "Portfolio" };
